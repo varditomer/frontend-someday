@@ -1,8 +1,9 @@
 <template>
     <section class='board-filter'>
         <div class="add-new-btns">
+            <option-modal :toShow="isModalOpen" :cmp="'addGroup'" />
             <button @click="addTask">New Item</button>
-            <span v-svg-icon="'arrowDown'"></span>
+            <span @click="isModalOpen = true" v-svg-icon="'arrowDown'"></span>
         </div>
         <div class="search-tasks">
             <span v-svg-icon="'search'"></span>
@@ -24,12 +25,21 @@
     </section>
 </template>
 <script>
+import optionModal from './option-modal.vue';
 export default {
     name: 'board-filter',
     methods: {
         addTask() {
             this.$emit('addTask')
         }
+    },
+    data() {
+        return {
+            isModalOpen: false
+        }
+    },
+    components: {
+        optionModal
     }
 }
 </script>

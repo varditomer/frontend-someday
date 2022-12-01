@@ -70,7 +70,7 @@ export default {
             this.filter = filter
         },
         addBoard() {
-            this.$store.dispatch({ type: 'addBoard' })
+            this.$emit('addBoard')
         }
     },
 
