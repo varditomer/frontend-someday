@@ -1,7 +1,7 @@
 <template>
     <section class="li-wrapper">
-        <option-modal :cmp="('task-option')" @openTask="openTask" @removeTask="removeTask" @modalClosed="(isModalOpen = false)"
-            :toShow="isModalOpen" />
+        <option-modal :cmp="('task-option')" @openTask="openTask" @removeTask="removeTask"
+            @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" />
         <li class="content-li">
             <div class="options hide flex center">
                 <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
@@ -94,6 +94,7 @@ export default {
         },
         removeTask() {
             this.$emit('removeTask', this.task)
+            this.isModalOpen = false
         }
     },
     components: {
