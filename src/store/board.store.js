@@ -76,13 +76,17 @@ export const boardStore = {
             }
             else (group.tasks[idx] = taskToSave.task)
         },
-        removeTask(state, {task}) {
+        removeTask(state, { task }) {
             const group = state.board.groups.find(anyGroup => anyGroup._id === task.groupId)
             const idx = group.tasks.findIndex(anyTask => anyTask._id === task._id)
             console.log(`task:`, task)
             console.log(`idx:`, idx)
-            if (idx<0) return
-            group.tasks.splice(idx,1)
+            if (idx < 0) return
+            group.tasks.splice(idx, 1)
+        },
+        addGroup(state, { group }) {
+            console.log(`group`, group)
+            state.board.groups.unshift(group)
         }
     },
     actions: {
@@ -162,7 +166,5 @@ export const boardStore = {
                 throw err
             }
         },
-
-
     }
 }

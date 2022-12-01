@@ -1,10 +1,10 @@
 <template>
 
-    <section class='group-list-container'>
-        <draggable v-model="board.groups" :group="{ name: 'board' }" animation="150" itemKey="element._id"
+    <section class='group-list-container' v-if="board.groups">
+        <draggable v-model="groups" :group="{ name: 'board' }" animation="150" itemKey="element._id"
             @start="minimizeGroups(true, $event)" @end="minimizeGroups(false, $event)">
             <template #item="{ element }">
-                <group-preview :group="element" :cmpsOrder="[...board.cmpsOrder]" :users="users" :key="element._id"
+                <group-preview :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id"
                     v-if="board" @saveTask="saveTask" @removeTask="removeTask" />
             </template>
         </draggable>
@@ -19,7 +19,8 @@ import { eventBus } from '../services/event-bus.service'
 export default {
     name: 'group-list',
     props: {
-        users: Array
+        users: Array,
+        board: Object
     },
     methods: {
         minimizeGroups(minimize, ev) {
@@ -34,8 +35,11 @@ export default {
         }
     },
     computed: {
-        board() {
-            return JSON.parse(JSON.stringify(this.$store.getters.board))
+        groups(){
+            return JSON.parse(JSON.stringify(this.board.groups))
+        },
+        cmpsOrder(){
+            return [...this.board.cmpsOrder]
         }
     },
     async created() {

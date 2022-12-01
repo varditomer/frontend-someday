@@ -14,5 +14,11 @@
 </template>
 <script>
 export default {
+    name: 'add-group',
+    methods: {
+        addGroup() {
+            this.$emit('addGroup')
+        }
+    }
 }
 </script>

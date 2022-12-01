@@ -21,9 +21,10 @@
 
             <span v-svg-icon="'add'"></span>
         </li>
-        <draggable v-model="tasks" :group="{ name: 'groups' }" animation="150" @end="saveBoard" itemKey="element._id" >
+        <draggable v-model="tasks" :group="{ name: 'groups' }" animation="150" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
-                <task-preview :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users" @removeTask="removeTask"/>
+                <task-preview :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users"
+                    @removeTask="removeTask" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -79,6 +80,11 @@ export default {
     },
     methods: {
         addTask() {
+            this.taskToAdd = {
+                ...this.taskToAdd,
+                groupId: this.group._id,
+                boardId: this.group.boardId
+            }
             this.$emit('saveTask', this.taskToAdd)
             this.taskToAdd = {
                 groupId: this.group._id,
@@ -89,7 +95,7 @@ export default {
             this.$emit('removeTask', task)
         },
         async saveBoard(ev) {
-            const {oldIndex, newIndex} = ev
+            const { oldIndex, newIndex } = ev
             // const group = this.$store.getters.groups.find(group => group._id === this.tasks[0].groupId)
             // console.log(`group`, group)
             console.log(`oldIndex`, oldIndex)

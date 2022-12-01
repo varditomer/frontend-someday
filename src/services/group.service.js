@@ -22,7 +22,7 @@ async function getById(groupId, boardId) {
 }
 
 async function add(boardId) {
-    return save(_getNewGroup(boardId))
+    return await save(_getNewGroup(boardId))
 }
 
 async function remove(group) {
@@ -103,5 +103,6 @@ function _getNewGroup(boardId) {
 
 function _connectIds(group){
     group._id = utilService.makeId()
-    return group.tasks.forEach(task => task.groupId = group._id)
+    group.tasks.forEach(task => task.groupId = group._id)
+    return group
 }

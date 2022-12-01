@@ -1,6 +1,6 @@
 <template>
     <section v-if="toShow" v-click-outside="closeModal" class='option-modal'>
-        <component :is="cmp" @openTask="openTask" @removeTask="removeTask"/>
+        <component :is="cmp" @openTask="openTask" @removeTask="removeTask" @addGroup="addGroup"/>
         <!-- <task-option  /> -->
     </section>
 </template>
@@ -28,6 +28,9 @@ export default {
         },
         removeTask() {
             this.$emit('removeTask')
+        },
+        addGroup(){
+            this.$emit('addGroup')
         }
 
     },

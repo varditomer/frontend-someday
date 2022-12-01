@@ -3,8 +3,8 @@
         <task-nav />
         <board-workspace @addBoard="addBoard"/>
         <section class='board-app-container'>
-            <board-header @addTask="saveEmptyTask" />
-            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" />
+            <board-header @addTask="saveEmptyTask" @addGroup="addGroup"/>
+            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" :board="board"/>
         </section>
         <router-view />
     </section>
@@ -37,6 +37,9 @@ export default {
         addBoard(){
             console.log(`hihi`)
             this.$store.dispatch({ type: 'addBoard' })
+        },
+        addGroup(){
+            this.$store.dispatch({ type: 'addGroup' })
         }
     },
     computed: {
@@ -45,6 +48,9 @@ export default {
         },
         route() {
             return this.$route.params.id
+        },
+        board(){
+            return this.$store.getters.board
         }
 
     },

@@ -41,6 +41,17 @@ export const groupStore = {
             } catch (err) {
                 console.log(`Cannot save group`, err)
             }
+        },
+        async addGroup({ commit }) {
+            try {
+                const { _id } = this.getters.board
+                console.log(`_id`, _id)
+                const group = await groupService.add(_id)
+                commit({ type: 'addGroup', group })
+                return group
+            } catch (err) {
+                console.log(`Cannot add group at store`, err)
+            }
         }
     },
 }
