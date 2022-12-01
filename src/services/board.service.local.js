@@ -576,4 +576,4 @@ const boards = [
 ]
 
 // TEST DATA
-utilService.saveToStorage(BOARD_STORAGE_KEY, boards)
+// utilService.saveToStorage(BOARD_STORAGE_KEY, boards)
