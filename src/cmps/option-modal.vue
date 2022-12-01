@@ -1,17 +1,20 @@
 <template>
     <section v-if="toShow" v-click-outside="closeModal" class='option-modal'>
-        <task-option @openTask="openTask" @removeTask="removeTask"></task-option>
+        <component :is="cmp" @openTask="openTask" @removeTask="removeTask"/>
+        <!-- <task-option  /> -->
     </section>
 </template>
 
 <script>
 import taskOption from './option-cmps/task-option.vue';
+// import addOption from './option-cmps/add-option.vue';
 export default {
 
     name: 'option-modal',
     emits: ['modalClosed', 'openTask', 'removeTask'],
     props: {
-        toShow: Boolean
+        toShow: Boolean,
+        cmp: String,
     },
     computed: {
 

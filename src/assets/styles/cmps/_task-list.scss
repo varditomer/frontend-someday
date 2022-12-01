@@ -6,6 +6,7 @@
     font-size: rem(14px);
 
     >*:first-child {
+        text-transform: capitalize;
         >*:not(:first-child) {
             border-top: 1px solid $brdr-clr;
         }
