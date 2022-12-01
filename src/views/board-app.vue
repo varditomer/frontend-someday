@@ -1,7 +1,7 @@
 <template>
     <section class="main-app-container">
         <task-nav />
-        <board-workspace />
+        <board-workspace @addBoard="addBoard"/>
         <section class='board-app-container'>
             <board-header @addTask="saveEmptyTask" />
             <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" />
@@ -33,6 +33,10 @@ export default {
         },
             saveEmptyTask() {
             this.$store.dispatch({ type: 'saveEmptyTask' })
+        },
+        addBoard(){
+            console.log(`hihi`)
+            this.$store.dispatch({ type: 'addBoard' })
         }
     },
     computed: {

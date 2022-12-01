@@ -58,8 +58,7 @@ async function save(board) {
     if (board?._id) {
         return await storageService.put(BOARD_STORAGE_KEY, board)
     } else {
-        board._id = utilService.makeId()
-        return await storageService.post(BOARD_STORAGE_KEY, board)
+        return await storageService.post(BOARD_STORAGE_KEY, _connectIds(board))
     }
 }
 
@@ -574,6 +573,20 @@ const boards = [
         cmpsOrder: ['status-picker', 'member-picker', 'date-picker']
     }
 ]
+
+function _connectIds(board){
+    board._id = utilService.makeId()
+    board.groups.forEach(group => {
+        group._id = utilService.makeId()
+        group.boardId = board._id
+        group.tasks.forEach(task=>{
+            task._id = utilService.makeId()
+            task.boardId = board._id
+            task.groupId = group._id
+        })
+    })
+    return board
+}
 
 // TEST DATA
 utilService.saveToStorage(BOARD_STORAGE_KEY, boards)
