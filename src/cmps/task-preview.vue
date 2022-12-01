@@ -1,9 +1,11 @@
 <template>
     <section class="li-wrapper">
-        <option-modal @openTask="openTask" @removeTask="removeTask" @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" />
+        <option-modal :cmp="('task-option')" @openTask="openTask" @removeTask="removeTask" @modalClosed="(isModalOpen = false)"
+            :toShow="isModalOpen" />
         <li class="content-li">
-
-            <div class="options hide" v-svg-icon="'fatMore'" @click="lineOptions" ></div>
+            <div class="options hide flex center">
+                <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
+            </div>
             <span class="task-select"><input multiple type="checkbox" /></span>
             <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
                 <div class="task-title-item">

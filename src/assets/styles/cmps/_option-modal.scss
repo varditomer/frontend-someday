@@ -1,7 +1,7 @@
 .option-modal {
     position: absolute;
-    top: 36px;
-    left: 11px;
+    top: 30px;
+    left: 85px;
     background: $clr--white;
     border-radius: 10px;
     z-index: 10;
@@ -18,10 +18,16 @@
 
     }
 
+    
+
     .modal-item {
         padding: 4px 8px;
         border-radius: .3em;
         cursor: pointer;
+
+        p{
+            font-size: rem(14px);
+        }
 
         &:hover {
             background-color: $brdr-clr;
@@ -29,7 +35,7 @@
     }
 
     .task-option {
-        width: 264px;
+        width: 225px;
     }
 }
 
