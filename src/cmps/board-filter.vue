@@ -3,7 +3,7 @@
         <div class="add-new-btns">
             <option-modal @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" :cmp="'addGroup'" @addGroup="addGroup"/>
             <button @click="addTask">New Item</button>
-            <span @click="isModalOpen = true" v-svg-icon="'arrowDown'"></span>
+            <span @click="isModalOpen = true" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
         </div>
         <div class="search-tasks">
             <span v-svg-icon="'search'"></span>

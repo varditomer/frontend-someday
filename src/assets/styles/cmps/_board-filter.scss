@@ -4,7 +4,6 @@
 
     .add-new-btns {
         background-color: $btn-blue;
-        border-radius: .2em;
         position: relative;
 
         button {
@@ -12,14 +11,17 @@
             padding: 0;
             height: 100%;
             width: 75px;
+            border-radius: .2em;
 
             &:hover {
                 background-color: (darken($btn-blue, 8%))
             }
         }
 
-        span {
+        .add-new-group-btn {
             height: 100%;
+            border-radius: .2em;
+
 
             &:hover {
                 background-color: (darken($btn-blue, 8%))
