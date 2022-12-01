@@ -46,7 +46,7 @@ async function save(group) {
         const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)
         if (idx === -1) return Promise.reject('Group not found')
         board.groups[idx] = group
-    } else board.groups.unshift(group)
+    } else board.groups.unshift(_connectIds(group))
     if (!(await boardService.save(board))) return Promise.reject('Cannot save group because board cannot be saved')
     return group
 }
@@ -55,10 +55,53 @@ function _getNewGroup(boardId) {
     return {
         title: 'New Group',
         boardId,
+        createdAt: Date.now(),
         createdBy: {
             _id: 0,
             fullname: 'Guest'
         },
-        tasks: []
+        tasks: [
+            {
+                _id: utilService.makeId(),
+                boardId,
+                title: 'item 1',
+                comments:[],
+                status: 'Working on it',
+                createdAt: Date.now(),
+                createdBy: {
+                    _id: 0,
+                    fullname: 'Guest'
+                }
+            },
+            {
+                _id: utilService.makeId(),
+                boardId,
+                title: 'item 2',
+                comments:[],
+                status: 'Stuck',
+                createdAt: Date.now(),
+                createdBy: {
+                    _id: 0,
+                    fullname: 'Guest'
+                }
+            },
+            {
+                _id: utilService.makeId(),
+                boardId,
+                title: 'item 3',
+                comments:[],
+                status: 'Done',
+                createdAt: Date.now(),
+                createdBy: {
+                    _id: 0,
+                    fullname: 'Guest'
+                }
+            }
+        ]
     }
+}
+
+function _connectIds(group){
+    group._id = utilService.makeId()
+    return group.tasks.forEach(task => task.groupId = group._id)
 }
