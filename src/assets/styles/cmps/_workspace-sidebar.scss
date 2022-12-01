@@ -1,0 +1,115 @@
+.workspace-container {
+    background-color: $wrkspce-bgc;
+    padding: $layout-padding;
+    border-right: 1px solid $brdr-clr;
+
+    .workspace-main-header {
+        font-size: rem(16px);
+        padding: 4px 0;
+
+        .workspace-dropdown-container {
+            gap: 8px;
+            padding: 6px;
+            border-radius: .4em;
+            cursor: pointer;
+
+            &:hover {
+                background-color: darken($wrkspce-bgc, 8%);
+            }
+        }
+
+        .workspace-indicator-container {
+            position: relative;
+            background-color: rgb(242, 121, 242);
+            color: $clr--white;
+            height: 24px;
+            width: 24px;
+            border-radius: 8px;
+
+            .work-space-icon {
+                position: absolute;
+                right: -8px;
+                bottom: -12px;
+
+                span {
+                    background-color: transparent;
+                }
+            }
+        }
+
+        .workspace-title {
+            font-family: roboto-black;
+            letter-spacing: -0.4px;
+            max-width: 135px;
+        }
+
+        .more {
+            height: 26px;
+            width: 26px;
+        }
+    }
+
+    .workspace-sub-header {
+        padding: 6px 0;
+        font-size: rem(14px);
+        height: 44px;
+        justify-content: space-between;
+
+        .search-container {
+            border: 1px solid #d0d4e4;
+            border-radius: 4px;
+            height: 100%;
+            width: 184px;
+
+            input {
+                background-color: transparent;
+                height: 100%;
+                padding: 0 0 0 2px;
+                color: $layout-black;
+            }
+
+            svg {
+                fill: lighten($layout-black, 20%);
+            }
+        }
+
+        .search-container:hover {
+            border: 1px solid $primary-brand;
+        }
+
+        button {
+            border-radius: 0.4em;
+            width: 32px;
+            height: 32px;
+            background-color: $btn-blue;
+            color: white;
+
+            &:hover {
+                background-color: (darken($btn-blue, 8%));
+            }
+        }
+
+    }
+
+    .boards-titles-container {
+        cursor: pointer;
+        padding-top: 10px;
+
+        a {
+            display: flex;
+            border-radius: .4em;
+            width: 100%;
+
+            >* {
+                padding: 6px;
+                align-items: center;
+                font-size: rem(14px);
+
+            }
+
+            &:hover {
+                background-color: darken($wrkspce-bgc, 8%);
+            }
+        }
+    }
+}

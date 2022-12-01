@@ -1,0 +1,24 @@
+.review-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    li {
+        background-color: $layout-black;
+        color: $layout-black;
+        padding: 5px;
+        margin: 5px;
+    }
+    a {
+        color: $layout-black;
+        padding: 10px;
+    }    
+    pre {
+        background-color: #ddd;
+        color: #333;
+        padding: 10px 5px;
+        margin: 5px;
+    }    
+}
+
+
+

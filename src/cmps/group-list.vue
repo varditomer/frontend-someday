@@ -1,0 +1,50 @@
+<template>
+
+    <section class='group-list-container'>
+        <draggable v-model="board.groups" :group="{ name: 'board' }" animation="150" itemKey="element._id"
+            @start="minimizeGroups(true, $event)" @end="minimizeGroups(false, $event)">
+            <template #item="{ element }">
+                <group-preview :group="element" :cmpsOrder="[...board.cmpsOrder]" :users="users" :key="element._id"
+                    v-if="board" @saveTask="saveTask" @removeTask="removeTask" />
+            </template>
+        </draggable>
+    </section>
+
+</template>
+<script>
+import groupPreview from './group-preview.vue'
+import draggable from 'vuedraggable'
+import { eventBus } from '../services/event-bus.service'
+
+export default {
+    name: 'group-list',
+    props: {
+        users: Array
+    },
+    methods: {
+        minimizeGroups(minimize, ev) {
+            if (!ev?.item?.classList || !ev.item.classList[0] === 'group-preview') return
+            eventBus.emit('minimzed-groups', minimize)
+        },
+        saveTask(task) {
+            this.$emit('saveTask', task)
+        },
+        removeTask(task) {
+            this.$emit('removeTask', task)
+        }
+    },
+    computed: {
+        board() {
+            return JSON.parse(JSON.stringify(this.$store.getters.board))
+        }
+    },
+    async created() {
+        const { id } = this.$route.params
+        const board = await this.$store.dispatch({ type: 'getBoardById', id })
+    },
+    components: {
+        groupPreview,
+        draggable
+    }
+}
+</script>

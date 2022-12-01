@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+}
+
+::selection {
+    background-color: $layout-black;
+    color: $layout-black;
+}
+
+html {
+    font-family: roboto-regular;
+    line-height: 1.6;
+    color: $layout-black;
+}
+
+body {
+    font-size: rem(18px);
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    line-height: 1;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: $layout-black;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    font-family: roboto-regular;
+}
+
+input {
+    border: unset;
+    padding: 0;
+    margin: 0;
+    font-size: rem(14px);
+    font-family: roboto-regular;
+}
+
+input:focus {
+    outline: none;
+}
+
+img {
+    width: 100%;
+}
+
+p {
+    margin: 0;
+    max-width: 40ch;
+}
+
+textarea {
+    resize: none;
+}
+
+::-webkit-scrollbar {
+    height: 14px;
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $brdr-clr;
+}

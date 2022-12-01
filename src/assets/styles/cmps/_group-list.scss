@@ -1,0 +1,6 @@
+.group-list-container{
+    padding-top: $layout-padding;
+    overflow-y: auto;
+    overflow-x: auto;
+    max-height: calc(100vh - 200px);
+}

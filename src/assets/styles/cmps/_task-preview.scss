@@ -1,0 +1,180 @@
+.task-list {
+    // .li-wrapper {
+    //     position: relative;
+    //     &:hover {
+    //         background-color: $btn-hover;
+    //         .options {
+    //             cursor: pointer;
+    //             display: inline;
+    //             position: absolute;
+    //             left: -25px;
+    //             bottom: 0;
+    //             // background-color: black;
+    //             span {
+    //                 width: 100%;
+    //                 height: 100%;
+    //             }
+    //         }
+    //     }
+    //     .options {
+    //         &:hover {
+    //             background-color: gray;
+    //             border-radius: 10px;
+    //         }
+    //     }
+    // }
+
+    .li-wrapper {
+        position: relative;
+    }
+
+    li {
+        display: grid;
+        color: $layout-black;
+        grid-template-columns: 36px 36px repeat(auto-fill, 150px);
+        grid-auto-columns: 150px;
+        grid-auto-flow: column;
+        grid-template-rows: 36px;
+
+        &.content-li {
+
+            // position: relative;
+            &:hover {
+                background-color: $wrkspce-bgc;
+
+                .options {
+                    visibility: inherit;
+                    background-color: white;
+
+                    .more {
+                        &:hover {
+                            color: #000;
+
+                            background-color: $brdr-clr;
+                            // padding-left: 8px;
+                            border-radius: 7px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+
+        >*:not(:first-child) {
+            justify-self: space-between;
+            display: flex;
+            align-items: center;
+            color: lighten($layout-black, 10%);
+            border-bottom: 1px solid $brdr-clr;
+            border-right: 1px solid $brdr-clr;
+        }
+
+        .empty-fill-span {
+            height: 100%;
+            border-right: none;
+        }
+
+        .task-select {
+            border-left: 5px solid $layout-gray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+
+            >* {
+                height: 16px;
+                width: 16px;
+            }
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .task-avatar {
+            display: inline-block;
+            position: relative;
+            background-size: cover;
+            width: 30px;
+            height: 30px;
+            border: 2px solid white;
+            border-radius: 2em;
+            box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        &:first-child {
+            span {
+                text-transform: capitalize;
+                justify-content: center;
+            }
+        }
+
+        .header-task-select {
+            border-top-left-radius: 0.3em;
+        }
+
+        .add-task-select {
+            border-bottom-left-radius: 0.3em;
+            border-left: 5px solid lighten($layout-gray, 30%);
+        }
+    }
+
+    .task-date {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .task-list-item-header,
+    .task-title-item {
+        grid-column: 3/6;
+    }
+
+    .task-title-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .task-title {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        border: none;
+        padding-left: 30px;
+    }
+
+    .task-comment-icon {
+        height: 100%;
+        padding: 0px 16px;
+        border-left: 1px solid $brdr-clr;
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+
+        &.count-comment span svg {
+            color: $btn-blue;
+        }
+
+        .task-comments-length {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            bottom: 3px;
+            right: 13px;
+            position: absolute;
+            background-color: $btn-blue;
+            color: white;
+            width: 13px;
+            height: 13px;
+            border-radius: 2em;
+            font-size: rem(10px);
+        }
+    }
+}

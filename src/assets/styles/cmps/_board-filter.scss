@@ -1,0 +1,63 @@
+.board-filter {
+    display: flex;
+    gap: 20px;
+
+    .add-new-btns {
+        background-color: $btn-blue;
+        border-radius: .2em;
+        
+        button {
+            color: white;
+            padding: 0;
+            height: 100%;
+            width: 75px;
+        }
+
+        svg {
+            fill: white;
+        }
+
+        &:hover {
+            background-color: (darken($btn-blue, 8%))
+        }
+    }
+
+    .person-attach {
+        svg {
+            margin-left: 5px
+        }
+    }
+
+    .search-tasks {
+        svg {
+            margin-left: 5px
+        }
+    }
+
+    >* {
+        @include btn;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+
+        button {
+            background-color: transparent;
+            padding: 0;
+            padding-right: 10px;
+            font-family: roboto-regular;
+            font-size: rem(14px);
+            color: $layout-black;
+        }
+
+        svg {
+            fill: $layout-black;
+        }
+
+        &:hover {
+            background-color: $brdr-clr;
+        }
+    }
+
+}

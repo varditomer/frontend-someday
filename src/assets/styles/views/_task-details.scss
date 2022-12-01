@@ -1,0 +1,235 @@
+.task-details-container {
+    display: grid;
+    grid-template-rows: repeat(3, 36px) 1fr;
+    padding-top: 24px;
+    z-index: 50;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    position: fixed;
+    height: 100%;
+    width: 570px;
+    right: 0;
+
+    .close-modal-btn {
+        background-color: transparent;
+        padding: 0;
+        align-items: flex-start !important;
+        width: 40px;
+
+        svg {
+            cursor: pointer;
+            position: absolute;
+            left: 20px;
+        }
+    }
+
+    .task-modal-title {
+        font-size: rem(24px);
+        padding: 0px 24px;
+    }
+
+    .task-comments-btn {
+        padding-left: 3px;
+        padding-right: 6px;
+    }
+
+    .modal-btns {
+        display: flex;
+        padding: 0px 24px;
+        border-bottom: 1px solid $brdr-clr;
+
+        span {
+            color: $layout-gray;
+        }
+
+        >*:first-child {
+            box-shadow: inset 0px -2px 0px 0px #0373ea;
+
+        }
+
+        >* {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            height: 36px;
+            padding-right: 10px;
+            padding-left: 10px;
+
+
+            button {
+                font-size: rem(14px);
+                color: $layout-black;
+                font-family: roboto-regular;
+                background-color: transparent;
+                padding: 0;
+            }
+
+        }
+
+        span {
+            padding: 0;
+            color: lighten($layout-gray, 25%);
+        }
+
+    }
+
+    .task-comments {
+        padding-top: 20px;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 0px 24px;
+
+
+            textarea {
+                width: 100%;
+                height: 100px;
+                border: 1px solid $btn-blue;
+                border-radius: .4em;
+                font-family: roboto-light;
+                font-size: rem(16px);
+                padding: 10px;
+
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .add-comment-btn {
+                background-color: $btn-blue;
+                color: white;
+                width: 60px;
+                height: 30px;
+                border-radius: .3em;
+                margin-top: 5px;
+                margin-left: auto;
+                font-size: rem(14px);
+
+                &:hover {
+                    background-color: darken($btn-blue, 8%);
+                }
+            }
+        }
+
+        .comment {
+            border: 1px solid $brdr-clr;
+            border-radius: .4em;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 46px 90px 24px 42px;
+            grid-template-areas:
+                'profile options'
+                'content content'
+                'reactions reactions'
+                'like reply'
+            ;
+            margin: 24px;
+
+            .comment-profile {
+                grid-area: profile;
+                display: flex;
+                align-items: center;
+                padding-left: 15px;
+                padding-top: 10px;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                    margin-right: 12px;
+                }
+
+                p {
+                    font-size: rem(16px);
+                }
+            }
+
+            .comment-options {
+                display: flex;
+                align-items: center;
+                grid-area: options;
+                padding-right: 15px;
+                padding-top: 10px;
+                justify-self: end;
+
+                p {
+                    font-size: rem(14px);
+                    padding-right: 3px;
+                    padding-left: 2px;
+                }
+            }
+
+            .comment-content {
+                grid-area: content;
+                padding-left: 15px;
+                padding-top: 15px;
+                font-size: rem(16px);
+                font-family: roboto-light;
+            }
+
+            .comment-reactions {
+                grid-area: reactions;
+                border-bottom: 1px solid $brdr-clr;
+            }
+
+            .comment-like {
+                grid-area: like;
+                height: 100%;
+                width: 100%;
+                border-right: 1px solid $brdr-clr;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                button {
+                    background-color: transparent;
+                    font-size: rem(16px);
+                    font-family: roboto-light;
+                }
+
+                &:hover {
+                    background-color: $brdr-clr;
+                }
+            }
+
+            .comment-reply {
+                grid-area: reply;
+                height: 100%;
+                width: 100%;
+                border-right: 1px solid $brdr-clr;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                button {
+                    background-color: transparent;
+                    font-size: rem(16px);
+                    font-family: roboto-light;
+                }
+
+                &:hover {
+                    background-color: $brdr-clr;
+                }
+            }
+        }
+    }
+
+}

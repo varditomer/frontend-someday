@@ -1,0 +1,48 @@
+.board-header {
+    display: grid;
+    grid-template-rows: 1fr 65px;
+    padding-right: $layout-padding;
+    padding-left: 36px;
+    padding-top: $layout-padding + 12px;
+
+    .header {
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 16px;
+        }
+
+        span {
+            cursor: pointer;
+        }
+
+        .board-title {
+            font-size: rem(32px);
+            letter-spacing: -1px;
+        }
+
+        .add-views {
+            border-bottom: 1px solid $brdr-clr;
+
+            .view-item {
+                display: flex;
+                align-items: center;
+                background-color: transparent;
+                box-shadow: inset 0px -2px 0px 0px $btn-blue;
+                height: 36px;
+                width: 100px;
+
+                span svg {
+                    scale: .8;
+                }
+            }
+
+            .view-title {
+                font-size: rem(14px);
+                font-family: roboto-medium;
+                color: $layout-black;
+            }
+        }
+    }
+}

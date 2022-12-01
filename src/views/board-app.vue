@@ -1,0 +1,51 @@
+<template>
+    <section class="main-app-container">
+        <task-nav />
+        <board-workspace />
+        <section class='board-app-container'>
+            <board-header @addTask="saveEmptyTask" />
+            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" />
+        </section>
+        <router-view />
+    </section>
+</template>
+<script>
+import boardHeader from '../cmps/board-header.vue'
+import groupList from '../cmps/group-list.vue'
+import boardWorkspace from '../cmps/board-workspace.vue'
+import taskNav from '../cmps/task-nav.vue'
+
+export default {
+    name: 'board-app',
+    components: {
+        boardHeader,
+        groupList,
+        boardWorkspace,
+        taskNav
+    },
+    methods: {
+        saveTask(task) {
+            this.$store.dispatch({ type: 'saveTask', task })
+        },
+        removeTask(task) {
+            console.log(`task:`, task)
+            this.$store.dispatch({ type: 'removeTask', task })
+        },
+            saveEmptyTask() {
+            this.$store.dispatch({ type: 'saveEmptyTask' })
+        }
+    },
+    computed: {
+        users() {
+            return this.$store.getters.users
+        },
+        route() {
+            return this.$route.params.id
+        }
+
+    },
+}
+
+
+</script>
+
