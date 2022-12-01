@@ -6,6 +6,7 @@
 
 <script>
 import taskOption from './option-cmps/task-option.vue';
+import addGroup from './option-cmps/add-group.vue';
 export default {
 
     name: 'option-modal',
@@ -30,7 +31,7 @@ export default {
     },
     components: {
         taskOption,
-
+        addGroup
     }
 }
 </script>
