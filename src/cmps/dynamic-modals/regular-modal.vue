@@ -1,15 +1,16 @@
 <template>
-    <section v-if="toShow" v-click-outside="closeModal" class='option-modal'>
+    <section v-if="toShow" v-click-outside="closeModal" class='regular-modal'>
         <component :is="cmp" @openTask="openTask" @removeTask="removeTask" @addGroup="addGroup"/>
     </section>
 </template>
 
 <script>
-import taskOptions from './option-cmps/task-options.vue';
-import newItemOptions from './option-cmps/new-item-options.vue';
+import taskOptions from '../option-cmps/task-options.vue';
+import newItemModal from '../filter-modals-cmps/new-item-modal.vue';
+import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue';
 export default {
 
-    name: 'option-modal',
+    name: 'regular-modal',
     emits: ['modalClosed', 'openTask', 'removeTask'], //emit all types of dynamic cmps events
     props: {
         toShow: Boolean,
@@ -17,6 +18,9 @@ export default {
     },
     computed: {
 
+    },
+    created() {
+        console.log(`created:`, )
     },
     methods: {
         closeModal() {
@@ -35,7 +39,8 @@ export default {
     },
     components: { //specify each dynamic cmps thats created
         taskOptions,
-        newItemOptions,
+        newItemModal,
+        filterPersonModal,
     }
 }
 </script>

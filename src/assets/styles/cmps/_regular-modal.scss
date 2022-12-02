@@ -1,4 +1,4 @@
-.option-modal {
+.regular-modal {
     >* { //need to set position and other prefs. at children cmp
         box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
         border-radius: 10px;
@@ -38,11 +38,17 @@
         top: 36px;
         left: 11px;
     }
-    .new-item-options {
+
+    // board-filters modals
+    .new-item-modal {
         width: 220px;
-        top: 36px;
-        left: 11px;
-        
+        top: 44px;
+        left: 75px;
+    }
+    .filter-person-modal {
+        width: 220px;
+        top: 44px;
+        left: 180px;
     }
 
 

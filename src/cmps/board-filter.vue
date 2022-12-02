@@ -1,15 +1,14 @@
 <template>
     <section class='board-filter'>
-        <div class="add-new-btns">
-            <option-modal @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" :cmp="'newItemOptions'" @addGroup="addGroup"/>
+        <div class="add-new-btns" @click="openModal('newItemModal')">
             <button @click="addTask">New Item</button>
-            <span @click="isModalOpen = true" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
+            <span @click="" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
         </div>
         <div class="search-tasks">
             <span v-svg-icon="'search'"></span>
             <button>Search</button>
         </div>
-        <div class="person-attach">
+        <div class="person-attach" @click="openModal('filterPersonModal')">
             <span v-svg-icon="'account'"></span>
             <button>Person</button>
         </div>
@@ -22,10 +21,12 @@
             <button>Sort</button>
         </div>
 
+        <regular-modal @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" :cmp="modalName" @addGroup="addGroup"/>
+
     </section>
 </template>
 <script>
-import optionModal from './option-modal.vue';
+import regularModal from './dynamic-modals/regular-modal.vue';
 export default {
     name: 'board-filter',
     methods: {
@@ -34,15 +35,21 @@ export default {
         },
         addGroup(){
             this.$emit('addGroup')
+        },
+        openModal(modalName) {
+            console.log(`openModal:`, modalName)
+            this.modalName = modalName
+            this.isModalOpen = true
         }
     },
     data() {
         return {
-            isModalOpen: false
+            isModalOpen: false,
+            modalName: ''
         }
     },
     components: {
-        optionModal
+        regularModal
     }
 }
 </script>

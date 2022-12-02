@@ -1,6 +1,6 @@
 <template>
     <section class="li-wrapper">
-        <option-modal :cmp="'task-options'" @openTask="openTask" @removeTask="removeTask"
+        <regular-modal :cmp="'task-options'" @openTask="openTask" @removeTask="removeTask"
             @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" />
         <li class="content-li">
             <div class="options hide flex center">
@@ -39,7 +39,7 @@ import statusTask from './task-columns/status.vue'
 import numbersTask from './task-columns/numbers.vue'
 import textTask from './task-columns/text.vue'
 import timelineTask from './task-columns/timeline.vue'
-import optionModal from '../cmps/option-modal.vue'
+import regularModal from './dynamic-modals/regular-modal.vue'
 
 export default {
     name: 'task-preview',
@@ -119,7 +119,7 @@ export default {
         numbersTask,
         textTask,
         timelineTask,
-        optionModal
+        regularModal
     }
 }
 </script>

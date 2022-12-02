@@ -1,6 +1,5 @@
 <template>
-    <section class='new-item-options'>
-
+    <section class='new-item-modal'>
         <div class="modal-group upper-group">
             <div class="modal-item flex align-center" @click="addGroup">
                 <div class="item-title flex align-center">
@@ -14,7 +13,7 @@
 </template>
 <script>
 export default {
-    name: 'add-group',
+    name: 'new-item-modal',
     methods: {
         addGroup() {
             this.$emit('addGroup')
