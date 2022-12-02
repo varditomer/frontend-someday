@@ -34,7 +34,7 @@
 <script>
 import dateTask from './task-columns/date.vue'
 import linkTask from './task-columns/link.vue'
-import personsTask from './task-columns/persons.vue'
+import personTask from './task-columns/person.vue'
 import statusTask from './task-columns/status.vue'
 import numbersTask from './task-columns/numbers.vue'
 import textTask from './task-columns/text.vue'
@@ -55,6 +55,7 @@ export default {
         }
     },
     created() {
+        console.log(`this.task`, this.task)
     },
     data() {
         return {
@@ -119,7 +120,7 @@ export default {
     components: {
         dateTask,
         linkTask,
-        personsTask,
+        personTask,
         statusTask,
         numbersTask,
         textTask,
