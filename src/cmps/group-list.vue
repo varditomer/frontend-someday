@@ -44,7 +44,8 @@ export default {
     },
     async created() {
         const { id } = this.$route.params
-        const board = await this.$store.dispatch({ type: 'getBoardById', id })
+        const filterBy = {id, filter:''}
+        const board = await this.$store.dispatch({ type: 'getBoardById', filterBy })
     },
     components: {
         groupPreview,

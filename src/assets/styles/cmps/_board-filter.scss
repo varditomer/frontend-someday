@@ -50,6 +50,21 @@
     }
 
     .search-tasks {
+        &.input-open {
+            outline: 1px solid $btn-blue
+
+        }
+        input {
+            background-color: transparent;
+            width: 60px;
+            transition: width .4s;
+            height: 100%;
+            cursor: pointer;
+            &.open {
+                width: 190px;
+                cursor: text;
+            }
+        }
         svg {
             margin-left: 5px
         }

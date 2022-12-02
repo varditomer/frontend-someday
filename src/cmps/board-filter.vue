@@ -4,9 +4,9 @@
             <button @click="addTask">New Item</button>
             <span @click="" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
         </div>
-        <div class="search-tasks">
+        <div class="search-tasks" :class="{'input-open': isSearchClicked}" @click="searchClicked">
             <span v-svg-icon="'search'"></span>
-            <button>Search</button>
+            <input :class="{'open': isSearchClicked}" type="text" placeholder="Search" @blur="(isSearchClicked=false)" @input="setFilter">
         </div>
         <div class="person-attach" @click="openModal('filterPersonModal')">
             <span v-svg-icon="'account'"></span>
@@ -29,6 +29,15 @@
 import regularModal from './dynamic-modals/regular-modal.vue';
 export default {
     name: 'board-filter',
+    emits: ['filter'],
+    data() {
+        return {
+            isModalOpen: false,
+            modalName: '',
+            isSearchClicked: false,
+            filter: {}
+        }
+    },
     methods: {
         addTask() {
             this.$emit('addTask')
@@ -40,14 +49,19 @@ export default {
             console.log(`openModal:`, modalName)
             this.modalName = modalName
             this.isModalOpen = true
-        }
+        },
+        searchClicked() {
+            this.isSearchClicked = true
+            document.querySelector('.search-tasks input').focus()
+        },
+        setFilter(event) {
+            const filter = event.target.value
+            this.filter.txt = filter
+            this.$emit('filter', this.filter)
+        },
+
     },
-    data() {
-        return {
-            isModalOpen: false,
-            modalName: ''
-        }
-    },
+  
     components: {
         regularModal
     }

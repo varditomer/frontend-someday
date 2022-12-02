@@ -46,8 +46,22 @@ async function getMiniBoards() {
     // return miniBoards
 }
 
-function getById(boardId) {
-    return storageService.get(BOARD_STORAGE_KEY, boardId)
+async function getById(filterBy) {
+    // console.log(`boardId-boardService:`, boardId)
+    const board = await storageService.get(BOARD_STORAGE_KEY, filterBy.id)
+    if (filterBy.filter.txt) {
+        const regex = new RegExp(filterBy.filter.txt, 'i')
+        board.groups=  board.groups.reduce((groupArr, group)=>{
+            if (regex.test(group.title)) {
+                groupArr.push(group)
+                return groupArr
+            }
+            group.tasks = group.tasks.filter(task =>regex.test(task.title))
+            if (group.tasks.length) groupArr.push(group)
+            return groupArr
+        },[])
+    }
+    return board
 }
 
 async function remove(boardId) {
@@ -574,12 +588,12 @@ const boards = [
     }
 ]
 
-function _connectIds(board){
+function _connectIds(board) {
     board._id = utilService.makeId()
     board.groups.forEach(group => {
         group._id = utilService.makeId()
         group.boardId = board._id
-        group.tasks.forEach(task=>{
+        group.tasks.forEach(task => {
             task._id = utilService.makeId()
             task.boardId = board._id
             task.groupId = group._id
