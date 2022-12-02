@@ -38,7 +38,7 @@ async function saveEmptyTask(groupId, boardId) {
 async function save(task, bool) {
     const { groupId, boardId } = task
     if (!task || !groupId) return Promise.reject('Cannot save task')
-    const group = await groupService.getById(groupId, boardId)
+    const group = await groupService.queryBoard(groupId, boardId)
     if (!group) return Promise.reject('group not found')
     let savedTask
     if (task._id) {
@@ -58,7 +58,7 @@ async function remove(task) {
     console.log(`task-service:`, task)
     const { groupId, boardId } = task
     if (!task._id || !groupId) return Promise.reject('Cannot remove task')
-    const group = await groupService.getById(groupId, boardId)
+    const group = await groupService.queryBoard(groupId, boardId)
     if (!group) return Promise.reject('group not found')
     const idx = group.tasks.findIndex(anyTask => anyTask._id === task._id)
     if (idx === -1) return Promise.reject('Task not found and cannot be removed')
@@ -70,7 +70,7 @@ async function remove(task) {
 
 // async function addTaskMsg(taskId, txt) {
 //     // Later, this is all done by the backend
-//     const task = await getById(taskId)
+//     const task = await queryBoard(taskId)
 //     if (!task.msgs) task.msgs = []
 
 //     const msg = {

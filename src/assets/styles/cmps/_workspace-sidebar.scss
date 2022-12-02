@@ -81,11 +81,11 @@
             border-radius: 0.4em;
             width: 32px;
             height: 32px;
-            background-color: $btn-blue;
+            background-color: $primamry-blue;
             color: white;
 
             &:hover {
-                background-color: (darken($btn-blue, 8%));
+                background-color: (darken($primamry-blue, 8%));
             }
         }
 

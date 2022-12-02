@@ -11,10 +11,9 @@ import { userService } from './services/user.service'
 export default {
   async created() {
     this.$store.dispatch({ type: 'loadGroups' })
-    this.$store.dispatch({ type: 'getFirstBoardId' })
+    this.$store.dispatch({ type: 'getFirstBoard' })
     this.$store.dispatch({ type: 'loadUsers' })
-    await this.$store.dispatch({ type: 'loadGroups' }) 
-    // console.log(`this.$store.getters.group`, this.$store.getters.group)
+    await this.$store.dispatch({ type: 'loadGroups' })
     const user = userService.getLoggedinUser()
     if (user) store.commit({ type: 'setLoggedinUser', user })
   },

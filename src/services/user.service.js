@@ -13,7 +13,7 @@ export const userService = {
     getLoggedinUser,
     saveLocalUser,
     getUsers,
-    getById,
+    queryBoard,
     remove,
     update,
     changeScore
@@ -63,7 +63,7 @@ function onUserUpdate(user) {
     store.dispatch({ type: 'setWatchedUser', user })
 }
 
-async function getById(userId) {
+async function queryBoard(userId) {
     const user = await storageService.get('user', userId)
     // const user = await httpService.get(`user/${userId}`)
 

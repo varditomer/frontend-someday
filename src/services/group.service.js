@@ -7,16 +7,16 @@ import { userService } from './user.service.js'
 const GROUP_STORAGE_KEY = 'group'
 
 export const groupService = {
-    getById,
+    queryBoard,
     add,
     remove,
     save,
 }
 window.bs = groupService
 
-async function getById(groupId, boardId) {
+async function queryBoard(groupId, boardId) {
     if (!groupId || !boardId) return Promise.reject('Cannot get group')
-    const board = await boardService.getById(boardId)
+    const board = await boardService.queryBoard(boardId)
     if (!board) return Promise.reject('Board not found')
     return board.groups.find(anyGroup => anyGroup._id === groupId)
 }
@@ -28,7 +28,7 @@ async function add(boardId) {
 async function remove(group) {
     const { boardId } = group
     if (!group._id || !boardId) return Promise.reject('Cannot remove group')
-    const board = await boardService.getById(boardId)
+    const board = await boardService.queryBoard(boardId)
     if (!board) return Promise.reject('Board not found')
     const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)
     if (idx === -1) return Promise.reject('Group not found')
@@ -40,7 +40,7 @@ async function remove(group) {
 async function save(group) {
     const { boardId } = group
     if (!group || !boardId) return Promise.reject('Cannot save group')
-    const board = await boardService.getById(boardId)
+    const board = await boardService.queryBoard(boardId)
     if (!board) return Promise.reject('Board not found')
     if (group._id) {
         const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)

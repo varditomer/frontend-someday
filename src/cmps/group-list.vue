@@ -4,8 +4,8 @@
         <draggable v-model="groups" :group="{ name: 'board' }" animation="150" itemKey="element._id"
             @start="minimizeGroups(true, $event)" @end="minimizeGroups(false, $event)">
             <template #item="{ element }">
-                <group-preview :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id"
-                    v-if="board" @saveTask="saveTask" @removeTask="removeTask" />
+                <group-preview :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id" v-if="board"
+                    @saveTask="saveTask" @removeTask="removeTask" />
             </template>
         </draggable>
     </section>
@@ -35,17 +35,12 @@ export default {
         }
     },
     computed: {
-        groups(){
+        groups() {
             return JSON.parse(JSON.stringify(this.board.groups))
         },
-        cmpsOrder(){
+        cmpsOrder() {
             return [...this.board.cmpsOrder]
         }
-    },
-    async created() {
-        const { id } = this.$route.params
-        const filterBy = {id, filter:''}
-        const board = await this.$store.dispatch({ type: 'getBoardById', filterBy })
     },
     components: {
         groupPreview,

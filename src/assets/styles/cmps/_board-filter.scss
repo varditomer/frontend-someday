@@ -4,7 +4,7 @@
     position: relative;
 
     .add-new-btns {
-        background-color: $btn-blue;
+        background-color: $primamry-blue;
         
 
         button {
@@ -15,7 +15,7 @@
             border-radius: .2em;
 
             &:hover {
-                background-color: (darken($btn-blue, 8%))
+                background-color: (darken($primamry-blue, 8%))
             }
         }
 
@@ -24,11 +24,11 @@
             border-top-right-radius: .2em;
             border-bottom-right-radius: .2em;
             width: 28px;
-            border-left: 1px solid (darken($btn-blue, 8%));
+            border-left: 1px solid (darken($primamry-blue, 8%));
 
 
             &:hover {
-                background-color: (darken($btn-blue, 8%))
+                background-color: (darken($primamry-blue, 8%))
             }
         }
 
@@ -37,7 +37,7 @@
         }
 
         &:hover {
-            background-color: ($btn-blue)
+            background-color: ($primamry-blue)
         }
 
 

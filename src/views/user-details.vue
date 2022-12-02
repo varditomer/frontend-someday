@@ -29,7 +29,7 @@ export default {
     }
   },
   async created() {
-    // const user = await userService.getById(id)
+    // const user = await userService.queryBoard(id)
     // this.user = user
   },
   watch: {
