@@ -1,10 +1,15 @@
 <template>
-    <a v-if="prop?.url" :href="prop.url" target="_blank">{{ prop.title }}</a>
-    <span v-else class="empty-span"></span>
+    <section class="link flex center" @click="(show=true)">
+        <a @click.stop="" v-if="prop?.url" :href="prop.url" target="_blank">{{ prop.title }}</a>
+        <triangle-modal :cmp="'linkModal'" :link="prop" @hideModal="(show=false)" v-if="show" @saveLink="saveLink"/>
+        <!-- <span v-else class="empty-span"></span> -->
+    </section>
 </template>
 
 <script>
+import triangleModal from '../dynamic-modals/triangle-modal.vue';
 export default {
+    emits: ['updateTask'],
     name: 'link-column',
     props: {
         prop: Object,
@@ -12,6 +17,25 @@ export default {
     },
     created(){
 
+    },
+    data() {
+        return {
+            show: false,
+
+        }
+
+    },
+    methods: {
+        openModal() {
+            console.log(`openLinkModal:`, )
+        },
+        saveLink(link) {
+            this.$emit('updateTask', {key: 'link', val: link})
+        }
+    },
+    components: {
+        triangleModal
+        
     }
 }
 </script>

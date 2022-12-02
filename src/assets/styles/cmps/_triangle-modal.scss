@@ -25,9 +25,14 @@
             color: white;
             height: 32px;
             cursor: pointer;
+<<<<<<< HEAD
 
             &:hover {
                 opacity: .9;
+=======
+            &:hover {
+                opacity: 0.9;
+>>>>>>> aaef681439b2ddc8d9c9dbedca70bed18eb2a63c
             }
         }
     }
@@ -44,6 +49,23 @@
             height: 20px;
             border: 2px white soild;
             border-radius: 4px;
+        }
+    }
+
+    .link-modal {
+        width: 222px;
+        padding: 6px 2px;
+        label {
+            font-size: rem(16px);
+        }
+        input {
+            height: 40px;
+            margin-top: 16px;
+            width: 100%;
+            margin-bottom: 24px;
+            border: 1px solid rgb(195, 198, 212);
+            padding: 0 16px;
+            line-height: rem(21px);
         }
     }
 
@@ -84,14 +106,12 @@
 
                 .remove-person-btn {
                     cursor: pointer;
-                    scale: .8;
+                    scale: 0.8;
                 }
             }
-
-
         }
 
-        >*:last-child {
+        > *:last-child {
             margin: 0;
         }
 
@@ -109,19 +129,17 @@
                 display: flex;
                 width: 100%;
 
-
-                >* {
+                > * {
                     display: flex;
                     width: 100%;
                     align-items: center;
                     margin-top: 6px;
                     padding: 6px;
-                    border-radius: .4em;
+                    border-radius: 0.4em;
                     cursor: pointer;
 
                     &:hover {
                         background-color: $brdr-clr;
-
                     }
 
                     p {
@@ -336,5 +354,4 @@
     border-style: solid;
     border-color: transparent transparent transparent transparent;
     border-color: transparent transparent #fff transparent;
-
 }

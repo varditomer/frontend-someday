@@ -1,20 +1,20 @@
 <template>
     <section @click="(show = true)" class="task-members flex center">
-        <span v-if="prop?.length" class="task-avatar" v-for="(person, idx) in formattedPersons" :style="person.style"
-            :class="{ cover: person.imgUrl }" :title="person.fullname">
-            {{ !person.imgUrl ? person.initials : '' }}
+        <span v-if="prop" class="task-avatar" v-for="person in formattedPersons" :style="person.style"
+            :class="{ cover: person.pic }" :title="person.fullname">
+            {{ !person.pic ? person.initials : '' }}
         </span>
-        <span v-else></span>
-        <triangle-modal @removePerson="removePerson" @addPerson="addPerson" :users="users" :persons="formattedPersons"
-            :cmp="'personsModal'" @hideModal="(show=false)" v-if="show" />
+        <triangle-modal v-if="show" @removePerson="removePerson" @addPerson="addPerson" :users="users"
+            :persons="formattedPersons" :cmp="'personsModal'" @hideModal="(show = false)" />
     </section>
+    <!-- <span v-else></span> -->
 </template>
 
 <script>
 import triangleModal from '../dynamic-modals/triangle-modal.vue'
 export default {
     name: 'persons-column',
-    emits: ['addPerson', 'removePerson'],
+    emits: ['updateTask'],
     props: {
         prop: Array,
         users: Array
@@ -26,27 +26,39 @@ export default {
     },
     computed: {
         formattedPersons() {
-            if (!this.prop || !this.prop.length) return []
-            if (this.prop?.length) return this.prop.map(person => {
-                const { _id } = person
-                const user = this.users.find(user => user._id === _id)
-                if (!user) return
-                const imgUrl = user.imgUrl ? true : false
-                let style = `background-color: ${user.color || '#fff'}`
-                if (user.imgUrl) style = `background-image: url(${user.imgUrl})`
-                else style = `background-image: url(src/assets/imgs/default.svg)`
+            if (!this.prop?.length) return []
+            return this.prop.reduce((userArr, person) => {
+                const { _id, fullname } = person
+                const user = this.users.find(anyUser => anyUser._id === _id)
+                if (!user) return userArr
+                const style = user.imgUrl
+                    ? `background-image: url(${user.imgUrl})`
+                    : `backgroud-color: ${user.color || '#fff'}`
+                const pic = user.imgUrl
+                    ? true
+                    : false
                 const initials = user.fullname.split(' ').map(name => name.charAt(0).toUpperCase()).join('')
-                return { style, initials, _id, imgUrl, fullname: user.fullname }
-            })
-            return []
+                userArr.push({ _id, style, initials, fullname, pic })
+                return userArr
+
+            }, [])
         }
     },
     methods: {
-        addPerson(user) {
-            this.$emit('addPerson', user)
+        addPerson(person) {
+            const persons = JSON.parse(JSON.stringify(this.prop))
+            persons.push(person)
+            this.updateTask(persons)
         },
-        removePerson(userId) {
-            this.$emit('removePerson', userId)
+        removePerson(personId) {
+            const persons = JSON.parse(JSON.stringify(this.prop))
+            const idx = persons.findIndex(person => person._id === personId)
+            if (idx === -1) return
+            persons.splice(idx, 1)
+            this.updateTask(persons)
+        },
+        updateTask(persons) {
+            this.$emit('updateTask', { key: 'person', val: persons })
         }
     },
     components: {

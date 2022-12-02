@@ -4,8 +4,8 @@
         <board-workspace @addBoard="addBoard" />
         <section class='board-app-container'>
             <board-header @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter" />
-            <group-list :users="users" @saveTask="saveTask"
-                @removeTask="removeTask" :board="board" :priorities="priorities" />
+            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" 
+            @saveGroup="saveGroup" :board="board" :priorities="priorities" />
         </section>
         <router-view />
     </section>
@@ -42,6 +42,9 @@ export default {
         },
         setFilter(filter) {
             this.$store.dispatch({ type: 'queryBoard', id: this.board._id, filter })
+        },
+        saveGroup(group){
+            this.$store.dispatch({ type: 'saveGroup', group})
         }
     },
     computed: {

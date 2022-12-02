@@ -22,7 +22,7 @@
                     <span v-else v-svg-icon="'addComment'" class="task-comment-icon"></span>
                 </div>
             </router-link>
-            <component v-for="(column, idx) in cmpsOrder" @setDate="setDate" @removePerson="removePerson"
+            <component v-for="(column, idx) in cmpsOrder" @updateTask="updateTask" @removePerson="removePerson"
                 @addPerson="addPerson" :is="column + 'Task'" :prop="task[column]" :users="users"
                 :color="group.style.color" :key="idx" :priorities="priorities">
             </component>
@@ -46,7 +46,7 @@ import regularModal from './dynamic-modals/regular-modal.vue'
 
 export default {
     name: 'task-preview',
-    emits: ['updateTask', 'saveTask', 'removeTask'],
+    emits: ['updateTask', 'updateTask', 'removeTask'],
     props: {
         task: Object,
         cmpsOrder: Array,
@@ -94,6 +94,13 @@ export default {
         }
     },
     methods: {
+        updateTask({ key, val }) {
+            const task = JSON.parse(JSON.stringify(this.task))
+            task[key] = val
+
+            console.log(`task`, task)
+            this.$emit('updateTask', task)
+        },
         read(task) {
         },
         lineOptions() {
