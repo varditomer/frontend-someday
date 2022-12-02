@@ -24,6 +24,8 @@
     //     }
     // }
 
+    
+
     .li-wrapper {
         position: relative;
     }
@@ -140,10 +142,11 @@
         }
 
         .priority {
+            position: relative;
             width: 100%;
             height:100%;
             
-            span {
+            .priority-name {
                 display: flex;
                 align-items: center;
                 width: 100%;

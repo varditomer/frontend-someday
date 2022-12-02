@@ -4,7 +4,7 @@
         <board-workspace @addBoard="addBoard" />
         <section class='board-app-container'>
             <board-header @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter" />
-            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" :board="board" />
+            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" :board="board" :priorities="priorities" />
         </section>
         <router-view />
     </section>
@@ -52,8 +52,10 @@ export default {
         },
         board() {
             return this.$store.getters.board
+        },
+        priorities(){
+            return this.$store.getters.priorities
         }
-
     },
     async created() {
         const { id } = this.$route.params
