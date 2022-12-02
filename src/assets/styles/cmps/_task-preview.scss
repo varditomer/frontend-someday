@@ -191,7 +191,7 @@
         cursor: pointer;
 
         &.count-comment span svg {
-            color: $btn-blue;
+            color: $primamry-blue;
         }
 
         .task-comments-length {
@@ -201,7 +201,7 @@
             bottom: 3px;
             right: 13px;
             position: absolute;
-            background-color: $btn-blue;
+            background-color: $primamry-blue;
             color: white;
             width: 13px;
             height: 13px;
