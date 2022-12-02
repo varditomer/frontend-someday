@@ -50,11 +50,27 @@
     }
 
     .search-tasks {
+        position: relative;
         &.input-open {
             outline: 1px solid $primamry-blue
-
+        }
+        &.filtering {
+            background-color: $fltr-bgc;
+        }
+        .cancel {
+            position: absolute;
+            right: 8px;
+                svg {
+                    fill: $primamry-blue;
+                    scale: 0.8;
+                }
         }
         input {
+            &::placeholder{
+                color: $layout-black;
+            }
+
+                
             background-color: transparent;
             width: 60px;
             transition: width .4s;
