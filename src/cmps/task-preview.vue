@@ -6,7 +6,9 @@
             <div class="options hidden flex center">
                 <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
-            <span class="task-select"><input multiple type="checkbox" /></span>
+            <span class="task-select" :style="{ 'border-left-color': group.style.color }">
+                <input multiple type="checkbox" />
+            </span>
             <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
                 <div class="task-title-item">
                     <span>
@@ -20,8 +22,8 @@
                     <span v-else v-svg-icon="'addComment'" class="task-comment-icon"></span>
                 </div>
             </router-link>
-            <component v-for="(column, idx) in cmpsOrder" :is="column + 'Task'" :prop="task[column]" :users="users" :color="group.style"
-                :key="idx" :priorities="priorities">
+            <component v-for="(column, idx) in cmpsOrder" :is="column + 'Task'" :prop="task[column]" :users="users"
+                :color="group.style.color" :key="idx" :priorities="priorities">
             </component>
             <span class="empty-span"></span>
             <!-- <span v-for="(column, idx) in cmpsOrder">

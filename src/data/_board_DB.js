@@ -50,7 +50,8 @@ export const boardDB = [
                 boardId: 'b101',
                 archivedAt: 1589983468418,
                 style: {
-                    color: 'rgb(151,99,212)'
+                    color: 'rgb(151,99,212)',
+                    light: 'rgba(151,99,212,0.6)'
                 },
                 tasks: [
                     {
@@ -169,7 +170,8 @@ export const boardDB = [
                 title: 'Working on it',
                 boardid: 'g199',
                 style: {
-                    color: 'rgb(242,174,84)'
+                    color: 'rgb(242,174,84)',
+                    light: 'rgba(242,174,84,0.6)'
                 },
                 tasks: [
                     {
@@ -228,7 +230,8 @@ export const boardDB = [
                 title: 'Done',
                 createdAt: 234850123,
                 style: {
-                    color: 'rgb(236,105,192)'
+                    color: 'rgb(236,105,192)',
+                    light: 'rgba(236,105,192,0.6)'
                 },
                 'byMember':
                 {

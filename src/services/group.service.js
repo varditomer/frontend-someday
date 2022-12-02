@@ -60,6 +60,10 @@ function _getNewGroup(boardId) {
             _id: 0,
             fullname: 'Guest'
         },
+        style: {
+            color: 'inherit',
+            light: 'inherit',
+        },
         tasks: [
             {
                 _id: utilService.makeId(),

@@ -192,7 +192,10 @@ const boards = [
                 title: 'Backlog',
                 boardId: 'b101',
                 archivedAt: 1589983468418,
-                style: 'rgb(151,99,212)',
+                style: {
+                    color: 'rgb(151,99,212)',
+                    light: 'rgba(151,99,212,0.6)'
+                },
                 tasks: [
                     {
                         _id: 'xwe45',
@@ -357,7 +360,10 @@ const boards = [
                 _id: 'sd93d',
                 title: 'Working on it',
                 boardid: 'g199',
-                style: '#fdac3d',
+                style: {
+                    color: '#fdac3d',
+                    light: '#fdac3d99',
+                },
                 tasks: [
                     {
                         _id: 'xa8sd',
@@ -453,7 +459,10 @@ const boards = [
                 _id: 'asj23',
                 title: 'Done',
                 createdAt: 234850123,
-                style: '#ba3254',
+                style: {
+                    color: '#ba3254',
+                    light: '#ba325499',
+                },
                 'byMember':
                 {
                     _id: 'u104',
@@ -487,7 +496,10 @@ const boards = [
             {
                 _id: 'ascw2',
                 title: 'Near future tasks',
-                style: '#794bd1',
+                style: {
+                    color: '#794bd1',
+                    light: '#794bd199',
+                },
                 tasks: [
                     {
                         _id: 'dcwq34',
@@ -558,7 +570,10 @@ const boards = [
                 _id: 'a7scq',
                 title: 'Bugs',
                 createdAt: 238392842234,
-                style: '#4fccc6',
+                style: {
+                    color: '#4fccc6',
+                    light: '#4fccc6',
+                },
                 byMember: {
                     _id: 'u103',
                     fullname: 'Tomer Vardi',
