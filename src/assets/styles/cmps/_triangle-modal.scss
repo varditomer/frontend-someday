@@ -14,6 +14,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        width: 326px;
 
         img {
             width: 26px;
@@ -21,9 +22,6 @@
         }
 
         .active-persons {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
             margin-bottom: 10px;
             background-color: lighten($btn-active, 4%);
             border-radius: 2em;
@@ -40,13 +38,10 @@
                 }
 
                 p {
-                    margin-left: 3px;
+                    margin-left: 6px;
+                    margin-top: 2px;
+                    padding: 0;
                 }
-            }
-
-            .remove-active-person {
-                display: flex;
-                align-items: center;
             }
 
 
@@ -65,8 +60,8 @@
                 display: flex;
                 align-items: center;
                 margin-top: 6px;
-                padding: 3px;
-                border-radius: .2em;
+                padding: 6px;
+                border-radius: .4em;
                 cursor: pointer;
 
                 &:hover{
