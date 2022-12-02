@@ -4,7 +4,6 @@ import { userStore } from './user.store.js'
 import { boardStore } from './board.store.js'
 import { groupStore } from './group.store.js'
 import { taskStore } from './task.store.js'
-import { reviewStore } from './review.store.js'
 
 export const store = Vuex.createStore({
   strict: true,
@@ -13,7 +12,6 @@ export const store = Vuex.createStore({
     boardStore,
     groupStore,
     taskStore,
-    reviewStore
   },
   state: {
   },

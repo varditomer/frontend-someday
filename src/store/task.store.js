@@ -3,7 +3,14 @@ import { taskService } from '../services/task.service.js'
 export const taskStore = {
     state() {
         return {
-            taskToEdit: null
+            taskToEdit: null,
+            priorities: [
+                { title: 'Critical', color: '#333333', colortitle: '$priority-blackish' },
+                { title: 'High', color: '#fe7575', colortitle: '$clr-red' },
+                { title: 'Medium', color: '#777ae5', colorNmae: '$status-indigo' },
+                { title: 'Low', color: '#579bfc', colorName: '$clr-blue' },
+                { title: 'Default' , color: '#c4c4c4', colorName: '$clr-lgt-gry'}
+            ]
         }
     },
     mutations: {
@@ -13,6 +20,7 @@ export const taskStore = {
     },
     getters: {
         taskToEdit({ taskToEdit }) { return taskToEdit },
+        priorities({ priorities }) { return priorities }
     },
     actions: {
         async loadTask(context, { taskId }) {
@@ -48,12 +56,10 @@ export const taskStore = {
                 console.log(`Cannot save task: ${err}`)
             }
         },
-        async removeTask(context, {task}) {
+        async removeTask(context, { task }) {
             try {
-                console.log(`task-store:`, task)
                 context.commit({ type: 'removeTask', task })
                 const removedTask = await taskService.remove(task)
-                console.log(`removed task`, removedTask)
                 return task
             } catch (err) {
                 console.log(`Cannot remove task: ${err}`)

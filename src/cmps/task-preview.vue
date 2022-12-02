@@ -21,7 +21,7 @@
                 </div>
             </router-link>
             <component v-for="(column, idx) in cmpsOrder" :is="column + 'Task'" :prop="task[column]" :users="users" :color="group.style"
-                :key="idx">
+                :key="idx" :priorities="priorities">
             </component>
             <span class="empty-span"></span>
             <!-- <span v-for="(column, idx) in cmpsOrder">
@@ -48,6 +48,7 @@ export default {
         task: Object,
         cmpsOrder: Array,
         users: Array,
+        priorities: Array,
         group: {
             type: Object,
             required: true
@@ -104,7 +105,6 @@ export default {
         },
         updateTitle(ev) {
             ev.target.blur()
-            console.log(ev.target.innerText);
             const { _id, groupId, boardId } = this.task
             const task = {
                 title: ev.target.innerText,

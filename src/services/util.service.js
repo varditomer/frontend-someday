@@ -47,11 +47,8 @@ function randomPastTime() {
 }
 
 function debounce(func, timeout = 300) {
-    console.log(`12:`,)
-    console.log(`func:`, func)
     let timer
     return (...args) => {
-        console.log(`args:`, args)
         clearTimeout(timer)
         timer = setTimeout(() => { func.apply(this, args) }, timeout)
     }

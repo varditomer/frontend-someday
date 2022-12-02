@@ -23,11 +23,11 @@ export default {
             show: false
         }
     },
-    creadted(){
+    creadted() {
     },
     computed: {
         formattedPersons() {
-            if (!this.prop || !this.prop.length) return ''
+            if (!this.prop || !this.prop.length) return []
             if (this.prop?.length) return this.prop.map(person => {
                 const { _id } = person
                 const user = this.users.find(user => user._id === _id)
@@ -39,7 +39,7 @@ export default {
                 const initials = user.fullname.split(' ').map(name => name.charAt(0).toUpperCase()).join('')
                 return { style, initials, _id, imgUrl, fullname: user.fullname }
             })
-            return ''
+            return []
         }
     },
     components: {

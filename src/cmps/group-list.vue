@@ -4,8 +4,8 @@
         <draggable v-model="groups" :group="{ name: 'board' }" animation="150" itemKey="element._id"
             @start="minimizeGroups(true, $event)" @end="minimizeGroups(false, $event)">
             <template #item="{ element }">
-                <group-preview :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id" v-if="board"
-                    @saveTask="saveTask" @removeTask="removeTask" />
+                <group-preview :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
+                v-if="board" @saveTask="saveTask" @removeTask="removeTask" />
             </template>
         </draggable>
     </section>
@@ -20,7 +20,8 @@ export default {
     name: 'group-list',
     props: {
         users: Array,
-        board: Object
+        board: Object,
+        priorities: Array,
     },
     methods: {
         minimizeGroups(minimize, ev) {

@@ -55,7 +55,6 @@ async function save(task, bool) {
 }
 
 async function remove(task) {
-    console.log(`task-service:`, task)
     const { groupId, boardId } = task
     if (!task._id || !groupId) return Promise.reject('Cannot remove task')
     const group = await groupService.queryBoard(groupId, boardId)
