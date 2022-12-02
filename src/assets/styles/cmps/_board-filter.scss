@@ -20,7 +20,10 @@
 
         .add-new-group-btn {
             height: 100%;
-            border-radius: .2em;
+            border-top-right-radius: .2em;
+            border-bottom-right-radius: .2em;
+            width: 28px;
+            border-left: 1px solid $layout-gray;
 
 
             &:hover {

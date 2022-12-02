@@ -1,24 +1,21 @@
 .option-modal {
-    position: absolute;
-    top: 30px;
-    left: 85px;
-    background: $clr--white;
-    border-radius: 10px;
-    z-index: 10;
-    box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
+    >* { //need to set position and other prefs. at children cmp
+        box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
+        border-radius: 10px;
+        position: absolute;
+        background: $clr--white;
+        z-index: 10;
 
-    .modal-group {
-        padding: 8px;
-
-        .title {
-            flex: 1;
-            margin-left: 8px;
-
-        }
-
-    }
-
+        .modal-group {
+            padding: 8px;
     
+            .title {
+                flex: 1;
+                margin-left: 8px;
+    
+            }
+        }
+    }
 
     .modal-item {
         padding: 4px 8px;
@@ -33,10 +30,22 @@
             background-color: $brdr-clr;
         }
     }
+    
+// Dynamic modals (modal-children's) prefs set:
 
-    .task-option {
+    .task-options {
         width: 225px;
+        top: 36px;
+        left: 11px;
     }
+    .new-item-options {
+        width: 220px;
+        top: 36px;
+        left: 11px;
+        
+    }
+
+
 }
 
 

@@ -1,6 +1,6 @@
 <template>
     <section class="li-wrapper">
-        <option-modal :cmp="('task-option')" @openTask="openTask" @removeTask="removeTask"
+        <option-modal :cmp="'task-options'" @openTask="openTask" @removeTask="removeTask"
             @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" />
         <li class="content-li">
             <div class="options hide flex center">

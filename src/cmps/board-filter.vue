@@ -1,7 +1,7 @@
 <template>
     <section class='board-filter'>
         <div class="add-new-btns">
-            <option-modal @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" :cmp="'addGroup'" @addGroup="addGroup"/>
+            <option-modal @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" :cmp="'newItemOptions'" @addGroup="addGroup"/>
             <button @click="addTask">New Item</button>
             <span @click="isModalOpen = true" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
         </div>

@@ -1,5 +1,5 @@
 <template>
-    <section class='task-option'>
+    <section class='new-item-options'>
 
         <div class="modal-group upper-group">
             <div class="modal-item flex align-center" @click="addGroup">
