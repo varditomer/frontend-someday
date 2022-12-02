@@ -25,14 +25,9 @@
             color: white;
             height: 32px;
             cursor: pointer;
-<<<<<<< HEAD
 
             &:hover {
                 opacity: .9;
-=======
-            &:hover {
-                opacity: 0.9;
->>>>>>> aaef681439b2ddc8d9c9dbedca70bed18eb2a63c
             }
         }
     }
@@ -55,9 +50,11 @@
     .link-modal {
         width: 222px;
         padding: 6px 2px;
+
         label {
             font-size: rem(16px);
         }
+
         input {
             height: 40px;
             margin-top: 16px;
@@ -111,7 +108,7 @@
             }
         }
 
-        > *:last-child {
+        >*:last-child {
             margin: 0;
         }
 
@@ -129,7 +126,7 @@
                 display: flex;
                 width: 100%;
 
-                > * {
+                >* {
                     display: flex;
                     width: 100%;
                     align-items: center;

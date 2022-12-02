@@ -139,6 +139,10 @@ export default {
             const task = this.task
             this.task.date = +timestamp
             this.$emit('updateTask', task)
+        },
+        saveLink(link) {
+            this.task.link = link
+            this.$emit('updateTask', task)
         }
     },
     components: {
