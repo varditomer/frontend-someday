@@ -1,7 +1,13 @@
 <template>
-    <aside class="workspace-container">
+    <aside class="workspace-container" :class="{ 'closed': isWorkspaceClosed }">
+
+        <div @click="toggleWorkspace" class="toggle-workspace-div">
+            <span class="toggle-workspace" v-if="!isWorkspaceClosed" v-svg-icon="'arrowLeft'"></span>
+            <span class="toggle-workspace" v-else v-svg-icon="'arrowRight'"></span>
+        </div>
 
         <div class="workspace-header flex column">
+
 
             <div class="workspace-main-header flex justify-between">
                 <div class="workspace-dropdown-container flex align-center">
@@ -45,10 +51,11 @@
 
 export default {
     name: 'board-workspace',
-    emits: ['add-board'],
+    emits: ['add-board', 'toggleWorkspace'],
     data() {
         return {
-            filter: ''
+            filter: '',
+            isWorkspaceClosed: false
         }
     },
     created() {
@@ -72,6 +79,11 @@ export default {
         },
         addBoard() {
             this.$emit('addBoard')
+        },
+        toggleWorkspace() {
+            console.log('toggle');
+            this.isWorkspaceClosed = !this.isWorkspaceClosed
+            this.$emit('toggleWorkspace')
         }
     },
 

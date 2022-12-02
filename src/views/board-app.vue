@@ -1,7 +1,7 @@
 <template>
-    <section class="main-app-container">
+    <section class="main-app-container" :class="{ 'folded': isWorkspaceClosed }">
         <task-nav />
-        <board-workspace @addBoard="addBoard" />
+        <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace" />
         <section class='board-app-container'>
             <board-header @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter" />
             <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" 
@@ -24,6 +24,11 @@ export default {
         boardWorkspace,
         taskNav
     },
+    data() {
+        return {
+            isWorkspaceClosed: false
+        }
+    },
     methods: {
         saveTask(task) {
             this.$store.dispatch({ type: 'saveTask', task })
@@ -43,8 +48,11 @@ export default {
         setFilter(filter) {
             this.$store.dispatch({ type: 'queryBoard', id: this.board._id, filter })
         },
-        saveGroup(group){
-            this.$store.dispatch({ type: 'saveGroup', group})
+        saveGroup(group) {
+            this.$store.dispatch({ type: 'saveGroup', group })
+        },
+        toggleWorkspace() {
+            this.isWorkspaceClosed = !this.isWorkspaceClosed
         }
     },
     computed: {
