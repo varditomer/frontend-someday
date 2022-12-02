@@ -9,7 +9,15 @@ export const taskStore = {
                 { title: 'High', color: '#fe7575', colorName: '$clr-red' },
                 { title: 'Medium', color: '#777ae5', colorNmae: '$status-indigo' },
                 { title: 'Low', color: '#579bfc', colorName: '$clr-blue' },
-                { title: 'Default' , color: '#c4c4c4', colorName: '$clr-lgt-gry'}
+                { title: 'Default', color: '#c4c4c4', colorName: '$clr-lgt-gry' }
+            ],
+            statuses: [
+                {title: 'Done', color: '#4fccc6', colorName: '$clr-lgt-teal'},
+                {title: 'Working on it', color: '#fdac3d', colorName: '$clr-lgt-orng'},
+                {title: 'Stuck', color: '#fe7575', colorName: '$clr-red'},
+                {title: 'Unattained', color: '#0086c0', colorName: '$clr-drk-blue'},
+                {title: 'Kaka', color: '#ffcb00', colorName: '$clr-yllw'},
+                {title: 'default', color: '#c4c4c4', colorName: '$clr-lgt-gry'},
             ]
         }
     },
@@ -20,7 +28,8 @@ export const taskStore = {
     },
     getters: {
         taskToEdit({ taskToEdit }) { return taskToEdit },
-        priorities({ priorities }) { return priorities }
+        priorities({ priorities }) { return priorities },
+        statuses({ statuses }) { return statuses },
     },
     actions: {
         async loadTask(context, { taskId }) {

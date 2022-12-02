@@ -1,6 +1,6 @@
 <template>
     <section @click="(show = true)" class="task-members flex center">
-        <span v-if="prop" class="task-avatar" v-for="person in formattedPersons" :style="person.style"
+        <span class="task-avatar" v-for="person in formattedPersons" :style="person.style"
             :class="{ cover: person.pic }" :title="person.fullname">
             {{ !person.pic ? person.initials : '' }}
         </span>
@@ -46,7 +46,9 @@ export default {
     },
     methods: {
         addPerson(person) {
-            const persons = JSON.parse(JSON.stringify(this.prop))
+            const persons = this.prop
+                ? JSON.parse(JSON.stringify(this.prop))
+                : []
             persons.push(person)
             this.updateTask(persons)
         },

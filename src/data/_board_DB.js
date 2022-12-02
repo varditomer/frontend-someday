@@ -3,7 +3,7 @@ export const status = {
     'Working on it': '$clr-lgt-orng',
     Stuck: '$clr-red',
     Unattained: '$clr-drk-blue',
-    kaka: '$clr-yllw',
+    Kaka: '$clr-yllw',
     _none: '$clr-lgt-gry'
 }
 

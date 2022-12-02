@@ -1,8 +1,8 @@
 <template>
     <section class="priority" @click="(show = true)">
         <span class="priority-name" :style="getStyle">{{ prop }}</span>
-        <triangle-modal :users="users" :persons="formattedPersons" :content="priorities"
-         @hideModal="(show=false)" :cmp="'task-label-modal'" v-if="show" />
+        <triangle-modal :users="users" :content="priorities" :name="'priority'" @updateTask="updateTask"
+            @hideModal="(show=false)" :cmp="'task-label-modal'" v-if="show" />
     </section>
 </template>
 
@@ -20,15 +20,21 @@ export default {
         },
         users: Array
     },
+    emits: ['updateTask'],
     data() {
         return {
             show: false
         }
     },
     methods: {
+        updateTask(priority) {
+            this.show = false
+            this.$emit('updateTask', priority)
+        },
     },
     computed: {
         getStyle() {
+            if (!this.prop) return { 'background-color': colors['$priority-gry'] }
             return {
                 'background-color': colors[priority[this.prop]],
                 color: 'white'

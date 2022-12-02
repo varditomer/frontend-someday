@@ -23,7 +23,7 @@
                 </div>
             </router-link>
             <component v-for="(column, idx) in cmpsOrder" @updateTask="updateTask" @removePerson="removePerson"
-                @addPerson="addPerson" :is="column + 'Task'" :prop="task[column]" :users="users"
+                @addPerson="addPerson" :is="column + 'Task'" :prop="task[column]" :users="users" :statuses="statuses"
                 :color="group.style.color" :key="idx" :priorities="priorities">
             </component>
             <span class="empty-span"></span>
@@ -52,6 +52,10 @@ export default {
         cmpsOrder: Array,
         users: Array,
         priorities: Array,
+        statuses: {
+            type: Array,
+            reqiured: true
+        },
         group: {
             type: Object,
             required: true
@@ -97,8 +101,6 @@ export default {
         updateTask({ key, val }) {
             const task = JSON.parse(JSON.stringify(this.task))
             task[key] = val
-
-            console.log(`task`, task)
             this.$emit('updateTask', task)
         },
         read(task) {

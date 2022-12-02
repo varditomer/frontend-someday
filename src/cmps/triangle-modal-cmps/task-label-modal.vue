@@ -1,7 +1,8 @@
 <template>
     <section class="task-label-modal">
-        <span v-for="label in getFormattedLabels" :class="label.pClass" :style="label.style">
-            {{label.title}}
+        <span v-for="label in getFormattedLabels" :class="label.pClass" :style="label.style"
+            @click="updateTask(label.title)">
+            {{ label.title }}
         </span>
     </section>
 </template>
@@ -14,16 +15,19 @@ export default {
             type: Array,
             required: true
         },
-        users: Array
+        name: String
     },
+    emits: ['updateTask'],
     data() {
         return {
         }
     },
-    created(){
-        console.log(`this.contnet`, this.contnet)
-    },
     methods: {
+        updateTask(val) {
+            const key = this.name
+            console.log(`val`, val)
+            this.$emit('updateTask', { key, val })
+        }
     },
     computed: {
         getFormattedLabels() {

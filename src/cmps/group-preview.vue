@@ -10,7 +10,7 @@
             <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
         </div>
         <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
-            :priorities="priorities" @saveTask="saveTask" @removeTask="removeTask" />
+            :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />
     </section>
 </template>
 <script>
@@ -23,7 +23,14 @@ export default {
         group: Object,
         cmpsOrder: Array,
         users: Array,
-        priorities: Array,
+        priorities: {
+            type: Array,
+            reqired: true
+        },
+        statuses: {
+            type: Array,
+            reqired: true
+        },
     },
     data() {
         return {

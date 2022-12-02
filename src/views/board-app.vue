@@ -5,7 +5,7 @@
         <section class='board-app-container'>
             <board-header @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter" />
             <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" 
-            @saveGroup="saveGroup" :board="board" :priorities="priorities" />
+            @saveGroup="saveGroup" :board="board" :priorities="priorities" :statuses="statuses"/>
         </section>
         <router-view />
     </section>
@@ -59,7 +59,10 @@ export default {
         },
         priorities() {
             return this.$store.getters.priorities
-        }
+        },
+        statuses(){
+            return this.$store.getters.statuses
+        },
     },
     async created() {
         const { id } = this.$route.params
