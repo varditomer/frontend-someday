@@ -46,7 +46,6 @@ export const groupStore = {
         async addGroup({ commit }) {
             try {
                 const { _id } = this.getters.board
-                console.log(`_id`, _id)
                 const group = await groupService.add(_id)
                 commit({ type: 'addGroup', group })
                 return group

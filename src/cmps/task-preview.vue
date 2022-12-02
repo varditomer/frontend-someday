@@ -104,7 +104,6 @@ export default {
         },
         updateTitle(ev) {
             ev.target.blur()
-            console.log(ev.target.innerText);
             const { _id, groupId, boardId } = this.task
             const task = {
                 title: ev.target.innerText,

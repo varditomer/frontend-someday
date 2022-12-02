@@ -1,29 +1,5 @@
-.container {
-    padding: 10px;
-}
-
-.main-container {
-    display: grid;
-    grid-template-columns:
-        0px 1fr 0px;
-
-    >* {
-        grid-column: 2;
-
-        &.full {
-            grid-column: 1 /-1;
-        }
-    }
-}
-
 .main-app-container {
     display: grid;
     height: 100vh;
     grid-template-columns: 66px 254px 1fr;
-}
-
-.task-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 150px);
-    grid-gap: 20px;
 }

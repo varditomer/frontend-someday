@@ -50,10 +50,8 @@ export const taskStore = {
         },
         async removeTask(context, {task}) {
             try {
-                console.log(`task-store:`, task)
                 context.commit({ type: 'removeTask', task })
                 const removedTask = await taskService.remove(task)
-                console.log(`removed task`, removedTask)
                 return task
             } catch (err) {
                 console.log(`Cannot remove task: ${err}`)
