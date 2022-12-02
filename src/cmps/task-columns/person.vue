@@ -5,8 +5,8 @@
             {{ !person.imgUrl ? person.initials : '' }}
         </span>
         <span v-else></span>
-        <triangle-modal :users="users" :persons="formattedPersons" :cmp="'personsModal'" @hideModal="(show=false)"
-            v-if="show" />
+        <triangle-modal @removePerson="removePerson" @addPerson="addPerson" :users="users" :persons="formattedPersons"
+            :cmp="'personsModal'" @hideModal="(show=false)" v-if="show" />
     </section>
 </template>
 
@@ -14,6 +14,7 @@
 import triangleModal from '../dynamic-modals/triangle-modal.vue'
 export default {
     name: 'persons-column',
+    emits: ['addPerson', 'removePerson'],
     props: {
         prop: Array,
         users: Array
@@ -22,8 +23,6 @@ export default {
         return {
             show: false
         }
-    },
-    creadted() {
     },
     computed: {
         formattedPersons() {
@@ -40,6 +39,14 @@ export default {
                 return { style, initials, _id, imgUrl, fullname: user.fullname }
             })
             return []
+        }
+    },
+    methods: {
+        addPerson(user) {
+            this.$emit('addPerson', user)
+        },
+        removePerson(userId) {
+            this.$emit('removePerson', userId)
         }
     },
     components: {
