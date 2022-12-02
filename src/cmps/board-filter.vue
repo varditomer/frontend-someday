@@ -1,8 +1,8 @@
 <template>
     <section class='board-filter'>
-        <div class="add-new-btns" @click="openModal('newItemModal')">
+        <div class="add-new-btns">
             <button @click="addTask">New Item</button>
-            <span @click="" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
+            <span @click="openModal('newItemModal')" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
         </div>
         <div class="search-tasks" :class="{'input-open': isSearchClicked}" @click="searchClicked">
             <span v-svg-icon="'search'"></span>
@@ -57,7 +57,7 @@ export default {
         setFilter(event) {
             const filter = event.target.value
             this.filter.txt = filter
-            this.$emit('filter', this.filter)
+            this.$emit('filtered', this.filter)
         },
 
     },
