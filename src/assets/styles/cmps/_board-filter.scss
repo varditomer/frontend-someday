@@ -23,7 +23,7 @@
             border-top-right-radius: .2em;
             border-bottom-right-radius: .2em;
             width: 28px;
-            border-left: 1px solid $layout-gray;
+            border-left: 1px solid (darken($btn-blue, 8%));
 
 
             &:hover {

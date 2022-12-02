@@ -1,14 +1,16 @@
 <template>
-    <section class="task-members flex center">
+    <section @click="(show = true)" class="task-members flex center">
         <span v-if="prop?.length" class="task-avatar" v-for="(person, idx) in formattedPersons" :style="person.style"
             :class="{ cover: person.imgUrl }" :title="person.fullname">
             {{ !person.imgUrl ? person.initials : '' }}
         </span>
         <span v-else> </span>
+        <triangle-modal :users="users" :persons="formattedPersons" :cmp="'personsModal'" @hideModal="(show=false)" v-if="show" />
     </section>
 </template>
 
 <script>
+import triangleModal from '../option-cmps/triangle-modal.vue'
 export default {
     name: 'persons-column',
     props: {
@@ -17,9 +19,8 @@ export default {
     },
     data() {
         return {
+            show: false
         }
-    },
-    methods: {
     },
     computed: {
         formattedPersons() {
@@ -37,6 +38,9 @@ export default {
             })
             return ''
         }
+    },
+    components: {
+        triangleModal
     }
 }
 </script>

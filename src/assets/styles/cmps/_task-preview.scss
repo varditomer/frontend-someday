@@ -36,6 +36,10 @@
         grid-auto-flow: column;
         grid-template-rows: 36px;
 
+        .task-members{
+            position: relative;
+        }
+
         &.content-li {
 
             // position: relative;

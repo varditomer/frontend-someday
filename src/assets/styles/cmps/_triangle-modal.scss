@@ -1,0 +1,95 @@
+.triangle-modal {
+    position: absolute;
+    min-width: 200px;
+    padding: 8px 12px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    background-color: white;
+    border-radius: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 36px;
+    z-index: 50;
+
+    .persons-modal {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        img {
+            width: 26px;
+            height: 26px;
+        }
+
+        .active-persons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 10px;
+            background-color: lighten($btn-active, 4%);
+            border-radius: 2em;
+            font-size: rem(12px);
+
+            .person {
+                display: flex;
+                align-items: center;
+
+                span {
+                    width: 22px;
+                    height: 22px;
+                    border: none;
+                }
+
+                p {
+                    margin-left: 3px;
+                }
+            }
+
+            .remove-active-person {
+                display: flex;
+                align-items: center;
+            }
+
+
+        }
+
+        >*:last-child{
+            margin: 0;
+        }
+
+        .suggested-persons {
+            color: $layout-gray;
+        }
+
+        .not-active-persons {
+            >* {
+                display: flex;
+                align-items: center;
+                margin-top: 6px;
+                padding: 3px;
+                border-radius: .2em;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: $brdr-clr;
+                    
+                }
+
+                p{
+                    padding-left: 8px;
+                }
+            }
+        }
+    }
+}
+
+.top-bot {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent transparent transparent;
+    border-color: transparent transparent #fff transparent;
+
+}
