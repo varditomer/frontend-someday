@@ -5,7 +5,7 @@
                 <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="group-arrow" v-svg-icon="'arrowDown'" @click="toggleTaskView"></span>
-            <h4>{{ group.title }}</h4>
+            <h4 v-html="group.title"></h4>
         </div>
         <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users" @saveTask="saveTask" @removeTask="removeTask"/>
     </section>

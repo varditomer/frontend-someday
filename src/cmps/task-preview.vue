@@ -11,7 +11,7 @@
                 <div class="task-title-item">
                     <span>
                         <p @blur="updateTitle" @keydown.enter.prevent="updateTitle" @click.prevent="" class="task-title"
-                            contenteditable="true">{{ task.title }}</p>
+                            contenteditable="true" v-html="task.title"></p>
                     </span>
                     <span v-if="task.comments?.length" class="task-comment-icon count-comment">
                         <span v-svg-icon="'commentCount'"></span>

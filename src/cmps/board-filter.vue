@@ -57,7 +57,7 @@ export default {
         setFilter(event) {
             const filter = event.target.value
             this.filter.txt = filter
-            this.$emit('filtered', this.filter)
+            this.$emit('filter', this.filter)
         },
 
     },
