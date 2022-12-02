@@ -9,7 +9,7 @@
 <script>
 import triangleModal from '../dynamic-modals/triangle-modal.vue';
 export default {
-    emits: ['saveLink'],
+    emits: ['updateTask'],
     name: 'link-column',
     props: {
         prop: Object,
@@ -30,7 +30,7 @@ export default {
             console.log(`openLinkModal:`, )
         },
         saveLink(link) {
-            this.$emit('saveLink', link)
+            this.$emit('updateTask', {key: 'link', val: link})
         }
     },
     components: {
