@@ -2,8 +2,8 @@
 
     <section v-click-outside="hide" class='triangle-modal'>
         <span class="top-bot"></span>
-        <component :is="cmp" :users="users" :persons="persons" @addPerson="addPerson" @removePerson="removePerson"
-            :colors="colors" :content="content"></component>
+        <component :is="cmp" :prop="prop" :users="users" :persons="persons" @setDate="setDate" @addPerson="addPerson"
+            @removePerson="removePerson" :colors="colors" :content="content"></component>
     </section>
 
 </template>
@@ -11,9 +11,10 @@
 <script>
 import personsModal from '../triangle-modal-cmps/persons-modal.vue'
 import taskLabelModal from '../triangle-modal-cmps/task-label-modal.vue'
+import dateModal from '../triangle-modal-cmps/date-modal.vue'
 export default {
     name: 'triangle-modal',
-    emits: ['hideModal', 'addPerson', 'removePerson'],
+    emits: ['hideModal', 'addPerson', 'removePerson', 'setDate'],
     props: {
         cmp: String,
         persons: {
@@ -31,6 +32,10 @@ export default {
         content: {
             type: Array,
             required: false
+        },
+        prop: {
+            type: Number,
+            required: false
         }
     },
     methods: {
@@ -42,12 +47,16 @@ export default {
         },
         addPerson(user) {
             this.$emit('addPerson', user)
+        },
+        setDate(timestamp) {
+            this.$emit('setDate', timestamp)
         }
 
     },
     components: {
         personsModal,
-        taskLabelModal
+        taskLabelModal,
+        dateModal
     }
 }
 </script>
