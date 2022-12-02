@@ -4,9 +4,12 @@
             <button @click="addTask">New Item</button>
             <span @click="openModal('newItemModal')" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
         </div>
-        <div class="search-tasks" :class="{'input-open': isSearchClicked}" @click="searchClicked">
+        <div class="search-tasks" :class="{ 'input-open': isSearchClicked, 'filtering': isFiltering }"
+            @click="searchClicked">
             <span v-svg-icon="'search'"></span>
-            <input :class="{'open': isSearchClicked}" type="text" placeholder="Search" @blur="(isSearchClicked=false)" @input="setFilter">
+            <input :class="{ 'open': isSearchClicked || isFiltering }" type="text" placeholder="Search"
+                @blur="(isSearchClicked = false)" @input="setFilter">
+            <span v-svg-icon="'cancel'" class="cancel" :class="{'hide': !isFiltering}"></span>
         </div>
         <div class="person-attach" @click="openModal('filterPersonModal')">
             <span v-svg-icon="'account'"></span>
@@ -21,7 +24,8 @@
             <button>Sort</button>
         </div>
 
-        <regular-modal @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" :cmp="modalName" @addGroup="addGroup"/>
+        <regular-modal @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" :cmp="modalName"
+            @addGroup="addGroup" />
 
     </section>
 </template>
@@ -29,20 +33,21 @@
 import regularModal from './dynamic-modals/regular-modal.vue';
 export default {
     name: 'board-filter',
-    emits: ['filter','addTask'],
+    emits: ['filter', 'addTask'],
     data() {
         return {
             isModalOpen: false,
             modalName: '',
             isSearchClicked: false,
-            filter: {}
+            filter: {},
+            isFiltering: false,
         }
     },
     methods: {
         addTask() {
             this.$emit('addTask')
         },
-        addGroup(){
+        addGroup() {
             this.$emit('addGroup')
         },
         openModal(modalName) {
@@ -51,17 +56,19 @@ export default {
             this.isModalOpen = true
         },
         searchClicked() {
+            console.log(`refael:`, )
             this.isSearchClicked = true
             document.querySelector('.search-tasks input').focus()
         },
         setFilter(event) {
             const filter = event.target.value
+            this.isFiltering = (filter) ? true : false
             this.filter.txt = filter
             this.$emit('filter', this.filter)
         },
 
     },
-  
+
     components: {
         regularModal
     }

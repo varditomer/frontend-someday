@@ -50,9 +50,20 @@
     }
 
     .search-tasks {
+        position: relative;
         &.input-open {
             outline: 1px solid $btn-blue
-
+        }
+        &.filtering {
+            background-color: #cce5ff;
+        }
+        .cancel {
+            position: absolute;
+            right: 8px;
+                svg {
+                    fill: $btn-blue;
+                    scale: 0.8;
+                }
         }
         input {
             background-color: transparent;
