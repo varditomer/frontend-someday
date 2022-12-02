@@ -5,8 +5,8 @@ export const taskStore = {
         return {
             taskToEdit: null,
             priorities: [
-                { title: 'Critical', color: '#333333', colortitle: '$priority-blackish' },
-                { title: 'High', color: '#fe7575', colortitle: '$clr-red' },
+                { title: 'Critical', color: '#333333', colorName: '$priority-blackish' },
+                { title: 'High', color: '#fe7575', colorName: '$clr-red' },
                 { title: 'Medium', color: '#777ae5', colorNmae: '$status-indigo' },
                 { title: 'Low', color: '#579bfc', colorName: '$clr-blue' },
                 { title: 'Default' , color: '#c4c4c4', colorName: '$clr-lgt-gry'}

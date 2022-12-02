@@ -3,6 +3,8 @@
 //basics
 $clr--white: #fff;
 $clr--black: #000;
+$primary-text-color: #323338;
+
 
 //brand
 $primary-brand: #292f4c;
@@ -21,6 +23,7 @@ $logo-green: #01d648;
 $layout-black: #323338;
 $layout-gray: #676879;
 $primamry-blue: #0073ea;
+$primary-dark-blue: #0060b9;
 $primamry-blue-hover: #0260b9;
 $btn-hover: #dddfec;
 $btn-active: #cce3fe;
@@ -28,13 +31,25 @@ $wrkspce-bgc: #f6f7fb;
 $brdr-clr: #d0d5e4;
 $fltr-bgc: #cce5ff;
 
+// msg-color
+$clr-mud_black: #323338;
+$clr-success: #258750;
+$clr-success-hover: #007038;
+$clr-success-highlight: #bbdbc9;
+$clr-done-green: #00c875;
+$clr-error: #d83a52;
+$clr-error-hover: #b63546;
+$clr-error-highlight: #f4c3cb;
+
+
 // priority-palette
-$priority-grass-green: #047f4b;
+$priority-grass-green: #037f4c;
 $priority-bright-green: #9cd226;
 $priority-saladish: #cab741;
 $priority-egg-yolk: #ffcb00;
 $priority-dark-orange: #ff642e;
 $priority-peach: #feaead;
+$priority-sunset: #ff7575;
 $priority-dark-red: #ba3254;
 $priority-sophia-pink: #fe178a;
 $priority-bubble: #ff7bd0;
@@ -162,3 +177,66 @@ $narrow-breakpoint: 720px;
 $normal-breakpoint: 960px;
 
 $layout-padding: 12px;
+
+
+
+
+
+
+// entire palette
+$clr-grass_green: #037f4c;
+$clr-bright-green: #9cd326;
+$clr-saladish: #cab641;
+$clr-egg_yolk: #ffcb00;
+$clr-working_orange: #fdab3d;
+$clr-dark-orange: #ff642e;
+$clr-peach: #ffadad;
+$clr-sunset: #ff7575;
+$clr-stuck-red: #e2445c;
+$clr-dark-red: #bb3354;
+$clr-sofia_pink: #ff158a;
+$clr-lipstick: #ff5ac4;
+$clr-bubble: #faa1f1;
+$clr-purple: #a25ddc;
+$clr-dark_purple: #784bd1;
+$clr-berry: #7e3b8a;
+$clr-dark_indigo: #401694;
+$clr-indigo: #5559df;
+$clr-navy: #225091;
+$clr-bright-blue: #579bfc;
+$clr-dark-blue: #0086c0;
+$clr-aquamarine: #4eccc6;
+$clr-chili-blue: #66ccff;
+$clr-river: #68a1bd;
+$clr-winter: #9aadbd;
+$clr-explosive: #c4c4c4;
+$clr-american_gray: #808080;
+$clr-blackish: #333333;
+$clr-brown: #7f5347;
+$clr-orchid: #D974B0;
+$clr-tan: #AD967A;
+$clr-sky: #A1E3F6;
+$clr-coffee: #BD816E;
+$clr-royal: #2B76E5;
+$clr-teal: #175A63;
+$clr-lavender: #BDA8F9;
+$clr-steel: #A9BEE8;
+$clr-lilac: #9D99B9;
+$clr-pecan: #563E3E;
+$clr-light_blue: #61caf7;
+$clr-turquoise: #66ccff;
+$clr-aqua: #00d1d1;
+$clr-live_blue: #009aff;
+$clr-jeans: #597bfc;
+$clr-light-pink: #ff5ac4;
+$clr-dark-pink: #ff158a;
+$clr-dark_red: #bb3354;
+$clr-yellow: #ffcb00;
+$clr-mustered: #cab641;
+$clr-orange: #fdab3d;
+$clr-lime-green: #9cd326;
+$clr-jade: #03c875;
+$clr-green-haze: #00a359;
+$clr-grass-green: #037f4c;
+$clr-amethyst: #a25ddc;
+$clr-dark-purple: #784bd1;
