@@ -179,9 +179,7 @@ const boards = [
                 title: 'Backlog',
                 boardId: 'b101',
                 archivedAt: 1589983468418,
-                style: {
-                    backgroundColor: 'rgb(151,99,212)'
-                },
+                style: 'rgb(151,99,212)',
                 tasks: [
                     {
                         _id: 'xwe45',
@@ -341,15 +339,12 @@ const boards = [
                         },
                     }
                 ],
-                style: {}
             },
             {
                 _id: 'sd93d',
                 title: 'Working on it',
                 boardid: 'g199',
-                style: {
-                    backgroundColor: '#fdac3d'
-                },
+                style: '#fdac3d',
                 tasks: [
                     {
                         _id: 'xa8sd',
@@ -445,9 +440,7 @@ const boards = [
                 _id: 'asj23',
                 title: 'Done',
                 createdAt: 234850123,
-                style: {
-                    color: '#ba3254'
-                },
+                style: '#ba3254',
                 'byMember':
                 {
                     _id: 'u104',
@@ -481,9 +474,7 @@ const boards = [
             {
                 _id: 'ascw2',
                 title: 'Near future tasks',
-                style: {
-                    backgroundColor: '#794bd1'
-                },
+                style: '#794bd1',
                 tasks: [
                     {
                         _id: 'dcwq34',
@@ -554,9 +545,7 @@ const boards = [
                 _id: 'a7scq',
                 title: 'Bugs',
                 createdAt: 238392842234,
-                style: {
-                    color: '#4fccc6'
-                },
+                style: '#4fccc6',
                 byMember: {
                     _id: 'u103',
                     fullname: 'Tomer Vardi',
@@ -613,9 +602,7 @@ const boards = [
                 boardId: 'b102',
                 title: 'PR conference',
                 archivedAt: 1589983468418,
-                style: {
-                    backgroundColor: '#ff642e'
-                },
+                style: '#ff642e',
                 tasks: [
                     {
                         _id: 'c101',
@@ -646,9 +633,7 @@ const boards = [
                     fullname: 'Tomer Vardi',
                     imgUrl: 'src/assets/imgs/tomer-avatar.png'
                 },
-                style: {
-                    color: '#047f4b'
-                },
+                style: '#047f4b',
                 tasks: [
                     {
                         _id: 'c103',
@@ -742,4 +727,4 @@ function _connectIds(board) {
 }
 
 // TEST DATA
-// utilService.saveToStorage(BOARD_STORAGE_KEY, boards)
+utilService.saveToStorage(BOARD_STORAGE_KEY, boards)

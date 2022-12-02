@@ -7,6 +7,14 @@ export const status = {
     _none: '$clr-lgt-gry'
 }
 
+export const priority = {
+    High: '$priority-red',
+    Medium: '$priority-prpl',
+    Low: '$priority-blue',
+    Critical: '$priority-blc',
+    default: '$priority-gry'
+}
+
 export const boardDB = [
     {
         _id: 'b101',

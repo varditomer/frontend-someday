@@ -124,9 +124,6 @@ Date.DateDiff = function (p_Interval, p_Date1, p_Date2, p_FirstDayOfWeek = 1) {
 }
 
 function getReasonableTimeDiff(formerTime, latterTime) {
-    console.log(`formerTime`, formerTime)
-    // const formerTimeStamp = _stringToTimeStamp(formerTime)
-    // const lattrTimeStamp = _stringToTimeStamp(latterTime)
     return Date.DateDiff('d', formerTime, latterTime)
 }
 

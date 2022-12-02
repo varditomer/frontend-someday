@@ -21,7 +21,7 @@
                 </div>
             </router-link>
 
-            <component v-for="(column, idx) in cmpsOrder" :is="column + 'Task'" :prop="task[column]" :users="users"
+            <component v-for="(column, idx) in cmpsOrder" :is="column + 'Task'" :prop="task[column]" :users="users" :color="group.style"
                 :key="idx">
             </component>
             <span class="empty-span"></span>
@@ -39,6 +39,7 @@ import statusTask from './task-columns/status.vue'
 import numbersTask from './task-columns/numbers.vue'
 import textTask from './task-columns/text.vue'
 import timelineTask from './task-columns/timeline.vue'
+import priorityTask from './task-columns/priority.vue'
 import regularModal from './dynamic-modals/regular-modal.vue'
 
 export default {
@@ -48,6 +49,10 @@ export default {
         task: Object,
         cmpsOrder: Array,
         users: Array,
+        group: {
+            type: Object,
+            required: true
+        }
     },
     created() {
     },
@@ -118,6 +123,7 @@ export default {
         statusTask,
         numbersTask,
         textTask,
+        priorityTask,
         timelineTask,
         regularModal
     }

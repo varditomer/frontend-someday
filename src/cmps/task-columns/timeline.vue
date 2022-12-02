@@ -1,7 +1,7 @@
 <template>
     <section class="timeline">
         <div class="range">
-            <div class="value" :style="{ width: getTimelineBar + '%' }"></div>
+            <div class="value" :style="style"></div>
         </div>
     </section>
 </template>
@@ -12,11 +12,15 @@ export default {
     name: '',
     props: {
         prop: {
-            type: Array,
+            type: Object,
             required: false
         },
         users: {
             type: Array,
+            required: false
+        },
+        color: {
+            type: String,
             required: false
         }
     },
@@ -24,20 +28,30 @@ export default {
         return {
         }
     },
+    created() {
+    },
     methods: {
     },
     computed: {
         getTimelineBar() {
-            const start = (new Date([this.prop.start.year, this.prop.start.month, this.prop.start.day])).getTime()
-            if (start < Date.now()) return 0
-            const end = (new Date([this.prop.end.year, this.prop.end.month, this.prop.end.say])).getTime()
-            if (end >= Date.now()) return 100
-            const diffInDays = utilService.getReasonableTimeDiff(start, end)
-            const diffNowFromStart = utilService.getReasonableTimeDiff(start, Date.now())
-            console.log(`diffInDays`, diffInDays)
-            console.log(`diffNowFromStart`, diffNowFromStart)
-            return 100 * (+diffNowFromStart) / (+diffInDays)
-        }
+            if (!this.prop?.start || !this.prop?.end) return 0
+            const start = (new Date([this.prop.start.year, this.prop.start.month + 1, this.prop.start.day])).getTime()
+            const end = (new Date([this.prop.end.year, this.prop.end.month + 1, this.prop.end.day])).getTime()
+            const diffInDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24))
+            const timeElapsed = Math.ceil((Date.now() - start) / (1000 * 60 * 60 * 24))
+            const percentage = (100 * (+timeElapsed) / (+diffInDays))
+            return percentage > 100
+                ? 100
+                : percentage < 0
+                    ? 0
+                    : percentage
+        },
+        style() {
+            return {
+                width: this.getTimelineBar + '%',
+                backgroundColor: this.color
+            }
+        },
     },
     components: {
     },

@@ -36,7 +36,7 @@
         grid-auto-flow: column;
         grid-template-rows: 36px;
 
-        .task-members{
+        .task-members {
             position: relative;
         }
 
@@ -129,16 +129,24 @@
                 max-width: 100%;
                 width: 100%;
                 height: 22px;
-                background-color: #000;
+                background-color: $layout-black;
                 margin-inline: 16px;
-                border-radius: 999px;
-                
+
                 .value {
                     height: 22px;
-                    background-color: gray;
-                    border-top-left-radius: 999px;
-                    border-bottom-left-radius: 999px;
                 }
+            }
+        }
+
+        .priority {
+            width: 100%;
+            height:100%;
+            
+            span {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                height:100%;
             }
         }
     }
