@@ -3,7 +3,7 @@
         <regular-modal :cmp="'task-options'" @openTask="openTask" @removeTask="removeTask"
             @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" />
         <li class="content-li">
-            <div class="options hide flex center">
+            <div class="options hidden flex center">
                 <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="task-select"><input multiple type="checkbox" /></span>

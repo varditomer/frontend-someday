@@ -1,7 +1,10 @@
 <template>
     <section class='group-preview'>
         <div class="group-title flex align-center" :class="{minimized:!viewTasks}">
-            <span v-svg-icon="'arrowDown'" @click="toggleTaskView"></span>
+            <div class="options hidden flex center">
+                <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
+            </div>
+            <span class="group-arrow" v-svg-icon="'arrowDown'" @click="toggleTaskView"></span>
             <h4>{{ group.title }}</h4>
         </div>
         <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users" @saveTask="saveTask" @removeTask="removeTask"/>

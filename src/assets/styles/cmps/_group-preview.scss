@@ -3,9 +3,33 @@
     padding-right: 12px;
 
     .group-title {
-        margin-left: 40px;
+        // margin-left: 40px;
         height: 40px;
-        cursor: grab
+        cursor: grab;
+        .group-arrow, .options {
+
+            width: 36px;
+        }
+        &:hover {
+            // background-color: $wrkspce-bgc;
+
+            .options {
+                visibility: inherit;
+                background-color: white;
+                height: 100%;
+
+                .more {
+                    &:hover {
+                        color: #000;
+
+                        background-color: $brdr-clr;
+                        // padding-left: 8px;
+                        border-radius: 7px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
     }
 
     .minimized {

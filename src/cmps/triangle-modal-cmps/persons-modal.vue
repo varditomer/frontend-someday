@@ -4,14 +4,16 @@
             <div class="person">
                 <span :style="p.style" class="task-avatar"></span>
                 <p>{{ p.fullname }}</p>
-                <span v-svg-icon="'smallExit'"></span>
+                <span v-svg-icon="'smallExit'" class="remove-person-btn"></span>
             </div>
         </div>
         <p v-if="personsToAdd.length" class="suggested-persons">Suggested people</p>
-        <div v-for="person in personsToAdd" class="not-active-persons">
-            <div>
-                <img :src="person.imgUrl" />
-                <p>{{ person.fullname }}</p>
+        <div class="not-active-persons">
+            <div v-for="person in personsToAdd" class="not-active-person">
+                <div>
+                    <img :src="person.imgUrl" />
+                    <p>{{ person.fullname }}</p>
+                </div>
             </div>
         </div>
     </section>
