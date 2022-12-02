@@ -15,7 +15,6 @@
         grid-template-columns: 152px;
         margin: 0;
         justify-content: center;
-        // width: 152px;
         gap: 8px;
 
         .label{
@@ -24,9 +23,11 @@
             justify-content: center;
             font-size: rem(14px);
             color: white;
-            // width:152px;
             height: 32px;
-
+            cursor: pointer;
+            &:hover{
+                opacity: .9;
+            }
         }
     }
 
