@@ -10,7 +10,8 @@
             <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
                 <div class="task-title-item">
                     <span>
-                        <p class="task-title">{{ task.title }}</p>
+                        <p @blur="updateTitle" @keydown.enter.prevent="updateTitle" @click.prevent="" class="task-title"
+                            contenteditable="true">{{ task.title }}</p>
                     </span>
                     <span v-if="task.comments?.length" class="task-comment-icon count-comment">
                         <span v-svg-icon="'commentCount'"></span>
@@ -42,6 +43,7 @@ import optionModal from '../cmps/option-modal.vue'
 
 export default {
     name: 'task-preview',
+    emits: ['updateTask'],
     props: {
         task: Object,
         cmpsOrder: Array,
@@ -95,6 +97,18 @@ export default {
         removeTask() {
             this.$emit('removeTask', this.task)
             this.isModalOpen = false
+        },
+        updateTitle(ev) {
+            ev.target.blur()
+            console.log(ev.target.innerText);
+            const { _id, groupId, boardId } = this.task
+            const task = {
+                title: ev.target.innerText,
+                _id,
+                groupId,
+                boardId
+            }
+            this.$emit('updateTask', task)
         }
     },
     components: {
