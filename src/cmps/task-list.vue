@@ -86,8 +86,7 @@ export default {
     },
     methods: {
         addTask() {
-            console.log('GROUPPP', this.group)
-
+            if (!this.taskToAdd.title) return
             this.taskToAdd = {
                 ...this.taskToAdd,
                 groupId: this.group._id,

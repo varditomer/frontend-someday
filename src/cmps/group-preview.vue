@@ -17,6 +17,7 @@ import taskList from './task-list.vue'
 import { eventBus } from '../services/event-bus.service.js'
 export default {
     name: 'group-preview',
+    emits: ['saveTask', 'removeTask'],
     props: {
         group: Object,
         cmpsOrder: Array,

@@ -575,7 +575,7 @@ const boards = [
                 createdAt: 238392842234,
                 style: {
                     color: '#4fccc6',
-                    light: '#4fccc6',
+                    light: '#4fccc699',
                 },
                 byMember: {
                     _id: 'u103',

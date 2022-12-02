@@ -14,6 +14,7 @@
 <script>
 export default {
     name: 'new-item-modal',
+    emits: ['addGroup'],
     methods: {
         addGroup() {
             this.$emit('addGroup')

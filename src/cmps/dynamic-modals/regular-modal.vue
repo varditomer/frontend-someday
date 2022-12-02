@@ -11,7 +11,7 @@ import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue';
 export default {
 
     name: 'regular-modal',
-    emits: ['modalClosed', 'openTask', 'removeTask'], //emit all types of dynamic cmps events
+    emits: ['modalClosed', 'openTask', 'removeTask', 'addGroup'], //emit all types of dynamic cmps events
     props: {
         toShow: Boolean,
         cmp: String,

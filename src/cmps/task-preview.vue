@@ -45,7 +45,7 @@ import regularModal from './dynamic-modals/regular-modal.vue'
 
 export default {
     name: 'task-preview',
-    emits: ['updateTask'],
+    emits: ['updateTask', 'saveTask', 'removeTask'],
     props: {
         task: Object,
         cmpsOrder: Array,

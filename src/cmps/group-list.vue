@@ -18,6 +18,7 @@ import { eventBus } from '../services/event-bus.service'
 
 export default {
     name: 'group-list',
+    emits: ['saveTask', 'removeTask'],
     props: {
         users: Array,
         board: Object,

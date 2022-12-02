@@ -20,7 +20,7 @@
 import boardFilter from './board-filter.vue'
 export default {
     name: 'board-header',
-    emits: ['filter','addTask'],
+    emits: ['filter','addTask', 'addGroup'],
     methods: {
         addGroup() {
             this.$emit('addGroup')

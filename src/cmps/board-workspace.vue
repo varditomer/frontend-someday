@@ -45,6 +45,7 @@
 
 export default {
     name: 'board-workspace',
+    emits: ['add-board'],
     data() {
         return {
             filter: ''
