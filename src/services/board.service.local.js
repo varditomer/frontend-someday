@@ -225,7 +225,7 @@ const boards = [
                                 }
                             }
                         ],
-                        persons: [
+                        person: [
                             {
                                 _id: 'u103',
                                 fullname: 'Tomer Vardi',
@@ -242,7 +242,7 @@ const boards = [
                         boardId: 'b101',
                         groupId: 'sc7aw',
                         title: 'Upload project to Github',
-                        persons: [
+                        person: [
 
                             {
                                 _id: 'u104',
@@ -290,7 +290,7 @@ const boards = [
                                 year: 2022
                             }
                         },
-                        persons: [
+                        person: [
                             {
                                 _id: 'u102',
                                 fullname: 'Refael Abramov',
@@ -305,7 +305,7 @@ const boards = [
                         boardId: 'b101',
                         groupId: 'sc7aw',
                         title: 'Create Features',
-                        persons: [
+                        person: [
                             {
                                 _id: 'u102',
                                 fullname: 'Refael Abramov',

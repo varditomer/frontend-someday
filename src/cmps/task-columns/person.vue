@@ -23,6 +23,8 @@ export default {
             show: false
         }
     },
+    creadted(){
+    },
     computed: {
         formattedPersons() {
             if (!this.prop || !this.prop.length) return ''
