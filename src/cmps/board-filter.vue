@@ -29,7 +29,7 @@
 import regularModal from './dynamic-modals/regular-modal.vue';
 export default {
     name: 'board-filter',
-    emits: ['filter'],
+    emits: ['filter','addTask'],
     data() {
         return {
             isModalOpen: false,
