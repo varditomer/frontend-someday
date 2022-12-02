@@ -4,8 +4,6 @@
             <div class="person">
                 <span :style="p.style" class="task-avatar"></span>
                 <p>{{ p.fullname }}</p>
-            </div>
-            <div class="remove-active-person">
                 <span v-svg-icon="'smallExit'"></span>
             </div>
         </div>
