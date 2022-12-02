@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import triangleModal from '../option-cmps/triangle-modal.vue'
+import triangleModal from '../dynamic-modals/triangle-modal.vue'
 export default {
     name: 'persons-column',
     props: {
