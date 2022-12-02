@@ -6,7 +6,7 @@
         // margin-left: 40px;
         height: 40px;
         cursor: grab;
-
+        align-items: center;
         .group-arrow,
         .options {
 
@@ -31,6 +31,16 @@
                         cursor: pointer;
                     }
                 }
+            }
+
+            .task-count{
+                visibility: inherit;
+                color: $layout-gray;
+                font-size: rem(14px);
+                margin-left: 8px;
+                margin-top: 6px;
+                // line-height: rem(22px);
+                font-family: roboto-light;
             }
         }
     }

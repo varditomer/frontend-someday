@@ -5,11 +5,12 @@
                 <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="group-arrow" v-svg-icon="'arrowDown'" @click="toggleTaskView"></span>
-            <h4 :style="{ color: group.style.color}" v-html="group.title"></h4>
+            <h4 contenteditable @input="saveGroup($event.target.innerText, 'title')"
+                :style="{ color: group.style.color }" v-html="group.title"></h4>
+            <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
         </div>
-        <task-list v-if="viewTasks" :tasks="group.tasks"
-            :group="group" :cmpsOrder="cmpsOrder" :users="users" :priorities="priorities" @saveTask="saveTask"
-            @removeTask="removeTask" />
+        <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
+            :priorities="priorities" @saveTask="saveTask" @removeTask="removeTask" />
     </section>
 </template>
 <script>
@@ -17,7 +18,7 @@ import taskList from './task-list.vue'
 import { eventBus } from '../services/event-bus.service.js'
 export default {
     name: 'group-preview',
-    emits: ['saveTask', 'removeTask'],
+    emits: ['saveTask', 'removeTask', 'saveGroup'],
     props: {
         group: Object,
         cmpsOrder: Array,
@@ -26,7 +27,7 @@ export default {
     },
     data() {
         return {
-            viewTasks: true
+            viewTasks: true,
         }
     },
     mounted() {
@@ -43,6 +44,36 @@ export default {
         },
         removeTask(task) {
             this.$emit('removeTask', task)
+        },
+        saveGroup(val, prop) {
+            this.group[prop] = val
+            this.$emit('saveGroup', this.group)
+        }
+    },
+    computed: {
+        getDoneTasksCount() {
+            return this.group.tasks.reduce((counter, task) => {
+                if (task.status === 'Done') conuter++
+                return conuter
+            }, 0)
+        },
+        getFormattedTaskCount() {
+            const { tasks } = this.group
+            if (!tasks.length) return 'No Items'
+            let str = `${tasks.length} Item`
+            if (tasks.length > 1) str += 's'
+            if (tasks[0].subTasks?.length) {
+                str += ` / ${tasks[0].subTasks.length} Subitem`
+                if (tasks[0].subTasks.length === 1) return str
+                return str + 's'
+            }
+            return str
+        },
+        getSubitemsCount() {
+            return this.group.tasks.reduce((acc, task) => {
+                acc += task.subTasks?.length || 0
+                return acc
+            }, 0)
         }
     },
     components: {

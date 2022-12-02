@@ -5,7 +5,7 @@
             @start="minimizeGroups(true, $event)" @end="minimizeGroups(false, $event)">
             <template #item="{ element }">
                 <group-preview :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id"
-                    :priorities="priorities" v-if="board" @saveTask="saveTask" @removeTask="removeTask" />
+                    :priorities="priorities" v-if="board" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" />
             </template>
         </draggable>
     </section>
@@ -18,7 +18,7 @@ import { eventBus } from '../services/event-bus.service'
 
 export default {
     name: 'group-list',
-    emits: ['saveTask', 'removeTask'],
+    emits: ['saveTask', 'removeTask', 'saveGroup'],
     props: {
         users: Array,
         board: Object,
@@ -34,6 +34,9 @@ export default {
         },
         removeTask(task) {
             this.$emit('removeTask', task)
+        },
+        saveGroup(group){
+            this.$emit('saveGroup', group)
         }
     },
     computed: {
