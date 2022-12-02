@@ -180,7 +180,7 @@ const boards = [
                 boardId: 'b101',
                 archivedAt: 1589983468418,
                 style: {
-                    color: 'rgb(151,99,212)'
+                    backgroundColor: 'rgb(151,99,212)'
                 },
                 tasks: [
                     {
@@ -188,6 +188,21 @@ const boards = [
                         boardId: 'b101',
                         groupId: 'sc7aw',
                         title: 'Present Monday',
+                        status: 'Unattained',
+                        priority: 'High',
+                        date: 1590999817436,
+                        timeline: {
+                            start: {
+                                month: 10,
+                                day: 20,
+                                year: 2022
+                            },
+                            end: {
+                                month: 11,
+                                day: 12,
+                                year: 2022
+                            }
+                        },
                         comments: [
                             {
                                 _id: 'ZdPnm',
@@ -219,9 +234,6 @@ const boards = [
                                 imgUrl: 'src/assets/imgs/tomer-avatar.png'
                             }
                         ],
-                        status: 'Unattained',
-                        date: 1590999817436,
-                        priority: 'High',
                         link: {
                             url: 'https://sprint-4-company.monday.com/boards/3590839107/pulses/3590900012',
                             title: 'Monday'
@@ -241,18 +253,45 @@ const boards = [
                             }
                         ],
                         status: 'Unattained',
-                        date: 1590999817436,
                         priority: 'High',
+                        date: 1590999817436,
                         link: {
                             url: 'https://sprint-4-company.monday.com/boards/3590839107/pulses/3590923229',
                             title: 'Monday'
                         },
+                        timeline: {
+                            start: {
+                                month: 10,
+                                day: 30,
+                                year: 2022
+                            },
+                            end: {
+                                month: 11,
+                                day: 13,
+                                year: 2022
+                            }
+                        }
                     },
                     {
                         _id: 'bg754',
                         boardId: 'b101',
                         groupId: 'sc7aw',
                         title: 'Make the project ours',
+                        status: 'Working on it',
+                        priority: 'Critical',
+                        date: 1590999817436,
+                        timeline: {
+                            start: {
+                                month: 11,
+                                day: 3,
+                                year: 2022
+                            },
+                            end: {
+                                month: 11,
+                                day: 13,
+                                year: 2022
+                            }
+                        },
                         persons: [
                             {
                                 _id: 'u102',
@@ -260,9 +299,8 @@ const boards = [
                                 imgUrl: `src/assets/imgs/refael-avatar.png`
                             }
                         ],
-                        status: 'Unattained',
-                        date: 1590999817436,
-                        priority: 'Medium',
+
+
                     },
                     {
                         _id: 's0dme',
@@ -289,7 +327,18 @@ const boards = [
                         status: 'Unattained',
                         date: 1590999817436,
                         priority: 'Low',
-                        timeline: 1591086217436
+                        timeline: {
+                            start: {
+                                month: 10,
+                                day: 12,
+                                year: 2022
+                            },
+                            end: {
+                                month: 11,
+                                day: 30,
+                                year: 2022
+                            }
+                        },
                     }
                 ],
                 style: {}
@@ -299,7 +348,7 @@ const boards = [
                 title: 'Working on it',
                 boardid: 'g199',
                 style: {
-                    color: 'rgb(242,174,84)'
+                    backgroundColor: '#fdac3d'
                 },
                 tasks: [
                     {
@@ -308,7 +357,20 @@ const boards = [
                         groupId: 'sd93d',
                         title: 'Get familiar with features',
                         date: 1589983468418,
-                        priority: 'Critical'
+                        priority: 'Critical',
+                        status: 'High',
+                        timeline: {
+                            start: {
+                                month: 11,
+                                day: 1,
+                                year: 2022
+                            },
+                            end: {
+                                month: 1,
+                                day: 1,
+                                year: 2023
+                            }
+                        },
                     },
                     {
                         _id: 'adc8w',
@@ -316,7 +378,20 @@ const boards = [
                         groupId: 'sd93d',
                         title: 'Build demo data',
                         date: 1589983468418,
+                        timeline: {
+                            start: {
+                                month: 0,
+                                day: 1,
+                                year: 2023
+                            },
+                            end: {
+                                month: 0,
+                                day: 10,
+                                year: 2023
+                            }
+                        },
                         priority: 'Critical',
+                        status: 'Stuck',
                         comments: [
                             {
                                 _id: 'ZdPnm',
@@ -349,7 +424,20 @@ const boards = [
                         groupId: 'sd93d',
                         title: 'Build flow',
                         date: 1589983468418,
-                        priority: 'Critical'
+                        timeline: {
+                            start: {
+                                month: 9,
+                                day: 30,
+                                year: 2022
+                            },
+                            end: {
+                                month: 11,
+                                day: 13,
+                                year: 2022
+                            }
+                        },
+                        priority: 'Critical',
+                        status: 'Done'
                     },
                 ],
             },
@@ -358,7 +446,7 @@ const boards = [
                 title: 'Done',
                 createdAt: 234850123,
                 style: {
-                    color: 'rgb(236,105,192)'
+                    color: '#ba3254'
                 },
                 'byMember':
                 {
@@ -373,12 +461,29 @@ const boards = [
                         groupId: 'asj23',
                         title: 'First team meeting',
                         date: 1589983468418,
+                        timeline: {
+                            start: {
+                                month: 11,
+                                day: 1,
+                                year: 2022
+                            },
+                            end: {
+                                month: 11,
+                                day: 20,
+                                year: 2022
+                            }
+                        },
+                        priority: 'Medeium',
+                        status: 'Working on it'
                     }
                 ]
             },
             {
                 _id: 'ascw2',
                 title: 'Near future tasks',
+                style: {
+                    backgroundColor: '#794bd1'
+                },
                 tasks: [
                     {
                         _id: 'dcwq34',
@@ -386,6 +491,20 @@ const boards = [
                         groupId: 'ascw2',
                         title: 'Meet up with team leader',
                         date: 1589983468418,
+                        timeline: {
+                            start: {
+                                month: 10,
+                                day: 1,
+                                year: 2022
+                            },
+                            end: {
+                                month: 11,
+                                day: 17,
+                                year: 2022
+                            }
+                        },
+                        status: 'Stuck',
+                        priority: 'High'
                     },
                     {
                         _id: 'sdc73',
@@ -393,6 +512,20 @@ const boards = [
                         groupId: 'ascw2',
                         title: 'Come up with design _ideas',
                         date: 1589983468418,
+                        timeline: {
+                            start: {
+                                month: 11,
+                                day: 3,
+                                year: 2022
+                            },
+                            end: {
+                                month: 0,
+                                day: 19,
+                                year: 2023
+                            }
+                        },
+                        status: 'Working on it',
+                        priority: 'Low'
                     },
                     {
                         _id: 'dcwq34',
@@ -400,6 +533,20 @@ const boards = [
                         groupId: 'ascw2',
                         title: 'Think about app architecture',
                         date: 1589983468418,
+                        timeline: {
+                            start: {
+                                month: 10,
+                                day: 30,
+                                year: 2022
+                            },
+                            end: {
+                                month: 11,
+                                day: 3,
+                                year: 2022
+                            }
+                        },
+                        status: 'Unattained',
+                        priority: 'Critical'
                     },
                 ]
             },
@@ -408,7 +555,7 @@ const boards = [
                 title: 'Bugs',
                 createdAt: 238392842234,
                 style: {
-                    color: 'rgb(55,124,80)'
+                    color: '#4fccc6'
                 },
                 byMember: {
                     _id: 'u103',
@@ -436,7 +583,7 @@ const boards = [
                 ],
             }
         ],
-        cmpsOrder: ['persons', 'status', 'date', 'text', 'numbers', 'timline', 'link']
+        cmpsOrder: ['person', 'priority', 'status', 'date', 'text', 'numbers', 'timeline', 'link']
     },
     {
         _id: 'b102',
@@ -467,20 +614,24 @@ const boards = [
                 title: 'PR conference',
                 archivedAt: 1589983468418,
                 style: {
-                    color: 'rgb(126,203,250)'
+                    backgroundColor: '#ff642e'
                 },
                 tasks: [
                     {
                         _id: 'c101',
                         boardId: 'b102',
                         groupId: 'g101',
-                        title: 'Talk to Oprah'
+                        title: 'Talk to Oprah',
+                        status: 'Stuck',
+                        priority: 'Critical',
                     },
                     {
                         _id: 'c102',
                         boardId: 'b102',
                         groupId: 'g101',
-                        title: 'Get rich'
+                        title: 'Get rich',
+                        status: 'Working on it',
+                        priority: 'High',
                     }
                 ]
             },
@@ -496,7 +647,7 @@ const boards = [
                     imgUrl: 'src/assets/imgs/tomer-avatar.png'
                 },
                 style: {
-                    color: 'rgb(90,196,125)'
+                    color: '#047f4b'
                 },
                 tasks: [
                     {
@@ -504,6 +655,8 @@ const boards = [
                         boardId: 'b102',
                         groupId: 'g102',
                         title: 'Do that',
+                        status: 'Unattained',
+                        priority: 'Medium',
                         date: 1589983468418,
                     },
                     {
@@ -512,7 +665,7 @@ const boards = [
                         groupId: 'g102',
                         title: 'Help me',
                         status: 'Working on it', // monday
-                        priority: 'high',
+                        priority: 'Low',
                         description: 'description',
                         comments: [
                             {
@@ -570,16 +723,16 @@ const boards = [
                 ],
             }
         ],
-        cmpsOrder: ['status-picker', 'member-picker', 'date-picker']
+        cmpsOrder: ['person', 'priority', 'status', 'date', 'text', 'numbers', 'timeline', 'link']
     }
 ]
 
-function _connectIds(board){
+function _connectIds(board) {
     board._id = utilService.makeId()
     board.groups.forEach(group => {
         group._id = utilService.makeId()
         group.boardId = board._id
-        group.tasks.forEach(task=>{
+        group.tasks.forEach(task => {
             task._id = utilService.makeId()
             task.boardId = board._id
             task.groupId = group._id

@@ -5,7 +5,8 @@ export const utilService = {
     debounce,
     randomPastTime,
     saveToStorage,
-    loadFromStorage
+    loadFromStorage,
+    getReasonableTimeDiff
 }
 
 function makeId(length = 6) {
@@ -45,14 +46,14 @@ function randomPastTime() {
     return Date.now() - pastTime
 }
 
-function debounce(func, timeout = 300){
-    console.log(`12:`, )
+function debounce(func, timeout = 300) {
+    console.log(`12:`,)
     console.log(`func:`, func)
     let timer
     return (...args) => {
         console.log(`args:`, args)
-      clearTimeout(timer)
-      timer = setTimeout(() => { func.apply(this, args) }, timeout)
+        clearTimeout(timer)
+        timer = setTimeout(() => { func.apply(this, args) }, timeout)
     }
 }
 
@@ -63,4 +64,76 @@ function saveToStorage(key, value) {
 function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
+}
+
+
+Date.DateDiff = function (p_Interval, p_Date1, p_Date2, p_FirstDayOfWeek = 1) {
+    // p_FirstDayOfWeek = (isNaN(p_FirstDayOfWeek) || p_FirstDayOfWeek == 0) ? 1 : parseInt(p_FirstDayOfWeek);
+
+    var dt1 = new Date(p_Date1);
+    var dt2 = new Date(p_Date2);
+
+    //correct Daylight Savings Ttime (DST)-affected intervals ("d" & bigger)
+    if ("h,n,s,ms".indexOf(p_Interval.toLowerCase()) == -1) {
+        if (p_Date1.toString().indexOf(":") == -1) { dt1.setUTCHours(0, 0, 0, 0) };	// no time, assume 12am
+        if (p_Date2.toString().indexOf(":") == -1) { dt2.setUTCHours(0, 0, 0, 0) };	// no time, assume 12am
+    }
+
+
+    // get ms between UTC dates and make into "difference" date
+    var iDiffMS = dt2.valueOf() - dt1.valueOf();
+    var dtDiff = new Date(iDiffMS);
+
+    // calc various diffs
+    var nYears = dt2.getUTCFullYear() - dt1.getUTCFullYear();
+    var nMonths = dt2.getUTCMonth() - dt1.getUTCMonth() + (nYears != 0 ? nYears * 12 : 0);
+    var nQuarters = parseInt(nMonths / 3);
+
+    var nMilliseconds = iDiffMS;
+    var nSeconds = parseInt(iDiffMS / 1000);
+    var nMinutes = parseInt(nSeconds / 60);
+    var nHours = parseInt(nMinutes / 60);
+    var nDays = parseInt(nHours / 24);	//now fixed for DST switch days
+    var nWeeks = parseInt(nDays / 7);
+
+    if (p_Interval.toLowerCase() == 'ww') {
+        // set dates to 1st & last FirstDayOfWeek
+        var offset = Date.DatePart("w", dt1, p_FirstDayOfWeek) - 1;
+        if (offset) { dt1.setDate(dt1.getDate() + 7 - offset); }
+        var offset = Date.DatePart("w", dt2, p_FirstDayOfWeek) - 1;
+        if (offset) { dt2.setDate(dt2.getDate() - offset); }
+        // recurse to "w" with adjusted dates
+        var nCalWeeks = Date.DateDiff("w", dt1, dt2) + 1;
+    }
+
+    // return difference
+    switch (p_Interval.toLowerCase()) {
+        case "yyyy": return nYears;
+        case "q": return nQuarters;
+        case "m": return nMonths;
+        case "y": // day of year
+        case "d": return nDays;
+        case "w": return nWeeks;
+        case "ww": return nCalWeeks; // week of year	
+        case "h": return nHours;
+        case "n": return nMinutes;
+        case "s": return nSeconds;
+        case "ms": return nMilliseconds;
+        default: return "invalid interval: '" + p_Interval + "'";
+    }
+}
+
+function getReasonableTimeDiff(formerTime, latterTime) {
+    console.log(`formerTime`, formerTime)
+    // const formerTimeStamp = _stringToTimeStamp(formerTime)
+    // const lattrTimeStamp = _stringToTimeStamp(latterTime)
+    return Date.DateDiff('d', formerTime, latterTime)
+}
+
+function _stringToTimeStamp(date) {
+    const { day, month } = date
+    const year = date.year
+        ? date.year
+        : (Date.now()).getFullYear()
+    return (new Date(year, month, day)).getTime()
 }
