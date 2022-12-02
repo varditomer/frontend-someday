@@ -66,8 +66,9 @@ export default {
             this.$emit('filter', { ...this.filter })
         },
         clearFilter() {
+            this.isFiltering = false
             this.filter = {}
-            this.setFilter()
+            this.$emit('filter', { ...this.filter })
         },
 
     },
