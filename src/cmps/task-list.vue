@@ -23,8 +23,8 @@
         </li>
         <draggable v-model="tasks" :group="{ name: 'groups' }" animation="150" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
-                <task-preview :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users"
-                    @removeTask="removeTask" />
+                <task-preview @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder"
+                    :users="users" @removeTask="removeTask" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -56,13 +56,14 @@
 import draggable from 'vuedraggable'
 import taskPreview from './task-preview.vue'
 export default {
+    name: 'task-list',
+    emits: ['saveTask', 'removeTask'],
     props: {
         tasks: Array,
         cmpsOrder: Array,
         users: Array,
         group: Object
     },
-    name: 'task-list',
     components: {
         taskPreview,
         draggable
@@ -93,6 +94,9 @@ export default {
         },
         removeTask(task) {
             this.$emit('removeTask', task)
+        },
+        updateTask(task) {
+            this.$emit('saveTask', task)
         },
         async saveBoard(ev) {
             const { oldIndex, newIndex } = ev

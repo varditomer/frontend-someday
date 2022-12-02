@@ -44,7 +44,7 @@ async function save(task, bool) {
     if (task._id) {
         const idx = group.tasks.findIndex(anyTask => anyTask._id === task._id)
         if (idx === -1) return Promise.reject('Task not found and cannot be updated')
-        group.tasks[idx] = savedTask
+        group.tasks[idx] = task
     } else {
         savedTask = { ...task, _id: utilService.makeId() }
         if (!bool) group.tasks.push(savedTask)
