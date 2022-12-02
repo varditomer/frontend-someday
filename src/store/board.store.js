@@ -130,9 +130,9 @@ export const boardStore = {
                 throw err
             }
         },
-        async getBoardById({ commit }, { id }) {
+        async getBoardById({ commit }, { filterBy }) {
             try {
-                const board = await boardService.getById(id)
+                const board = await boardService.getById(filterBy)
                 commit({ type: 'setBoard', board })
             } catch (err) {
                 console.log('Could not find board');
