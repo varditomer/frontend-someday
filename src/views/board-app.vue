@@ -41,7 +41,6 @@ export default {
         },
         setFilter(filter) {
             const filterBy = {id: this.board._id, filter}
-            console.log(`filterBy:`, filterBy)
             this.$store.dispatch({ type: 'getBoardById' , filterBy})
         }
     },

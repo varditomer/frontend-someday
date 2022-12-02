@@ -1,13 +1,20 @@
 .group-preview {
     margin-bottom: 28px;
     padding-right: 12px;
+
     .group-title {
         margin-left: 40px;
         height: 40px;
         cursor: grab
     }
 
-    .minimized{
+    .minimized {
         border: 1px solid $brdr-clr;
+    }
+
+    .highlight {
+        background-color: lighten($btn-active, 4%);
+        background-color: lighten($btn-active, 4%);
+        font-family: roboto-italic;
     }
 }

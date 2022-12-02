@@ -50,16 +50,25 @@ async function getById(filterBy) {
     // console.log(`boardId-boardService:`, boardId)
     const board = await storageService.get(BOARD_STORAGE_KEY, filterBy.id)
     if (filterBy.filter.txt) {
-        const regex = new RegExp(filterBy.filter.txt, 'i')
-        board.groups=  board.groups.reduce((groupArr, group)=>{
+        const regex = new RegExp(filterBy.filter.txt, 'ig')
+        board.groups = board.groups.reduce((groupArr, group) => {
             if (regex.test(group.title)) {
+                group.title = group.title.replaceAll(regex, match =>`<span class="highlight">${match}</span>`)
+                console.log(`group.title`, group.title)
                 groupArr.push(group)
                 return groupArr
             }
-            group.tasks = group.tasks.filter(task =>regex.test(task.title))
+            group.tasks = group.tasks.reduce((taskArr, task) => {
+                if (regex.test(task.title)) {
+                    task.title = task.title.replaceAll(regex, match =>`<span class="highlight">${match}</span>`)
+                    taskArr.push(task)
+                }
+                return taskArr
+            }, [])
             if (group.tasks.length) groupArr.push(group)
             return groupArr
-        },[])
+        }, [])
+        
     }
     return board
 }
