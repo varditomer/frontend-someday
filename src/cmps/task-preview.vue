@@ -20,8 +20,7 @@
                     <span v-else v-svg-icon="'addComment'" class="task-comment-icon"></span>
                 </div>
             </router-link>
-
-            <component v-for="(column, idx) in cmpsOrder" :is="column + 'Task'" :prop="task[column]" :users="users"
+            <component v-for="(column, idx) in cmpsOrder" :is="column + 'Task'" :prop="task[column]" :users="users" :color="group.style"
                 :key="idx">
             </component>
             <span class="empty-span"></span>
@@ -34,11 +33,12 @@
 <script>
 import dateTask from './task-columns/date.vue'
 import linkTask from './task-columns/link.vue'
-import personsTask from './task-columns/persons.vue'
+import personTask from './task-columns/person.vue'
 import statusTask from './task-columns/status.vue'
 import numbersTask from './task-columns/numbers.vue'
 import textTask from './task-columns/text.vue'
 import timelineTask from './task-columns/timeline.vue'
+import priorityTask from './task-columns/priority.vue'
 import regularModal from './dynamic-modals/regular-modal.vue'
 
 export default {
@@ -48,8 +48,13 @@ export default {
         task: Object,
         cmpsOrder: Array,
         users: Array,
+        group: {
+            type: Object,
+            required: true
+        }
     },
     created() {
+
     },
     data() {
         return {
@@ -86,7 +91,6 @@ export default {
     },
     methods: {
         read(task) {
-            console.log(task);
         },
         lineOptions() {
             this.isModalOpen = true
@@ -114,10 +118,11 @@ export default {
     components: {
         dateTask,
         linkTask,
-        personsTask,
+        personTask,
         statusTask,
         numbersTask,
         textTask,
+        priorityTask,
         timelineTask,
         regularModal
     }

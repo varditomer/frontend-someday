@@ -4,7 +4,7 @@
             :class="{ cover: person.imgUrl }" :title="person.fullname">
             {{ !person.imgUrl ? person.initials : '' }}
         </span>
-        <span v-else> </span>
+        <span v-else></span>
         <triangle-modal :users="users" :persons="formattedPersons" :cmp="'personsModal'" @hideModal="(show=false)"
             v-if="show" />
     </section>
@@ -22,6 +22,8 @@ export default {
         return {
             show: false
         }
+    },
+    creadted(){
     },
     computed: {
         formattedPersons() {

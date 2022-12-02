@@ -24,7 +24,7 @@
         <draggable v-model="tasks" :group="{ name: 'groups' }" animation="150" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder"
-                    :users="users" @removeTask="removeTask" />
+                    :users="users" :group="group" @removeTask="removeTask" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -78,6 +78,9 @@ export default {
             groupId: this.group._id,
             boardId: this.group.boardId
         }
+
+        // console.log(`this.group._id`, this.group._id)
+        // console.log(`this.group.style`, this.group.style)
     },
     methods: {
         addTask() {
