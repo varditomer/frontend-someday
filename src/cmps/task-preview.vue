@@ -55,7 +55,7 @@ export default {
         }
     },
     created() {
-        console.log(`this.task`, this.task)
+
     },
     data() {
         return {
@@ -92,7 +92,6 @@ export default {
     },
     methods: {
         read(task) {
-            console.log(task);
         },
         lineOptions() {
             this.isModalOpen = true
