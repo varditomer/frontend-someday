@@ -1,34 +1,10 @@
 <template>
 
-  <!-- <div class="main">
-    <ul class="task-list">
-      <li v-for="task in tasks" :key="task._id">
-        <p>
-          {{ task.vendor }}
-        </p>
-        <p>
-          ${{ task.price?.toLocaleString() }}
-        </p>
-        <button @click="removeTask(task._id)">x</button>
-        <button @click="updateTask(task)">Update</button>
-        <hr />
-        <button @click="addTaskMsg(task._id)">Add task msg</button>
-        <button @click="printTaskToConsole(task)">Print msgs to console</button>
-
-      </li>
-    </ul>
-    <form @submit.prevent="addTask()">
-      <h2>Add task</h2>
-      <input type="text" v-model="taskToAdd.vendor" />
-      <button>Save</button>
-    </form>
-  </div> -->
 </template>
 
 <script>
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { boardService } from '../services/board.service.local'
-import { getActionRemoveBoard, getActionUpdateBoard, getActionAddBoardMsg } from '../store/board.store'
 
 import taskNav from '../cmps/task-nav.vue'
 import taskWorkspace from '../cmps/board-workspace.vue'
@@ -38,7 +14,7 @@ import taskFilter from '../cmps/board-filter.vue'
 export default {
   data() {
     return {
-      boardToAdd: {}||boardService.getEmptyTask()
+      boardToAdd: {} || boardService.getEmptyTask()
     }
   },
   computed: {

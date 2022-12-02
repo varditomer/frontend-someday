@@ -4,7 +4,7 @@
     <h5 class="text-center">
       Powered up Frontend
     </h5>
-    <router-link :to="('/board/' + firstBoardId)">
+    <router-link :to="('/board/' + board._id)">
       <button>Start demo</button>
     </router-link>
   </section>
@@ -16,8 +16,8 @@
 export default {
   name: 'home',
   computed: {
-    firstBoardId() {
-      return this.$store.getters.firstBoardId
+    board() {
+      return this.$store.getters.board
     }
   },
 
