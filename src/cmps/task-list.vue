@@ -79,9 +79,6 @@ export default {
             groupId: this.group._id,
             boardId: this.group.boardId
         }
-
-        // console.log(`this.group._id`, this.group._id)
-        // console.log(`this.group.style`, this.group.style)
     },
     methods: {
         addTask() {
@@ -105,10 +102,6 @@ export default {
         async saveBoard(ev) {
             const { oldIndex, newIndex } = ev
             // const group = this.$store.getters.groups.find(group => group._id === this.tasks[0].groupId)
-            // console.log(`group`, group)
-            console.log(`oldIndex`, oldIndex)
-            console.log(`newIndex`, newIndex)
-            // console.log(`ev`, ev)
             // const originGroupId = ev.item.__draggable_context.element.groupId
             // this.$store.dispatch({ type: 'loadGroups' })
             // const { groupId } = this.tasks[0]

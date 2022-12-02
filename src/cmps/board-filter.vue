@@ -52,12 +52,10 @@ export default {
             this.$emit('addGroup')
         },
         openModal(modalName) {
-            console.log(`openModal:`, modalName)
             this.modalName = modalName
             this.isModalOpen = true
         },
         searchClicked() {
-            console.log(`refael:`,)
             this.isSearchClicked = true
             document.querySelector('.search-tasks input').focus()
         },

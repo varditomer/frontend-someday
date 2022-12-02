@@ -67,9 +67,6 @@ export default {
         showErrorMsg('Cannot add task msg')
       }
     },
-    printTaskToConsole(task) {
-      console.log('Task msgs:', task.msgs)
-    }
   },
   components: {
     taskNav,

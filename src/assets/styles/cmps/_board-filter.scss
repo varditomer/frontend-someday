@@ -3,9 +3,35 @@
     gap: 20px;
     position: relative;
 
+    >* {
+        @include btn;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+
+        button {
+            background-color: transparent;
+            padding: 0;
+            padding-right: 10px;
+            font-family: roboto-regular;
+            font-size: rem(14px);
+            color: $layout-black;
+        }
+
+        svg {
+            fill: $layout-black;
+        }
+
+        &:hover {
+            background-color: $brdr-clr;
+        }
+    }
+
     .add-new-btns {
         background-color: $primamry-blue;
-        
+
 
         button {
             color: white;
@@ -43,72 +69,53 @@
 
     }
 
-    .person-attach {
-        svg {
-            margin-left: 5px
-        }
-    }
-
     .search-tasks {
         position: relative;
+
         &.input-open {
             outline: 1px solid $primamry-blue
         }
+
         &.filtering {
             background-color: $fltr-bgc;
         }
+
         .cancel {
             position: absolute;
             right: 8px;
-                svg {
-                    fill: $primamry-blue;
-                    scale: 0.8;
-                }
+
+            svg {
+                fill: $primamry-blue;
+                scale: 0.8;
+            }
         }
+
         input {
-            &::placeholder{
+            &::placeholder {
                 color: $layout-black;
             }
 
-                
+
             background-color: transparent;
             width: 60px;
             transition: width .4s;
             height: 100%;
             cursor: pointer;
+
             &.open {
                 width: 190px;
                 cursor: text;
             }
         }
+
         svg {
             margin-left: 5px
         }
     }
 
-    >* {
-        @include btn;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-
-
-        button {
-            background-color: transparent;
-            padding: 0;
-            padding-right: 10px;
-            font-family: roboto-regular;
-            font-size: rem(14px);
-            color: $layout-black;
-        }
-
+    .person-attach {
         svg {
-            fill: $layout-black;
-        }
-
-        &:hover {
-            background-color: $brdr-clr;
+            margin-left: 5px
         }
     }
 

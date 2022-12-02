@@ -4,12 +4,12 @@
             <div class="person">
                 <span :style="p.style" class="task-avatar"></span>
                 <p>{{ p.fullname }}</p>
-                <span v-svg-icon="'smallExit'" class="remove-person-btn"></span>
+                <span @click="removePerson(p._id)" v-svg-icon="'smallExit'" class="remove-person-btn"></span>
             </div>
         </div>
         <p v-if="personsToAdd.length" class="suggested-persons">Suggested people</p>
         <div class="not-active-persons">
-            <div v-for="person in personsToAdd" class="not-active-person">
+            <div @click="addPerson(person._id)" v-for="person in personsToAdd" class="not-active-person">
                 <div>
                     <img :src="person.imgUrl" />
                     <p>{{ person.fullname }}</p>
@@ -21,6 +21,7 @@
 <script>
 export default {
     name: 'persons-modal',
+    emits: ['addPerson','removePerson'],
     props: {
         persons: {
             type: Array,
@@ -33,11 +34,11 @@ export default {
     },
     computed: {
         personsToAdd() {
-            if (this.users.length === this.persons.length) return []
             let notActiveUsers = []
+            if (!this.persons.length) return this.users
+            if (this.users.length === this.persons.length) return []
             this.users.forEach(user => {
                 this.persons.forEach(person => {
-                    console.log(person._id, user._id);
                     if (person._id === user._id) return
                     notActiveUsers.push(user)
                 })
@@ -45,5 +46,15 @@ export default {
             return notActiveUsers
         }
     },
+    methods: {
+        addPerson(personId) {
+            console.log('Adding', personId);
+            this.$emit('addPerson', personId)
+        },
+        removePerson(personId) {
+            console.log('Removing', personId);
+            this.$emit('removePerson', personId)
+        }
+    }
 }
 </script>
