@@ -1,18 +1,20 @@
 <template>
     <section class='group-preview'>
-        <div class="group-title flex align-center" :class="{minimized:!viewTasks}">
+        <div class="group-title flex align-center" :class="{ minimized: !viewTasks }">
             <div class="options hidden flex center">
                 <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="group-arrow" v-svg-icon="'arrowDown'" @click="toggleTaskView"></span>
-            <h4 v-html="group.title"></h4>
+            <h4 :style="{ color: group.style.color}" v-html="group.title"></h4>
         </div>
-        <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users" :priorities="priorities" @saveTask="saveTask" @removeTask="removeTask"/>
+        <task-list v-if="viewTasks" :tasks="group.tasks"
+            :group="group" :cmpsOrder="cmpsOrder" :users="users" :priorities="priorities" @saveTask="saveTask"
+            @removeTask="removeTask" />
     </section>
 </template>
 <script>
 import taskList from './task-list.vue'
-import {eventBus} from '../services/event-bus.service.js'
+import { eventBus } from '../services/event-bus.service.js'
 export default {
     name: 'group-preview',
     props: {
@@ -21,24 +23,24 @@ export default {
         users: Array,
         priorities: Array,
     },
-    data(){
+    data() {
         return {
-            viewTasks:true
+            viewTasks: true
         }
     },
-    mounted(){
+    mounted() {
         eventBus.on('minimzed-groups', minimzeGroup => {
             this.viewTasks = !minimzeGroup
         })
     },
     methods: {
-        toggleTaskView(){
+        toggleTaskView() {
             this.viewTasks = !this.viewTasks
         },
-        saveTask(task){
+        saveTask(task) {
             this.$emit('saveTask', task)
         },
-        removeTask(task){
+        removeTask(task) {
             this.$emit('removeTask', task)
         }
     },

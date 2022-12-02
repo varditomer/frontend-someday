@@ -21,7 +21,7 @@
 <script>
 export default {
     name: 'persons-modal',
-    emits: ['addPerson','removePerson'],
+    emits: ['addPerson', 'removePerson'],
     props: {
         persons: {
             type: Array,
@@ -34,25 +34,20 @@ export default {
     },
     computed: {
         personsToAdd() {
-            let notActiveUsers = []
             if (!this.persons.length) return this.users
             if (this.users.length === this.persons.length) return []
-            this.users.forEach(user => {
-                this.persons.forEach(person => {
-                    if (person._id === user._id) return
-                    notActiveUsers.push(user)
-                })
+            return this.users.filter(user => {
+                if (this.persons.find(p => p._id === user._id)) return false
+                return true
             })
-            return notActiveUsers
         }
     },
     methods: {
         addPerson(personId) {
-            console.log('Adding', personId);
-            this.$emit('addPerson', personId)
+            const user = this.users.find(user => user._id === personId)
+            this.$emit('addPerson', user)
         },
         removePerson(personId) {
-            console.log('Removing', personId);
             this.$emit('removePerson', personId)
         }
     }
