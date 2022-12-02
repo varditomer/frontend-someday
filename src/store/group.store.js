@@ -37,7 +37,7 @@ export const groupStore = {
                 await this.groupService.save(group)
                 commit({ type: 'saveGroup', group })
                 const filterBy = {id: group.boardId, filter:''}
-                dispatch({ type: 'getBoardById', filterBy })
+                dispatch({ type: 'queryBoard', filterBy })
 
             } catch (err) {
                 console.log(`Cannot save group`, err)

@@ -6,10 +6,13 @@
         // margin-left: 40px;
         height: 40px;
         cursor: grab;
-        .group-arrow, .options {
+
+        .group-arrow,
+        .options {
 
             width: 36px;
         }
+
         &:hover {
             // background-color: $wrkspce-bgc;
 
@@ -38,7 +41,5 @@
 
     .highlight {
         background-color: lighten($btn-active, 4%);
-        background-color: lighten($btn-active, 4%);
-        font-family: roboto-italic;
     }
 }

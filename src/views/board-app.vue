@@ -1,10 +1,10 @@
 <template>
     <section class="main-app-container">
         <task-nav />
-        <board-workspace @addBoard="addBoard"/>
+        <board-workspace @addBoard="addBoard" />
         <section class='board-app-container'>
-            <board-header @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter"/>
-            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" :board="board"/>
+            <board-header @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter" />
+            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" :board="board" />
         </section>
         <router-view />
     </section>
@@ -30,18 +30,17 @@ export default {
         removeTask(task) {
             this.$store.dispatch({ type: 'removeTask', task })
         },
-            saveEmptyTask() {
+        saveEmptyTask() {
             this.$store.dispatch({ type: 'saveEmptyTask' })
         },
-        addBoard(){
+        addBoard() {
             this.$store.dispatch({ type: 'addBoard' })
         },
-        addGroup(){
+        addGroup() {
             this.$store.dispatch({ type: 'addGroup' })
         },
         setFilter(filter) {
-            const filterBy = {id: this.board._id, filter}
-            this.$store.dispatch({ type: 'getBoardById' , filterBy})
+            this.$store.dispatch({ type: 'queryBoard', id: this.board._id, filter })
         }
     },
     computed: {
@@ -51,11 +50,19 @@ export default {
         route() {
             return this.$route.params.id
         },
-        board(){
+        board() {
             return this.$store.getters.board
         }
 
     },
+    async created() {
+        const { id } = this.$route.params
+        try {
+            await this.$store.dispatch({ type: 'queryBoard', id })
+        } catch (err) {
+            this.$router.push('/')
+        }
+    }
 }
 
 

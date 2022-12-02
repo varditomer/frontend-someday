@@ -36,7 +36,6 @@ export const boardStore = {
     },
     getters: {
         board({ board }) { return board },
-        firstBoardId({ firstBoardId }) { return firstBoardId },
         boardsTitles({ boardsTitles }) { return boardsTitles },
         miniBoards({ miniBoards }) { return miniBoards },
     },
@@ -130,19 +129,21 @@ export const boardStore = {
                 throw err
             }
         },
-        async getBoardById({ commit }, { filterBy }) {
+        async queryBoard({ commit }, payload) {
             try {
-                const board = await boardService.getById(filterBy)
+                const { id } = payload
+                const board = await boardService.queryBoard(id, payload.filter)
                 commit({ type: 'setBoard', board })
             } catch (err) {
                 console.log('Could not find board');
+                throw new Error()
             }
 
         },
-        async getFirstBoardId({ commit }) {
+        async getFirstBoard({ commit }) {
             try {
-                const boardId = await boardService.getFirstBoardId()
-                commit({ type: 'setFirstBoardId', boardId })
+                const board = await boardService.getFirstBoard()
+                commit({ type: 'setBoard', board })
             } catch (err) {
                 console.log('Could not find board');
             }

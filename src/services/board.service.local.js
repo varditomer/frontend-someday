@@ -7,8 +7,8 @@ const BOARD_STORAGE_KEY = 'board'
 
 export const boardService = {
     getMiniBoards,
-    getById,
-    getFirstBoardId,
+    queryBoard,
+    getFirstBoard,
     getBoardsTitles,
     add,
     save,
@@ -17,16 +17,9 @@ export const boardService = {
 window.bs = boardService
 
 
-async function getFirstBoardId(filterBy) {
+async function getFirstBoard() {
     let boards = await storageService.query(BOARD_STORAGE_KEY)
-    // if (filterBy.txt) {
-    // const regex = new RegExp(filterBy.txt, 'i')
-    // board = board.filter(task => regex.test(task.title) || regex.test(task.description))
-    // }
-    // if (filterBy.price) {
-    //     board = board.filter(task => task.price <= filterBy.price)
-    // }
-    return boards[0]._id
+    return boards[0]
 }
 
 async function getBoardsTitles() {
@@ -46,21 +39,19 @@ async function getMiniBoards() {
     // return miniBoards
 }
 
-async function getById(filterBy) {
-    // console.log(`boardId-boardService:`, boardId)
-    const board = await storageService.get(BOARD_STORAGE_KEY, filterBy.id)
-    if (filterBy.filter.txt) {
-        const regex = new RegExp(filterBy.filter.txt, 'ig')
+async function queryBoard(boardId, filterBy = {}) {
+    const board = await storageService.get(BOARD_STORAGE_KEY, boardId)
+    if (filterBy.txt) {
+        const regex = new RegExp(filterBy.txt, 'ig')
         board.groups = board.groups.reduce((groupArr, group) => {
             if (regex.test(group.title)) {
-                group.title = group.title.replaceAll(regex, match =>`<span class="highlight">${match}</span>`)
-                console.log(`group.title`, group.title)
+                group.title = group.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
                 groupArr.push(group)
                 return groupArr
             }
             group.tasks = group.tasks.reduce((taskArr, task) => {
                 if (regex.test(task.title)) {
-                    task.title = task.title.replaceAll(regex, match =>`<span class="highlight">${match}</span>`)
+                    task.title = task.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
                     taskArr.push(task)
                 }
                 return taskArr
@@ -68,7 +59,6 @@ async function getById(filterBy) {
             if (group.tasks.length) groupArr.push(group)
             return groupArr
         }, [])
-        
     }
     return board
 }

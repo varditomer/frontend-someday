@@ -9,7 +9,7 @@ const STORAGE_KEY = 'task'
 
 export const taskService = {
     query,
-    getById,
+    queryBoard,
     save,
     remove,
     getEmptyTask,
@@ -32,7 +32,7 @@ async function query(filterBy = { txt: '', price: 0 }) {
     // return tasks
 
 }
-function getById(taskId) {
+function queryBoard(taskId) {
     // return storageService.get(STORAGE_KEY, taskId)
     return httpService.get(`task/${taskId}`)
 }
