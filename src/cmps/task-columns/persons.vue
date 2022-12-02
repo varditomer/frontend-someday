@@ -5,7 +5,8 @@
             {{ !person.imgUrl ? person.initials : '' }}
         </span>
         <span v-else> </span>
-        <triangle-modal :users="users" :persons="formattedPersons" :cmp="'personsModal'" @hideModal="(show=false)" v-if="show" />
+        <triangle-modal :users="users" :persons="formattedPersons" :cmp="'personsModal'" @hideModal="(show=false)"
+            v-if="show" />
     </section>
 </template>
 
