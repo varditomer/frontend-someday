@@ -1,10 +1,11 @@
 .board-filter {
     display: flex;
     gap: 20px;
+    position: relative;
 
     .add-new-btns {
         background-color: $btn-blue;
-        position: relative;
+        
 
         button {
             color: white;
