@@ -11,7 +11,7 @@ export const groupStore = {
             state.groups = groups
         },
         saveGroup(state, { group }) {
-            if (group._id) var idx = state.groups.findIdx(anyGroup => anyGroup._id === group._id)
+            if (group._id) var idx = state.groups.findIndex(anyGroup => anyGroup._id === group._id)
             else return this.groups.unshift(group)
             if (idx === -1) return
             state.groups[idx] = group
@@ -34,11 +34,10 @@ export const groupStore = {
         },
         async saveGroup({ dispatch, commit }, { group }) {
             try {
-                await this.groupService.save(group)
+                await groupService.save(group)
                 commit({ type: 'saveGroup', group })
-                const filterBy = {id: group.boardId, filter:''}
-                dispatch({ type: 'queryBoard', filterBy })
-
+                dispatch({ type: 'queryBoard', id: group.boardId, filter: '' })
+                console.log(`success`)
             } catch (err) {
                 console.log(`Cannot save group`, err)
             }
