@@ -23,7 +23,7 @@
                 </div>
             </router-link>
             <component v-for="(column, idx) in cmpsOrder" @updateTask="updateTask" @removePerson="removePerson"
-                @addPerson="addPerson" :is="column + 'Task'" :prop="task[column]" :users="users"
+                @setDate=setDate @addPerson="addPerson" :is="column + 'Task'" :prop="task[column]" :users="users"
                 :color="group.style.color" :key="idx" :priorities="priorities">
             </component>
             <span class="empty-span"></span>
