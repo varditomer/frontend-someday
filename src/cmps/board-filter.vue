@@ -8,8 +8,8 @@
             @click="searchClicked">
             <span v-svg-icon="'search'"></span>
             <input :class="{ 'open': isSearchClicked || isFiltering }" type="text" placeholder="Search"
-                @blur="(isSearchClicked = false)" @input="setFilter">
-            <span v-svg-icon="'cancel'" class="cancel" :class="{'hide': !isFiltering}"></span>
+                @blur="(isSearchClicked = false)" v-model="filter.txt" @input="setFilter">
+            <span v-svg-icon="'cancel'" class="cancel" :class="{ 'hide': !isFiltering }" @click="clearFilter"></span>
         </div>
         <div class="person-attach" @click="openModal('filterPersonModal')">
             <span v-svg-icon="'account'"></span>
@@ -39,7 +39,8 @@ export default {
             isModalOpen: false,
             modalName: '',
             isSearchClicked: false,
-            filter: {},
+            filter: {
+            },
             isFiltering: false,
         }
     },
@@ -56,15 +57,17 @@ export default {
             this.isModalOpen = true
         },
         searchClicked() {
-            console.log(`refael:`, )
+            console.log(`refael:`,)
             this.isSearchClicked = true
             document.querySelector('.search-tasks input').focus()
         },
-        setFilter(event) {
-            const filter = event.target.value
-            this.isFiltering = (filter) ? true : false
-            this.filter.txt = filter
-            this.$emit('filter', this.filter)
+        setFilter() {
+            this.isFiltering = (this.filter) ? true : false
+            this.$emit('filter', { ...this.filter })
+        },
+        clearFilter() {
+            this.filter = {}
+            this.setFilter()
         },
 
     },
