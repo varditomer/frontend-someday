@@ -14,18 +14,19 @@
         </section>
         <board-filter @addTask="$emit('addTask')" @addGroup="addGroup" />
     </section>
+
 </template>
 <script>
 import boardFilter from './board-filter.vue'
 export default {
     name: 'board-header',
-    methods:{
-        addGroup(){
+    methods: {
+        addGroup() {
             this.$emit('addGroup')
         }
     },
     components: {
-        boardFilter
+        boardFilter,
     },
     computed: {
         boardTitle() { return this.$store.getters.board.title }

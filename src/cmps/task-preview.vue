@@ -1,6 +1,6 @@
 <template>
     <section class="li-wrapper">
-        <option-modal :cmp="('task-option')" @openTask="openTask" @removeTask="removeTask"
+        <regular-modal :cmp="'task-options'" @openTask="openTask" @removeTask="removeTask"
             @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" />
         <li class="content-li">
             <div class="options hide flex center">
@@ -10,7 +10,8 @@
             <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
                 <div class="task-title-item">
                     <span>
-                        <p class="task-title">{{ task.title }}</p>
+                        <p @blur="updateTitle" @keydown.enter.prevent="updateTitle" @click.prevent="" class="task-title"
+                            contenteditable="true">{{ task.title }}</p>
                     </span>
                     <span v-if="task.comments?.length" class="task-comment-icon count-comment">
                         <span v-svg-icon="'commentCount'"></span>
@@ -38,10 +39,11 @@ import statusTask from './task-columns/status.vue'
 import numbersTask from './task-columns/numbers.vue'
 import textTask from './task-columns/text.vue'
 import timelineTask from './task-columns/timeline.vue'
-import optionModal from '../cmps/option-modal.vue'
+import regularModal from './dynamic-modals/regular-modal.vue'
 
 export default {
     name: 'task-preview',
+    emits: ['updateTask'],
     props: {
         task: Object,
         cmpsOrder: Array,
@@ -95,6 +97,18 @@ export default {
         removeTask() {
             this.$emit('removeTask', this.task)
             this.isModalOpen = false
+        },
+        updateTitle(ev) {
+            ev.target.blur()
+            console.log(ev.target.innerText);
+            const { _id, groupId, boardId } = this.task
+            const task = {
+                title: ev.target.innerText,
+                _id,
+                groupId,
+                boardId
+            }
+            this.$emit('updateTask', task)
         }
     },
     components: {
@@ -105,7 +119,7 @@ export default {
         numbersTask,
         textTask,
         timelineTask,
-        optionModal
+        regularModal
     }
 }
 </script>

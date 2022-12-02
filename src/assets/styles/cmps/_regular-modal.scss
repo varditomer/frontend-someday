@@ -1,0 +1,58 @@
+.regular-modal {
+    >* { //need to set position and other prefs. at children cmp
+        box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
+        border-radius: 10px;
+        position: absolute;
+        background: $clr--white;
+        z-index: 10;
+
+        .modal-group {
+            padding: 8px;
+    
+            .title {
+                flex: 1;
+                margin-left: 8px;
+    
+            }
+        }
+    }
+
+    .modal-item {
+        padding: 4px 8px;
+        border-radius: .3em;
+        cursor: pointer;
+
+        p{
+            font-size: rem(14px);
+        }
+
+        &:hover {
+            background-color: $brdr-clr;
+        }
+    }
+    
+// Dynamic modals (modal-children's) prefs set:
+
+    .task-options {
+        width: 225px;
+        top: 36px;
+        left: 11px;
+    }
+
+    // board-filters modals
+    .new-item-modal {
+        width: 220px;
+        top: 44px;
+        left: 75px;
+    }
+    .filter-person-modal {
+        width: 220px;
+        top: 44px;
+        left: 180px;
+    }
+
+
+}
+
+
+//264pxx
