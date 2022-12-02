@@ -22,7 +22,7 @@
                     <span v-else v-svg-icon="'addComment'" class="task-comment-icon"></span>
                 </div>
             </router-link>
-            <component v-for="(column, idx) in cmpsOrder" :is="column + 'Task'" :prop="task[column]" :users="users"
+            <component v-for="(column, idx) in cmpsOrder" @removePerson="removePerson" @addPerson="addPerson" :is="column + 'Task'" :prop="task[column]" :users="users"
                 :color="group.style.color" :key="idx" :priorities="priorities">
             </component>
             <span class="empty-span"></span>
@@ -114,6 +114,17 @@ export default {
                 groupId,
                 boardId
             }
+            this.$emit('updateTask', task)
+        },
+        addPerson(user) {
+            const task = this.task
+            task.person.push(user)
+            this.$emit('updateTask', task)
+        },
+        removePerson(userId) {
+            const task = this.task
+            const idx = task.person.findIndex(p => p._id === userId)
+            task.person.splice(idx, 1)
             this.$emit('updateTask', task)
         }
     },
