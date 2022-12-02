@@ -17,6 +17,7 @@ window.bs = groupService
 async function queryBoard(groupId, boardId) {
     if (!groupId || !boardId) return Promise.reject('Cannot get group')
     const board = await boardService.queryBoard(boardId)
+    console.log(board);
     if (!board) return Promise.reject('Board not found')
     return board.groups.find(anyGroup => anyGroup._id === groupId)
 }

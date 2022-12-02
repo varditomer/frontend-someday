@@ -359,7 +359,7 @@ const boards = [
             {
                 _id: 'sd93d',
                 title: 'Working on it',
-                boardid: 'g199',
+                boardId: 'b101',
                 style: {
                     color: '#fdac3d',
                     light: '#fdac3d99',
@@ -457,6 +457,7 @@ const boards = [
             },
             {
                 _id: 'asj23',
+                boardId: 'b101',
                 title: 'Done',
                 createdAt: 234850123,
                 style: {
@@ -495,6 +496,7 @@ const boards = [
             },
             {
                 _id: 'ascw2',
+                boardId: 'b101',
                 title: 'Near future tasks',
                 style: {
                     color: '#794bd1',
@@ -568,6 +570,7 @@ const boards = [
             },
             {
                 _id: 'a7scq',
+                boardId: 'b101',
                 title: 'Bugs',
                 createdAt: 238392842234,
                 style: {
