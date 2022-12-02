@@ -1,7 +1,7 @@
 .triangle-modal {
     position: absolute;
     min-width: 200px;
-    padding: 8px 12px;
+    padding: 10px 14px;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     background-color: white;
     border-radius: 5px;
@@ -12,8 +12,7 @@
 
     .persons-modal {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        flex-wrap: wrap;
         width: 326px;
 
         img {
@@ -22,14 +21,17 @@
         }
 
         .active-persons {
+            display: flex;
+            // flex-grow: 1;
+            margin-right: 10px;
             margin-bottom: 10px;
-            background-color: lighten($btn-active, 4%);
-            border-radius: 2em;
             font-size: rem(12px);
 
             .person {
                 display: flex;
                 align-items: center;
+                background-color: lighten($btn-active, 4%);
+                border-radius: 2em;
 
                 span {
                     width: 22px;
@@ -42,35 +44,52 @@
                     margin-top: 2px;
                     padding: 0;
                 }
+
+                .remove-person-btn {
+                    cursor: pointer;
+                    scale: .8;
+                }
             }
 
 
         }
 
-        >*:last-child{
+        >*:last-child {
             margin: 0;
         }
 
         .suggested-persons {
             color: $layout-gray;
+            flex-basis: 100%;
         }
 
         .not-active-persons {
-            >* {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            .not-active-person {
                 display: flex;
-                align-items: center;
-                margin-top: 6px;
-                padding: 6px;
-                border-radius: .4em;
-                cursor: pointer;
+                width: 100%;
 
-                &:hover{
-                    background-color: $brdr-clr;
-                    
-                }
 
-                p{
-                    padding-left: 8px;
+                >* {
+                    display: flex;
+                    width: 100%;
+                    align-items: center;
+                    margin-top: 6px;
+                    padding: 6px;
+                    border-radius: .4em;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: $brdr-clr;
+
+                    }
+
+                    p {
+                        padding-left: 8px;
+                    }
                 }
             }
         }
