@@ -2,7 +2,7 @@
     <section :style="getStyle" class="status-item" @click="(show = true)">
         {{ prop === 'Default' ? '' : prop }}
 
-        <triangle-modal :content="statuses" :name="'status'" @updateTask="updateTask" @hideModal="(show=false)"
+        <triangle-modal :content="statuses" :name="'status'" @updateTask="updateTask" @hideModal="(show = false)"
             :cmp="'task-label-modal'" v-if="show" />
     </section>
 </template>

@@ -1,6 +1,6 @@
 <template>
 
-    <section v-click-outside="hide" class='triangle-modal'>
+    <section v-click-outside="hide" class='triangle-modal' @keydown.escape="hide">
         <span class="top-bot"></span>
         <component :is="cmp" :prop="prop" :users="users" :name="name" :content="content" @updateTask="updateTask">
         </component>
@@ -36,6 +36,7 @@ export default {
             this.$emit('hideModal')
         },
         updateTask(field) {
+            this.hide()
             this.$emit('updateTask', field)
         },
     },

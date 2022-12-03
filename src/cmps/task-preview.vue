@@ -72,6 +72,7 @@ export default {
         }
     },
     created() {
+        console.log(`this.task._id:`, this.task._id)
 
     },
     data() {
@@ -111,6 +112,7 @@ export default {
         updateTask({ key, val }) {
             const task = JSON.parse(JSON.stringify(this.task))
             task[key] = val
+            console.log(`task:`, task)
             this.$emit('updateTask', task)
         },
         lineOptions() {
