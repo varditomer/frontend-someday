@@ -1,6 +1,6 @@
 <template>
     <section class='new-item-modal'>
-        <div class="modal-group upper-group">
+        <div class="modal-group">
             <div class="modal-item flex align-center" @click="addGroup">
                 <div class="item-title flex align-center">
                     <span v-svg-icon="'board'"></span>

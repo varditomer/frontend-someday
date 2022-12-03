@@ -4,7 +4,7 @@
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace" :isWorkspaceClosed="isWorkspaceClosed"/>
         <section class='board-app-container'>
             <board-header :users="users" @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter" />
-            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
+            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
                 :board="board" :priorities="priorities" :statuses="statuses" />
         </section>
         <router-view />

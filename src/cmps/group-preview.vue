@@ -1,6 +1,7 @@
 <template>
-    <section class='group-preview'>
-        <div class="group-title flex align-center" :class="{ minimized: !viewTasks }">
+    <section class='group-preview' @keydown.escape="(showModal=false)">
+        <regular-modal v-if="showModal" :showModal="showModal" @closeModal="(showModal = false)" @addGroup="addGroup" :cmp="'group-opt-modal'" @keydown.escape="(showModal=false)" />
+        <div class="group-title flex align-center" :class="{ minimized: !viewTasks }" @keydown.escape="(showModal=false)">
             <div class="options hidden flex center">
                 <span @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
             </div>
@@ -8,10 +9,9 @@
             <h4 contenteditable @input="saveGroup($event.target.innerText, 'title')"
                 :style="{ color: group.style.color }" v-html="group.title"></h4>
             <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
-            <regular-modal v-if="showModal" :showModal="showModal" @closeModal="(showModal = false)" @addGroup="addGroup" :cmp="'group-opt-modal'" />
         </div>
         <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
-            :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />
+            :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask"/>
     </section>
 </template>
 <script>
