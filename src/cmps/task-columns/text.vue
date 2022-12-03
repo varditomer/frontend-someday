@@ -7,6 +7,7 @@
 <script>
 export default {
     name: '',
+    emits:['updateTask'],
     props: {
         prop: String,
         users: Array

@@ -12,8 +12,12 @@
             <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
                 <div class="task-title-item">
                     <span>
-                        <p @blur="updateTitle" @keydown.enter.prevent="updateTitle" @click.prevent="" class="task-title"
-                            contenteditable="true" v-html="task.title"></p>
+                        <p 
+                            @blur="updateTask({key:'title', val: $event.target.innerText})" 
+                            @keydown.enter.prevent="updateTask({key:'title', val: $event.target.innerText})" 
+                            @click.prevent="" class="task-title"
+                            contenteditable="true" 
+                            v-html="task.title"></p>
                     </span>
                     <span v-if="task.comments?.length" class="task-comment-icon count-comment">
                         <span v-svg-icon="'commentCount'"></span>
@@ -22,9 +26,15 @@
                     <span v-else v-svg-icon="'addComment'" class="task-comment-icon"></span>
                 </div>
             </router-link>
-            <component v-for="(column, idx) in cmpsOrder" @updateTask="updateTask" @removePerson="removePerson"
-                @addPerson="addPerson" :is="column + 'Task'" :prop="task[column]" :users="users" :statuses="statuses"  @setDate=setDate
-                :color="group.style.color" :key="idx" :priorities="priorities">
+            <component 
+                v-for="(column, idx) in cmpsOrder" 
+                :is="column + 'Task'" 
+                :prop="task[column]" 
+                :users="users" 
+                :statuses="statuses"
+                :priorities="priorities"
+                :color="group.style.color" :key="idx" 
+                @updateTask="updateTask">
             </component>
             <span class="empty-span"></span>
             <!-- <span v-for="(column, idx) in cmpsOrder">
@@ -103,8 +113,6 @@ export default {
             task[key] = val
             this.$emit('updateTask', task)
         },
-        read(task) {
-        },
         lineOptions() {
             this.isModalOpen = true
         },
@@ -115,37 +123,6 @@ export default {
             this.$emit('removeTask', this.task)
             this.isModalOpen = false
         },
-        updateTitle(ev) {
-            ev.target.blur()
-            const { _id, groupId, boardId } = this.task
-            const task = {
-                title: ev.target.innerText,
-                _id,
-                groupId,
-                boardId
-            }
-            this.$emit('updateTask', task)
-        },
-        addPerson(user) {
-            const task = this.task
-            task.person.push(user)
-            this.$emit('updateTask', task)
-        },
-        removePerson(userId) {
-            const task = this.task
-            const idx = task.person.findIndex(p => p._id === userId)
-            task.person.splice(idx, 1)
-            this.$emit('updateTask', task)
-        },
-        setDate(timestamp) {
-            const task = this.task
-            this.task.date = +timestamp
-            this.$emit('updateTask', task)
-        },
-        saveLink(link) {
-            this.task.link = link
-            this.$emit('updateTask', task)
-        }
     },
     components: {
         dateTask,

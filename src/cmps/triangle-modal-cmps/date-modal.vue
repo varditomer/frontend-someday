@@ -121,7 +121,7 @@
 
 export default {
     name: 'date-picker',
-    emits: ['setDate'],
+    emits: ['updateTask'],
     props: {
         prop: Number
     },
@@ -144,7 +144,7 @@ export default {
             const formattedDate = `${year}-${month}-${day}`
             const dateToTimestamp = new Date(formattedDate)
             const timestamp = dateToTimestamp.getTime()
-            this.$emit('setDate', timestamp)
+            this.$emit('updateTask', {key: 'date', val: timestamp})
         },
         moveMonth(dir) {
             this.monthIdx += dir

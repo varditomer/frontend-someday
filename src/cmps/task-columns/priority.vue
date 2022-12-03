@@ -1,6 +1,6 @@
 <template>
     <section class="priority" @click="(show = true)">
-        <span class="priority-name" :style="getStyle">{{ prop }}</span>
+        <span class="priority-name" :style="getStyle">{{ prop === 'Default' ? '' : prop }}</span>
         <triangle-modal :users="users" :content="priorities" :name="'priority'" @updateTask="updateTask"
             @hideModal="(show=false)" :cmp="'task-label-modal'" v-if="show" />
     </section>
@@ -12,6 +12,7 @@ import { colors } from '../../data/color-picker.js'
 import triangleModal from '../dynamic-modals/triangle-modal.vue'
 export default {
     name: '',
+    emits: ['updateTask'],
     props: {
         prop: String,
         priorities: {
@@ -20,16 +21,15 @@ export default {
         },
         users: Array
     },
-    emits: ['updateTask'],
     data() {
         return {
             show: false
         }
     },
     methods: {
-        updateTask(priority) {
+        updateTask(priorityObj) {
             this.show = false
-            this.$emit('updateTask', priority)
+            this.$emit('updateTask', priorityObj)
         },
     },
     computed: {

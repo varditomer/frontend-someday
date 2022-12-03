@@ -1,6 +1,7 @@
 <template>
     <span @click="(show = true)" class="task-date">
-        <triangle-modal v-if="show" @hideModal="(show = false)" @setDate="setDate" :prop="prop" :cmp="'dateModal'" />
+        <triangle-modal v-if="show" @hideModal="(show = false)" @updateTask="updateTask" :prop="prop"
+            :cmp="'dateModal'" />
         {{ formattedDate || ' ' }}
     </span>
 </template>
@@ -8,7 +9,7 @@
 <script>
 import triangleModal from '../dynamic-modals/triangle-modal.vue'
 export default {
-    emits: ['setDate'],
+    emits: ['updateTask'],
     name: 'date-column',
     props: {
         prop: Number,
@@ -28,8 +29,9 @@ export default {
         },
     },
     methods: {
-        setDate(timestamp) {
-            this.$emit('setDate', timestamp)
+        updateTask(timeObj) {
+            console.log(`{ key: 'date', val: timestamp }`, timeObj)
+            this.$emit('updateTask', timeObj)
             setTimeout(() => {
                 this.show = false
             }, 1)

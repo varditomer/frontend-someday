@@ -11,11 +11,26 @@
     z-index: 50;
 
     .task-label-modal {
+        position: relative;
         display: grid;
         grid-template-columns: 152px;
         margin: 0;
         justify-content: center;
         gap: 8px;
+
+        .change-color {
+            position: absolute;
+            left: 10px;
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 2px solid white;
+            border-radius: 4px;
+            
+            &:hover{
+                opacity: .7;
+            }
+        }
 
         .label {
             display: flex;

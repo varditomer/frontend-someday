@@ -9,6 +9,7 @@
 <script>
 export default {
     name: '',
+    emits:['updateColor'],
     props: {
         priorities: {
             type: Array,

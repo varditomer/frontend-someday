@@ -4,8 +4,8 @@
             :class="{ cover: person.pic }" :title="person.fullname">
             {{ !person.pic ? person.initials : '' }}
         </span>
-        <triangle-modal v-if="show" @removePerson="removePerson" @addPerson="addPerson" :users="users"
-            :persons="formattedPersons" :cmp="'personsModal'" @hideModal="(show = false)" />
+        <triangle-modal v-if="show" @updateTask="updateTask" :users="users"
+            :prop="formattedPersons" :cmp="'personsModal'" @hideModal="(show = false)" />
     </section>
     <!-- <span v-else></span> -->
 </template>
@@ -45,22 +45,8 @@ export default {
         }
     },
     methods: {
-        addPerson(person) {
-            const persons = this.prop
-                ? JSON.parse(JSON.stringify(this.prop))
-                : []
-            persons.push(person)
-            this.updateTask(persons)
-        },
-        removePerson(personId) {
-            const persons = JSON.parse(JSON.stringify(this.prop))
-            const idx = persons.findIndex(person => person._id === personId)
-            if (idx === -1) return
-            persons.splice(idx, 1)
-            this.updateTask(persons)
-        },
-        updateTask(persons) {
-            this.$emit('updateTask', { key: 'person', val: persons })
+        updateTask(personsObj) {
+            this.$emit('updateTask', personsObj)
         }
     },
     components: {
