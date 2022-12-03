@@ -232,6 +232,11 @@
         align-items: center;
         position: relative;
         cursor: pointer;
+        transition: .4;
+
+        &:hover{
+            fill: $primary-blue;
+        }
 
         &.count-comment span svg {
             color: $primary-blue;

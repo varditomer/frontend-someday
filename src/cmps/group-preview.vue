@@ -4,12 +4,18 @@
             @addGroup="addGroup" :cmp="'group-opt-modal'" @keydown.escape="(showModal = false)" />
         <div class="group-title flex align-center" :class="{ minimized: !viewTasks }"
             @keydown.escape="(showModal = false)">
+
             <div class="options hidden flex center">
                 <span @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="group-arrow" v-svg-icon="'arrowDown'" @click="toggleTaskView"></span>
-            <h4 contenteditable @input="saveGroup($event.target.innerText, 'title')"
-                :style="{ color: group.style.color }" v-html="group.title"></h4>
+            <div class="group-title-content">
+                <h4 @click="(showTitle = false)" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)" contenteditable
+                    @input="saveGroup($event.target.innerText, 'title')" :style="{ color: group.style.color }"
+                    v-html="group.title">
+                </h4>
+                <title-modal :class="{'show':showTitle}" :content="'Click to Edit'" />
+            </div>
             <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
         </div>
         <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
@@ -17,6 +23,7 @@
     </section>
 </template>
 <script>
+import titleModal from './dynamic-modals/title-modal.vue'
 import taskList from './task-list.vue'
 import { eventBus } from '../services/event-bus.service.js'
 import regularModal from './dynamic-modals/regular-modal.vue'
@@ -40,6 +47,7 @@ export default {
         return {
             viewTasks: true,
             showModal: false,
+            showTitle: false
         }
     },
     mounted() {
@@ -100,7 +108,8 @@ export default {
     },
     components: {
         taskList,
-        regularModal
+        regularModal,
+        titleModal
     }
 }
 </script>

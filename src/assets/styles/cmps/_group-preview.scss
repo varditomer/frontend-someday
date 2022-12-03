@@ -9,26 +9,38 @@
         cursor: grab;
         align-items: center;
 
-        h4{
-            display: flex;
-            position: relative;
-            right: 5px;
-            align-items: center;
-            padding-right: 10px;
-            padding-left: 5px;
+        .group-title-content {
             height: 60%;
-            cursor: text;
+            position: relative;
 
-            &:hover{
-                outline: 1px solid $brdr-clr;
-
+            .title-modal {
+                p {
+                    width: 100px;
+                }
             }
 
-            &:focus{
-                border-radius: .2em;
-                outline: 1px solid $primary-blue;
+            h4 {
+                display: flex;
+                position: relative;
+                right: 5px;
+                align-items: center;
+                padding-right: 10px;
+                padding-left: 5px;
+                cursor: text;
+                height: 100%;
+
+                &:hover {
+                    outline: 1px solid $brdr-clr;
+
+                }
+
+                &:focus {
+                    border-radius: .2em;
+                    outline: 1px solid $primary-blue;
+                }
             }
         }
+
 
 
         .group-arrow,
