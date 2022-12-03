@@ -1,0 +1,135 @@
+<template>
+    <li class="task-summary">
+
+        <span class="empty-span"></span>
+        <span class="empty-span"></span>
+        <span class="empty-span"></span>
+        <span class="empty-span"></span>
+        <span class="empty-span"></span>
+        <section v-if="tasks?.length" v-for="html in getHtmlSumData" class="footer-section" v-html="(html)">
+        </section>
+        <span v-else v-for="html in getHtmlSumData" class="empty-span"></span>
+        <span class="empty-fill-span"></span>
+    </li>
+</template>
+
+<script>
+import { colors } from '../data/color-picker.js'
+import { labels } from '../data/_board_DB.js'
+export default {
+    name: '',
+    props: {
+        cmpsOrder: {
+            type: Array,
+            required: true
+        },
+        tasks: {
+            type: Array,
+            required: true
+        }
+    },
+    data() {
+        return {
+        }
+    },
+    methods: {
+    },
+    computed: {
+        getHtmlSumData() {
+            const summary = []
+            this.cmpsOrder.map((column, idx) => {
+                switch (column) {
+                    case 'person':
+                    case 'priority':
+                    case 'status':
+                    case 'label':
+                    case 'timeline':
+                        summary[idx] = {}
+                        break
+                    default: summary[idx] = 0
+                }
+
+                this.tasks.forEach(task => {
+                    if (!task[column] || column === 'text' || column === 'link') return
+                    switch (column) {
+                        case 'person':
+                            task.person.forEach(person => summary[idx][person._id] = person)
+                            break
+                        case 'priority':
+                        case 'status':
+                        case 'label':
+                            const label = task[column]
+                            if (label) {
+                                if (!summary[idx][label]) summary[idx][label] = 0
+                                summary[idx][label]++
+                                console.log(label, summary[idx][label])
+                            }
+                            break
+                        case 'timeline':
+                            if (!task.timline || !Object.keys(task.timline).length) return
+                            const { start, end } = task.timeline
+                            const startTime = (new Date([start.year, start.month, start.day])).getTime()
+                            const endTime = (new Date([end.year, end.month, end.day])).getTime()
+
+                            if (!summary.start || summary.start > startTime) summary[idx].start = startTime
+                            if (!summary.end || summary.end > endTime) summary[idx].end = endTime
+                            break
+                        default:
+                            if (task[column]) summary[idx] += task[column]
+                            break
+                    }
+                })
+
+                switch (column) {
+                    case 'person':
+                        let persons = ''
+                        for (let id in summary[idx]) {
+                            const person = summary[idx][id]
+                            if (!persons.imgUrl) console.log(person)
+                            persons += `<span class="task-avatar" style="
+                            ${person.imgUrl?.length
+                                    ? `background-image: url(${person.imgUrl})`
+                                    : `backgroud-color: ${person.color || '#fff'}`}"
+                            ${person.imgUrl
+                                    ? 'class="cover"'
+                                    : ''} 
+                            title="${person.fullname}">
+                            </span>`
+                        }
+                        summary[idx] = persons
+                        break
+
+                    case 'priority':
+                    case 'status':
+                    case 'label':
+                        let labelsCount = 0
+                        for (let label in summary[idx]) {
+                            labelsCount += summary[idx][label]
+                        }
+                        let htmlStr = `<div class="label-progress">`
+                        for (let label in summary[idx]) {
+                            const width = 100 * (summary[idx][label] / labelsCount) + '%'
+                            const backgroundColor = colors[labels[label]]
+                            console.log(`backgroundColor`, backgroundColor)
+                            htmlStr += `<div class="label" style="width:${width}; background-color: ${backgroundColor || 'transparent'}"
+                                    ></div>`
+                        }
+                        htmlStr += '</div>'
+                        summary[idx] = htmlStr
+                        break
+                    case 'timeline':
+                        summary[idx] = ''
+                        break
+                    default: summary[idx] = ''
+                }
+
+                // console.log(`summary[`, idx, `]`, summary[idx])
+            })
+
+            return summary
+        }
+    },
+    components: {
+    },
+}
+</script>

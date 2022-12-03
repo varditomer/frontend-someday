@@ -83,4 +83,16 @@
             border-bottom-left-radius: .3em;
         }
     }
+
+    .task-summary{
+        .label-progress{
+            height: 36px;
+            width:150px;
+            padding: 6px 8px;
+            .label{
+                height: 24px;
+                display: inline-block;
+            }
+        }
+    }
 }
