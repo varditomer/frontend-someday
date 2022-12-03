@@ -8,7 +8,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
 
         button {
             background-color: transparent;
@@ -17,6 +16,8 @@
             font-family: roboto-regular;
             font-size: rem(14px);
             color: $layout-black;
+            cursor: pointer;
+
         }
 
         svg {
@@ -30,6 +31,7 @@
 
     .add-new-btns {
         background-color: $primary-blue;
+        cursor: pointer;
 
         button {
             color: white;
@@ -66,6 +68,7 @@
 
     .search-tasks {
         position: relative;
+        cursor: pointer;
 
         &.input-open {
             outline: 1px solid $primary-blue;
@@ -108,13 +111,23 @@
     }
 
     .person-attach {
+        cursor: pointer;
         svg {
             margin-left: 5px;
         }
     }
 
+    .sort{
+        cursor: pointer;
+    }
+
+    .filter{
+        cursor: pointer;
+    }
+
     .search-tasks {
         position: relative;
+        cursor: pointer;
 
         &.input-open {
             outline: 1px solid $primary-blue;
@@ -153,31 +166,6 @@
 
         svg {
             margin-left: 5px;
-        }
-    }
-
-    >* {
-        @include btn;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-
-        button {
-            background-color: transparent;
-            padding: 0;
-            padding-right: 10px;
-            font-family: roboto-regular;
-            font-size: rem(14px);
-            color: $layout-black;
-        }
-
-        svg {
-            fill: $layout-black;
-        }
-
-        &:hover {
-            background-color: $brdr-clr;
         }
     }
 }
