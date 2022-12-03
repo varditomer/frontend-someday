@@ -33,13 +33,9 @@ export default {
             title: ''
         }
     },    
-    },
     unmounted() {
         const link = {url: this.url, title: this.title}
         this.$emit('updateTask', {key: 'link', val: link} )
-    },
-
-    computed: {
     },
     methods: {
         saveLink() {
