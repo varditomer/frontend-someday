@@ -9,13 +9,14 @@
             <div class="options hidden flex center">
                 <span @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
             </div>
-            <span class="group-arrow" v-svg-icon="'arrowDown'" @click="toggleTaskView"></span>
+            <span class="group-arrow" :class="{ 'closed': !viewTasks }" v-svg-icon="'arrowDown'"
+                @click="toggleTaskView"></span>
             <div class="group-title-content">
-                <h4 @click="(showTitle = false)" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)" contenteditable
-                    @input="saveGroup($event.target.innerText, 'title')" :style="{ color: group.style.color }"
-                    v-html="group.title" ref="title">
+                <h4 @click="(showTitle = false)" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
+                    contenteditable @input="saveGroup($event.target.innerText, 'title')"
+                    :style="{ color: group.style.color }" v-html="group.title" ref="title">
                 </h4>
-                <title-modal :class="{'show':showTitle}" :content="'Click to Edit'" />
+                <title-modal :class="{ 'show': showTitle }" :content="'Click to Edit'" />
             </div>
             <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
         </div>

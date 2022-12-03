@@ -111,6 +111,12 @@
     }
 
     .person-attach {
+        position: relative;
+
+        .title-modal{
+            width: 135px;
+        }
+
         cursor: pointer;
         svg {
             margin-left: 5px;

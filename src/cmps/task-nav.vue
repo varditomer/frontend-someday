@@ -4,7 +4,7 @@
             <router-link to="/">
                 <img class="logo" src="../assets/imgs/logo.svg" alt="">
             </router-link>
-            <router-link :to="('/board/' + firstBoardId)">
+            <router-link :to="('/board/' + board._id)">
                 <span v-svg-icon="'coloredBoard'"></span>
             </router-link>
         </section>
@@ -18,8 +18,8 @@
 export default {
     name: 'task-nav',
     computed: {
-        firstBoardId() {
-            return this.$store.getters.firstBoardId
+        board() {
+            return this.$store.getters.board
         }
     }
 }

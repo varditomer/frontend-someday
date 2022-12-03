@@ -153,7 +153,7 @@ export default {
         }
     },
     created() {
-        const date = this.prop ? new Date(this.prop) : new Date(Date.now())
+        const date = this.content ? new Date(this.content) : new Date(Date.now())
         this.monthIdx = date.getMonth()
         this.day = date.getDate()
     }

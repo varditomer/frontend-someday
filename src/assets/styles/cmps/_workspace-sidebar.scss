@@ -111,12 +111,18 @@
             border: 1px solid $primary-brand;
         }
 
-        button {
+        .add-board-btn {
             border-radius: 0.4em;
             width: 32px;
             height: 32px;
             background-color: $primary-blue;
+            position: relative;
             color: white;
+
+            .title-modal{
+                width: 190px;
+                height: 35px;
+            }
 
             &:hover {
                 background-color: (darken($primary-blue, 8%));

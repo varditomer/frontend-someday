@@ -46,17 +46,13 @@
     .bottom-nav {
 
         .profile {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: $clr-drk-orng;
+            @include profile;
             width: 45px;
             height: 45px;
-            border-radius: 2em;
             border: 2px solid white;
-            font-family: roboto-medium;
             font-size: rem(20px);
-            cursor: pointer;
+            font-family: roboto-medium;
+
         }
     }
 

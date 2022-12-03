@@ -7,7 +7,9 @@
         position: relative;
         height: 40px;
         cursor: grab;
+        display: flex;
         align-items: center;
+
 
         .group-title-content {
             height: 60%;
@@ -31,7 +33,6 @@
 
                 &:hover {
                     outline: 1px solid $brdr-clr;
-
                 }
 
                 &:focus {
@@ -45,12 +46,17 @@
 
         .group-arrow,
         .options {
-
+            cursor: pointer;
             width: 36px;
+            transition: .4;
+
+            &.closed{
+                transform: rotate(180deg);
+            }
         }
 
         &:hover {
-            // background-color: $wrkspce-bgc;
+            background-color: $wrkspce-bgc;
 
             .options {
                 visibility: inherit;
@@ -73,9 +79,7 @@
                 visibility: inherit;
                 color: $layout-gray;
                 font-size: rem(14px);
-                margin-left: 8px;
-                margin-top: 6px;
-                // line-height: rem(22px);
+                margin-left: 2px;
                 font-family: roboto-light;
             }
         }

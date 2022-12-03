@@ -11,7 +11,9 @@
                 @blur="(isSearchClicked = false)" v-model="filter.txt" @input="setFilter(false)">
             <span v-svg-icon="'cancel'" class="cancel" :class="{ 'hide': !isFiltering }" @click="clearFilter"></span>
         </div>
-        <div class="person-attach" @click="openModal('filterPersonModal')">
+        <div @click="openModal('filterPersonModal')" @mouseover="(showTitleModal = true)"
+            @mouseout="(showTitleModal = false)" class="person-attach">
+            <title-modal :class="{ 'show': showTitleModal }" :content="'Filter by Person'" />
             <span v-svg-icon="'account'"></span>
             <button>Person</button>
         </div>
@@ -30,7 +32,8 @@
     </section>
 </template>
 <script>
-import regularModal from './dynamic-modals/regular-modal.vue';
+import titleModal from './dynamic-modals/title-modal.vue'
+import regularModal from './dynamic-modals/regular-modal.vue'
 export default {
     name: 'board-filter',
     props: {
@@ -41,6 +44,7 @@ export default {
     data() {
         return {
             showModal: false,
+            showTitleModal: false,
             modalName: '',
             isSearchClicked: false,
             filter: {
@@ -56,6 +60,7 @@ export default {
             this.$emit('addGroup')
         },
         openModal(modalName) {
+            this.showTitleModal = false
             this.modalName = modalName
             this.showModal = true
         },
@@ -77,7 +82,8 @@ export default {
         },
     },
     components: {
-        regularModal
+        regularModal,
+        titleModal
     }
 }
 </script>

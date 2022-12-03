@@ -36,7 +36,7 @@
         padding-top: calc(($height / $width) * 100%);
     }
 
-    > * {
+    >* {
         position: absolute;
         top: 0;
         left: 0;
@@ -44,7 +44,7 @@
         bottom: 0;
     }
 
-    > img {
+    >img {
         height: 100%;
         object-fit: cover;
     }
@@ -64,9 +64,20 @@
     height: 34px;
 }
 
+@mixin profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $clr-drk-orng;
+    border-radius: 2em;
+    cursor: pointer;
+    color: white;
+}
+
 // Mixin for square border cell on hover:
 @mixin cellBorderHover {
     position: relative;
+
     &:hover:before {
         text-align: center;
         content: "";

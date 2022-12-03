@@ -45,6 +45,7 @@ async function queryBoard(boardId, filterBy = {}) {
     var board = await storageService.get(BOARD_STORAGE_KEY, boardId)
     var boardToShow = _filterByTxt(board, filterBy.txt)
     boardToShow = _filterByUser(boardToShow, filterBy.userId)
+    if (!boardToShow) boardToShow = board
     return boardToShow
 }
 
