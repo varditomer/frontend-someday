@@ -1,7 +1,7 @@
 <template>
     <section v-if="showModal" v-click-outside="closeModal" @keydown.escape="closeModal" class='regular-modal'>
         <component @filter="filter" :is="cmp" @openTask="openTask" :users="users" @removeTask="removeTask"
-            @addGroup="addGroup" />
+            @addGroup="addGroup" :groupId="groupId" />
     </section>
 </template>
 
@@ -18,6 +18,7 @@ export default {
         showModal: Boolean,
         cmp: String,
         users: Array,
+        groupId: String,
     },
     computed: {
 
