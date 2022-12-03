@@ -1,12 +1,10 @@
 <template>
-    <section v-if="prop" :style="getStyle" class="status-item" @click="(show = true)">
+    <section :style="getStyle" class="status-item" @click="(show = true)">
         {{ prop === 'Default' ? '' : prop }}
 
         <triangle-modal :content="statuses" :name="'status'" @updateTask="updateTask" @hideModal="(show=false)"
             :cmp="'task-label-modal'" v-if="show" />
     </section>
-
-    <section v-else> </section>
 </template>
 
 <script>
@@ -38,8 +36,10 @@ export default {
     },
     computed: {
         getStyle() {
+            console.log(`this.prop`, this.prop)
+            if (!this.prop || !this.prop === 'Default') return { 'background-color': colors['$clr-lgt-gry'] }
             return {
-                'background-color': colors[status[this.prop]],
+                'background-color': colors[status[this.prop.trim()]],
                 color: 'white'
             }
         }

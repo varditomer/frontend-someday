@@ -8,7 +8,7 @@ export const status = {
 }
 
 export const priority = {
-    High: '$priority-red',
+    High: '$clr-red',
     Medium: '$priority-prpl',
     Low: '$priority-blue',
     Critical: '$priority-blc',

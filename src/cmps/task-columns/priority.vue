@@ -34,9 +34,9 @@ export default {
     },
     computed: {
         getStyle() {
-            if (!this.prop) return { 'background-color': colors['$priority-gry'] }
+            if (!this.prop || !this.prop === 'Default') return { 'background-color': colors['$clr-lgt-gry'] }
             return {
-                'background-color': colors[priority[this.prop]],
+                'background-color': colors[priority[this.prop.trim()]],
                 color: 'white'
             }
         }

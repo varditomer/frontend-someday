@@ -372,7 +372,7 @@ const boards = [
                         title: 'Get familiar with features',
                         date: 1589983468418,
                         priority: 'Critical',
-                        status: 'High',
+                        status: 'Done',
                         timeline: {
                             start: {
                                 month: 11,
@@ -489,7 +489,7 @@ const boards = [
                                 year: 2022
                             }
                         },
-                        priority: 'Medeium',
+                        priority: 'Medium',
                         status: 'Working on it'
                     }
                 ]

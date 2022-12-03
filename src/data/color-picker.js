@@ -40,4 +40,5 @@ export const colors = {
     '$priority-prpl': '#777ae5',
     '$priority-blue': '#79affd',
     '$priority-gry': '#797e93',
+    '$brdr-clr': '#d0d5e4'
 }
