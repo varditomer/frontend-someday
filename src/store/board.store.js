@@ -97,7 +97,7 @@ export const boardStore = {
         },
         removeGroup(state, { group }) {
             var idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)
-            state.board.groups.splice(idx,1)
+            state.board.groups.splice(idx, 1)
         },
         toggleWorkspace(state) {
             state.isWorkspaceClosed = !state.isWorkspaceClosed
@@ -113,8 +113,6 @@ export const boardStore = {
             try {
                 board = await boardService.save(board)
                 commit({ type: 'setBoard', board })
-
-                // commit(getActionAddBoard(board))
                 return board
             } catch (err) {
                 console.log('boardStore: Error in saveBoard', err)
@@ -143,9 +141,9 @@ export const boardStore = {
                 throw err
             }
         },
-        async loadMiniBoards({ commit }) {
+        async loadMiniBoards({ commit }, { filter }) {
             try {
-                const miniBoards = await boardService.getMiniBoards()
+                const miniBoards = await boardService.getMiniBoards(filter)
                 commit({ type: 'setMiniBoards', miniBoards })
             } catch (err) {
                 console.log('boardStore: Error in loadBoards', err)

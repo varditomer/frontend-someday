@@ -1,7 +1,8 @@
 <template>
     <section v-if="showModal" v-click-outside="closeModal" @keydown.escape="closeModal" class='regular-modal'>
-        <component :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask" :users="users"
-            @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :groupId="groupId" @editGroupTitle="editGroupTitle"/>
+        <component @unselectTasks="$emit('unselectTasks')" :selectedTasks="selectedTasks" :filterBy="filterBy"
+            @filter="filter" :is="cmp" @openTask="openTask" :users="users" @removeTask="removeTask" @addGroup="addGroup"
+            @removeGroup="removeGroup" :groupId="groupId" @editGroupTitle="editGroupTitle" />
     </section>
 </template>
 
@@ -10,10 +11,11 @@ import taskOptModal from '../option-cmps/task-opt-modal.vue';
 import groupOptModal from '../regular-modal-cmps/group-opt-modal.vue';
 import newItemModal from '../filter-modals-cmps/new-item-modal.vue';
 import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue';
+import personSelectModal from '../regular-modal-cmps/person-select-modal.vue';
 export default {
 
     name: 'regular-modal',
-    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle' ,'unselectTasks'], //emit all types of dynamic cmps events
     props: {
         showModal: Boolean,
         cmp: String,
@@ -23,6 +25,10 @@ export default {
             required: false
         },
         groupId: String,
+        selectedTasks: {
+            type: Array,
+            require: false
+        }
     },
     computed: {
 
@@ -58,7 +64,8 @@ export default {
         newItemModal,
         filterPersonModal,
         taskOptModal,
-        groupOptModal
+        groupOptModal,
+        personSelectModal
     }
 }
 </script>

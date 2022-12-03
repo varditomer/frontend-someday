@@ -20,8 +20,9 @@
             </div>
             <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
         </div>
-        <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
-            :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />
+        <task-list v-if="viewTasks" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
+            :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users" :priorities="priorities"
+            :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />
     </section>
 </template>
 <script>
@@ -31,7 +32,7 @@ import { eventBus } from '../services/event-bus.service.js'
 import regularModal from './dynamic-modals/regular-modal.vue'
 export default {
     name: 'group-preview',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks'],
     props: {
         group: Object,
         cmpsOrder: Array,
@@ -44,6 +45,10 @@ export default {
             type: Array,
             required: true
         },
+        selectedTasks: {
+            type: Array,
+            required: false
+        }
     },
     data() {
         return {
@@ -89,6 +94,9 @@ export default {
             this.$nextTick(() => {
                 this.$refs.title.focus();
             })
+        },
+        saveSelectedTasks(taskId) {
+            this.$emit('saveSelectedTasks', taskId)
         }
     },
     computed: {

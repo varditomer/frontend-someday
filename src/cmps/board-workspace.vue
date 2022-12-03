@@ -36,8 +36,7 @@
         </div>
 
         <section class="boards-titles-container">
-            <div class="boards-titles flex" v-if="miniBoards" v-for="miniBoard in miniBoardsToShow"
-                :key="miniBoard._id">
+            <div class="boards-titles flex" v-if="miniBoards" v-for="miniBoard in miniBoards" :key="miniBoard._id">
                 <router-link :to="('/board/' + miniBoard._id)">
                     <span v-svg-icon="'board'"></span>
                     <p class="board-title">{{ miniBoard.title }}</p>
@@ -60,7 +59,6 @@ export default {
     },
     data() {
         return {
-            filter: '',
             showTitle: false
         }
     },
@@ -68,12 +66,6 @@ export default {
         this.$store.dispatch({ type: 'loadMiniBoards' })
     },
     computed: {
-        miniBoardsToShow() {
-            const miniBoards = this.$store.getters.miniBoards
-            if (!this.filter) return miniBoards
-            const regex = new RegExp(this.filter, 'i')
-            return miniBoards.filter(board => regex.test(board.title))
-        },
         miniBoards() {
             return this.$store.getters.miniBoards
         },
@@ -81,7 +73,7 @@ export default {
     methods: {
         setFilter(event) {
             const filter = event.target.value
-            this.filter = filter
+            this.$store.dispatch({ type: 'loadMiniBoards', filter })
         },
         addBoard() {
             this.showTitle = false
