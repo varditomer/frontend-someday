@@ -24,8 +24,8 @@
             <button>Sort</button>
         </div>
 
-        <regular-modal :filterBy="filterBy" @filter="setFilter" :users="users" @closeModal="(showModal = false)" :showModal="showModal"
-            :cmp="modalName" @addGroup="addGroup" />
+        <regular-modal :filterBy="filterBy" @filter="setFilter" :users="users" @closeModal="(showModal = false)"
+            :showModal="showModal" :cmp="modalName" @addGroup="addGroup" />
 
     </section>
 </template>
@@ -76,7 +76,6 @@ export default {
             this.$emit('filter', { ...this.filter })
         },
     },
-
     components: {
         regularModal
     }
