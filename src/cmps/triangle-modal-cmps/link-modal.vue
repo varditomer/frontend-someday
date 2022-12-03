@@ -14,19 +14,18 @@
 <script>
 export default {
     name: 'link-modal',
-    emits: ['saveLink'],
+    emits: ['updateTask'],
     props: {
-        link: {
+        prop: {
             type: Object,
             required: false
         }
     },
     created() {
-        if (this.link?.title && this.link?.url) {
-            this.url = this.link.url
-            this.title = this.link.title
+        if (this.prop?.title && this.prop?.url) {
+            this.url = this.prop.url
+            this.title = this.prop.title
         }
-
     },
     data() {
         return {
@@ -34,6 +33,12 @@ export default {
             title: ''
         }
     },    
+    },
+    unmounted() {
+        const link = {url: this.url, title: this.title}
+        this.$emit('updateTask', {key: 'link', val: link} )
+    },
+
     computed: {
     },
     methods: {

@@ -10,6 +10,7 @@
 import { utilService } from '../../services/util.service.js'
 export default {
     name: '',
+    emits:['updateTask'],
     props: {
         prop: {
             type: Object,

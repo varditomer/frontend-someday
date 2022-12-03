@@ -1,10 +1,10 @@
 <template>
     <section class='persons-modal'>
-        <div v-for="p in persons" class="active-persons">
+        <div v-for="person in prop" class="active-persons">
             <div class="person">
-                <span :style="p.style" class="task-avatar"></span>
-                <p>{{ p.fullname }}</p>
-                <span @click="removePerson(p._id)" v-svg-icon="'smallExit'" class="remove-person-btn"></span>
+                <span :style="person.style" class="task-avatar"></span>
+                <p>{{ person.fullname }}</p>
+                <span @click="removePerson(person._id)" v-svg-icon="'smallExit'" class="remove-person-btn"></span>
             </div>
         </div>
         <p v-if="personsToAdd.length" class="suggested-persons">Suggested people</p>
@@ -21,34 +21,45 @@
 <script>
 export default {
     name: 'persons-modal',
-    emits: ['addPerson', 'removePerson'],
+    emits: ['updateTask'],
     props: {
-        persons: {
+        prop: {
             type: Array,
             required: false
         },
         users: {
             type: Array,
-            required: false
+            required: true
         }
     },
     computed: {
         personsToAdd() {
-            if (!this.persons.length) return this.users
-            if (this.users.length === this.persons.length) return []
+            if (!this.prop.length) return this.users
+            if (this.users.length === this.prop.length) return []
             return this.users.filter(user => {
-                if (this.persons.find(p => p._id === user._id)) return false
+                if (this.prop.find(p => p._id === user._id)) return false
                 return true
             })
         }
     },
     methods: {
         addPerson(personId) {
-            const user = this.users.find(user => user._id === personId)
-            this.$emit('addPerson', user)
+            const person = this.users.find(user => user._id === personId)
+            const persons = this.prop
+                ? JSON.parse(JSON.stringify(this.prop))
+                : []
+            persons.push(person)
+            this.updateTask(persons)
         },
         removePerson(personId) {
-            this.$emit('removePerson', personId)
+            const persons = JSON.parse(JSON.stringify(this.prop))
+            const idx = persons.findIndex(person => person._id === personId)
+            if (idx === -1) return
+            persons.splice(idx, 1)
+            this.updateTask(persons)
+        },
+        updateTask(persons) {
+            this.$emit('updateTask', { key: 'person', val: persons })
         }
     }
 }

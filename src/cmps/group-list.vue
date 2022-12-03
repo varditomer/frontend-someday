@@ -5,7 +5,7 @@
             @start="minimizeGroups(true, $event)" @end="minimizeGroups(false, $event)">
             <template #item="{ element }">
                 <group-preview :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id"
-                    :priorities="priorities" v-if="board" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" />
+                    :priorities="priorities" :statuses="statuses" v-if="board" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" />
             </template>
         </draggable>
     </section>
@@ -22,7 +22,14 @@ export default {
     props: {
         users: Array,
         board: Object,
-        priorities: Array,
+        priorities: {
+            type:Array,
+            reqired:true
+        },
+        statuses: {
+            type:Array,
+            reqired:true
+        },
     },
     methods: {
         minimizeGroups(minimize, ev) {

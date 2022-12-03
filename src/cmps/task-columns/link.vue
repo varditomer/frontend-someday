@@ -1,7 +1,9 @@
 <template>
-    <section class="link flex center" @click="(show=true)">
-        <a @click.stop="" v-if="prop?.url" :href="`//${prop.url}`" target="_blank">{{ prop.title }}</a>
-        <triangle-modal :cmp="'linkModal'" :link="prop" @hideModal="(show=false)" v-if="show" @saveLink="saveLink"/>
+    <section class="link flex center" @click="(show = true)">
+        <a @click.stop="" v-if="prop?.url" :href="prop.url" target="_blank">{{ prop.title }}</a>
+        <triangle-modal :cmp="'linkModal'" :prop="prop" @hideModal="(show = false)" v-if="show"
+            @updateTask="updateTask" />
+        <!-- <span v-else class="empty-span"></span> -->
     </section>
 </template>
 
@@ -14,9 +16,6 @@ export default {
         prop: Object,
         users: Array
     },
-    created(){
-
-    },
     data() {
         return {
             show: false,
@@ -26,15 +25,14 @@ export default {
     },
     methods: {
         openModal() {
-            console.log(`openLinkModal:`, )
         },
-        saveLink(link) {
-            this.$emit('updateTask', {key: 'link', val: link})
+        updateTask(linkObj) {
+            this.$emit('updateTask', linkObj)
         }
     },
     components: {
         triangleModal
-        
+
     }
 }
 </script>

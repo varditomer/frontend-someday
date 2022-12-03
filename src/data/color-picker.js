@@ -35,9 +35,10 @@ export const colors = {
     '$clr-drk-gry': '#808080',
     '$clr-blck': '#333333',
 
-    '$priority-blc': '#5c5c5c',
+    '$priority-blc': '#333',
     '$priority-red': '#ff9191',
     '$priority-prpl': '#777ae5',
     '$priority-blue': '#79affd',
     '$priority-gry': '#797e93',
+    '$brdr-clr': '#d0d5e4'
 }

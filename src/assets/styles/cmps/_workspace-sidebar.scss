@@ -2,6 +2,40 @@
     background-color: $wrkspce-bgc;
     padding: $layout-padding;
     border-right: 1px solid $brdr-clr;
+    position: relative;
+    transition: right .2s;
+    z-index: 10;
+
+
+    &.closed {
+        right: 0px;
+        
+        >* {
+            opacity: 0;
+            left: -230px;
+            position: absolute;
+        }
+
+        .toggle-workspace-div{
+            opacity: 1 !important;
+            left: 15px;
+            z-index: 50;
+        }
+
+    }
+
+    .toggle-workspace-div {
+        background-color: white;
+        border: 1px solid $brdr-clr;
+        width: 26px;
+        height: 24px;
+        border-radius: 2em;
+        position: absolute;
+        right: -15px;
+        top: 35px;
+        cursor: pointer;
+        z-index: 50;
+    }
 
     .workspace-main-header {
         font-size: rem(16px);
