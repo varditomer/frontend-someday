@@ -5,10 +5,11 @@
 
     .group-title {
         position: relative;
-        // margin-left: 40px;
         height: 40px;
         cursor: grab;
         align-items: center;
+
+
         .group-arrow,
         .options {
 
@@ -35,7 +36,7 @@
                 }
             }
 
-            .task-count{
+            .task-count {
                 visibility: inherit;
                 color: $layout-gray;
                 font-size: rem(14px);

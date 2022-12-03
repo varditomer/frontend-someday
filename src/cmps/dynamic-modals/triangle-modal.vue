@@ -2,14 +2,14 @@
 
     <section v-click-outside="hide" class='triangle-modal' @keydown.escape="hide">
         <span class="top-bot"></span>
-        <component :is="cmp" :content="content" :name="name" :additionalDb="additionalDb"
-            @updateTask="updateTask">
+        <component :is="cmp" :content="content" :name="name" :additionalDb="additionalDb" @updateTask="updateTask">
         </component>
     </section>
 
 </template>
 
 <script>
+import timelineModal from '../triangle-modal-cmps/timeline-modal.vue'
 import personsModal from '../triangle-modal-cmps/persons-modal.vue'
 import taskLabelModal from '../triangle-modal-cmps/task-label-modal.vue'
 import dateModal from '../triangle-modal-cmps/date-modal.vue'
@@ -42,7 +42,8 @@ export default {
         personsModal,
         taskLabelModal,
         dateModal,
-        linkModal
+        linkModal,
+        timelineModal
     }
 }
 </script>
