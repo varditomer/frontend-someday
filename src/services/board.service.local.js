@@ -44,7 +44,6 @@ async function getMiniBoards() {
 async function queryBoard(boardId, filterBy = {}) {
     var board = await storageService.get(BOARD_STORAGE_KEY, boardId)
     var boardToShow = _filterByTxt(board, filterBy.txt)
-    debugger
     boardToShow = _filterByUser(boardToShow, filterBy.userId)
     return boardToShow
 }

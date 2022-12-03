@@ -10,6 +10,13 @@
     top: 36px;
     z-index: 50;
 
+    .timeline-modal {
+
+        display: flex;
+        gap: 12px;
+
+    }
+
     .task-label-modal {
         position: relative;
         display: grid;
@@ -26,8 +33,8 @@
             height: 24px;
             border: 2px solid white;
             border-radius: 4px;
-            
-            &:hover{
+
+            &:hover {
                 opacity: .7;
             }
         }
