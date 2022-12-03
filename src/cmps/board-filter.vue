@@ -24,7 +24,7 @@
             <button>Sort</button>
         </div>
 
-        <regular-modal @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" :cmp="modalName"
+        <regular-modal :users="users" @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" :cmp="modalName"
             @addGroup="addGroup" />
 
     </section>
@@ -33,6 +33,9 @@
 import regularModal from './dynamic-modals/regular-modal.vue';
 export default {
     name: 'board-filter',
+    props: {
+        users: Array
+    },
     emits: ['filter', 'addTask', 'addGroup'],
     data() {
         return {

@@ -1,6 +1,6 @@
 <template>
     <section v-if="toShow" v-click-outside="closeModal" class='regular-modal'>
-        <component :is="cmp" @openTask="openTask" @removeTask="removeTask" @addGroup="addGroup"/>
+        <component :is="cmp" :users="users" @openTask="openTask" @removeTask="removeTask" @addGroup="addGroup" />
     </section>
 </template>
 
@@ -15,6 +15,7 @@ export default {
     props: {
         toShow: Boolean,
         cmp: String,
+        users: Array,
     },
     computed: {
 
@@ -31,7 +32,7 @@ export default {
         removeTask() {
             this.$emit('removeTask')
         },
-        addGroup(){
+        addGroup() {
             this.$emit('addGroup')
         }
 
