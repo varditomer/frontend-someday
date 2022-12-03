@@ -1,5 +1,5 @@
 <template>
-    <section class='link-modal flex column center'>
+    <form class='link-modal flex column center' @submit.prevent="saveLink" v-click-outside="saveLink">
         <div class="address">
             <label for="link-address-url" class="link-title">Web address</label>
             <input v-model="url" id="link-address-url" v-focus type="link" placeholder="www.example.com">
@@ -8,7 +8,8 @@
             <label for="txt-to-display" class="link-title">Text to display</label>
             <input v-model="title" id="txt-to-display" type="text" placeholder="Text to display">
         </div>
-    </section>
+        <button type="submit"></button>
+    </form>
 </template>
 <script>
 export default {
@@ -32,14 +33,14 @@ export default {
             url: '',
             title: ''
         }
-    },
-    unmounted() {
-        this.$emit('saveLink', {url: this.url, title: this.title} )
-    },
-
+    },    
     computed: {
     },
     methods: {
+        saveLink() {
+        this.$emit('saveLink', {url: this.url, title: this.title} )
+
+        }
     }
 }
 </script>

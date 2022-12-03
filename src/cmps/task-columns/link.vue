@@ -1,8 +1,7 @@
 <template>
     <section class="link flex center" @click="(show=true)">
-        <a @click.stop="" v-if="prop?.url" :href="prop.url" target="_blank">{{ prop.title }}</a>
+        <a @click.stop="" v-if="prop?.url" :href="`//${prop.url}`" target="_blank">{{ prop.title }}</a>
         <triangle-modal :cmp="'linkModal'" :link="prop" @hideModal="(show=false)" v-if="show" @saveLink="saveLink"/>
-        <!-- <span v-else class="empty-span"></span> -->
     </section>
 </template>
 
