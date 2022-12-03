@@ -26,7 +26,8 @@
         <draggable v-model="tasks" :group="{ name: 'groups' }" animation="150" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder"
-                    :users="users" :group="group" :priorities="priorities" :statuses="statuses" @removeTask="removeTask" />
+                    :users="users" :group="group" :priorities="priorities" :statuses="statuses"
+                    @removeTask="removeTask" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -82,7 +83,7 @@ export default {
     },
     data() {
         return {
-            taskToAdd: {}
+            taskToAdd: {},
         }
     },
     created() {
@@ -112,15 +113,15 @@ export default {
             this.$emit('saveTask', task)
         },
         async saveBoard(ev) {
-            const { oldIndex, newIndex } = ev
-            // const group = this.$store.getters.groups.find(group => group._id === this.tasks[0].groupId)
-            // const originGroupId = ev.item.__draggable_context.element.groupId
-            // this.$store.dispatch({ type: 'loadGroups' })
-            // const { groupId } = this.tasks[0]
-            // const group = JSON.parse(JSON.stringify(this.$store.getters.groups.find(group => group._id === groupId)))
-            // group.tasks = this.tasks
-            // this.$store.dispatch({ type: 'saveGroup', group })
+            await this.$store.dispatch({ type: 'loadGroups' })
+            const originTask = ev.item._underlying_vm_
+            const tasks = JSON.parse(JSON.stringify(this.tasks))
+            const board = JSON.parse(JSON.stringify(this.$store.getters.board))
+            const { groupId } = tasks[0]
+            const idx = board.groups.findIndex(group => group._id === groupId)
+            board.groups[idx].tasks = tasks
+            this.$store.dispatch({ type: 'saveBoard', board })
         },
-    }
+    },
 }
 </script>

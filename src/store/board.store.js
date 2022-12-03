@@ -33,17 +33,18 @@ export const boardStore = {
         board: [],
         firstBoardId: null,
         miniBoards: null,
+        isWorkspaceClosed: false
     },
     getters: {
         board({ board }) { return board },
         boardsTitles({ boardsTitles }) { return boardsTitles },
         miniBoards({ miniBoards }) { return miniBoards },
+        isWorkspaceClosed({ isWorkspaceClosed }) { return isWorkspaceClosed },
     },
     mutations: {
         setBoard(state, { board }) {
             state.board = board
         },
-
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
         },
@@ -83,13 +84,23 @@ export const boardStore = {
         },
         addGroup(state, { group }) {
             state.board.groups.unshift(group)
+        },
+        toggleWorkspace(state) {
+            state.isWorkspaceClosed = !state.isWorkspaceClosed
+            boardService.saveToSessionStorage('workspace', state.isWorkspaceClosed)
+        },
+        setWorkspaceState(state) {
+            const workspaceState = boardService.loadFromSessionStorage('workspace')
+            state.isWorkspaceClosed = JSON.parse(workspaceState)
         }
     },
     actions: {
         async saveBoard({ commit }, { board }) {
             try {
                 board = await boardService.save(board)
-                commit(getActionAddBoard(board))
+                commit({ type: 'setBoard', board })
+
+                // commit(getActionAddBoard(board))
                 return board
             } catch (err) {
                 console.log('boardStore: Error in saveBoard', err)
@@ -110,7 +121,8 @@ export const boardStore = {
         async updateBoard({ commit }, { board }) {
             try {
                 board = await boardService.save(board)
-                commit(getActionUpdateBoard(board))
+                commit({ type: 'setBoard', board })
+                // commit(getActionUpdateBoard(board))
                 return board
             } catch (err) {
                 console.log('boardStore: Error in updateBoard', err)

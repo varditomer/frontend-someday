@@ -10,6 +10,7 @@ import { userService } from './services/user.service'
 
 export default {
   async created() {
+    this.$store.commit({ type: 'setWorkspaceState' })
     await this.$store.dispatch({ type: 'getFirstBoard' })
     await this.$store.dispatch({ type: 'loadUsers' })
     await this.$store.dispatch({ type: 'loadGroups' })

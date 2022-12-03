@@ -144,7 +144,7 @@ export default {
             const formattedDate = `${year}-${month}-${day}`
             const dateToTimestamp = new Date(formattedDate)
             const timestamp = dateToTimestamp.getTime()
-            this.$emit('updateTask', {key: 'date', val: timestamp})
+            this.$emit('updateTask', { key: 'date', val: timestamp })
         },
         moveMonth(dir) {
             this.monthIdx += dir
@@ -153,7 +153,7 @@ export default {
         }
     },
     created() {
-        const date = new Date(this.prop)
+        const date = this.prop ? new Date(this.prop) : new Date(Date.now())
         this.monthIdx = date.getMonth()
         this.day = date.getDate()
     }
