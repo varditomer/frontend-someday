@@ -60,16 +60,13 @@ function _getNewGroup(boardId) {
             _id: 0,
             fullname: 'Guest'
         },
-        style: {
-            color: 'inherit',
-            light: 'inherit',
-        },
+        style: _getRandomColor(),
         tasks: [
             {
                 _id: utilService.makeId(),
                 boardId,
                 title: 'item 1',
-                comments:[],
+                comments: [],
                 status: 'Working on it',
                 createdAt: Date.now(),
                 createdBy: {
@@ -81,7 +78,7 @@ function _getNewGroup(boardId) {
                 _id: utilService.makeId(),
                 boardId,
                 title: 'item 2',
-                comments:[],
+                comments: [],
                 status: 'Stuck',
                 createdAt: Date.now(),
                 createdBy: {
@@ -93,7 +90,7 @@ function _getNewGroup(boardId) {
                 _id: utilService.makeId(),
                 boardId,
                 title: 'item 3',
-                comments:[],
+                comments: [],
                 status: 'Done',
                 createdAt: Date.now(),
                 createdBy: {
@@ -105,8 +102,44 @@ function _getNewGroup(boardId) {
     }
 }
 
-function _connectIds(group){
+function _connectIds(group) {
     group._id = utilService.makeId()
     group.tasks.forEach(task => task.groupId = group._id)
     return group
+}
+
+function _getRandomColor() {
+    const colorNames = Object.keys(colors)
+    const idx = utilService.getRandomIntInclusive(0, colorNames.length - 1)
+    const color = colors[colorNames[idx]]
+    const light = color + '99'
+    return {color, light}
+}
+
+const colors = {
+    'dark_indigo': '#401694',
+    'egg_yolk': '#ffcb00',
+    'bright-green': '#9cd326',
+    'sofia_pink': '#ff158a',
+    'berry': '#7e3b8a',
+    'royal': '#2B76E5',
+    'jade': '#03c875',
+    'grass_green': '#037f4c',
+    'dark-purple': '#784bd1',
+    'bubble': '#faa1f1',
+    'aqua': '#00d1d1',
+    'teal': '#175A63',
+    'navy': '#225091',
+    'peach': '#ffadad',
+    'dark-orange': '#ff642e',
+    'indigo': '#5559df',
+    'river': '#68a1bd',
+    'sky': '#A1E3F6',
+    'lipstick': '#ff5ac4',
+    'purple': '#a25ddc',
+    'chili-blue': '#66ccff',
+    'stuck-red': '#e2445c',
+    'orange': '#fdab3d',
+    'live_blue': '#009aff',
+    'sunset': '#ff7575',
 }
