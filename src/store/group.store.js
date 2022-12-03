@@ -37,14 +37,13 @@ export const groupStore = {
             }
         },
         async removeGroup({ commit }, { group }) {
-            console.log(`group removing:`, group )
+            console.log(`group removing:`, group)
             try {
                 commit({ type: 'removeGroup', group })
                 await groupService.remove(group)
-                // dispatch({ type: 'queryBoard', id: group.boardId, filter: '' })
                 console.log(`success`)
             } catch (err) {
-                console.log(`Cannot rmove group`, err)
+                console.log(`Cannot remove group`, err)
             }
         },
         async addGroup({ commit }) {
