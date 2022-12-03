@@ -95,6 +95,10 @@ export const boardStore = {
         addGroup(state, { group }) {
             state.board.groups.unshift(group)
         },
+        removeGroup(state, { group }) {
+            var idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)
+            state.board.groups.splice(idx,1)
+        },
         toggleWorkspace(state) {
             state.isWorkspaceClosed = !state.isWorkspaceClosed
             boardService.saveToSessionStorage('workspace', state.isWorkspaceClosed)

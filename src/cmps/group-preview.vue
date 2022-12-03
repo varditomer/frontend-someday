@@ -1,8 +1,8 @@
 <template>
     <section class='group-preview' @keydown.escape="(showModal = false)">
         <regular-modal v-if="showModal" :groupId="group._id" :showModal="showModal" @closeModal="(showModal = false)"
-            @addGroup="addGroup" :cmp="'group-opt-modal'" @keydown.escape="(showModal = false)"
-            @editGroupTitle="editGroupTitle" />
+            @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
+            @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle" />
         <div class="group-title flex align-center" :class="{ minimized: !viewTasks }"
             @keydown.escape="(showModal = false)">
 
@@ -11,11 +11,11 @@
             </div>
             <span class="group-arrow" v-svg-icon="'arrowDown'" @click="toggleTaskView"></span>
             <div class="group-title-content">
-                <h4 @click="(showTitle = false)" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)" contenteditable
-                    @input="saveGroup($event.target.innerText, 'title')" :style="{ color: group.style.color }"
-                    v-html="group.title" ref="title">
+                <h4 @click="(showTitle = false)" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
+                    contenteditable @input="saveGroup($event.target.innerText, 'title')"
+                    :style="{ color: group.style.color }" v-html="group.title" ref="title">
                 </h4>
-                <title-modal :class="{'show':showTitle}" :content="'Click to Edit'" />
+                <title-modal :class="{ 'show': showTitle }" :content="'Click to Edit'" />
             </div>
             <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
         </div>
@@ -30,7 +30,7 @@ import { eventBus } from '../services/event-bus.service.js'
 import regularModal from './dynamic-modals/regular-modal.vue'
 export default {
     name: 'group-preview',
-    emits: ['saveTask', 'removeTask', 'saveGroup'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup'],
     props: {
         group: Object,
         cmpsOrder: Array,
@@ -77,6 +77,9 @@ export default {
         },
         addGroup() {
             this.$emit('addGroup')
+        },
+        removeGroup() {
+            this.$emit('removeGroup', this.group)
         },
         showGroupOptions() {
             this.showModal = true

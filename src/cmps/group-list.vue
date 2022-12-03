@@ -6,7 +6,7 @@
             <template #item="{ element }">
                 <group-preview :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id"
                     :priorities="priorities" :statuses="statuses" v-if="board" @saveTask="saveTask"
-                    @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup" />
+                    @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup" @removeGroup="removeGroup" />
             </template>
         </draggable>
     </section>
@@ -19,7 +19,7 @@ import { eventBus } from '../services/event-bus.service'
 
 export default {
     name: 'group-list',
-    emits: ['saveTask', 'removeTask', 'saveGroup'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup'],
     props: {
         users: Array,
         board: Object,
@@ -45,6 +45,10 @@ export default {
         },
         saveGroup(group) {
             this.$emit('saveGroup', group)
+        },
+        removeGroup(group) {
+            console.log(`group:`, group)
+            this.$emit('removeGroup', group)
         },
         addGroup() {
             console.log(`add group - group list:`, )

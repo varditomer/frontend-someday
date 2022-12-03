@@ -18,7 +18,7 @@ export const taskStore = {
                 { title: 'Unattained', color: '#0086c0', colorName: '$clr-drk-blue' },
                 { title: 'Kaka', color: '#ffcb00', colorName: '$clr-yllw' },
                 { title: 'default', color: '#c4c4c4', colorName: '$clr-lgt-gry' },
-            ]
+            ],
         }
     },
     mutations: {

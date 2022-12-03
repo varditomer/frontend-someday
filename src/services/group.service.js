@@ -32,7 +32,7 @@ async function remove(group) {
     if (!board) return Promise.reject('Board not found')
     const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)
     if (idx === -1) return Promise.reject('Group not found')
-    const removedGroup = board.slice(idx, 1)
+    const removedGroup = board.groups.splice(idx, 1)
     if (!boardService.save(board)) return Promise.reject('Cannot remove group because board cannot be saved')
     return removedGroup
 }

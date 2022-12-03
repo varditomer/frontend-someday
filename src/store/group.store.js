@@ -3,7 +3,6 @@ import { groupService } from '../services/group.service.js'
 export const groupStore = {
     state() {
         return {
-            groups: []
         }
     },
     mutations: {
@@ -15,12 +14,7 @@ export const groupStore = {
             else return this.groups.unshift(group)
             if (idx === -1) return
             state.groups[idx] = group
-        }
-    },
-    getters: {
-        groups({ groups }) {
-            return groups
-        }
+        },
     },
     actions: {
         async loadGroups(context) {
@@ -40,6 +34,17 @@ export const groupStore = {
                 console.log(`success`)
             } catch (err) {
                 console.log(`Cannot save group`, err)
+            }
+        },
+        async removeGroup({ commit }, { group }) {
+            console.log(`group removing:`, group )
+            try {
+                commit({ type: 'removeGroup', group })
+                await groupService.remove(group)
+                // dispatch({ type: 'queryBoard', id: group.boardId, filter: '' })
+                console.log(`success`)
+            } catch (err) {
+                console.log(`Cannot rmove group`, err)
             }
         },
         async addGroup({ commit }) {

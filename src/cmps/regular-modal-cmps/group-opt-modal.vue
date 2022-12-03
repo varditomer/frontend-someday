@@ -24,12 +24,12 @@
                     <p class="title">Add group</p>
                 </div>
             </div>
-            <div class="modal-item flex align-center" @click="duplicateGroup">
+            <!-- <div class="modal-item flex align-center" @click="duplicateGroup">
                 <div class="flex align-center">
                     <span v-svg-icon="'board'"></span>
                     <p class="title">Duplicate this group</p>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="modal-group lowest-group flex column justify-center">
@@ -39,13 +39,13 @@
                     <p class="title">Rename group</p>
                 </div>
             </div>
-            <div class="modal-item flex align-center" @click="changeGroupColor">
+            <!-- <div class="modal-item flex align-center" @click="changeGroupColor">
                 <div class="flex align-center">
                     <span v-svg-icon="'board'"></span>
                     <p class="title">Change group color</p>
                 </div>
-            </div>
-            <div class="modal-item flex align-center" @click="Delete">
+            </div> -->
+            <div class="modal-item flex align-center" @click="removeGroup">
                 <div class="flex align-center">
                     <span v-svg-icon="'delete'"></span>
                     <p class="title">Delete</p>
@@ -60,7 +60,7 @@
 import { eventBus } from '../../services/event-bus.service';
 export default {
     name: 'group-opt-modal',
-    emits: ['addGroup', 'editGroupTitle'],
+    emits: ['addGroup', 'editGroupTitle', 'removeGroup'],
     props: {
         groupId: String,
     },
@@ -83,6 +83,9 @@ export default {
         },
         editGroupTitle() {
             this.$emit('editGroupTitle')
+        },
+        removeGroup() {
+            this.$emit('removeGroup')
         }
     },
     components: {}

@@ -4,7 +4,7 @@
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace" :isWorkspaceClosed="isWorkspaceClosed"/>
         <section class='board-app-container'>
             <board-header :filterBy="filterBy" :users="users" @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter" />
-            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
+            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup" @removeGroup="removeGroup"
                 :board="board" :priorities="priorities" :statuses="statuses" />
         </section>
         <router-view />
@@ -45,6 +45,9 @@ export default {
         },
         saveGroup(group) {
             this.$store.dispatch({ type: 'saveGroup', group })
+        },
+        removeGroup(group) {
+            this.$store.dispatch({ type: 'removeGroup', group })
         },
         toggleWorkspace() {
             this.$store.commit({ type: 'toggleWorkspace' })

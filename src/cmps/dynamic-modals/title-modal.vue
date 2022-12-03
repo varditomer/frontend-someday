@@ -1,6 +1,6 @@
 <template>
 
-    <section class='title-modal'>
+    <section class='span-rows title-modal'>
         <p>{{ content }}</p>
         <div class="arrow-down"></div>
     </section>
