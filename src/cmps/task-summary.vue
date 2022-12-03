@@ -62,7 +62,6 @@ export default {
                             if (label) {
                                 if (!summary[idx][label]) summary[idx][label] = 0
                                 summary[idx][label]++
-                                console.log(label, summary[idx][label])
                             }
                             break
                         case 'timeline':
@@ -75,7 +74,7 @@ export default {
                             if (!summary.end || summary.end > endTime) summary[idx].end = endTime
                             break
                         default:
-                            if (task[column]) summary[idx] += task[column]
+                            if (task[column]) summary[idx] += +task[column]
                             break
                     }
                 })
@@ -85,7 +84,6 @@ export default {
                         let persons = ''
                         for (let id in summary[idx]) {
                             const person = summary[idx][id]
-                            if (!persons.imgUrl) console.log(person)
                             persons += `<span class="task-avatar" style="
                             ${person.imgUrl?.length
                                     ? `background-image: url(${person.imgUrl})`
@@ -106,11 +104,10 @@ export default {
                         for (let label in summary[idx]) {
                             labelsCount += summary[idx][label]
                         }
-                        let htmlStr = `<div class="label-progress">`
+                        let htmlStr = `<div class="label-progress" style="background-color: ">`
                         for (let label in summary[idx]) {
                             const width = 100 * (summary[idx][label] / labelsCount) + '%'
                             const backgroundColor = colors[labels[label]]
-                            console.log(`backgroundColor`, backgroundColor)
                             htmlStr += `<div class="label" style="width:${width}; background-color: ${backgroundColor || 'transparent'}"
                                     ></div>`
                         }
@@ -120,10 +117,11 @@ export default {
                     case 'timeline':
                         summary[idx] = ''
                         break
-                    default: summary[idx] = ''
+                    case 'text':
+                    case 'date':
+                    case 'link':  summary[idx] = ''
                 }
 
-                // console.log(`summary[`, idx, `]`, summary[idx])
             })
 
             return summary
