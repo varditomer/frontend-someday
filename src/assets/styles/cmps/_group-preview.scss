@@ -9,6 +9,27 @@
         cursor: grab;
         align-items: center;
 
+        h4{
+            display: flex;
+            position: relative;
+            right: 5px;
+            align-items: center;
+            padding-right: 10px;
+            padding-left: 5px;
+            height: 60%;
+            cursor: text;
+
+            &:hover{
+                outline: 1px solid $brdr-clr;
+
+            }
+
+            &:focus{
+                border-radius: .2em;
+                outline: 1px solid $primary-blue;
+            }
+        }
+
 
         .group-arrow,
         .options {

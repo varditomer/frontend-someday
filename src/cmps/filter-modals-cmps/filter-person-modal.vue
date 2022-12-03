@@ -8,8 +8,8 @@
                 <p class="subtitle">Filter items and subitems by person</p>
             </div>
             <div class="modal-item flex align-center">
-                <div @click="filterPerson(user._id)" :title="user.fullname" class="filter-user"
-                    v-for="user in users">
+                <div v-for="user in users" @click="filterPerson(user._id)" :title="user.fullname"
+                    :class="{ 'selected': filterBy?.userId === user._id }" class="filter-user">
                     <img :src="user.imgUrl" alt="">
                 </div>
             </div>
@@ -23,10 +23,11 @@ export default {
     emits: ['filter'],
     props: {
         users: Array,
+        filterBy: Object
     },
     data() {
         return {
-            filterBy: {
+            filter: {
                 userId: []
             },
             isSelected: []
@@ -35,8 +36,8 @@ export default {
     methods: {
         filterPerson(userId) {
             this.isSelected = !this.isSel
-            this.filterBy.userId = userId
-            this.$emit('filter', { ...this.filterBy })
+            this.filter.userId = userId
+            this.$emit('filter', { ...this.filter })
         }
     }
 }

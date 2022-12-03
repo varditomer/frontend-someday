@@ -3,7 +3,7 @@
         <task-nav />
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace" :isWorkspaceClosed="isWorkspaceClosed"/>
         <section class='board-app-container'>
-            <board-header :users="users" @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter" />
+            <board-header :filterBy="filterBy" :users="users" @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter" />
             <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
                 :board="board" :priorities="priorities" :statuses="statuses" />
         </section>
@@ -68,7 +68,10 @@ export default {
         },
         isWorkspaceClosed() {
             return this.$store.getters.isWorkspaceClosed
-        }
+        },
+        filterBy() {
+            return this.$store.getters.filterBy
+        },
     },
     async created() {
         const { id } = this.$route.params

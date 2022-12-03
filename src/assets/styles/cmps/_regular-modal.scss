@@ -85,7 +85,7 @@
             justify-content: center;
 
             &.selected {
-                background-color: lighten($btn-active, 3%);
+                background-color:$btn-active;
             }
 
             img {

@@ -38,7 +38,7 @@ export const boardStore = {
         isWorkspaceClosed: false,
         filterBy: {
             txt: '',
-            userId: []
+            userId: null
         }
     },
     getters: {
@@ -46,10 +46,14 @@ export const boardStore = {
         boardsTitles({ boardsTitles }) { return boardsTitles },
         miniBoards({ miniBoards }) { return miniBoards },
         isWorkspaceClosed({ isWorkspaceClosed }) { return isWorkspaceClosed },
+        filterBy({ filterBy }) { return filterBy },
     },
     mutations: {
         setBoard(state, { board }) {
             state.board = board
+        },
+        setFilter(state, { filter }) {
+            state.filterBy = filter
         },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
@@ -149,6 +153,7 @@ export const boardStore = {
                 const { id } = payload
                 const isFilter = payload.hasOwnProperty('filter')
                 if (isFilter) var filter = { ...context.state.filterBy, ...payload.filter }
+                context.commit({ type: 'setFilter', filter })
                 const board = await boardService.queryBoard(id, filter)
                 context.commit({ type: 'setBoard', board })
             } catch (err) {
