@@ -8,7 +8,7 @@
             @click="searchClicked">
             <span v-svg-icon="'search'"></span>
             <input :class="{ 'open': isSearchClicked || isFiltering }" type="text" placeholder="Search"
-                @blur="(isSearchClicked = false)" v-model="filter.txt" @input="setFilter">
+                @blur="(isSearchClicked = false)" v-model="filter.txt" @input="setFilter(false)">
             <span v-svg-icon="'cancel'" class="cancel" :class="{ 'hide': !isFiltering }" @click="clearFilter"></span>
         </div>
         <div class="person-attach" @click="openModal('filterPersonModal')">
@@ -24,8 +24,8 @@
             <button>Sort</button>
         </div>
 
-        <regular-modal :users="users" @closeModal="(showModal = false)" :showModal="showModal" :cmp="modalName"
-            @addGroup="addGroup" />
+        <regular-modal @filter="setFilter" :users="users" @closeModal="(showModal = false)" :showModal="showModal"
+            :cmp="modalName" @addGroup="addGroup" />
 
     </section>
 </template>
@@ -62,16 +62,18 @@ export default {
             this.isSearchClicked = true
             document.querySelector('.search-tasks input').focus()
         },
-        setFilter() {
-            this.isFiltering = (this.filter) ? true : false
-            this.$emit('filter', { ...this.filter })
+        setFilter(filterBy) {
+            if (filterBy) this.$emit('filter', filterBy)
+            else {
+                this.isFiltering = (this.filter) ? true : false
+                this.$emit('filter', { ...this.filter })
+            }
         },
         clearFilter() {
             this.isFiltering = false
             this.filter = {}
             this.$emit('filter', { ...this.filter })
         },
-
     },
 
     components: {

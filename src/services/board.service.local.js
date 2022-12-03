@@ -43,25 +43,8 @@ async function getMiniBoards() {
 
 async function queryBoard(boardId, filterBy = {}) {
     const board = await storageService.get(BOARD_STORAGE_KEY, boardId)
-    if (filterBy.txt) {
-        const regex = new RegExp(filterBy.txt, 'ig')
-        board.groups = board.groups.reduce((groupArr, group) => {
-            if (regex.test(group.title)) {
-                group.title = group.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
-                groupArr.push(group)
-                return groupArr
-            }
-            group.tasks = group.tasks.reduce((taskArr, task) => {
-                if (regex.test(task.title)) {
-                    task.title = task.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
-                    taskArr.push(task)
-                }
-                return taskArr
-            }, [])
-            if (group.tasks.length) groupArr.push(group)
-            return groupArr
-        }, [])
-    }
+    _filterByTxt(board, filterBy.txt)
+    _filterByUser(board, filterBy.userId)
     return board
 }
 
@@ -79,6 +62,32 @@ async function save(board) {
 
 function add() {
     return save(_getNewBoard())
+}
+
+function _filterByUser(board, userId) {
+
+}
+
+function _filterByTxt(board, txt) {
+    if (txt) {
+        const regex = new RegExp(txt, 'ig')
+        board.groups = board.groups.reduce((groupArr, group) => {
+            if (regex.test(group.title)) {
+                group.title = group.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
+                groupArr.push(group)
+                return groupArr
+            }
+            group.tasks = group.tasks.reduce((taskArr, task) => {
+                if (regex.test(task.title)) {
+                    task.title = task.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
+                    taskArr.push(task)
+                }
+                return taskArr
+            }, [])
+            if (group.tasks.length) groupArr.push(group)
+            return groupArr
+        }, [])
+    }
 }
 
 function loadFromSessionStorage(key) {
