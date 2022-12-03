@@ -81,6 +81,7 @@ export default {
                     case 'numbers':
                     case 'text':
                         formattedCmp.cmpName = 'shallow'
+                        formattedCmp.name = cmp
                         break
                     case 'priority':
                     case 'status':
