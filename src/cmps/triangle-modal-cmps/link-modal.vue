@@ -32,15 +32,14 @@ export default {
             url: '',
             title: ''
         }
-    },    
+    },
     unmounted() {
-        const link = {url: this.url, title: this.title}
-        this.$emit('updateTask', {key: 'link', val: link} )
+
     },
     methods: {
         saveLink() {
-        this.$emit('saveLink', {url: this.url, title: this.title} )
-
+            const link = { url: this.url, title: this.title }
+            this.$emit('updateTask', { key: 'link', val: link })
         }
     }
 }
