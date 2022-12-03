@@ -1,6 +1,6 @@
 <template>
     <span @click="(show = true)" class="task-date">
-        <triangle-modal v-if="show" @hideModal="(show = false)" @updateTask="updateTask" :prop="prop"
+        <triangle-modal v-if="show" @hideModal="(show = false)" @updateTask="updateTask" :content="content"
             :cmp="'dateModal'" />
         {{ formattedDate || ' ' }}
     </span>
@@ -12,8 +12,7 @@ export default {
     emits: ['updateTask'],
     name: 'date-column',
     props: {
-        prop: Number,
-        users: Array
+        content: Number,
     },
     data() {
         return {
@@ -21,16 +20,18 @@ export default {
             show: false
         }
     },
+    created(){
+        console.log(`this.content`, this.content)
+    },
     computed: {
         formattedDate() {
-            if (isNaN(this.prop)) return ''
-            const monthIdx = (new Date(this.prop)).getMonth()
-            return `${this.months[monthIdx]} ${(new Date(this.prop)).getDate()}`
+            if (isNaN(this.content)) return ''
+            const monthIdx = (new Date(this.content)).getMonth()
+            return `${this.months[monthIdx]} ${(new Date(this.content)).getDate()}`
         },
     },
     methods: {
         updateTask(timeObj) {
-            console.log(`{ key: 'date', val: timestamp }`, timeObj)
             this.$emit('updateTask', timeObj)
             setTimeout(() => {
                 this.show = false

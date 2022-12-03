@@ -4,8 +4,8 @@
             :class="{ cover: person.pic }" :title="person.fullname">
             {{ !person.pic ? person.initials : '' }}
         </span>
-        <triangle-modal v-if="show" @updateTask="updateTask" :users="users"
-            :prop="formattedPersons" :cmp="'personsModal'" @hideModal="(show = false)" />
+        <triangle-modal v-if="show" @updateTask="updateTask" :additionalDb="additionalDb"
+            :content="formattedPersons" :cmp="'personsModal'" @hideModal="(show = false)" />
     </section>
     <!-- <span v-else></span> -->
 </template>
@@ -16,8 +16,8 @@ export default {
     name: 'persons-column',
     emits: ['updateTask'],
     props: {
-        prop: Array,
-        users: Array
+        content: Array,
+        additionalDb: Array
     },
     data() {
         return {
@@ -26,10 +26,10 @@ export default {
     },
     computed: {
         formattedPersons() {
-            if (!this.prop?.length) return []
-            return this.prop.reduce((userArr, person) => {
+            if (!this.content?.length) return []
+            return this.content.reduce((userArr, person) => {
                 const { _id, fullname } = person
-                const user = this.users.find(anyUser => anyUser._id === _id)
+                const user = this.additionalDb.find(anyUser => anyUser._id === _id)
                 if (!user) return userArr
                 const style = user.imgUrl
                     ? `background-image: url(${user.imgUrl})`

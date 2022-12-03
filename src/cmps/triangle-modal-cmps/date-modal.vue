@@ -123,7 +123,7 @@ export default {
     name: 'date-picker',
     emits: ['updateTask'],
     props: {
-        prop: Number
+        content: Number
     },
     data() {
         return {

@@ -12,12 +12,9 @@
             <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
                 <div class="task-title-item">
                     <span>
-                        <p 
-                            @blur="updateTask({key:'title', val: $event.target.innerText})" 
-                            @keydown.enter.prevent="updateTask({key:'title', val: $event.target.innerText})" 
-                            @click.prevent="" class="task-title"
-                            contenteditable="true" 
-                            v-html="task.title"></p>
+                        <p @blur="updateTask({ key: 'title', val: $event.target.innerText })"
+                            @keydown.enter.prevent="updateTask({ key: 'title', val: $event.target.innerText })"
+                            @click.prevent="" class="task-title" contenteditable="true" v-html="task.title"></p>
                     </span>
                     <span v-if="task.comments?.length" class="task-comment-icon count-comment">
                         <span v-svg-icon="'commentCount'"></span>
@@ -26,15 +23,9 @@
                     <span v-else v-svg-icon="'addComment'" class="task-comment-icon"></span>
                 </div>
             </router-link>
-            <component 
-                v-for="(column, idx) in cmpsOrder" 
-                :is="column + 'Task'" 
-                :prop="task[column]" 
-                :users="users" 
-                :statuses="statuses"
-                :priorities="priorities"
-                :color="group.style.color" :key="idx" 
-                @updateTask="updateTask">
+            <component v-for="(column, idx) in formattedData" :is="column.cmpName + 'Task'" :content="column.content"
+                :name="column.name" :additionalDb="column.additionalDb" :color="group.style.color"
+                :key="idx" @updateTask="updateTask">
             </component>
             <span class="empty-span"></span>
             <!-- <span v-for="(column, idx) in cmpsOrder">
@@ -47,11 +38,9 @@
 import dateTask from './task-columns/date.vue'
 import linkTask from './task-columns/link.vue'
 import personTask from './task-columns/person.vue'
-import statusTask from './task-columns/status.vue'
-import numbersTask from './task-columns/numbers.vue'
-import textTask from './task-columns/text.vue'
+import shallowTask from './task-columns/shallow.vue'
+import labelTask from './task-columns/labels.vue'
 import timelineTask from './task-columns/timeline.vue'
-import priorityTask from './task-columns/priority.vue'
 import regularModal from './dynamic-modals/regular-modal.vue'
 
 export default {
@@ -61,18 +50,13 @@ export default {
         task: Object,
         cmpsOrder: Array,
         users: Array,
-        priorities: Array,
-        statuses: {
-            type: Array,
-            reqiured: true
-        },
         group: {
             type: Object,
             required: true
-        }
+        },
+        additionalDb: Object
     },
     created() {
-
     },
     data() {
         return {
@@ -80,25 +64,54 @@ export default {
         }
     },
     computed: {
+
         formattedData() {
-            return function (parameter) {
-                switch (parameter) {
-                    case 'persons':
-                        return this.task.persons
-                            ? this.task.persons.map(person => person.fullname).join(' ')
-                            : '-'
-                    case 'date':
-                        return this.task.date
-                            ? (new Date(this.task.date)).toString().slice(0, 12)
-                            : '-'
-                    case 'link':
-                        return this.task.link
-                            ? this.task.link
-                            : '-'
-                    default:
-                        return this.task[parameter]
+            return this.cmpsOrder.map(cmp => {
+                const formattedCmp = {
+                    content: this.task[cmp] || null
                 }
-            }
+                switch (cmp) {
+                    case 'person':
+                        formattedCmp.additionalDb = this.additionalDb.users
+                    case 'date':
+                    case 'link':
+                    case 'timeline':
+                        formattedCmp.cmpName = cmp
+                        break
+                    case 'numbers':
+                    case 'text':
+                        formattedCmp.cmpName = 'shallow'
+                        break
+                    case 'priority':
+                    case 'status':
+                    case 'label':
+                        formattedCmp.cmpName = 'label'
+                        formattedCmp.name = cmp
+                        formattedCmp.additionalDb = this.additionalDb[cmp] || []
+                        break
+                }
+
+                return formattedCmp
+            })
+
+            // return function (parameter) {
+            //     switch (parameter) {
+            //         case 'persons':
+            //             return this.task.persons
+            //                 ? this.task.persons.map(person => person.fullname).join(' ')
+            //                 : '-'
+            //         case 'date':
+            //             return this.task.date
+            //                 ? (new Date(this.task.date)).toString().slice(0, 12)
+            //                 : '-'
+            //         case 'link':
+            //             return this.task.link
+            //                 ? this.task.link
+            //                 : '-'
+            //         default:
+            //             return this.task[parameter]
+            //     }
+            // }
         },
         persons() {
             return this.task.persons.map(person => person.fullname).join(' ')
@@ -128,10 +141,10 @@ export default {
         dateTask,
         linkTask,
         personTask,
-        statusTask,
-        numbersTask,
-        textTask,
-        priorityTask,
+        labelTask,
+        // statusTask,
+        shallowTask,
+        // priorityTask,
         timelineTask,
         regularModal
     }

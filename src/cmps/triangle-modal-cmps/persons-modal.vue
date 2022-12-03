@@ -1,6 +1,6 @@
 <template>
     <section class='persons-modal'>
-        <div v-for="person in prop" class="active-persons">
+        <div v-for="person in content" class="active-persons">
             <div class="person">
                 <span :style="person.style" class="task-avatar"></span>
                 <p>{{ person.fullname }}</p>
@@ -23,36 +23,36 @@ export default {
     name: 'persons-modal',
     emits: ['updateTask'],
     props: {
-        prop: {
+        content: {
             type: Array,
             required: false
         },
-        users: {
+        additionalDb: {
             type: Array,
             required: true
         }
     },
     computed: {
         personsToAdd() {
-            if (!this.prop.length) return this.users
-            if (this.users.length === this.prop.length) return []
-            return this.users.filter(user => {
-                if (this.prop.find(p => p._id === user._id)) return false
+            if (!this.content.length) return this.additionalDb
+            if (this.additionalDb.length === this.content.length) return []
+            return this.additionalDb.filter(user => {
+                if (this.content.find(p => p._id === user._id)) return false
                 return true
             })
         }
     },
     methods: {
         addPerson(personId) {
-            const person = this.users.find(user => user._id === personId)
-            const persons = this.prop
-                ? JSON.parse(JSON.stringify(this.prop))
+            const person = this.additionalDb.find(user => user._id === personId)
+            const persons = this.content
+                ? JSON.parse(JSON.stringify(this.content))
                 : []
             persons.push(person)
             this.updateTask(persons)
         },
         removePerson(personId) {
-            const persons = JSON.parse(JSON.stringify(this.prop))
+            const persons = JSON.parse(JSON.stringify(this.content))
             const idx = persons.findIndex(person => person._id === personId)
             if (idx === -1) return
             persons.splice(idx, 1)

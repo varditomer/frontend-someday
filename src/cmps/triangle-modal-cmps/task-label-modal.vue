@@ -10,12 +10,13 @@
 
 <script>
 export default {
-    name: '',
+    name: 'label-picker-modal',
     props: {
-        content: {
+        additionalDb: {
             type: Array,
             required: true
         },
+        content: String,
         name: String
     },
     emits: ['updateTask'],
@@ -26,13 +27,14 @@ export default {
     methods: {
         updateTask(val) {
             const key = this.name
-            console.log(`val`, val)
             this.$emit('updateTask', { key, val })
         }
     },
     computed: {
         getFormattedLabels() {
-            return this.content.map(label => {
+
+            if (!this.additionalDb?.length) return []
+            return this.additionalDb.map(label => {
                 const pClass = 'label'
                 const style = { backgroundColor: label.color }
                 const { title } = label

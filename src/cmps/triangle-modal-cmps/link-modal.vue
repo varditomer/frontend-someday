@@ -16,15 +16,15 @@ export default {
     name: 'link-modal',
     emits: ['updateTask'],
     props: {
-        prop: {
+        content: {
             type: Object,
             required: false
         }
     },
     created() {
-        if (this.prop?.title && this.prop?.url) {
-            this.url = this.prop.url
-            this.title = this.prop.title
+        if (this.content?.title && this.content?.url) {
+            this.url = this.content.url
+            this.title = this.content.title
         }
     },
     data() {
