@@ -57,9 +57,12 @@
 
 </template>
 <script>
+import { eventBus } from '../../services/event-bus.service';
 export default {
     name: 'group-opt-modal',
-    props: {},
+    props: {
+        groupId: String,
+    },
     data() {
         return {}
     },
@@ -68,6 +71,14 @@ export default {
     methods: {
         addGroup() {
             this.$emit('addGroup')
+        },
+        collapseAllGroups() {
+            console.log(`im here:`,)
+            eventBus.emit('minimized-groups', true)
+        },
+        collapseGroup() {
+            console.log(`im here:`,)
+            eventBus.emit('minimized-single-group', { _id: this.groupId, minimizeGroup: true })
         }
     },
     components: {}

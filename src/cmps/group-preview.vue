@@ -1,7 +1,9 @@
 <template>
-    <section class='group-preview' @keydown.escape="(showModal=false)">
-        <regular-modal v-if="showModal" :showModal="showModal" @closeModal="(showModal = false)" @addGroup="addGroup" :cmp="'group-opt-modal'" @keydown.escape="(showModal=false)" />
-        <div class="group-title flex align-center" :class="{ minimized: !viewTasks }" @keydown.escape="(showModal=false)">
+    <section class='group-preview' @keydown.escape="(showModal = false)">
+        <regular-modal v-if="showModal" :groupId="group._id" :showModal="showModal" @closeModal="(showModal = false)"
+            @addGroup="addGroup" :cmp="'group-opt-modal'" @keydown.escape="(showModal = false)" />
+        <div class="group-title flex align-center" :class="{ minimized: !viewTasks }"
+            @keydown.escape="(showModal = false)">
             <div class="options hidden flex center">
                 <span @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
             </div>
@@ -11,7 +13,7 @@
             <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
         </div>
         <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
-            :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask"/>
+            :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />
     </section>
 </template>
 <script>
@@ -27,11 +29,11 @@ export default {
         users: Array,
         priorities: {
             type: Array,
-            reqired: true
+            required: true
         },
         statuses: {
             type: Array,
-            reqired: true
+            required: true
         },
     },
     data() {
@@ -41,8 +43,12 @@ export default {
         }
     },
     mounted() {
-        eventBus.on('minimzed-groups', minimzeGroup => {
-            this.viewTasks = !minimzeGroup
+        eventBus.on('minimized-groups', minimizeGroups => {
+            this.viewTasks = !minimizeGroups
+        })
+        eventBus.on('minimized-single-group', ({ _id, minimizeGroup }) => {
+            // this.viewTasks = !minimizeGroup
+            if (this.group._id === _id) this.viewTasks = !minimizeGroup
         })
     },
     methods: {

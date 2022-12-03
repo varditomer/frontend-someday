@@ -1,7 +1,7 @@
 <template>
     <section v-if="showModal" v-click-outside="closeModal" @keydown.escape="closeModal" class='regular-modal'>
         <component :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask" :users="users"
-            @removeTask="removeTask" @addGroup="addGroup" />
+            @removeTask="removeTask" @addGroup="addGroup" :groupId="groupId" />
     </section>
 </template>
 
@@ -21,7 +21,8 @@ export default {
         filterBy: {
             type: Object,
             required: false
-        }
+        },
+        groupId: String,
     },
     computed: {
 
