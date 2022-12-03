@@ -2,12 +2,13 @@
     <section class='group-preview'>
         <div class="group-title flex align-center" :class="{ minimized: !viewTasks }">
             <div class="options hidden flex center">
-                <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
+                <span @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="group-arrow" v-svg-icon="'arrowDown'" @click="toggleTaskView"></span>
             <h4 contenteditable @input="saveGroup($event.target.innerText, 'title')"
                 :style="{ color: group.style.color }" v-html="group.title"></h4>
             <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
+            <regular-modal v-if="showModal" :showModal="showModal" @closeModal="(showModal = false)" @addGroup="addGroup" :cmp="'group-opt-modal'" />
         </div>
         <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
             :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />
@@ -16,6 +17,7 @@
 <script>
 import taskList from './task-list.vue'
 import { eventBus } from '../services/event-bus.service.js'
+import regularModal from './dynamic-modals/regular-modal.vue'
 export default {
     name: 'group-preview',
     emits: ['saveTask', 'removeTask', 'saveGroup'],
@@ -35,6 +37,7 @@ export default {
     data() {
         return {
             viewTasks: true,
+            showModal: false,
         }
     },
     mounted() {
@@ -55,6 +58,12 @@ export default {
         saveGroup(val, prop) {
             this.group[prop] = val
             this.$emit('saveGroup', this.group)
+        },
+        addGroup() {
+            this.$emit('addGroup')
+        },
+        showGroupOptions() {
+            this.showModal = true
         }
     },
     computed: {
@@ -84,7 +93,8 @@ export default {
         }
     },
     components: {
-        taskList
+        taskList,
+        regularModal
     }
 }
 </script>

@@ -6,6 +6,7 @@
 
 <script>
 import taskOptions from '../option-cmps/task-options.vue';
+import groupOptModal from '../regular-modal-cmps/group-opt-modal.vue';
 import newItemModal from '../filter-modals-cmps/new-item-modal.vue';
 import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue';
 export default {
@@ -42,6 +43,7 @@ export default {
         taskOptions,
         newItemModal,
         filterPersonModal,
+        groupOptModal
     }
 }
 </script>

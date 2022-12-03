@@ -5,7 +5,8 @@
             @start="minimizeGroups(true, $event)" @end="minimizeGroups(false, $event)">
             <template #item="{ element }">
                 <group-preview :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id"
-                    :priorities="priorities" :statuses="statuses" v-if="board" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" />
+                    :priorities="priorities" :statuses="statuses" v-if="board" @saveTask="saveTask"
+                    @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup" />
             </template>
         </draggable>
     </section>
@@ -23,12 +24,12 @@ export default {
         users: Array,
         board: Object,
         priorities: {
-            type:Array,
-            reqired:true
+            type: Array,
+            reqired: true
         },
         statuses: {
-            type:Array,
-            reqired:true
+            type: Array,
+            reqired: true
         },
     },
     methods: {
@@ -42,8 +43,12 @@ export default {
         removeTask(task) {
             this.$emit('removeTask', task)
         },
-        saveGroup(group){
+        saveGroup(group) {
             this.$emit('saveGroup', group)
+        },
+        addGroup() {
+            console.log(`add group - group list:`, )
+            this.$emit('addGroup')
         }
     },
     computed: {
