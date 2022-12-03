@@ -1,11 +1,11 @@
 <template>
     <section class="main-app-container" :class="{ 'folded': isWorkspaceClosed }">
         <task-nav />
-        <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace" />
+        <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace" :isWorkspaceClosed="isWorkspaceClosed"/>
         <section class='board-app-container'>
             <board-header @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter" />
-            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" 
-            @saveGroup="saveGroup" :board="board" :priorities="priorities" :statuses="statuses"/>
+            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
+                :board="board" :priorities="priorities" :statuses="statuses" />
         </section>
         <router-view />
     </section>
@@ -23,11 +23,6 @@ export default {
         groupList,
         boardWorkspace,
         taskNav
-    },
-    data() {
-        return {
-            isWorkspaceClosed: false
-        }
     },
     methods: {
         saveTask(task) {
@@ -52,7 +47,7 @@ export default {
             this.$store.dispatch({ type: 'saveGroup', group })
         },
         toggleWorkspace() {
-            this.isWorkspaceClosed = !this.isWorkspaceClosed
+            this.$store.commit({ type: 'toggleWorkspace' })
         }
     },
     computed: {
@@ -68,9 +63,12 @@ export default {
         priorities() {
             return this.$store.getters.priorities
         },
-        statuses(){
+        statuses() {
             return this.$store.getters.statuses
         },
+        isWorkspaceClosed() {
+            return this.$store.getters.isWorkspaceClosed
+        }
     },
     async created() {
         const { id } = this.$route.params

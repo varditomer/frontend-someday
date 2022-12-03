@@ -13,6 +13,8 @@ export const boardService = {
     add,
     save,
     remove,
+    saveToSessionStorage,
+    loadFromSessionStorage
 }
 window.bs = boardService
 
@@ -77,6 +79,14 @@ async function save(board) {
 
 function add() {
     return save(_getNewBoard())
+}
+
+function loadFromSessionStorage(key) {
+    return sessionStorage.getItem(key)
+}
+
+function saveToSessionStorage(key, state) {
+    sessionStorage.setItem(key, state)
 }
 
 function _getNewBoard() {
