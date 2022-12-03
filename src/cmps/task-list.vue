@@ -40,18 +40,21 @@
                     class="add-new-task-inline">
                 <button style="display:none;"></button>
             </form>
-            <span v-for="c in cmpsOrder" class="empty-fill-span"></span>
+            <span v-for="cmp in cmpsOrder" class="empty-fill-span"></span>
             <span class="empty-fill-span"></span>
         </li>
-        <li class="task-footer">
+        <task-summary :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer"/>
+        <!-- <li class="task-footer">
             <span class="empty-span"></span>
             <span class="empty-span"></span>
             <span class="empty-span"></span>
             <span class="empty-span"></span>
             <span class="empty-span"></span>
-            <span v-for="cmp in cmpsOrder" class="footer-span"></span>
+            <span v-for="cmp in cmpsOrder" class="footer-span">
+                
+            </span>
             <span class="empty-fill-span"></span>
-        </li>
+        </li> -->
     </ul>
 
 
@@ -59,6 +62,7 @@
 <script>
 import draggable from 'vuedraggable'
 import taskPreview from './task-preview.vue'
+import taskSummary from './task-summary.vue'
 export default {
     name: 'task-list',
     emits: ['saveTask', 'removeTask'],
@@ -78,7 +82,8 @@ export default {
     },
     components: {
         taskPreview,
-        draggable
+        draggable,
+        taskSummary
     },
     data() {
         return {
@@ -129,6 +134,9 @@ export default {
                 status: this.statuses,
                 users: this.users
             }
+        },
+        formattedSummary() {
+
         }
     }
 }
