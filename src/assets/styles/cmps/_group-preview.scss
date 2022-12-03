@@ -1,13 +1,48 @@
 .group-preview {
+    position: relative;
     margin-bottom: 28px;
     padding-right: 12px;
 
     .group-title {
         position: relative;
-        // margin-left: 40px;
         height: 40px;
         cursor: grab;
         align-items: center;
+
+        .group-title-content {
+            height: 60%;
+            position: relative;
+
+            .title-modal {
+                p {
+                    width: 100px;
+                }
+            }
+
+            h4 {
+                display: flex;
+                position: relative;
+                right: 5px;
+                align-items: center;
+                padding-right: 10px;
+                padding-left: 5px;
+                cursor: text;
+                height: 100%;
+
+                &:hover {
+                    outline: 1px solid $brdr-clr;
+
+                }
+
+                &:focus {
+                    border-radius: .2em;
+                    outline: 1px solid $primary-blue;
+                }
+            }
+        }
+
+
+
         .group-arrow,
         .options {
 
@@ -34,7 +69,7 @@
                 }
             }
 
-            .task-count{
+            .task-count {
                 visibility: inherit;
                 color: $layout-gray;
                 font-size: rem(14px);

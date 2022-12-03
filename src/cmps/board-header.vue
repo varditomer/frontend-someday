@@ -12,7 +12,8 @@
                 </button>
             </section>
         </section>
-        <board-filter :users="users" @filter="setFilter" @addTask="$emit('addTask')" @addGroup="addGroup" />
+        <board-filter :filterBy="filterBy" :users="users" @filter="setFilter" @addTask="$emit('addTask')"
+            @addGroup="addGroup" />
     </section>
 
 </template>
@@ -23,6 +24,7 @@ export default {
     emits: ['filter', 'addTask', 'addGroup'],
     props: {
         users: Array,
+        filterBy: Object
     },
     methods: {
         addGroup() {

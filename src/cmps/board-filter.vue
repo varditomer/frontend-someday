@@ -24,8 +24,8 @@
             <button>Sort</button>
         </div>
 
-        <regular-modal @filter="setFilter" :users="users" @closeModal="(showModal = false)" :showModal="showModal"
-            :cmp="modalName" @addGroup="addGroup" />
+        <regular-modal :filterBy="filterBy" @filter="setFilter" :users="users" @closeModal="(showModal = false)"
+            :showModal="showModal" :cmp="modalName" @addGroup="addGroup" />
 
     </section>
 </template>
@@ -34,7 +34,8 @@ import regularModal from './dynamic-modals/regular-modal.vue';
 export default {
     name: 'board-filter',
     props: {
-        users: Array
+        users: Array,
+        filterBy: Object
     },
     emits: ['filter', 'addTask', 'addGroup'],
     data() {
@@ -62,8 +63,8 @@ export default {
             this.isSearchClicked = true
             document.querySelector('.search-tasks input').focus()
         },
-        setFilter(filterBy) {
-            if (filterBy) this.$emit('filter', filterBy)
+        setFilter(filter) {
+            if (filter) this.$emit('filter', filter)
             else {
                 this.isFiltering = (this.filter) ? true : false
                 this.$emit('filter', { ...this.filter })
@@ -75,7 +76,6 @@ export default {
             this.$emit('filter', { ...this.filter })
         },
     },
-
     components: {
         regularModal
     }

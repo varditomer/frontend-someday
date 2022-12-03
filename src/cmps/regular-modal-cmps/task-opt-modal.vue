@@ -1,5 +1,5 @@
 <template>
-    <section class='task-options'>
+    <section class='task-opt-modal more-options-modal'>
 
         <div class="modal-group upper-group">
             <div class="modal-item flex align-center" @click="openTask">
@@ -85,7 +85,7 @@
 </template>
 <script>
 export default {
-    name: 'task-option',
+    name: 'task-opt-modal',
     emits: ['openTask', 'removeTask'],
     props: {},
     data() {

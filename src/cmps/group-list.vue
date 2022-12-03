@@ -25,17 +25,17 @@ export default {
         board: Object,
         priorities: {
             type: Array,
-            reqired: true
+            required: true
         },
         statuses: {
             type: Array,
-            reqired: true
+            required: true
         },
     },
     methods: {
         minimizeGroups(minimize, ev) {
             if (!ev?.item?.classList || !ev.item.classList[0] === 'group-preview') return
-            eventBus.emit('minimzed-groups', minimize)
+            eventBus.emit('minimized-groups', minimize)
         },
         saveTask(task) {
             this.$emit('saveTask', task)

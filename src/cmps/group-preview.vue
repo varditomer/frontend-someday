@@ -1,20 +1,30 @@
 <template>
-    <section class='group-preview'>
-        <div class="group-title flex align-center" :class="{ minimized: !viewTasks }">
+    <section class='group-preview' @keydown.escape="(showModal = false)">
+        <regular-modal v-if="showModal" :groupId="group._id" :showModal="showModal" @closeModal="(showModal = false)"
+            @addGroup="addGroup" :cmp="'group-opt-modal'" @keydown.escape="(showModal = false)"
+            @editGroupTitle="editGroupTitle" />
+        <div class="group-title flex align-center" :class="{ minimized: !viewTasks }"
+            @keydown.escape="(showModal = false)">
+
             <div class="options hidden flex center">
                 <span @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="group-arrow" v-svg-icon="'arrowDown'" @click="toggleTaskView"></span>
-            <h4 contenteditable @input="saveGroup($event.target.innerText, 'title')"
-                :style="{ color: group.style.color }" v-html="group.title"></h4>
+            <div class="group-title-content">
+                <h4 @click="(showTitle = false)" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)" contenteditable
+                    @input="saveGroup($event.target.innerText, 'title')" :style="{ color: group.style.color }"
+                    v-html="group.title" ref="title">
+                </h4>
+                <title-modal :class="{'show':showTitle}" :content="'Click to Edit'" />
+            </div>
             <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
-            <regular-modal v-if="showModal" :showModal="showModal" @closeModal="(showModal = false)" @addGroup="addGroup" :cmp="'group-opt-modal'" />
         </div>
         <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
             :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />
     </section>
 </template>
 <script>
+import titleModal from './dynamic-modals/title-modal.vue'
 import taskList from './task-list.vue'
 import { eventBus } from '../services/event-bus.service.js'
 import regularModal from './dynamic-modals/regular-modal.vue'
@@ -27,22 +37,28 @@ export default {
         users: Array,
         priorities: {
             type: Array,
-            reqired: true
+            required: true
         },
         statuses: {
             type: Array,
-            reqired: true
+            required: true
         },
     },
     data() {
         return {
             viewTasks: true,
             showModal: false,
+            isEditing: false,
+            showTitle: false,
         }
     },
     mounted() {
-        eventBus.on('minimzed-groups', minimzeGroup => {
-            this.viewTasks = !minimzeGroup
+        eventBus.on('minimized-groups', minimizeGroups => {
+            this.viewTasks = !minimizeGroups
+        })
+        eventBus.on('minimized-single-group', ({ _id, minimizeGroup }) => {
+            // this.viewTasks = !minimizeGroup
+            if (this.group._id === _id) this.viewTasks = !minimizeGroup
         })
     },
     methods: {
@@ -64,6 +80,11 @@ export default {
         },
         showGroupOptions() {
             this.showModal = true
+        },
+        editGroupTitle() {
+            this.$nextTick(() => {
+                this.$refs.title.focus();
+            })
         }
     },
     computed: {
@@ -94,7 +115,8 @@ export default {
     },
     components: {
         taskList,
-        regularModal
+        regularModal,
+        titleModal
     }
 }
 </script>

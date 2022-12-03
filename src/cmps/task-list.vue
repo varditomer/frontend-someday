@@ -73,11 +73,11 @@ export default {
         group: Object,
         priorities: {
             type: Array,
-            reqired: true
+            required: true
         },
         statuses: {
             type: Array,
-            reqired: true
+            required: true
         },
     },
     components: {

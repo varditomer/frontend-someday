@@ -1,15 +1,17 @@
 <template>
-    <section class="timeline">
+    <section @click="(show = true)" class="timeline">
         <div class="range">
             <div class="value" :style="style"></div>
         </div>
+        <triangle-modal v-if="show" :cmp="'timelineModal'" :content="'baba'" />
     </section>
 </template>
 
 <script>
+import triangleModal from '../dynamic-modals/triangle-modal.vue'
 export default {
     name: '',
-    emits:['updateTask'],
+    emits: ['updateTask'],
     props: {
         content: {
             type: Object,
@@ -22,11 +24,8 @@ export default {
     },
     data() {
         return {
+            show: false,
         }
-    },
-    created() {
-    },
-    methods: {
     },
     computed: {
         getTimelineBar() {
@@ -50,6 +49,86 @@ export default {
         },
     },
     components: {
+        triangleModal
     },
 }
 </script>
+
+
+const ;
+   
+  const machine = {
+    initial: 'idle',
+    states: {
+      idle: {
+        on: {
+          pointerdown: (data, event) => {
+            data.firstDate = +event.currentTarget.dataset.day;
+            data.secondDate = null;
+            return 'dragging';
+          }
+        }
+      },
+      dragging: {
+        on: {
+          pointerover: (data, event) => {
+            data.secondDate = +event.currentTarget.dataset.day;
+            
+            return 'dragging';
+          },
+          pointerup: 'idle',
+          pointercancel: 'idle'
+        }
+      }
+    }
+  };
+   
+  // idle
+  let currentState = machine.initial;
+   
+  function send(event) {
+    const transition = machine
+      .states[currentState]
+      .on[event.type];
+   
+    if (typeof transition === 'function') {
+      currentState = transition(data, event);
+      updateDOM();
+    } else if (transition) {
+      currentState = transition;
+      updateDOM();
+    }
+  }
+   
+  /* ---------------------------------- */
+   
+  const allDayEls = document.querySelectorAll('[data-day]');
+   
+  allDayEls.forEach(dayEl => {
+    dayEl.addEventListener('pointerdown', send);
+    dayEl.addEventListener('pointerover', send);
+  });
+   
+  document.body.addEventListener('pointerup', send);
+   
+  /* ---------------------------------- */
+   
+  function updateDOM(){
+    document.querySelectorAll('[data-selected]')
+      .forEach(el => {
+        delete el.dataset.selected
+      });
+    
+    const startDate = Math.min(data.firstDate, data.secondDate);
+    const endDate = Math.max(data.firstDate, data.secondDate);
+    
+    if ( startDate ) {
+      const startDateEl = document.querySelector(`[data-day="${startDate}"]`);
+      startDateEl.dataset.selected = "start";
+    }
+    
+    if ( endDate ) {
+      const endDateEl = document.querySelector(`[data-day="${endDate}"]`);
+      endDateEl.dataset.selected = "end";
+    }
+  }
