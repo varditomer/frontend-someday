@@ -8,10 +8,9 @@
                 <p class="subtitle">Filter items and subitems by person</p>
             </div>
             <div class="modal-item flex align-center">
-                <div :title="user.fullname" class="filter-user" v-for="user in users">
+                <div @click="filterPerson(user._id)" :title="user.fullname" class="filter-user" v-for="user in users">
                     <img :src="user.imgUrl" alt="">
                 </div>
-                <!-- Todo: render persons and set filter by persons  -->
             </div>
         </div>
 
@@ -20,10 +19,22 @@
 <script>
 export default {
     name: 'filter-person-modal',
+    emits: ['filter'],
     props: {
         users: Array,
     },
+    data() {
+        return {
+            filterBy: {
+                userId: []
+            }
+        }
+    },
     methods: {
+        filterPerson(userId) {
+            this.filterBy.userId = userId
+            this.$emit('filter', { ...this.filterBy })
+        }
     }
 }
 </script>

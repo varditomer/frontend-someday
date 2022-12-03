@@ -42,27 +42,11 @@ async function getMiniBoards() {
 }
 
 async function queryBoard(boardId, filterBy = {}) {
-    const board = await storageService.get(BOARD_STORAGE_KEY, boardId)
-    if (filterBy.txt) {
-        const regex = new RegExp(filterBy.txt, 'ig')
-        board.groups = board.groups.reduce((groupArr, group) => {
-            if (regex.test(group.title)) {
-                group.title = group.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
-                groupArr.push(group)
-                return groupArr
-            }
-            group.tasks = group.tasks.reduce((taskArr, task) => {
-                if (regex.test(task.title)) {
-                    task.title = task.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
-                    taskArr.push(task)
-                }
-                return taskArr
-            }, [])
-            if (group.tasks.length) groupArr.push(group)
-            return groupArr
-        }, [])
-    }
-    return board
+    var board = await storageService.get(BOARD_STORAGE_KEY, boardId)
+    var boardToShow = _filterByTxt(board, filterBy.txt)
+    debugger
+    boardToShow = _filterByUser(boardToShow, filterBy.userId)
+    return boardToShow
 }
 
 async function remove(boardId) {
@@ -79,6 +63,40 @@ async function save(board) {
 
 function add() {
     return save(_getNewBoard())
+}
+
+function _filterByUser(board, userId) {
+    if (!userId) return board
+    board.groups = board.groups.filter(group => {
+        if (!group.tasks || !group.tasks.length) return
+        group.tasks = group.tasks.filter(task => {
+            return task?.person?.some(p => p._id === userId)
+        })
+        return (group.tasks && group.tasks.length)
+    })
+    return board
+}
+
+function _filterByTxt(board, txt) {
+    if (!txt) return board
+    const regex = new RegExp(txt, 'ig')
+    board.groups = board.groups.reduce((groupArr, group) => {
+        if (regex.test(group.title)) {
+            group.title = group.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
+            groupArr.push(group)
+            return groupArr
+        }
+        group.tasks = group.tasks.reduce((taskArr, task) => {
+            if (regex.test(task.title)) {
+                task.title = task.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
+                taskArr.push(task)
+            }
+            return taskArr
+        }, [])
+        if (group.tasks.length) groupArr.push(group)
+        return groupArr
+    }, [])
+    return board
 }
 
 function loadFromSessionStorage(key) {

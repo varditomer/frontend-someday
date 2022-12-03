@@ -7,12 +7,14 @@ export function getActionRemoveBoard(boardId) {
         boardId
     }
 }
+
 export function getActionAddBoard(board) {
     return {
         type: 'addBoard',
         board
     }
 }
+
 export function getActionUpdateBoard(board) {
     return {
         type: 'updateBoard',
@@ -33,7 +35,11 @@ export const boardStore = {
         board: [],
         firstBoardId: null,
         miniBoards: null,
-        isWorkspaceClosed: false
+        isWorkspaceClosed: false,
+        filterBy: {
+            txt: '',
+            userId: []
+        }
     },
     getters: {
         board({ board }) { return board },
@@ -138,11 +144,13 @@ export const boardStore = {
                 throw err
             }
         },
-        async queryBoard({ commit }, payload) {
+        async queryBoard(context, payload) {
             try {
                 const { id } = payload
-                const board = await boardService.queryBoard(id, payload.filter)
-                commit({ type: 'setBoard', board })
+                const isFilter = payload.hasOwnProperty('filter')
+                if (isFilter) var filter = { ...context.state.filterBy, ...payload.filter }
+                const board = await boardService.queryBoard(id, filter)
+                context.commit({ type: 'setBoard', board })
             } catch (err) {
                 console.log('Could not find board');
                 throw new Error()

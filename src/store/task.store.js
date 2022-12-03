@@ -37,11 +37,6 @@ export const taskStore = {
                 return context.getters.board.groups.some(({ tasks }) => tasks.some(task => {
                     if (task._id === taskId) return task
                 }))
-                // setTimeout(() => {
-                // return context.getters.board.groups.some(({ tasks }) => tasks.some(task => {
-                // if (task._id === taskId) return task
-                // }))
-                // }, 500)
             } catch (err) {
                 console.log('could not load task');
             }
