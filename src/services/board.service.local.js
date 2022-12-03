@@ -65,9 +65,9 @@ function add() {
 }
 
 function _filterByUser(board, userId) {
-    if (!userId) return board
+    if (!userId?.length) return board
     board.groups = board.groups.filter(group => {
-        if (!group.tasks || !group.tasks.length) return
+        if (!group.tasks || !group.tasks.length) return false
         group.tasks = group.tasks.filter(task => {
             return task?.person?.some(p => p._id === userId)
         })
@@ -80,11 +80,11 @@ function _filterByTxt(board, txt) {
     if (!txt) return board
     const regex = new RegExp(txt, 'ig')
     board.groups = board.groups.reduce((groupArr, group) => {
-        if (regex.test(group.title)) {
+        const isGroupTitleMatch = regex.test(group.title)
+        if (isGroupTitleMatch) {
             group.title = group.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
-            groupArr.push(group)
-            return groupArr
         }
+
         group.tasks = group.tasks.reduce((taskArr, task) => {
             if (regex.test(task.title)) {
                 task.title = task.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
@@ -92,8 +92,10 @@ function _filterByTxt(board, txt) {
             }
             return taskArr
         }, [])
-        if (group.tasks.length) groupArr.push(group)
+
+        if (group.tasks?.length || isGroupTitleMatch) groupArr.push(group)
         return groupArr
+
     }, [])
     return board
 }

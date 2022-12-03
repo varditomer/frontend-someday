@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import taskOptions from '../option-cmps/task-options.vue';
+import taskOptModal from '../regular-modal-cmps/task-opt-modal.vue';
 import groupOptModal from '../regular-modal-cmps/group-opt-modal.vue';
 import newItemModal from '../filter-modals-cmps/new-item-modal.vue';
 import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue';
@@ -44,9 +44,9 @@ export default {
 
     },
     components: { //specify each dynamic cmps thats created
-        taskOptions,
         newItemModal,
         filterPersonModal,
+        taskOptModal,
         groupOptModal
     }
 }

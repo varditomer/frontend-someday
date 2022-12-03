@@ -1,9 +1,9 @@
 <template>
-    <span @click="(show = true)" class="task-date">
-        <triangle-modal v-if="show" @hideModal="(show = false)" @updateTask="updateTask" :content="content"
-            :cmp="'dateModal'" />
-        {{ formattedDate || ' ' }}
-    </span>
+        <span @click="(show = true)" class="task-date">
+            <triangle-modal v-if="show" @hideModal="(show = false)" @updateTask="updateTask"
+                :content="(content || Date.now())" :cmp="'dateModal'" />
+            {{ formattedDate || ' ' }}
+        </span>
 </template>
 
 <script>
@@ -20,12 +20,12 @@ export default {
             show: false
         }
     },
-    created(){
-        console.log(`this.content`, this.content)
+    created() {
+        // console.log(`this.content`, this.content)
     },
     computed: {
         formattedDate() {
-            if (isNaN(this.content)) return ''
+            if (!this.content || isNaN(this.content)) return ''
             const monthIdx = (new Date(this.content)).getMonth()
             return `${this.months[monthIdx]} ${(new Date(this.content)).getDate()}`
         },

@@ -1,40 +1,82 @@
 .regular-modal {
-    >* {
-        //need to set position and other prefs. at children cmp
-        box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
-        border-radius: 10px;
-        position: absolute;
-        background: $clr--white;
+    //need to set position and other prefs. at children cmp
+    > * {
         z-index: 10;
+        background: $clr--white;
+        position: absolute;
+        box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
+    }
+    // .modal-group {
+    // padding: 8px;
+    // .modal-item {
 
+    //     .title {
+    //         flex: 1;
+    //         // font-family: roboto-medium;
+    // font-size: rem(15px);
+    //         color: $primary-text-color;
+    //     }
+    //     .subtitle {
+    //         font-family: roboto-light;
+    //     }
+    // }
+
+    // span {
+    //     margin-right: 8px;
+    // }
+    // }
+
+    // Dynamic modals (modal-children's) prefs set:
+
+    // board-filters modals
+    .new-item-modal {
+        width: 220px;
+        top: 44px;
+        left: 75px;
+        border-radius: 8px;
         .modal-group {
+            padding: 8px;
+        }
 
-
+        .modal-item {
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            &:hover {
+                background-color: $modal-hover-clr;
+            }
             .title {
-                flex: 1;
-                font-family: roboto-medium;
-                font-size: rem(15px);
-                color: $layout-black;
+                font-size: rem(14px);
             }
-
-            .subtitle {
-                font-family: roboto-light;
+            span {
+                margin-right: 8px;
             }
-
         }
     }
 
-    .modal-item {
-        padding: 4px 8px;
-        border-radius: .3em;
+    .filter-person-modal {
+        width: 420px;
+        height: 141px;
+        top: 44px;
+        left: 75px;
+        padding: 16px;
+        border-radius: 8px;
 
-        p {
+        .title {
+            font-family: roboto-medium;
+            font-size: rem(15px);
+            height: 32px;
+            cursor: default;
+        }
+        .subtitle {
             font-size: rem(14px);
+            margin-bottom: 16px;
+            cursor: default;
         }
 
         .filter-user {
             cursor: pointer;
-            margin-top: 5px;
+            // margin-top: 5px;
             width: 40px;
             height: 40px;
             border-radius: 2em;
@@ -53,35 +95,38 @@
         }
     }
 
-    // Dynamic modals (modal-children's) prefs set:
-
-    .task-options {
-        width: 225px;
-        top: 36px;
+    .more-options-modal {
+        width: 264px;
         left: 11px;
+        border-radius: 10px;
+
+        .modal-group {
+            padding: 8px;
+        }
+
+        .modal-item {
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            &:hover {
+                background-color: $modal-hover-clr;
+            }
+            .title {
+                font-size: rem(14px);
+            }
+            span {
+                margin-right: 8px;
+            }
+        }
     }
 
-    // board-filters modals
-    .new-item-modal {
-        width: 220px;
-        top: 44px;
-        left: 75px;
+    .task-opt-modal {
+        top: 36px;
     }
-
-    .filter-person-modal {
-        height: 141px;
-        padding: 16px;
-        width: 420px;
-        top: 44px;
-        left: 75px;
-    }
-
     .group-opt-modal {
-        cursor: pointer;
-        height: 141px;
-        padding: 16px;
-        width: 420px;
         top: 40px;
-        left: 10px;
+        .upper-group {
+            border-bottom: 1px solid $hr-clr;
+        }
     }
 }
