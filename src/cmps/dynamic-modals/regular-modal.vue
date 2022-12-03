@@ -1,5 +1,5 @@
 <template>
-    <section v-if="toShow" v-click-outside="closeModal" class='regular-modal'>
+    <section v-if="showModal" v-click-outside="closeModal" @keydown.escape="closeModal" class='regular-modal'>
         <component :is="cmp" @openTask="openTask" @removeTask="removeTask" @addGroup="addGroup"/>
     </section>
 </template>
@@ -11,9 +11,9 @@ import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue';
 export default {
 
     name: 'regular-modal',
-    emits: ['modalClosed', 'openTask', 'removeTask', 'addGroup'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup'], //emit all types of dynamic cmps events
     props: {
-        toShow: Boolean,
+        showModal: Boolean,
         cmp: String,
     },
     computed: {
@@ -23,7 +23,8 @@ export default {
     },
     methods: {
         closeModal() {
-            this.$emit('modalClosed')
+            console.log(`modelClose:`)
+            this.$emit('closeModal')
         },
         openTask() {
             this.$emit('openTask')
