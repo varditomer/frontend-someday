@@ -2,7 +2,7 @@
     <section class="task-label-modal">
         <span v-for="label in getFormattedLabels" :class="label.pClass" :style="label.style"
             @click="updateTask(label.title)">
-            <span v-svg-icon="'changeColor'" class="change-color" @click.stop=""></span>
+            <!-- <span v-svg-icon="'changeColor'" class="change-color" @click.stop=""></span> -->
             {{ label.title === 'Default' ? '' : label.title }}
         </span>
     </section>
