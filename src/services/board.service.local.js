@@ -249,11 +249,7 @@ const boards = [
                                 }
                             },
                             {
-<<<<<<< HEAD
-                                _id: 'b53fn',
-=======
                                 _id: 'ZePnm',
->>>>>>> f6033dd641afda03d6cbfffe1938e965deee6742
                                 taskId: 'xwe45',
                                 txt: 'Good luck',
                                 createdAt: 1590999817436,
