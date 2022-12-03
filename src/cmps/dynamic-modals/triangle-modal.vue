@@ -25,7 +25,7 @@ export default {
         },
         content: {
             type: [Object, Array, String, Number],
-            required: true
+            required: false
         },
         name: String
     },

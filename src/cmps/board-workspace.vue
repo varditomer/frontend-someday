@@ -27,7 +27,9 @@
                     <span v-svg-icon="'search'"></span>
                     <input type="text" @input="setFilter" placeholder="Search">
                 </div>
-                <button class="flex center" @click="addBoard" title="Add new Board">
+                <button @click="addBoard" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
+                    class="add-board-btn flex center">
+                    <title-modal :class="{ 'show': showTitle }" :content="'Add board to Workspace'" />
                     <span v-svg-icon="'add'"></span>
                 </button>
             </div>
@@ -48,8 +50,9 @@
 </template>
 
 <script>
-
+import titleModal from './dynamic-modals/title-modal.vue'
 export default {
+
     name: 'board-workspace',
     emits: ['add-board', 'toggleWorkspace'],
     props: {
@@ -58,6 +61,7 @@ export default {
     data() {
         return {
             filter: '',
+            showTitle: false
         }
     },
     created() {
@@ -80,12 +84,16 @@ export default {
             this.filter = filter
         },
         addBoard() {
+            this.showTitle = false
             this.$emit('addBoard')
         },
         toggleWorkspace() {
             this.$emit('toggleWorkspace')
         }
     },
+    components: {
+        titleModal
+    }
 
 }
 </script>

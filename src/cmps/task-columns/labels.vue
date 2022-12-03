@@ -18,7 +18,7 @@ export default {
         name: String,
         additionalDb: {
             type: Array,
-            reqiured: true
+            required: true
         }
     },
     data() {
@@ -28,8 +28,8 @@ export default {
     },
     methods: {
         updateTask(labelObj) {
-            this.show = false
             this.$emit('updateTask', labelObj)
+            setTimeout(() => this.show = false, 1)
         },
     },
     computed: {
