@@ -26,7 +26,7 @@
         <draggable v-model="tasks" :group="{ name: 'groups' }" animation="150" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder"
-                    :users="users" :group="group" :priorities="priorities" :statuses="statuses" @removeTask="removeTask" />
+                    :users="users" :group="group" :additionalDb="additionalDb" @removeTask="removeTask" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -121,6 +121,15 @@ export default {
             // group.tasks = this.tasks
             // this.$store.dispatch({ type: 'saveGroup', group })
         },
+    },
+    computed: {
+        additionalDb() {
+            return {
+                priority: this.priorities,
+                status: this.statuses,
+                users: this.users
+            }
+        }
     }
 }
 </script>

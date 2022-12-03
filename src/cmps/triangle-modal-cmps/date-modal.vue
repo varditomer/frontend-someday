@@ -123,7 +123,7 @@ export default {
     name: 'date-picker',
     emits: ['updateTask'],
     props: {
-        prop: Number
+        content: Number
     },
     data() {
         return {
@@ -153,7 +153,7 @@ export default {
         }
     },
     created() {
-        const date = new Date(this.prop)
+        const date = new Date(this.content)
         this.monthIdx = date.getMonth()
         this.day = date.getDate()
     }

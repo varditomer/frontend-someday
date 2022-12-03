@@ -1,7 +1,7 @@
 <template>
     <section class="link flex center" @click="(show = true)">
-        <a @click.stop="" v-if="prop?.url" :href="`//${prop.url}`" target="_blank">{{ prop.title }}</a>
-        <triangle-modal :cmp="'linkModal'" :prop="prop" @hideModal="(show = false)" v-if="show"
+        <a @click.stop="" v-if="content?.url" :href="`//${content.url}`" target="_blank">{{ content.title }}</a>
+        <triangle-modal :cmp="'linkModal'" :content="content" @hideModal="(show = false)" v-if="show"
             @updateTask="updateTask" />
         <!-- <span v-else class="empty-span"></span> -->
     </section>
@@ -13,8 +13,7 @@ export default {
     emits: ['updateTask'],
     name: 'link-column',
     props: {
-        prop: Object,
-        users: Array
+        content: Object,
     },
     data() {
         return {

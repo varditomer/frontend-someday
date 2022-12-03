@@ -11,11 +11,6 @@ export default {
     name: '',
     emits: ['updateColor'],
     props: {
-        priorities: {
-            type: Array,
-            required: true
-        },
-        users: Array
     },
     data() {
         return {
@@ -30,12 +25,12 @@ export default {
     },
     computed: {
         getFormattedPrioities() {
-            return this.priorities.map(priority => {
-                const pClass = 'label'
-                const style = { backgroundColor: priority.color }
-                const { title } = priority
-                return { title, pClass, style }
-            })
+            // return this.priorities.map(priority => {
+            //     const pClass = 'label'
+            //     const style = { backgroundColor: priority.color }
+            //     const { title } = priority
+            //     return { title, pClass, style }
+            // })
         },
         getFormattedColors() {
             const colorArr = []

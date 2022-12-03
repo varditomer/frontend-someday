@@ -2,7 +2,8 @@
 
     <section v-click-outside="hide" class='triangle-modal'>
         <span class="top-bot"></span>
-        <component :is="cmp" :prop="prop" :users="users" :name="name" :content="content" @updateTask="updateTask">
+        <component :is="cmp" :content="content" :name="name" :additionalDb="additionalDb"
+            @updateTask="updateTask">
         </component>
     </section>
 
@@ -18,16 +19,13 @@ export default {
     emits: ['updateTask', 'hideModal'],
     props: {
         cmp: String,
-        users: {
+        additionalDb: {
             type: Array,
             required: false
         },
         content: {
-            type: Array,
-            required: false
-        },
-        prop: {
-            type: Object || Array || String || Number,
+            type: [Object, Array, String, Number],
+            required: true
         },
         name: String
     },
