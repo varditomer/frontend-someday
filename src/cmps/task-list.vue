@@ -25,8 +25,9 @@
         </li>
         <draggable v-model="tasks" :group="{ name: 'groups' }" animation="150" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
-                <task-preview @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder"
-                    :users="users" :group="group" :additionalDb="additionalDb" @removeTask="removeTask" />
+                <task-preview @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
+                    @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users"
+                    :group="group" :additionalDb="additionalDb" @removeTask="removeTask" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -43,7 +44,7 @@
             <span v-for="cmp in cmpsOrder" class="empty-fill-span"></span>
             <span class="empty-fill-span"></span>
         </li>
-        <task-summary :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer"/>
+        <task-summary :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer" />
         <!-- <li class="task-footer">
             <span class="empty-span"></span>
             <span class="empty-span"></span>
@@ -65,7 +66,7 @@ import taskPreview from './task-preview.vue'
 import taskSummary from './task-summary.vue'
 export default {
     name: 'task-list',
-    emits: ['saveTask', 'removeTask'],
+    emits: ['saveTask', 'removeTask', 'saveSelectedTasks'],
     props: {
         tasks: Array,
         cmpsOrder: Array,
@@ -79,6 +80,10 @@ export default {
             type: Array,
             required: true
         },
+        selectedTasks: {
+            type: Array,
+            required: false
+        }
     },
     components: {
         taskPreview,
@@ -126,6 +131,9 @@ export default {
             board.groups[idx].tasks = tasks
             this.$store.dispatch({ type: 'saveBoard', board })
         },
+        saveSelectedTasks(taskId) {
+            this.$emit('saveSelectedTasks', taskId)
+        }
     },
     computed: {
         additionalDb() {

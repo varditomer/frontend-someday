@@ -4,6 +4,7 @@ export const taskStore = {
     state() {
         return {
             taskToEdit: null,
+            selectedTasks: [],
             priorities: [
                 { title: 'Critical', color: '#333333', colorName: '$priority-blackish' },
                 { title: 'High', color: '#fe7575', colorName: '$clr-red' },
@@ -25,11 +26,23 @@ export const taskStore = {
         setTask(state, { taskToEdit }) {
             state.taskToEdit = taskToEdit
         },
+        saveSelectedTasks(state, { taskId }) {
+            if (state.selectedTasks.includes(taskId)) {
+                const idx = state.selectedTasks.indexOf(taskId)
+                state.selectedTasks.splice(idx, 1)
+            } else {
+                state.selectedTasks.push(taskId)
+            }
+        },
+        unselectTasks(state) {
+            state.selectedTasks = []
+        }
     },
     getters: {
         taskToEdit({ taskToEdit }) { return taskToEdit },
         priorities({ priorities }) { return priorities },
         statuses({ statuses }) { return statuses },
+        selectedTasks({ selectedTasks }) { return selectedTasks },
     },
     actions: {
         async loadTask(context, { taskId }) {

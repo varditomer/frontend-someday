@@ -29,16 +29,12 @@ async function getBoardsTitles() {
     return boards.map(board => board.title)
 }
 
-async function getMiniBoards() {
+async function getMiniBoards(filter = null) {
     let boards = await storageService.query(BOARD_STORAGE_KEY)
-    return boards.map(({ _id, title }) => ({ _id, title }))
-    // {
-    //     const miniBoard = {}
-    //     miniBoard._id = board._id
-    //     miniBoard.title = board.title
-    //     return miniBoard
-    // }
-    // return miniBoards
+    boards = boards.map(({ _id, title }) => ({ _id, title }))
+    if (!filter) return boards
+    const regex = new RegExp(filter, 'i')
+    return boards.filter(board => regex.test(board.title))
 }
 
 async function queryBoard(boardId, filterBy = {}) {

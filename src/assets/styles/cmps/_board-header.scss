@@ -1,29 +1,48 @@
 .board-header {
     display: grid;
-    grid-template-rows: 1fr 65px;
+    grid-template-rows: 1fr 66px;
     padding-right: $layout-padding;
-    padding-left: 36px;
-    padding-top: $layout-padding + 12px;
+    padding-left: 38px;
+    padding-top: 16px;
 
     .header {
 
         .top-header {
             display: flex;
             justify-content: space-between;
-            padding-bottom: 16px;
+            align-items: center;
+            height: 42px;
+
+            .board-title {
+                font-size: rem(32px);
+                position: relative;
+                left: -6px;
+                padding: 6px;
+                letter-spacing: -1px;
+                border-radius: .1em;
+                transition: padding .4s;
+
+                &:hover{
+                    outline: 1px solid $brdr-clr;
+                }
+
+                &:focus {
+                    outline: 1px solid $primary-blue;
+                }
+
+                &.editing{
+                    padding-right: 200px;
+                }
+            }
         }
 
         span {
             cursor: pointer;
         }
 
-        .board-title {
-            font-size: rem(32px);
-            letter-spacing: -1px;
-        }
-
         .add-views {
             border-bottom: 1px solid $brdr-clr;
+            margin-top: 10px;
 
             .view-item {
                 display: flex;
@@ -31,14 +50,11 @@
                 background-color: transparent;
                 box-shadow: inset 0px -2px 0px 0px $primary-blue;
                 height: 36px;
-                width: 100px;
-
-                span svg {
-                    scale: .8;
-                }
+                width: 110px;
             }
 
             .view-title {
+                padding-left: 6px;
                 font-size: rem(14px);
                 font-family: roboto-medium;
                 color: $layout-black;

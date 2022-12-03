@@ -7,7 +7,7 @@
                 <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="task-select" :style="{ 'border-left-color': group.style.color }">
-                <input multiple type="checkbox" />
+                <input @click="selectTask(task._id)" type="checkbox" />
             </span>
             <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
                 <div class="task-title-item">
@@ -46,7 +46,7 @@ import numbersTask from './task-columns/numbers.vue'
 
 export default {
     name: 'task-preview',
-    emits: ['updateTask', 'updateTask', 'removeTask'],
+    emits: ['updateTask', 'updateTask', 'removeTask', 'saveSelectedTasks'],
     props: {
         task: Object,
         cmpsOrder: Array,
@@ -55,7 +55,11 @@ export default {
             type: Object,
             required: true
         },
-        additionalDb: Object
+        additionalDb: Object,
+        selectedTasks: {
+            type: Array,
+            required: false
+        }
     },
     created() {
     },
@@ -140,6 +144,10 @@ export default {
             this.$emit('removeTask', this.task)
             this.showModal = false
         },
+        selectTask(taskId) {
+            this.$emit('saveSelectedTasks', taskId)
+
+        }
     },
     components: {
         dateTask,

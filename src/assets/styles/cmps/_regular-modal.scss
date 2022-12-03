@@ -1,11 +1,15 @@
 .regular-modal {
+    position: absolute;
+    z-index: 50;
+
     //need to set position and other prefs. at children cmp
-    > * {
+    >* {
         z-index: 10;
         background: $clr--white;
         position: absolute;
         box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
     }
+
     // .modal-group {
     // padding: 8px;
     // .modal-item {
@@ -34,6 +38,7 @@
         top: 44px;
         left: 75px;
         border-radius: 8px;
+
         .modal-group {
             padding: 8px;
         }
@@ -42,12 +47,15 @@
             cursor: pointer;
             padding: 4px 8px;
             border-radius: 4px;
+
             &:hover {
                 background-color: $modal-hover-clr;
             }
+
             .title {
                 font-size: rem(14px);
             }
+
             span {
                 margin-right: 8px;
             }
@@ -68,6 +76,7 @@
             height: 32px;
             cursor: default;
         }
+
         .subtitle {
             font-size: rem(14px);
             margin-bottom: 16px;
@@ -85,7 +94,7 @@
             justify-content: center;
 
             &.selected {
-                background-color:$btn-active;
+                background-color: $btn-active;
             }
 
             img {
@@ -108,12 +117,15 @@
             cursor: pointer;
             padding: 4px 8px;
             border-radius: 4px;
+
             &:hover {
                 background-color: $modal-hover-clr;
             }
+
             .title {
                 font-size: rem(14px);
             }
+
             span {
                 margin-right: 8px;
             }
@@ -123,10 +135,94 @@
     .task-opt-modal {
         top: 36px;
     }
+
     .group-opt-modal {
         top: 40px;
+
         .upper-group {
             border-bottom: 1px solid $hr-clr;
+        }
+    }
+
+    .person-select-modal {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        top: 89vh;
+        left: calc(50vw - 160px - 300px);
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+        min-width: 600px;
+        height: 63px;
+        border-radius: 10px;
+
+        .left-sec {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+
+        .selected-count {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            font-family: roboto-light;
+            width: 63px;
+            height: 100%;
+            background-color: $primary-blue;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-family: roboto-thin;
+            margin-left: 18px;
+
+        }
+
+    }
+
+    .right-sec {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        >*{
+            width: 63px;
+            height: 100%;
+        }
+
+        .close-modal-btn{
+            cursor: pointer;
+            border-left: 1px solid $brdr-clr;
+        }
+
+        .tasks-item{
+            cursor: pointer;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .delete-tasks-btn{
+                scale: .8;
+                position: relative;
+                top: 6px;
+                fill: $layout-gray;
+            }
+
+            p{
+                font-size: 13px;
+                font-family: roboto-light;
+                padding-bottom: 6px;
+                color: $layout-gray;
+            }
         }
     }
 }

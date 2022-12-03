@@ -1,16 +1,22 @@
 <template>
     <section class="main-app-container" :class="{ 'folded': isWorkspaceClosed }">
         <task-nav />
-        <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace" :isWorkspaceClosed="isWorkspaceClosed"/>
+        <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
+            :isWorkspaceClosed="isWorkspaceClosed" />
         <section class='board-app-container'>
-            <board-header :filterBy="filterBy" :users="users" @addTask="saveEmptyTask" @addGroup="addGroup" @filter="setFilter" />
-            <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup" @removeGroup="removeGroup"
-                :board="board" :priorities="priorities" :statuses="statuses" />
+            <regular-modal @unselectTasks="unselectTasks" :selectedTasks="selectedTasks" :showModal="showModal"
+                :cmp="'person-select-modal'" />
+            <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
+                @addGroup="addGroup" @filter="setFilter" />
+            <group-list @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks" :users="users"
+                @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
+                @removeGroup="removeGroup" :board="board" :priorities="priorities" :statuses="statuses" />
         </section>
         <router-view />
     </section>
 </template>
 <script>
+import regularModal from '../cmps/dynamic-modals/regular-modal.vue'
 import boardHeader from '../cmps/board-header.vue'
 import groupList from '../cmps/group-list.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
@@ -22,7 +28,8 @@ export default {
         boardHeader,
         groupList,
         boardWorkspace,
-        taskNav
+        taskNav,
+        regularModal
     },
     methods: {
         saveTask(task) {
@@ -51,6 +58,21 @@ export default {
         },
         toggleWorkspace() {
             this.$store.commit({ type: 'toggleWorkspace' })
+        },
+        async saveSelectedTasks(taskId) {
+            await this.$store.commit({ type: 'saveSelectedTasks', taskId })
+            this.showModal = (this.selectedTasks.length) ? true : false
+        },
+        unselectTasks() {
+            this.$store.commit({ type: 'unselectTasks' })
+            this.showModal = false
+        },
+        async saveBoardTitle(title) {
+            const board = JSON.parse(JSON.stringify(this.board))
+            if (board.title === title) return
+            board.title = title
+            await this.$store.dispatch({ type: 'saveBoard', board })
+            this.$store.dispatch({ type: 'loadMiniBoards' })
         }
     },
     computed: {
@@ -75,6 +97,14 @@ export default {
         filterBy() {
             return this.$store.getters.filterBy
         },
+        selectedTasks() {
+            return this.$store.getters.selectedTasks
+        },
+    },
+    data() {
+        return {
+            showModal: false
+        }
     },
     async created() {
         const { id } = this.$route.params
