@@ -238,7 +238,7 @@ const boards = [
                         },
                         comments: [
                             {
-                                _id: 'ZdPnm',
+                                _id: 'sbr12',
                                 taskId: 'xwe45',
                                 txt: 'Good luck and have fun',
                                 createdAt: 1590999817436,
@@ -249,7 +249,11 @@ const boards = [
                                 }
                             },
                             {
+<<<<<<< HEAD
+                                _id: 'b53fn',
+=======
                                 _id: 'ZePnm',
+>>>>>>> f6033dd641afda03d6cbfffe1938e965deee6742
                                 taskId: 'xwe45',
                                 txt: 'Good luck',
                                 createdAt: 1590999817436,
@@ -654,7 +658,7 @@ const boards = [
                 style: '#ff642e',
                 tasks: [
                     {
-                        _id: 'c101',
+                        _id: 'x2dvp',
                         boardId: 'b102',
                         groupId: 'g101',
                         title: 'Talk to Oprah',
@@ -741,7 +745,7 @@ const boards = [
         ],
         activities: [
             {
-                _id: 'a101',
+                _id: 'sdc83',
                 txt: 'Changed Color',
                 createdAt: 154514,
                 byMember: {
@@ -751,7 +755,7 @@ const boards = [
                 },
                 tasks: [
                     {
-                        _id: 'c101',
+                        _id: 'cla3c',
                         title: 'Replace Logo'
                     }
                 ],

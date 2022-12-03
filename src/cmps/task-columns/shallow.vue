@@ -1,5 +1,5 @@
 <template>
-    <section class>
+    <section>
         
     </section>
 </template>
@@ -9,8 +9,7 @@ export default {
     name: '',
     emits:['updateTask'],
     props: {
-        prop: Object,
-        users: Array
+        content: String,
     },
     data() {
         return {

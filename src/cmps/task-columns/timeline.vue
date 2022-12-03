@@ -7,17 +7,12 @@
 </template>
 
 <script>
-import { utilService } from '../../services/util.service.js'
 export default {
     name: '',
     emits:['updateTask'],
     props: {
-        prop: {
+        content: {
             type: Object,
-            required: false
-        },
-        users: {
-            type: Array,
             required: false
         },
         color: {
@@ -35,9 +30,9 @@ export default {
     },
     computed: {
         getTimelineBar() {
-            if (!this.prop?.start || !this.prop?.end) return 0
-            const start = (new Date([this.prop.start.year, this.prop.start.month + 1, this.prop.start.day])).getTime()
-            const end = (new Date([this.prop.end.year, this.prop.end.month + 1, this.prop.end.day])).getTime()
+            if (!this.content?.start || !this.content?.end) return 0
+            const start = (new Date([this.content.start.year, this.content.start.month + 1, this.content.start.day])).getTime()
+            const end = (new Date([this.content.end.year, this.content.end.month + 1, this.content.end.day])).getTime()
             const diffInDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24))
             const timeElapsed = Math.ceil((Date.now() - start) / (1000 * 60 * 60 * 24))
             const percentage = (100 * (+timeElapsed) / (+diffInDays))
