@@ -5,6 +5,7 @@ import { store } from './store/store.js'
 
 import {
     focusDirective,
+    condFocusDirective,
     customOnDirective,
     clickOutsideDirective,
     svgIconDirective,
@@ -18,6 +19,7 @@ import App from './App.vue'
 const app = createApp(App)
 
 app.directive('focus', focusDirective)
+app.directive('cond-focus', condFocusDirective)
 app.directive('custom-on', customOnDirective)
 app.directive('click-outside', clickOutsideDirective)
 app.directive('svg-icon', svgIconDirective)

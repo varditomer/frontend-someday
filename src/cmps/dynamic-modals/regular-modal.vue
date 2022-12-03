@@ -1,7 +1,7 @@
 <template>
     <section v-if="showModal" v-click-outside="closeModal" @keydown.escape="closeModal" class='regular-modal'>
         <component :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask" :users="users"
-            @removeTask="removeTask" @addGroup="addGroup" :groupId="groupId" />
+            @removeTask="removeTask" @addGroup="addGroup" :groupId="groupId" @editGroupTitle="editGroupTitle"/>
     </section>
 </template>
 
@@ -13,7 +13,7 @@ import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue';
 export default {
 
     name: 'regular-modal',
-    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'filter'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'filter', 'editGroupTitle'], //emit all types of dynamic cmps events
     props: {
         showModal: Boolean,
         cmp: String,
@@ -45,6 +45,9 @@ export default {
         },
         filter(filterBy) {
             this.$emit('filter', filterBy)
+        },
+        editGroupTitle() {
+            this.$emit('editGroupTitle')
         }
 
     },

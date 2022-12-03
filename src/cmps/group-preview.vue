@@ -1,7 +1,8 @@
 <template>
     <section class='group-preview' @keydown.escape="(showModal = false)">
         <regular-modal v-if="showModal" :groupId="group._id" :showModal="showModal" @closeModal="(showModal = false)"
-            @addGroup="addGroup" :cmp="'group-opt-modal'" @keydown.escape="(showModal = false)" />
+            @addGroup="addGroup" :cmp="'group-opt-modal'" @keydown.escape="(showModal = false)"
+            @editGroupTitle="editGroupTitle" />
         <div class="group-title flex align-center" :class="{ minimized: !viewTasks }"
             @keydown.escape="(showModal = false)">
             <div class="options hidden flex center">
@@ -9,7 +10,7 @@
             </div>
             <span class="group-arrow" v-svg-icon="'arrowDown'" @click="toggleTaskView"></span>
             <h4 contenteditable @input="saveGroup($event.target.innerText, 'title')"
-                :style="{ color: group.style.color }" v-html="group.title"></h4>
+                :style="{ color: group.style.color }" v-html="group.title" ref="title"></h4>
             <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
         </div>
         <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
@@ -40,6 +41,7 @@ export default {
         return {
             viewTasks: true,
             showModal: false,
+            isEditing: false,
         }
     },
     mounted() {
@@ -70,6 +72,11 @@ export default {
         },
         showGroupOptions() {
             this.showModal = true
+        },
+        editGroupTitle() {
+            this.$nextTick(() => {
+                this.$refs.title.focus();
+            })
         }
     },
     computed: {

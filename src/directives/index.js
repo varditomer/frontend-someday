@@ -3,6 +3,13 @@ export const focusDirective = {
     el.focus()
   },
 }
+export const condFocusDirective = {
+  mounted: (el, boolean) => {
+    if(!boolean.value) return
+    console.log(`true:`, )
+    el.focus()
+  },
+}
 
 export const svgIconDirective = {
   mounted(el, binding) {

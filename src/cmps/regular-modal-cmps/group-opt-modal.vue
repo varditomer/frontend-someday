@@ -33,7 +33,7 @@
         </div>
 
         <div class="modal-group lowest-group flex column justify-center">
-            <div class="modal-item flex align-center" @click="renameGroup">
+            <div class="modal-item flex align-center" @click="editGroupTitle">
                 <div class="flex align-center">
                     <span v-svg-icon="'board'"></span>
                     <p class="title">Rename group</p>
@@ -60,6 +60,7 @@
 import { eventBus } from '../../services/event-bus.service';
 export default {
     name: 'group-opt-modal',
+    emits: ['addGroup', 'editGroupTitle'],
     props: {
         groupId: String,
     },
@@ -79,6 +80,9 @@ export default {
         collapseGroup() {
             console.log(`im here:`,)
             eventBus.emit('minimized-single-group', { _id: this.groupId, minimizeGroup: true })
+        },
+        editGroupTitle() {
+            this.$emit('editGroupTitle')
         }
     },
     components: {}
