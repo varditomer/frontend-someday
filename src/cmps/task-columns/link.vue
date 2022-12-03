@@ -20,7 +20,6 @@ export default {
             show: false,
 
         }
-
     },
     methods: {
         openModal() {
@@ -31,7 +30,6 @@ export default {
     },
     components: {
         triangleModal
-
     }
 }
 </script>

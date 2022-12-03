@@ -12,7 +12,7 @@
                 </button>
             </section>
         </section>
-        <board-filter @filter="setFilter" @addTask="$emit('addTask')" @addGroup="addGroup" />
+        <board-filter :users="users" @filter="setFilter" @addTask="$emit('addTask')" @addGroup="addGroup" />
     </section>
 
 </template>
@@ -20,7 +20,10 @@
 import boardFilter from './board-filter.vue'
 export default {
     name: 'board-header',
-    emits: ['filter','addTask', 'addGroup'],
+    emits: ['filter', 'addTask', 'addGroup'],
+    props: {
+        users: Array,
+    },
     methods: {
         addGroup() {
             this.$emit('addGroup')

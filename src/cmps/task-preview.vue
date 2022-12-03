@@ -1,7 +1,7 @@
 <template>
     <section class="li-wrapper">
         <regular-modal :cmp="'task-options'" @openTask="openTask" @removeTask="removeTask"
-            @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" />
+            @closeModal="(showModal = false)" :showModal="showModal" />
         <li class="content-li">
             <div class="options hidden flex center">
                 <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
@@ -60,7 +60,7 @@ export default {
     },
     data() {
         return {
-            isModalOpen: false
+            showModal: false
         }
     },
     computed: {
@@ -127,14 +127,14 @@ export default {
             this.$emit('updateTask', task)
         },
         lineOptions() {
-            this.isModalOpen = true
+            this.showModal = true
         },
         openTask() {
             this.$router.push('/board/' + this.board._id + '/task/' + this.task._id)
         },
         removeTask() {
             this.$emit('removeTask', this.task)
-            this.isModalOpen = false
+            this.showModal = false
         },
     },
     components: {

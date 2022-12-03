@@ -8,27 +8,48 @@
         z-index: 10;
 
         .modal-group {
-            padding: 8px;
+
 
             .title {
                 flex: 1;
-                margin-left: 8px;
-
+                font-family: roboto-medium;
+                font-size: rem(15px);
+                color: $layout-black;
             }
+
+            .subtitle {
+                font-family: roboto-light;
+            }
+
         }
     }
 
     .modal-item {
         padding: 4px 8px;
         border-radius: .3em;
-        cursor: pointer;
 
         p {
             font-size: rem(14px);
         }
 
-        &:hover {
-            background-color: $brdr-clr;
+        .filter-user {
+            cursor: pointer;
+            margin-top: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &.selected {
+                background-color: lighten($btn-active, 3%);
+            }
+
+            img {
+                width: 30px;
+                height: 30px;
+            }
         }
     }
 
@@ -48,8 +69,11 @@
     }
 
     .filter-person-modal {
-        width: 220px;
+        height: 141px;
+        padding: 16px;
+        width: 420px;
         top: 44px;
-        left: 180px;
+        // left: 180px;
+        left: 75px;
     }
 }

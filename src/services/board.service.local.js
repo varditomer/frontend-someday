@@ -13,6 +13,8 @@ export const boardService = {
     add,
     save,
     remove,
+    saveToSessionStorage,
+    loadFromSessionStorage
 }
 window.bs = boardService
 
@@ -77,6 +79,14 @@ async function save(board) {
 
 function add() {
     return save(_getNewBoard())
+}
+
+function loadFromSessionStorage(key) {
+    return sessionStorage.getItem(key)
+}
+
+function saveToSessionStorage(key, state) {
+    sessionStorage.setItem(key, state)
 }
 
 function _getNewBoard() {
@@ -230,7 +240,11 @@ const boards = [
                                 }
                             },
                             {
+<<<<<<< HEAD
                                 _id: 'b53fn',
+=======
+                                _id: 'ZePnm',
+>>>>>>> f6033dd641afda03d6cbfffe1938e965deee6742
                                 taskId: 'xwe45',
                                 txt: 'Good luck',
                                 createdAt: 1590999817436,
@@ -259,7 +273,6 @@ const boards = [
                         groupId: 'sc7aw',
                         title: 'Upload project to Github',
                         person: [
-
                             {
                                 _id: 'u104',
                                 fullname: 'Ronen Boxer',
@@ -387,7 +400,7 @@ const boards = [
                         },
                     },
                     {
-                        _id: 'adc8w',
+                        _id: 'adx8w',
                         boardId: 'b101',
                         groupId: 'sd93d',
                         title: 'Build demo data',
@@ -408,7 +421,7 @@ const boards = [
                         status: 'Stuck',
                         comments: [
                             {
-                                _id: '23dmv',
+                                _id: 'ZyPnm',
                                 taskId: 'adc8w',
                                 txt: '@Tomer Vardi where is my coffee?',
                                 createdAt: 1590999817436,
@@ -419,8 +432,8 @@ const boards = [
                                 }
                             },
                             {
-                                _id: 'ZdPnm',
-                                taskId: 'adc8w',
+                                _id: 'ZqPnm',
+                                taskId: 'adm8w',
                                 txt: '@Ronen Boxer in a minute',
                                 attachment: 'https://sprint-4-company.monday.com/protected_static/14268178/resources/683016563/big-JPEG_29112022_163653_2246356385772545662.jpg',
                                 createdAt: 1590999817436,
@@ -433,7 +446,7 @@ const boards = [
                         ]
                     },
                     {
-                        _id: 'dcdsw',
+                        _id: 'xx8sd',
                         boardId: 'b101',
                         groupId: 'sd93d',
                         title: 'Build flow',
@@ -546,7 +559,7 @@ const boards = [
                         priority: 'Low'
                     },
                     {
-                        _id: 'dcs0p',
+                        _id: 'dcwo34',
                         boardId: 'b101',
                         groupId: 'ascw2',
                         title: 'Think about app architecture',
@@ -685,7 +698,7 @@ const boards = [
                         description: 'description',
                         comments: [
                             {
-                                _id: 'sdc9s',
+                                _id: 'ZoPnm',
                                 taskId: 'c104',
                                 txt: 'also @yaronb please CR this',
                                 createdAt: 1590999817436,

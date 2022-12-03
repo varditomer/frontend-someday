@@ -1,4 +1,4 @@
-<template>
+<template @keydown.escape="showModal = false">
     <section class='board-filter'>
         <div class="add-new-btns">
             <button @click="addTask">New Item</button>
@@ -24,7 +24,7 @@
             <button>Sort</button>
         </div>
 
-        <regular-modal @modalClosed="(isModalOpen = false)" :toShow="isModalOpen" :cmp="modalName"
+        <regular-modal :users="users" @closeModal="(showModal = false)" :showModal="showModal" :cmp="modalName"
             @addGroup="addGroup" />
 
     </section>
@@ -33,10 +33,13 @@
 import regularModal from './dynamic-modals/regular-modal.vue';
 export default {
     name: 'board-filter',
+    props: {
+        users: Array
+    },
     emits: ['filter', 'addTask', 'addGroup'],
     data() {
         return {
-            isModalOpen: false,
+            showModal: false,
             modalName: '',
             isSearchClicked: false,
             filter: {
@@ -53,7 +56,7 @@ export default {
         },
         openModal(modalName) {
             this.modalName = modalName
-            this.isModalOpen = true
+            this.showModal = true
         },
         searchClicked() {
             this.isSearchClicked = true

@@ -52,10 +52,12 @@
 export default {
     name: 'board-workspace',
     emits: ['add-board', 'toggleWorkspace'],
+    props: {
+        isWorkspaceClosed: Boolean
+    },
     data() {
         return {
             filter: '',
-            isWorkspaceClosed: false
         }
     },
     created() {
@@ -81,8 +83,6 @@ export default {
             this.$emit('addBoard')
         },
         toggleWorkspace() {
-            console.log('toggle');
-            this.isWorkspaceClosed = !this.isWorkspaceClosed
             this.$emit('toggleWorkspace')
         }
     },
