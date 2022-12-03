@@ -16,9 +16,9 @@
                     contenteditable @input="saveGroup($event.target.innerText, 'title')"
                     :style="{ color: group.style.color }" v-html="group.title" ref="title">
                 </h4>
-                <title-modal :class="{ 'show': showTitle }" :content="'Click to Edit'" />
+                <!-- <title-modal :class="{ 'show': showTitle }" :content="'Click to Edit'" /> -->
             </div>
-            <p class="hidden task-count">{{ getFormattedTaskCount }}</p>
+            <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
         </div>
         <task-list v-if="viewTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
             :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />

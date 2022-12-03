@@ -1,9 +1,9 @@
 <template>
     <section class="shallow">
-        <div  class="static" v-if="!isBeingEditted" @click="this.isBeingEditted = true">
+        <div class="static" v-if="!isBeingEdited" @click="this.isBeingEdited = true">
             {{ content ? content : '' }}
         </div>
-        <div  class="dynamic" v-else>
+        <div class="dynamic" v-else>
             <input type="number" v-focus :value="content" v-if="name === 'numbers'"
                 @blur="updateTask($event.target.value)" @keyup.enter="updateTask($event.target.value)" />
             <textarea v-else v-focus @blur="updateTask($event.target.value)" :value="content"></textarea>
@@ -21,7 +21,7 @@ export default {
     },
     data() {
         return {
-            isBeingEditted: false,
+            isBeingEdited: false,
         }
     },
     created() {
@@ -29,7 +29,7 @@ export default {
     methods: {
         updateTask(val) {
             this.$emit('updateTask', { key: this.name, val })
-            this.isBeingEditted = false
+            this.isBeingEdited = false
         }
     },
     computed: {

@@ -17,7 +17,6 @@
         }
 
         &.content-li {
-
             // position: relative;
             &:hover {
                 background-color: $wrkspce-bgc;
@@ -37,14 +36,14 @@
                         }
                     }
                 }
-                
+
                 &.labels {
                     opacity: 0.9;
                 }
             }
         }
 
-        >*:not(:first-child) {
+        > *:not(:first-child) {
             justify-self: space-between;
             display: flex;
             align-items: center;
@@ -66,7 +65,7 @@
             width: 100%;
             height: 100%;
 
-            >* {
+            > * {
                 height: 16px;
                 width: 16px;
             }
@@ -96,6 +95,46 @@
         &:first-child {
             span {
                 justify-content: center;
+            }
+        }
+
+        .numbers {
+            &:hover {
+                .not-editing-mode {
+                    visibility: inherit !important;
+
+                }
+
+            }
+            .plus {
+                svg {
+                    fill: $primary-blue;
+                    scale: 0.8;
+                }
+            }
+            .not-editing-mode {
+            }
+            .editing-mode {
+                margin: 0;
+                padding: 4px;
+                height: 100%;
+                outline: 0.5px solid $primary-blue;
+                .inner-frame{
+                    padding: 4px;
+                }
+
+                    width: 100%;
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                }
+                input {
+                    height: 100%;
+                    outline: 0.5px solid $primary-blue;
+                    text-align: center;
+
+                    width: 100%;
+                }
             }
         }
 
@@ -163,7 +202,6 @@
                 color: $clr-drk-blue;
             }
         }
-
     }
 
     .shallow {
@@ -207,7 +245,6 @@
     }
 
     .task-title {
-
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -219,11 +256,10 @@
 
         &:hover {
             outline: 1px solid $brdr-clr;
-
         }
 
         &:focus {
-            border-radius: .2em;
+            border-radius: 0.2em;
             outline: 1px solid $primary-blue;
         }
     }
@@ -236,9 +272,9 @@
         align-items: center;
         position: relative;
         cursor: pointer;
-        transition: .4;
+        transition: 0.4;
 
-        &:hover{
+        &:hover {
             fill: $primary-blue;
         }
 

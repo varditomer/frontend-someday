@@ -24,8 +24,8 @@
                 </div>
             </router-link>
             <component v-for="(column, idx) in formattedData" :is="column.cmpName + 'Task'" :content="column.content"
-                :name="column.name" :additionalDb="column.additionalDb" :color="group.style.color"
-                :key="idx" @updateTask="updateTask">
+                :name="column.name" :additionalDb="column.additionalDb" :color="group.style.color" :key="idx"
+                @updateTask="updateTask">
             </component>
             <span class="empty-span"></span>
             <!-- <span v-for="(column, idx) in cmpsOrder">
@@ -42,6 +42,7 @@ import shallowTask from './task-columns/shallow.vue'
 import labelTask from './task-columns/labels.vue'
 import timelineTask from './task-columns/timeline.vue'
 import regularModal from './dynamic-modals/regular-modal.vue'
+import numbersTask from './task-columns/numbers.vue'
 
 export default {
     name: 'task-preview',
@@ -76,9 +77,9 @@ export default {
                     case 'date':
                     case 'link':
                     case 'timeline':
+                    case 'numbers':
                         formattedCmp.cmpName = cmp
                         break
-                    case 'numbers':
                     case 'text':
                         formattedCmp.cmpName = 'shallow'
                         formattedCmp.name = cmp
@@ -123,6 +124,8 @@ export default {
     },
     methods: {
         updateTask({ key, val }) {
+            console.log(`key:`, key)
+            console.log(`val:`, val)
             const task = JSON.parse(JSON.stringify(this.task))
             task[key] = val
             this.$emit('updateTask', task)
@@ -147,7 +150,8 @@ export default {
         shallowTask,
         // priorityTask,
         timelineTask,
-        regularModal
+        regularModal,
+        numbersTask
     }
 }
 </script>

@@ -6,7 +6,7 @@
         <span class="empty-span"></span>
         <span class="empty-span"></span>
         <span class="empty-span"></span>
-        <section v-if="tasks?.length" v-for="html in getHtmlSumData" class="footer-section" v-html="(html)">
+        <section v-if="tasks?.length" v-for="html in getHtmlSumData" class="footer-section flex center" v-html="(html)">
         </section>
         <span v-else v-for="html in getHtmlSumData" class="empty-span"></span>
         <span class="empty-fill-span"></span>
@@ -117,9 +117,12 @@ export default {
                     case 'timeline':
                         summary[idx] = ''
                         break
+                    case 'numbers':
+                        summary[idx] = summary[idx].toLocaleString()
+                        break
                     case 'text':
                     case 'date':
-                    case 'link':  summary[idx] = ''
+                    case 'link': summary[idx] = ''
                 }
 
             })
