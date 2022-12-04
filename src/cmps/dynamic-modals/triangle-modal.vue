@@ -2,7 +2,7 @@
 
     <section v-click-outside="hide" class='triangle-modal' @keydown.escape="hide">
         <span class="top-bot"></span>
-        <component :is="cmp" :content="content" :name="name" :additionalDb="additionalDb" @updateTask="updateTask" @hide="hide">
+        <component :is="cmp" :content="content" :name="name" :additionalDb="additionalDb" @updateTask="updateTask" @hideModal="hide">
         </component>
     </section>
 
