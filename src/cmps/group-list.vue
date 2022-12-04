@@ -97,8 +97,8 @@ export default {
     watch: {
         board: function (newBoard) {
             this.boardCopy = newBoard
-            ?JSON.parse(JSON.stringify(newBoard))
-            : null
+                ? JSON.parse(JSON.stringify(newBoard))
+                : null
         }
     }
 }

@@ -5,7 +5,7 @@
             {{ !person.pic ? person.initials : '' }}
         </span>
         <triangle-modal v-if="show" @updateTask="updateTask" :additionalDb="additionalDb" :content="formattedPersons"
-            :cmp="'personsModal'" @hide="hide"/>
+            :cmp="'personsModal'" @hideModal="hide" />
     </section>
     <!-- <span v-else></span> -->
 </template>

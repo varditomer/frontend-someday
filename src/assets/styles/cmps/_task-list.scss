@@ -5,6 +5,16 @@
     width: fit-content;
     font-size: rem(14px);
 
+    li {
+        >* {
+            &:first-child {
+                background-color: rgb(255, 255, 255);
+                position: sticky;
+                left: 0px;
+            }
+        }
+    }
+
 
     >*:first-child {
         text-transform: capitalize;

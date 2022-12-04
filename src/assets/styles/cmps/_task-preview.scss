@@ -269,27 +269,38 @@
         align-items: center;
         width: 100%;
         height: 100%;
+
+        span {
+            height: 60%;
+            
+
+            .task-title {
+                text-overflow: ellipsis;
+                display: flex;
+            justify-content: center;
+            align-items: center;
+                white-space: nowrap;
+                overflow: hidden;
+                border: none;
+                margin-left: 25px;
+                padding-left: 5px;
+                padding-right: 5px;
+                cursor: text;
+                height: 100%;
+
+                &:hover {
+                    outline: 1px solid $brdr-clr;
+                }
+
+                &:focus {
+                    border-radius: 0.2em;
+                    outline: 1px solid $primary-blue;
+                }
+            }
+
+        }
     }
 
-    .task-title {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        border: none;
-        margin-left: 25px;
-        padding-left: 5px;
-        padding-right: 5px;
-        cursor: text;
-
-        &:hover {
-            outline: 1px solid $brdr-clr;
-        }
-
-        &:focus {
-            border-radius: 0.2em;
-            outline: 1px solid $primary-blue;
-        }
-    }
 
     .task-comment-icon {
         height: 100%;
