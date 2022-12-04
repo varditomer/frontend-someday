@@ -43,6 +43,7 @@ import labelTask from './task-columns/labels.vue'
 import timelineTask from './task-columns/timeline.vue'
 import regularModal from './dynamic-modals/regular-modal.vue'
 import numbersTask from './task-columns/numbers.vue'
+import textTask from './task-columns/text.vue'
 
 export default {
     name: 'task-preview',
@@ -82,12 +83,12 @@ export default {
                     case 'link':
                     case 'timeline':
                     case 'numbers':
+                    case 'text':
                         formattedCmp.cmpName = cmp
                         break
-                    case 'text':
-                        formattedCmp.cmpName = 'shallow'
-                        formattedCmp.name = cmp
-                        break
+                        // formattedCmp.cmpName = 'shallow'
+                        // formattedCmp.name = cmp
+                    // break
                     case 'priority':
                     case 'status':
                     case 'label':
@@ -138,7 +139,8 @@ export default {
         // priorityTask,
         timelineTask,
         regularModal,
-        numbersTask
+        numbersTask,
+        textTask
     }
 }
 </script>

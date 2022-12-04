@@ -99,7 +99,7 @@
             }
         }
 
-        .numbers {
+        .numbers, .txt {
             &:hover {
                 @include cellBorderHover;
                 .not-editing-mode {
