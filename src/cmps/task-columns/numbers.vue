@@ -21,14 +21,16 @@ export default {
     emits: ['updateTask'],
     name: 'numbers',
     props: {
+        content: Number,
+        required: false
     },
     created() {
-        this.numbers = undefined
+        if (this.content) this.numbers = this.content
     },
     data() {
         return {
             isEditing: false,
-            numbers: undefined
+            numbers: null
         }
     },
     computed: {

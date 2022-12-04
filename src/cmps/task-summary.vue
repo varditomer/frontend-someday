@@ -118,7 +118,13 @@ export default {
                         summary[idx] = ''
                         break
                     case 'numbers':
-                        summary[idx] = summary[idx].toLocaleString()
+                        const numbers = summary[idx].toLocaleString()
+                        const numbersStr = `<div class="numbers-summary flex column center">
+                            <div>${numbers}</div>
+                            <p>sum</p> 
+                            </div>`
+                        summary[idx] = numbersStr
+
                         break
                     case 'text':
                     case 'date':
@@ -126,7 +132,8 @@ export default {
                 }
 
             })
-
+            // color: $primary-blue
+            //             //primary
             return summary
         }
     },
