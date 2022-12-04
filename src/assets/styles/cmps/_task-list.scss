@@ -15,18 +15,22 @@
             * {
                 text-align: center;
                 height: 100%;
-                border-right: 1px solid $brdr-clr;
             }
-
+            
             .add {
                 width: 150px;
             }
-
+            
             div {
                 width: 100%;
                 display: grid;
                 grid-template-columns: repeat(auto-fill, 150px);
                 align-items: center;
+                border-right: none;
+                
+                div{
+                    border-right: 1px solid $brdr-clr;
+                }
             }
 
             &.ghost,

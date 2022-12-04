@@ -86,9 +86,6 @@ export default {
         },
     },
     computed: {
-        groups() {
-            return JSON.parse(JSON.stringify(this.board.groups))
-        },
         cmpsOrder() {
             return [...this.board.cmpsOrder]
         }
