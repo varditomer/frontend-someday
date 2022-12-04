@@ -1,5 +1,6 @@
 import { boardService } from '../services/board.service.local'
 import { router } from '../router.js'
+import {eventBus} from '../services/event-bus.service.js'
 
 export function getActionRemoveBoard(boardId) {
     return {
@@ -86,6 +87,9 @@ export const boardStore = {
                 else group.tasks.unshift(taskToSave.task)
             }
             else (group.tasks[idx] = taskToSave.task)
+            state.board.groups[idx] = group
+            console.log(`state.board.groups`, state.board.groups)
+            eventBus.emit('reload', state.board)
         },
         removeTask(state, { task }) {
             const group = state.board.groups.find(anyGroup => anyGroup._id === task.groupId)

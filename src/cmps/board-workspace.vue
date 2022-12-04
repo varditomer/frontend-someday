@@ -52,7 +52,7 @@ import titleModal from './dynamic-modals/title-modal.vue'
 export default {
 
     name: 'board-workspace',
-    emits: ['add-board', 'toggleWorkspace'],
+    emits: ['addBoard', 'toggleWorkspace'],
     props: {
         isWorkspaceClosed: Boolean
     },

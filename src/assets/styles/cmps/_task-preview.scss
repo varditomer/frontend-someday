@@ -196,10 +196,10 @@
                 height: 22px;
                 background-color: $layout-black;
                 margin-inline: 16px;
+                overflow: hidden;
 
                 .value {
-                    height: 22px;
-                    display: none;
+                    height: 100%;
                 }
             }
         }
