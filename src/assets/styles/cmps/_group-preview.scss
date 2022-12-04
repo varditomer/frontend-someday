@@ -122,6 +122,10 @@
             transition: .4;
             position: sticky;
             background-color: white;
+
+            svg {
+                color: inherit;
+            }
         }
 
 

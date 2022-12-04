@@ -14,7 +14,7 @@
                 </button>
             </section>
         </section>
-        <board-filter :filterBy="filterBy" :users="users" @filter="setFilter" @addTask="$emit('addTask')"
+        <board-filter :filterBy="filterBy" :users="users" @filter="setFilter" @addTask="addTask"
             @addGroup="addGroup" />
     </section>
 
@@ -45,6 +45,9 @@ export default {
             ev.target.blur()
             const val = ev.target.innerText
             this.$emit('saveBoardTitle', val)
+        },
+        addTask(){
+            this.$emit('addTask')
         }
     },
     components: {

@@ -2,6 +2,7 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
+import { randomColor } from '../data/color-picker.js'
 
 const BOARD_STORAGE_KEY = 'board'
 
@@ -106,6 +107,8 @@ function saveToSessionStorage(key, state) {
 }
 
 function _getNewBoard() {
+    const color1 = randomColor()
+    const color2 = randomColor()
     return {
         title: 'New Board',
         archivedAt: Date.now(),
@@ -117,7 +120,10 @@ function _getNewBoard() {
             {
                 _id: utilService.makeId(),
                 title: 'Group Title',
-                style: {},
+                style: {
+                    color: color1,
+                    light: color1+'99'
+                },
                 tasks: [
                     {
                         _id: utilService.makeId(),
@@ -163,7 +169,10 @@ function _getNewBoard() {
             {
                 _id: utilService.makeId(),
                 title: 'Group Title',
-                style: {},
+                style: {
+                    color: color2,
+                    light: color2+'99'
+                },
                 tasks: [
                     {
                         _id: utilService.makeId(),

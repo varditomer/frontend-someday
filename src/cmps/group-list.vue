@@ -1,6 +1,6 @@
 <template>
 
-    <section class='group-list-container' v-if="boardCopy">
+    <section class='group-list-container' v-if="boardCopy" :key="boardUpdated">
         <draggable v-model="boardCopy.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
             @end="saveBoard" :class="{ groupDragged: beingDragged }">
             <template #item="{ element }">
@@ -39,13 +39,17 @@ export default {
         uncheck: {
             type: Boolean,
             required: false
-        }
+        },
+        boardUpdated: Number,
     },
     data() {
         return {
             beingDragged: false,
             boardCopy: false
         }
+    },
+    mounted(){
+        eventBus.on('reload', board=>this.boardCopy = JSON.parse(JSON.stringify(board)))
     },
     methods: {
         minimizeGroups(minimize, ev) {
@@ -76,7 +80,6 @@ export default {
             this.saveBoard()
         },
         addGroup() {
-            console.log(`add group - group list:`,)
             this.$emit('addGroup')
             this.saveBoard()
         },
@@ -96,6 +99,7 @@ export default {
     },
     watch: {
         board: function (newBoard) {
+            console.log(`newBoard`, newBoard)
             this.boardCopy = newBoard
                 ? JSON.parse(JSON.stringify(newBoard))
                 : null

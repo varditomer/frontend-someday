@@ -7,20 +7,34 @@
 
         <div class="group-title flex align-center" :class="{ minimized: !viewTasks }"
             @keydown.escape="(showModal = false)">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b8f36620939130355ffef17490417fa50437ca5
 
             <div class="options flex center">
                 <span class="dots hidden" @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
             </div>
+<<<<<<< HEAD
 
             <span class="group-arrow" :class="{ 'closed': !viewTasks }"
                 :style="{ fill: group.style.color, 'border-left': isCollapsed }" v-svg-icon="'arrowDown'"
                 @click="toggleTaskView"></span>
 
+=======
+            <span class="group-arrow" :class="{ 'closed': !viewTasks }" v-svg-icon="'arrowDown'" @click="toggleTaskView"
+                :style="{ color: group.style.color }"></span>
+>>>>>>> 2b8f36620939130355ffef17490417fa50437ca5
             <div class="group-title-content">
                 <h4 @click="(showTitle = false)" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
                     contenteditable @input="saveGroup($event.target.innerText, 'title')"
                     :style="{ color: group.style.color }" v-html="group.title" ref="title">
                 </h4>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 2b8f36620939130355ffef17490417fa50437ca5
                 <!-- <title-modal :class="{ 'show': showTitle }" :content="'Click to Edit'" /> -->
                 <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
             </div>
