@@ -37,9 +37,11 @@ async function saveEmptyTask(groupId, boardId) {
 
 async function save(task, bool) {
     const { groupId, boardId } = task
+    debugger
     if (!task || !groupId) return Promise.reject('Cannot save task')
     const group = await groupService.queryBoard(groupId, boardId)
     if (!group) return Promise.reject('group not found')
+    if (task.groupId !== group._id) return Promise.reject('Unmatched group')
     let savedTask
     if (task._id) {
         const idx = group.tasks.findIndex(anyTask => anyTask._id === task._id)

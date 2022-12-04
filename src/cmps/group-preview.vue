@@ -64,8 +64,8 @@ export default {
     },
     mounted() {
         eventBus.on('minimized-groups', minimizeGroups => {
-            this.viewTasks = !minimizeGroups
-        })
+                this.viewTasks = !minimizeGroups
+            })
         eventBus.on('minimized-single-group', ({ _id, minimizeGroup }) => {
             // this.viewTasks = !minimizeGroup
             if (this.group._id === _id) this.viewTasks = !minimizeGroup

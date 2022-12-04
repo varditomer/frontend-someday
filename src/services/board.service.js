@@ -20,17 +20,6 @@ window.cs = taskService
 
 async function query(filterBy = { txt: '', price: 0 }) {
     return httpService.get(STORAGE_KEY, filterBy)
-
-    // var tasks = await storageService.query(STORAGE_KEY)
-    // if (filterBy.txt) {
-    //     const regex = new RegExp(filterBy.txt, 'i')
-    //     tasks = tasks.filter(task => regex.test(task.vendor) || regex.test(task.description))
-    // }
-    // if (filterBy.price) {
-    //     tasks = tasks.filter(task => task.price <= filterBy.price)
-    // }
-    // return tasks
-
 }
 function queryBoard(taskId) {
     // return storageService.get(STORAGE_KEY, taskId)

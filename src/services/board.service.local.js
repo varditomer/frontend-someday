@@ -51,7 +51,10 @@ async function remove(boardId) {
 
 async function save(board) {
     if (board?._id) {
-        return await storageService.put(BOARD_STORAGE_KEY, board)
+
+        const newb = await storageService.put(BOARD_STORAGE_KEY, board)
+        console.log(`newb`, newb)
+        return newb
     } else {
         return await storageService.post(BOARD_STORAGE_KEY, _connectIds(board))
     }
@@ -903,4 +906,4 @@ function _connectIds(board) {
 }
 
 // TEST DATA
-utilService.saveToStorage(BOARD_STORAGE_KEY, boards)
+// utilService.saveToStorage(BOARD_STORAGE_KEY, boards)
