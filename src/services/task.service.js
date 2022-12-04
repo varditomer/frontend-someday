@@ -37,7 +37,6 @@ async function saveEmptyTask(groupId, boardId) {
 
 async function save(task, bool) {
     const { groupId, boardId } = task
-    debugger
     if (!task || !groupId) return Promise.reject('Cannot save task')
     const group = await groupService.queryBoard(groupId, boardId)
     if (!group) return Promise.reject('group not found')

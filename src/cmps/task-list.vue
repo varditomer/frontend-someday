@@ -18,10 +18,6 @@
                 <span v-svg-icon="'add'" class="add"></span>
             </div>
 
-            <!-- <span v-for="column in cmpsOrder">
-                {{ column }}
-            </span> -->
-
         </li>
         <draggable v-model="group.tasks" group="tasks" ghost-class="ghost" animation="200" @start="beingDragged = true"
             :class="{ taskDragged: beingDragged }" @end="saveBoard" itemKey="element._id">
@@ -119,13 +115,6 @@ export default {
             this.$emit('saveTask', task)
         },
         async saveBoard(ev) {
-            console.log(`ev.from`, ev.from)
-            console.log(`ev.to`, ev.to.dataset)
-            // this.beingDragged = false
-            // const group = JSON.parse(JSON.stringify(this.group))
-            // group.tasks = this.tasks
-            // console.log(`this.tasks`, this.tasks)
-            // this.$store.dispatch({ type: 'saveGroup', group })
             this.$emit('saveBoard')
         },
         saveSelectedTasks(taskId) {
