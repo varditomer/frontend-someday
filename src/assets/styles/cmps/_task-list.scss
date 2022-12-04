@@ -5,15 +5,45 @@
     width: fit-content;
     font-size: rem(14px);
 
+
     >*:first-child {
         text-transform: capitalize;
 
-        .empty-span {
-            position: sticky;
-            background-color: white;
-            left: 0px;
-        }
+        .columns {
+            grid-column: 6/-1;
 
+            * {
+                text-align: center;
+                height: 100%;
+                border-right: 1px solid $brdr-clr;
+            }
+
+            .add {
+                width: 150px;
+            }
+
+            div {
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, 150px);
+                align-items: center;
+            }
+
+            &.ghost,
+            .ghost {
+                opacity: 0.2;
+            }
+
+            &.column-dragged {
+                box-shadow: 0 0 30px 2px black;
+            }
+
+            .empty-span {
+                position: sticky;
+                background-color: white;
+                left: 0px;
+            }
+        }
 
 
 
@@ -88,7 +118,6 @@
 
 
     }
-
 
 
     .task-footer {
