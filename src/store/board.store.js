@@ -112,6 +112,7 @@ export const boardStore = {
     actions: {
         async saveBoard({ commit }, { board }) {
             try {
+                board.groups.forEach(group => group.tasks.forEach(task => task.groupId = group._id))
                 commit({ type: 'setBoard', board })
                 board = await boardService.save(board)
                 return board

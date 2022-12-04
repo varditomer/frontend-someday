@@ -57,6 +57,9 @@ export default {
             this.$emit('saveBoard', this.boardCopy)
         },
         saveTask(task) {
+            const board = this.boardCopy
+            board.groups.forEach(group => group.tasks.forEach(task => task.groupId = group._id))
+            this.boardCopy = board
             this.$emit('saveTask', task)
             this.saveBoard()
         },
@@ -69,7 +72,6 @@ export default {
             this.saveBoard()
         },
         removeGroup(group) {
-            console.log(`group:`, group)
             this.$emit('removeGroup', group)
             this.saveBoard()
         },
