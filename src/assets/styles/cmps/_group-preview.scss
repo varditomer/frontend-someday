@@ -1,11 +1,13 @@
 .group-preview {
     background-color: $clr-white;
 
-    &.ghost, .ghost{
+    &.ghost,
+    .ghost {
         opacity: 0.2;
     }
 
-    &.task-dragged, .group-dragged{
+    &.task-dragged,
+    .group-dragged {
         box-shadow: 0 0 30px 2px black;
     }
 
@@ -23,7 +25,9 @@
 
         .group-title-content {
             height: 60%;
-            position: relative;
+
+            position: sticky;
+            left: 72px;
 
             .title-modal {
                 z-index: 80;
@@ -54,28 +58,37 @@
             }
         }
 
-
-
-        .group-arrow,
         .options {
-            cursor: pointer;
-            width: 36px;
-            height: 100%;
-            transition: .4;
-            // background-color: white;
-            // position: sticky;
-            // left: 0px;
+            left: 0px;
+        }
+
+        .group-arrow {
+            left: 36px;
 
             &.closed {
                 transform: rotate(180deg);
             }
         }
 
+        .options,
+        .group-arrow {
+            cursor: pointer;
+            width: 36px;
+            height: 100%;
+            transition: .4;
+            position: sticky;
+            background-color: white;
+        }
+
+
         &:hover {
             .options {
-                visibility: inherit;
-                background-color: white;
-                height: 100%;
+
+
+                span {
+                    visibility: inherit;
+                    height: 100%;
+                }
 
                 .more {
                     &:hover {

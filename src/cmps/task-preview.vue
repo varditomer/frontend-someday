@@ -3,8 +3,8 @@
         <regular-modal :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
             @closeModal="(showModal = false)" :showModal="showModal" />
         <li class="content-li">
-            <div class="options hidden flex center">
-                <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
+            <div class="options flex center">
+                <span class="hidden" @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="task-select" :style="{ 'border-left-color': group.style.color }">
                 <input :checked="checkIfUncheck" ref="checkbox" @click="selectTask(task._id)" type="checkbox" />
@@ -28,9 +28,6 @@
                 @updateTask="updateTask">
             </component>
             <span class="empty-span"></span>
-            <!-- <span v-for="(column, idx) in cmpsOrder">
-                {{ column === 'persons' && task.persons ? persons : task[column] || '-' }}
-            </span> -->
         </li>
     </section>
 </template>
@@ -90,8 +87,8 @@ export default {
                     case 'text':
                         formattedCmp.cmpName = cmp
                         break
-                        // formattedCmp.cmpName = 'shallow'
-                        // formattedCmp.name = cmp
+                    // formattedCmp.cmpName = 'shallow'
+                    // formattedCmp.name = cmp
                     // break
                     case 'priority':
                     case 'status':
