@@ -49,6 +49,7 @@
         .options {
             cursor: pointer;
             width: 36px;
+            height: 100%;
             transition: .4;
 
             &.closed{
