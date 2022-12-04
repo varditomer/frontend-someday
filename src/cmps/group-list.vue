@@ -48,8 +48,8 @@ export default {
             boardCopy: false
         }
     },
-    mounted(){
-        eventBus.on('reload', board=>this.boardCopy = JSON.parse(JSON.stringify(board)))
+    mounted() {
+        eventBus.on('reload', board => this.boardCopy = JSON.parse(JSON.stringify(board)))
     },
     methods: {
         minimizeGroups(minimize, ev) {
