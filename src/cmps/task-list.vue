@@ -111,7 +111,6 @@ export default {
             this.$emit('removeTask', task)
         },
         updateTask(task) {
-            console.log(`task:`, task)
             this.$emit('saveTask', task)
         },
         async saveBoard(ev) {

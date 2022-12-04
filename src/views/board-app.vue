@@ -40,7 +40,7 @@ export default {
             this.$store.dispatch({ type: 'saveTask', task })
         },
         saveBoard(board) {
-            // this.$store.commit({ type: 'setBoard', board })
+            this.$store.commit({ type: 'setBoard', board })
             this.$store.dispatch({ type:'saveBoard', board })
             // console.log(`this.board.groups`, this.board.groups) help!
         },

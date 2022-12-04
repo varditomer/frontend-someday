@@ -115,7 +115,7 @@ export default {
     },
     methods: {
         updateTask({ key, val }) {
-            const task = JSON.parse(JSON.stringify(this.task))
+            const task = this.task
             task[key] = val
             this.$emit('updateTask', task)
         },
