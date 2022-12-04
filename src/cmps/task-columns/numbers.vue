@@ -7,8 +7,7 @@
             {{ formattedNum }}
         </div>
         <div v-else-if="!isEditing" class="not-editing-mode flex center hidden">
-            <div v-if="numbers" class="hovering"></div>
-            <div class="not-hovering flex align-center">
+            <div v-if="!numbers" class="hovering flex align-center">
                 <span class="plus" v-svg-icon="'plus'"></span>
                 123
             </div>
@@ -21,14 +20,16 @@ export default {
     emits: ['updateTask'],
     name: 'numbers',
     props: {
+        content: Number,
+        required: false
     },
     created() {
-        this.numbers = undefined
+        if (this.content) this.numbers = this.content
     },
     data() {
         return {
             isEditing: false,
-            numbers: undefined
+            numbers: null
         }
     },
     computed: {

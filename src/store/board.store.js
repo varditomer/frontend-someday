@@ -54,6 +54,7 @@ export const boardStore = {
         },
         setFilter(state, { filter }) {
             state.filterBy = filter
+
         },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
