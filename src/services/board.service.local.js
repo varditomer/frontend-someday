@@ -400,6 +400,13 @@ const boards = [
                         date: 1589983468418,
                         priority: 'Critical',
                         status: 'Done',
+                        person: [
+                            {
+                                _id: 'u102',
+                                fullname: 'Refael Abramov',
+                                imgUrl: `src/assets/imgs/refael-avatar.png`
+                            }
+                        ],
                         timeline: {
                             start: {
                                 month: 11,
@@ -457,6 +464,18 @@ const boards = [
                                     imgUrl: 'src/assets/imgs/tomer-avatar.png'
                                 }
                             },
+                        ],
+                        person: [
+                            {
+                                _id: 'u103',
+                                fullname: 'Tomer Vardi',
+                                imgUrl: 'src/assets/imgs/tomer-avatar.png'
+                            },
+                            {
+                                _id: 'u104',
+                                fullname: 'Ronen Boxer',
+                                imgUrl: 'src/assets/imgs/ronen-avatar.png'
+                            },
                         ]
                     },
                     {
@@ -478,9 +497,17 @@ const boards = [
                             }
                         },
                         priority: 'Critical',
-                        status: 'Done'
+                        status: 'Done',
+                        person: [
+                            {
+                                _id: 'u104',
+                                fullname: 'Ronen Boxer',
+                                imgUrl: 'src/assets/imgs/ronen-avatar.png'
+                            },
+                        ]
                     },
                 ],
+
             },
             {
                 _id: 'asj23',
@@ -517,7 +544,14 @@ const boards = [
                             }
                         },
                         priority: 'Medium',
-                        status: 'Working on it'
+                        status: 'Working on it',
+                        person: [
+                            {
+                                _id: 'u103',
+                                fullname: 'Tomer Vardi',
+                                imgUrl: 'src/assets/imgs/tomer-avatar.png'
+                            }
+                        ]
                     }
                 ]
             },
@@ -549,7 +583,14 @@ const boards = [
                             }
                         },
                         status: 'Stuck',
-                        priority: 'High'
+                        priority: 'High',
+                        person: [
+                            {
+                                _id: 'u102',
+                                fullname: 'Refael Abramov',
+                                imgUrl: `src/assets/imgs/refael-avatar.png`
+                            }
+                        ]
                     },
                     {
                         _id: 'sdc73',
@@ -570,7 +611,24 @@ const boards = [
                             }
                         },
                         status: 'Working on it',
-                        priority: 'Low'
+                        priority: 'Low',
+                        person: [
+                            {
+                                _id: 'u102',
+                                fullname: 'Refael Abramov',
+                                imgUrl: `src/assets/imgs/refael-avatar.png`
+                            },
+                            {
+                                _id: 'u103',
+                                fullname: 'Tomer Vardi',
+                                imgUrl: 'src/assets/imgs/tomer-avatar.png'
+                            },
+                            {
+                                _id: 'u104',
+                                fullname: 'Ronen Boxer',
+                                imgUrl: 'src/assets/imgs/ronen-avatar.png'
+                            },
+                        ]
                     },
                     {
                         _id: 'dcwo34',
@@ -591,7 +649,19 @@ const boards = [
                             }
                         },
                         status: 'Unattained',
-                        priority: 'Critical'
+                        priority: 'Critical',
+                        members: [
+                            {
+                                _id: 'u102',
+                                fullname: 'Refael Abramov',
+                                imgUrl: `src/assets/imgs/refael-avatar.png`
+                            },
+                            {
+                                _id: 'u103',
+                                fullname: 'Tomer Vardi',
+                                imgUrl: 'src/assets/imgs/tomer-avatar.png'
+                            }
+                        ]
                     },
                 ]
             },
@@ -669,6 +739,23 @@ const boards = [
                         title: 'Talk to Oprah',
                         status: 'Stuck',
                         priority: 'Critical',
+                        person: [
+                            {
+                                _id: 'u102',
+                                fullname: 'Refael Abramov',
+                                imgUrl: `src/assets/imgs/refael-avatar.png`
+                            },
+                            {
+                                _id: 'u103',
+                                fullname: 'Tomer Vardi',
+                                imgUrl: 'src/assets/imgs/tomer-avatar.png'
+                            },
+                            {
+                                _id: 'u104',
+                                fullname: 'Ronen Boxer',
+                                imgUrl: 'src/assets/imgs/ronen-avatar.png'
+                            },
+                        ]
                     },
                     {
                         _id: 'c102',
@@ -677,6 +764,18 @@ const boards = [
                         title: 'Get rich',
                         status: 'Working on it',
                         priority: 'High',
+                        person: [
+                            {
+                                _id: 'u103',
+                                fullname: 'Tomer Vardi',
+                                imgUrl: 'src/assets/imgs/tomer-avatar.png'
+                            },
+                            {
+                                _id: 'u104',
+                                fullname: 'Ronen Boxer',
+                                imgUrl: 'src/assets/imgs/ronen-avatar.png'
+                            },
+                        ]
                     }
                 ]
             },
@@ -701,6 +800,18 @@ const boards = [
                         status: 'Unattained',
                         priority: 'Medium',
                         date: 1589983468418,
+                        person: [
+                            {
+                                _id: 'u102',
+                                fullname: 'Refael Abramov',
+                                imgUrl: `src/assets/imgs/refael-avatar.png`
+                            },
+                            {
+                                _id: 'u104',
+                                fullname: 'Ronen Boxer',
+                                imgUrl: 'src/assets/imgs/ronen-avatar.png'
+                            },
+                        ]
                     },
                     {
                         _id: 'c104',
@@ -744,6 +855,13 @@ const boards = [
                             fullname: 'Refael Abramov',
                             imgUrl: `src/assets/imgs/refael-avatar.png`
                         },
+                        person: [
+                            {
+                                _id: 'u103',
+                                fullname: 'Tomer Vardi',
+                                imgUrl: 'src/assets/imgs/tomer-avatar.png'
+                            }
+                        ]
                     }
                 ],
             }
@@ -785,4 +903,4 @@ function _connectIds(board) {
 }
 
 // TEST DATA
-// utilService.saveToStorage(BOARD_STORAGE_KEY, boards)
+utilService.saveToStorage(BOARD_STORAGE_KEY, boards)

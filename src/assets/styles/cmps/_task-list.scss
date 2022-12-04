@@ -7,6 +7,12 @@
 
     >*:first-child {
         text-transform: capitalize;
+        .empty-span{
+            // position: sticky;
+            // background-color: white;
+            // left: 0px;
+        }
+
         >*:not(:first-child) {
             border-top: 1px solid $brdr-clr;
         }
@@ -71,6 +77,8 @@
 
         .empty-span {
             border: none;
+          
+
         }
 
         .footer-span {
@@ -84,12 +92,13 @@
         }
     }
 
-    .task-summary{
-        .label-progress{
+    .task-summary {
+        .label-progress {
             height: 36px;
-            width:150px;
+            width: 150px;
             padding: 6px 8px;
-            .label{
+
+            .label {
                 height: 24px;
                 display: inline-block;
             }
