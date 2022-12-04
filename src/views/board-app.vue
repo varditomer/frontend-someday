@@ -9,8 +9,9 @@
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
             <group-list @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks" :users="users"
-                @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
-                @removeGroup="removeGroup" :board="board" :priorities="priorities" :statuses="statuses" />
+                @saveBoard="saveBoard" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
+                @addGroup="addGroup" @removeGroup="removeGroup" :board="board" :priorities="priorities"
+                :statuses="statuses" />
         </section>
         <router-view />
     </section>
@@ -36,6 +37,9 @@ export default {
             let taskToSave = { task, bool: false }
             this.$store.commit({ type: 'saveTask', taskToSave })
             this.$store.dispatch({ type: 'saveTask', task })
+        },
+        saveBoard() {
+            // console.log(`this.board.groups`, this.board.groups) help!
         },
         removeTask(task) {
             this.$store.dispatch({ type: 'removeTask', task })

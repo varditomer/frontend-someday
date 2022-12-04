@@ -22,7 +22,7 @@
         </div>
         <task-list v-if="viewTasks" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
             :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users" :priorities="priorities"
-            :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />
+            :statuses="statuses" @saveBoard="saveBoard" @saveTask="saveTask" @removeTask="removeTask" />
     </section>
 </template>
 <script>
@@ -32,7 +32,7 @@ import { eventBus } from '../services/event-bus.service.js'
 import regularModal from './dynamic-modals/regular-modal.vue'
 export default {
     name: 'group-preview',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard'],
     props: {
         group: Object,
         cmpsOrder: Array,
@@ -68,6 +68,9 @@ export default {
         })
     },
     methods: {
+        saveBoard() {
+            this.$emit('saveBoard')
+        },
         toggleTaskView() {
             this.viewTasks = !this.viewTasks
         },

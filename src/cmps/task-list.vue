@@ -20,7 +20,7 @@
             <span v-svg-icon="'add'"></span>
         </li>
         <draggable v-model="tasks" group="tasks" ghost-class="ghost" animation="200" @start="beingDragged = true"
-            :class="{ dragged: beingDragged }" @end="saveBoard" itemKey="element._id">
+            :class="{ taskDragged: beingDragged }" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users"
@@ -52,7 +52,7 @@ import taskPreview from './task-preview.vue'
 import taskSummary from './task-summary.vue'
 export default {
     name: 'task-list',
-    emits: ['saveTask', 'removeTask', 'saveSelectedTasks'],
+    emits: ['saveTask', 'removeTask', 'saveSelectedTasks','saveBoard'],
     props: {
         tasks: Array,
         cmpsOrder: Array,
@@ -109,11 +109,12 @@ export default {
             this.$emit('saveTask', task)
         },
         async saveBoard(ev) {
-            this.beingDragged = false
-            const group = JSON.parse(JSON.stringify(this.group))
-            group.tasks = this.tasks
-            console.log(`this.tasks`, this.tasks)
-            this.$store.dispatch({ type: 'saveGroup', group })
+            // this.beingDragged = false
+            // const group = JSON.parse(JSON.stringify(this.group))
+            // group.tasks = this.tasks
+            // console.log(`this.tasks`, this.tasks)
+            // this.$store.dispatch({ type: 'saveGroup', group })
+            this.$emit('saveBoard')
         },
         saveSelectedTasks(taskId) {
             this.$emit('saveSelectedTasks', taskId)
