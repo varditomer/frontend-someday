@@ -207,6 +207,11 @@
         justify-content: center;
         align-items: center;
         position: relative;
+
+        &:hover{
+            @include cellBorderHover;
+            cursor: text;
+        }
     }
 
     .task-list-item-header,

@@ -8,9 +8,9 @@
                 :cmp="'person-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
-            <group-list @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks" :users="users"
-                @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
-                @removeGroup="removeGroup" :board="board" :priorities="priorities" :statuses="statuses" />
+            <group-list :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
+                :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
+                @saveBoard="saveBoard" @removeGroup="removeGroup" :board="board" :priorities="priorities" :statuses="statuses" />
         </section>
         <router-view />
     </section>
@@ -31,11 +31,15 @@ export default {
         taskNav,
         regularModal
     },
+
     methods: {
         saveTask(task) {
             let taskToSave = { task, bool: false }
             this.$store.commit({ type: 'saveTask', taskToSave })
             this.$store.dispatch({ type: 'saveTask', task })
+        },
+        saveBoard() {
+            // console.log(`this.board.groups`, this.board.groups) help!
         },
         removeTask(task) {
             this.$store.dispatch({ type: 'removeTask', task })
@@ -50,6 +54,9 @@ export default {
             this.$store.dispatch({ type: 'addGroup' })
         },
         setFilter(filter) {
+            if (filter.userId && this.filterBy?.userId) {
+                if (filter.userId === this.filterBy.userId) filter.userId = null
+            }
             this.$store.dispatch({ type: 'queryBoard', id: this.board._id, filter })
         },
         saveGroup(group) {
@@ -65,9 +72,11 @@ export default {
             await this.$store.commit({ type: 'saveSelectedTasks', taskId })
             this.showModal = (this.selectedTasks.length) ? true : false
         },
-        unselectTasks() {
-            this.$store.commit({ type: 'unselectTasks' })
+        async unselectTasks() {
+            this.uncheck = true
+            await this.$store.commit({ type: 'unselectTasks' })
             this.showModal = false
+            this.uncheck = false
         },
         async saveBoardTitle(title) {
             const board = JSON.parse(JSON.stringify(this.board))
@@ -105,7 +114,8 @@ export default {
     },
     data() {
         return {
-            showModal: false
+            showModal: false,
+            uncheck: false
         }
     },
     async created() {

@@ -1,13 +1,15 @@
 <template>
 
     <section class='group-list-container' v-if="board.groups">
-        <draggable v-model="groups" :group="{ name: 'board' }" animation="150" itemKey="element._id"
-            @start="minimizeGroups(true, $event)" @end="minimizeGroups(false, $event)">
+        <draggable v-model="groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
+            @start="beingDragged = true"
+            @end="saveBoard"
+            :class="{ groupDragged: beingDragged }">
             <template #item="{ element }">
-                <group-preview @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks" :group="element"
-                    :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
+                <group-preview :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
+                    :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
                     :statuses="statuses" v-if="board" @saveTask="saveTask" @removeTask="removeTask"
-                    @saveGroup="saveGroup" @addGroup="addGroup" @removeGroup="removeGroup" />
+                    @saveGroup="saveGroup" @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" />
             </template>
         </draggable>
     </section>
@@ -20,7 +22,7 @@ import { eventBus } from '../services/event-bus.service'
 
 export default {
     name: 'group-list',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks','saveBoard'],
     props: {
         users: Array,
         board: Object,
@@ -35,12 +37,25 @@ export default {
         selectedTasks: {
             type: Array,
             required: false
+        },
+        uncheck: {
+            type: Boolean,
+            required: false
+        }
+    },
+    data(){
+        return {
+            beingDragged: false
         }
     },
     methods: {
         minimizeGroups(minimize, ev) {
-            if (!ev?.item?.classList || !ev.item.classList[0] === 'group-preview') return
-            eventBus.emit('minimized-groups', minimize)
+            // if (!ev?.item?.classList || !ev.item.classList[0] === 'group-preview') return
+            // eventBus.emit('minimized-groups', minimize)
+        },
+        saveBoard(){
+            this.beingDragged = false
+            this.$emit('saveBoard')
         },
         saveTask(task) {
             this.$emit('saveTask', task)

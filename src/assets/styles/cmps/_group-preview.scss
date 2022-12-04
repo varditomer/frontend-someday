@@ -1,11 +1,11 @@
 .group-preview {
-
+    background-color: $clr--white;
 
     &.ghost, .ghost{
-        opacity: 0.5;
+        opacity: 0.2;
     }
 
-    &.dragged{
+    &.task-dragged, .group-dragged{
         box-shadow: 0 0 30px 2px black;
     }
 
