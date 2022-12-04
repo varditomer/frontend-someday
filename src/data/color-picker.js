@@ -1,3 +1,5 @@
+import { getRandomInt } from '../services/util.service.js'
+
 export const colors = {
     '$clr-done-green': '#00c875',
     '$clr-lgt-grn': '#9cd226',
@@ -43,4 +45,12 @@ export const colors = {
     '$priority-blue': '#79affd',
     '$priority-gry': '#797e93',
     '$brdr-clr': '#d0d5e4'
+}
+
+export function randomColor() {
+    const colorNames = Object.keys(colors)
+    const randomIdx = getRandomInt(0, colorNames.length)
+    const colorName = colorNames[randomIdx]
+    return colors[colorName]
+
 }

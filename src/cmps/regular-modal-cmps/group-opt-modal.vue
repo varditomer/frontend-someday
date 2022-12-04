@@ -45,7 +45,7 @@
                     <p class="title">Change group color</p>
                 </div>
             </div> -->
-            <div class="modal-item flex align-center" @click="removeGroup">
+            <div class="modal-item flex align-center delete-group" @click="removeGroup">
                 <div class="flex align-center">
                     <span v-svg-icon="'delete'"></span>
                     <p class="title">Delete</p>

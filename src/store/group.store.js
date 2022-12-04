@@ -1,3 +1,4 @@
+import { eventBus } from '../services/event-bus.service.js'
 import { groupService } from '../services/group.service.js'
 
 export const groupStore = {
@@ -50,7 +51,8 @@ export const groupStore = {
             try {
                 const { _id } = this.getters.board
                 const group = await groupService.add(_id)
-                commit({ type: 'addGroup', group })
+                await commit({ type: 'addGroup', group })
+                eventBus.emit('reload', this.getters.board)
                 return group
             } catch (err) {
                 console.log(`Cannot add group at store`, err)

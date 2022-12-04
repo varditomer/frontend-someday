@@ -11,7 +11,7 @@
             <group-list :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                 :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
                 @saveBoard="saveBoard" @removeGroup="removeGroup" :board="board" :priorities="priorities"
-                :statuses="statuses" />
+                :statuses="statuses" :watcher="boardUpdated"/>
         </section>
         <router-view />
     </section>
@@ -32,7 +32,11 @@ export default {
         taskNav,
         regularModal
     },
-
+    data() {
+        return {
+            boardUpdated: 0,
+        }
+    },
     methods: {
         saveTask(task) {
             let taskToSave = { task, bool: false }
@@ -41,14 +45,16 @@ export default {
         },
         saveBoard(board) {
             this.$store.commit({ type: 'setBoard', board })
-            this.$store.dispatch({ type:'saveBoard', board })
+            this.$store.dispatch({ type: 'saveBoard', board })
             // console.log(`this.board.groups`, this.board.groups) help!
         },
         removeTask(task) {
             this.$store.dispatch({ type: 'removeTask', task })
         },
-        saveEmptyTask() {
-            this.$store.dispatch({ type: 'saveEmptyTask' })
+        async saveEmptyTask() {
+            console.log(`shit`)
+            await this.$store.dispatch({ type: 'saveEmptyTask' })
+            this.boardUpdated++
         },
         addBoard() {
             this.$store.dispatch({ type: 'addBoard' })
