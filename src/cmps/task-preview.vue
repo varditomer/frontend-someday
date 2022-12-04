@@ -99,25 +99,6 @@ export default {
 
                 return formattedCmp
             })
-
-            // return function (parameter) {
-            //     switch (parameter) {
-            //         case 'persons':
-            //             return this.task.persons
-            //                 ? this.task.persons.map(person => person.fullname).join(' ')
-            //                 : '-'
-            //         case 'date':
-            //             return this.task.date
-            //                 ? (new Date(this.task.date)).toString().slice(0, 12)
-            //                 : '-'
-            //         case 'link':
-            //             return this.task.link
-            //                 ? this.task.link
-            //                 : '-'
-            //         default:
-            //             return this.task[parameter]
-            //     }
-            // }
         },
         persons() {
             return this.task.persons.map(person => person.fullname).join(' ')
