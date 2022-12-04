@@ -7,10 +7,10 @@ export const taskStore = {
             selectedTasks: [],
             priorities: [
                 { title: 'Critical', color: '#333333', colorName: '$clr-blackish' },
-                { title: 'High', color: '#e2445c', colorName: '$clr-stuck-red' },
-                { title: 'Medium', color: '#777ae5', colorNmae: '$status-indigo' },
-                { title: 'Low', color: '#579bfc', colorName: '$clr-blue' },
-                { title: 'Default', color: '#c4c4c4', colorName: '$clr-lgt-gry' }
+                { title: 'High', color: '#401694', colorName: '$clr-dark-indigo' },
+                { title: 'Medium', color: '#5559df', colorNmae: '$clr-indigo' },
+                { title: 'Low', color: '#579bfc', colorName: '$clr-bright-blue' },
+                { title: 'Default', color: '#c4c4c4', colorName: '$clr-explosive' }
             ],
             statuses: [
                 { title: 'Done', color: '#00c875', colorName: '$clr-done-green' },
@@ -18,7 +18,7 @@ export const taskStore = {
                 { title: 'Stuck', color: '#e2445c', colorName: '$clr-stuck-red' },
                 { title: 'Unattained', color: '#0086c0', colorName: '$clr-dark-blue' },
                 { title: 'Kaka', color: '#ffcb00', colorName: '$clr-yllw' },
-                { title: 'Default', color: '#c4c4c4', colorName: '$clr-lgt-gry' },
+                { title: 'Default', color: '#c4c4c4', colorName: '$clr-explosive' },
             ],
         }
     },
