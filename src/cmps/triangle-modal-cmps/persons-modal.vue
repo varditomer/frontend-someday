@@ -21,7 +21,7 @@
 <script>
 export default {
     name: 'persons-modal',
-    emits: ['updateTask'],
+    emits: ['updateTask', 'hide'],
     props: {
         content: {
             type: Array,
@@ -50,6 +50,7 @@ export default {
                 : []
             persons.push(person)
             this.updateTask(persons)
+            this.$emit('hide')
         },
         removePerson(personId) {
             const persons = JSON.parse(JSON.stringify(this.content))
