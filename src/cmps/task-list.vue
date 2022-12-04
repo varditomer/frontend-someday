@@ -13,17 +13,14 @@
                     <template #item="cmp" >cmp</template>
                 </draggable>
             </span> -->
-
-            <!-- <template #item="{element}" :key="element._id">
-                    <div>{{element}}</div>
-                </template> -->
             <span v-for="column in cmpsOrder">
                 {{ column }}
             </span>
 
             <span v-svg-icon="'add'"></span>
         </li>
-        <draggable v-model="tasks" :group="{ name: 'groups' }" animation="150" @end="saveBoard" itemKey="element._id">
+        <draggable v-model="tasks" group="tasks" ghost-class="ghost" animation="200" @start="beingDragged = true"
+            :class="{ dragged: beingDragged }" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users"
@@ -93,6 +90,7 @@ export default {
     data() {
         return {
             taskToAdd: {},
+            beingDragged: false
         }
     },
     created() {
@@ -122,14 +120,11 @@ export default {
             this.$emit('saveTask', task)
         },
         async saveBoard(ev) {
-            await this.$store.dispatch({ type: 'loadGroups' })
-            const originTask = ev.item._underlying_vm_
-            const tasks = JSON.parse(JSON.stringify(this.tasks))
-            const board = JSON.parse(JSON.stringify(this.$store.getters.board))
-            const { groupId } = tasks[0]
-            const idx = board.groups.findIndex(group => group._id === groupId)
-            board.groups[idx].tasks = tasks
-            this.$store.dispatch({ type: 'saveBoard', board })
+            this.beingDragged = false
+            const group = JSON.parse(JSON.stringify(this.group))
+            group.tasks = this.tasks
+            console.log(`this.tasks`, this.tasks)
+            this.$store.dispatch({ type: 'saveGroup', group })
         },
         saveSelectedTasks(taskId) {
             this.$emit('saveSelectedTasks', taskId)

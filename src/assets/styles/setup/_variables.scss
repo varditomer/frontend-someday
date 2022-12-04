@@ -1,3 +1,12 @@
+// Breakpoints
+$mobile-breakpoint: 460px;
+$narrow-breakpoint: 720px;
+$normal-breakpoint: 960px;
+$layout-padding: 12px;
+
+
+
+
 // Colors
 
 //basics
@@ -44,146 +53,27 @@ $clr-error: #d83a52;
 $clr-error-hover: #b63546;
 $clr-error-highlight: #f4c3cb;
 
-
-// priority-palette
-$priority-grass-green: #037f4c;
-$priority-bright-green: #9cd226;
-$priority-saladish: #cab741;
-$priority-egg-yolk: #ffcb00;
-$priority-dark-orange: #ff642e;
-$priority-peach: #feaead;
-$priority-sunset: #ff7575;
-$priority-dark-red: #ba3254;
-$priority-sophia-pink: #fe178a;
-$priority-bubble: #ff7bd0;
-$priority-puprle: #b57de3;
-$priority-dark-purple: #936fda;
-$priority-berry: #6645a9;
-$priority-dark-indigo: #401694;
-$priority-navy: #4e73a7;
-$priority-dark-blue: #339ecd;
-$priority-blackish: #333333;
-$priority-aquamarine: #71d6d1;
-$priority-chilli-blue: #85d6ff;
-$priority-river: #86b4ca;
-$priority-winter: #aebdca;
-$priority-american-gray: #999999;
-$priority-brown: #99756c;
-$priority-orchid: #e190c0;
-$priority-tan: #bdab95;
-$priority-sky: #b4e9f8;
-$priority-coffe: #ca9a8b;
-$priority-royal: #5591ea;
-$priority-teal: #457b82;
-$priority-lavender: #cab9fa;
-$priority-steel: #bacbed;
-$priority-lilac: #b1adc7;
-$priority-pecan: #786565;
-
-// status-palette
-$status-grass-green: #359970;
-$status-bright-green: #b0dc51;
-$status-saladish: #d5c567;
-$status-dark-orange: #ff7b4d;
-$status-peach: #ffbdbd;
-$status-sunset: #ff9191;
-$status-dark-red: #c95c76;
-$status-sophia-pink: #ff44a1;
-$status-bubble: #be80ba;
-$status-purple: #b57de3;
-$status-dark-purple: #936fda;
-$status-berry: #6645a9;
-$status-dark-indigo: #401694;
-$status-indigo: #777ae5;
-$status-navy: #4e73a7;
-$status-bright-blue: #79affd;
-$status-aquamarine: #71d6d1;
-$status-chilli-blue: #85d6ff;
-$status-river: #86b4ca;
-$status-winter: #aebdca;
-$status-american-gray: #69696a;
-$status-blackish: #5c5c5c;
-$status-brown: #99756c;
-$status-orchid: #e190c0;
-$status-tan: #bdab95;
-$status-sky: #b4e9f8;
-$status-coffee: #ca9a8b;
-$status-royal: #5591ea;
-$status-teal: #457b82;
-$status-lavender: #cab9fa;
-$status-steel: #bacbed;
-$status-lilac: #b1adc7;
-$status-pecan: #786565;
-
 // user-palette
 $usr-fuccia: #fb275d;
 $usr-bright-green: #00ca72;
-$usr-purple:rgb(163,88,208);
-$usr-dark-indigo: rgb(89,90,212);
-$usr-blackish: rgb(28,31,59);
-$usr-chilli-blue: rgb(102,204,255);
-$usr-brigh-orange: rgb(253,171,61);
-$usr-egg-yolk: rgb(255,203,0);
-$usr-royal: rgb(0,154,255);
-$usr-light-red: rgb(246,95,124);
-$usr-sophia-pink: rgb(255,21,138);
-$usr-dark-red: rgb(226,68,92);
-$usr-gray: rgb(128,128,128);
-$usr-sky: rgb(87,155,252);
-$usr-wine: rgb(187,51,84);
-$usr-grass-green: rgb(3,127,76);
-$usr-bubble: rgb(255,90,196);
-$usr-bright-blue: rgb(31,118,194);
-$usr-dark-orange: rgb(255,100,46);
-$usr-dark-blue: rgb(34,80,145);
-
-$clr-grss-grn: #047f4b;
-$clr-lgt-grn: #9cd226;
-$clr-drk-teal: #165a63;
-$clr-lgt-teal: #4fccc6;
-$clr-mstrd: #cab741;
-$clr-yllw: #ffcb00;
-$clr-vlt: #401794;
-$clr-drk-prpl: #794bd1;
-$clr-egplnt: #7e3b8a;
-$clr-lgt-prpl: #a25cdc;
-$clr-llch: #bda8f9;
-$clr-gry-prpl: #9d99b8;
-$clr-drk-blue: #0086c0;
-$clr-blue: #579bfc;
-$clr-nvy: #2a75e4;
-$clr-lgt-blue: #65ccff;
-$clr-trqs: #a1e2f7;
-$clr-sky-blue: #a9bee8;
-$clr-gry-blue: #9bacbd;
-$clr-brdx: #ba3254;
-$clr-red: #fe7575; //?
-$clr-slmn: #feaead;
-$clr-fcci: #fe178a;
-$clr-drk-pink: #fe5bc4;
-$clr-pink: #d973b0;
-$clr-lgt-pink: #faa1f0;
-$clr-drk-orng: #ff642e;
-$clr-pch: #bc816e;
-$clr-lgt-orng: #fdac3d;
-$clr-lgt-brwn: #ac977a;
-$clr-drk-brwn: #7f5347;
-$clr-mud: #553e3d;
-$clr-lgt-gry: #c4c4c4;
-$clr-drk-gry: #808080;
-$clr-blck: #333333;
-// $clr-: rgb(,,);
-
-// Breakpoints
-$mobile-breakpoint: 460px;
-$narrow-breakpoint: 720px;
-$normal-breakpoint: 960px;
-
-$layout-padding: 12px;
-
-
-
-
+$usr-purple: rgb(163, 88, 208);
+$usr-dark-indigo: rgb(89, 90, 212);
+$usr-blackish: rgb(28, 31, 59);
+$usr-chilli-blue: rgb(102, 204, 255);
+$usr-brigh-orange: rgb(253, 171, 61);
+$usr-egg-yolk: rgb(255, 203, 0);
+$usr-royal: rgb(0, 154, 255);
+$usr-light-red: rgb(246, 95, 124);
+$usr-sophia-pink: rgb(255, 21, 138);
+$usr-dark-red: rgb(226, 68, 92);
+$usr-gray: rgb(128, 128, 128);
+$usr-sky: rgb(87, 155, 252);
+$usr-wine: rgb(187, 51, 84);
+$usr-grass-green: rgb(3, 127, 76);
+$usr-bubble: rgb(255, 90, 196);
+$usr-bright-blue: rgb(31, 118, 194);
+$usr-dark-orange: rgb(255, 100, 46);
+$usr-dark-blue: rgb(34, 80, 145);
 
 
 // entire palette
@@ -238,7 +128,7 @@ $clr-dark-purple: #784bd1;
 $clr-dark_indigo: #401694;
 
 
-
+// label-colors
 $clr-dark_indigo: #401694;
 $clr-egg_yolk: #ffcb00;
 $clr-bright-green: #9cd326;

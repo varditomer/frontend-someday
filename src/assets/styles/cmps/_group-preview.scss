@@ -1,4 +1,14 @@
 .group-preview {
+
+
+    &.ghost, .ghost{
+        opacity: 0.5;
+    }
+
+    &.dragged{
+        box-shadow: 0 0 30px 2px black;
+    }
+
     position: relative;
     margin-bottom: 28px;
     padding-right: 12px;
@@ -17,6 +27,7 @@
 
             .title-modal {
                 z-index: 80;
+
                 p {
                     width: 100px;
                 }
@@ -51,7 +62,7 @@
             width: 36px;
             transition: .4;
 
-            &.closed{
+            &.closed {
                 transform: rotate(180deg);
             }
         }
@@ -83,8 +94,8 @@
                 padding: 0;
                 margin-left: 2px;
                 font-family: roboto-light;
-                
-//////////XXX////
+
+                //////////XXX////
                 padding-top: 5px;
             }
         }
