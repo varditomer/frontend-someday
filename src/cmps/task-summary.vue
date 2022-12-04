@@ -1,11 +1,12 @@
 <template>
     <li class="task-summary">
-
         <span class="empty-span"></span>
         <span class="empty-span"></span>
         <span class="empty-span"></span>
         <span class="empty-span"></span>
-        <span class="empty-span"></span>
+        <span class="empty-span overlay-span">
+            <span class="border-overlay-span"></span>
+        </span>
         <section v-if="tasks?.length" v-for="html in getHtmlSumData" class="footer-section flex center" v-html="(html)">
         </section>
         <span v-else v-for="html in getHtmlSumData" class="empty-span"></span>

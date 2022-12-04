@@ -17,13 +17,26 @@
         }
 
         &.content-li {
+
+            .options {
+                background-color: white;
+                position: sticky;
+                left: 0px;
+                z-index: 500;
+
+
+            }
+
             // position: relative;
             &:hover {
                 background-color: $wrkspce-bgc;
 
                 .options {
-                    visibility: inherit;
-                    background-color: white;
+
+                    span {
+                        visibility: visible;
+                        background-color: white;
+                    }
 
                     .more {
                         &:hover {
@@ -43,7 +56,7 @@
             }
         }
 
-        > *:not(:first-child) {
+        >*:not(:first-child) {
             justify-self: space-between;
             display: flex;
             align-items: center;
@@ -64,7 +77,11 @@
             align-items: center;
             width: 100%;
             height: 100%;
-            
+            position: sticky;
+            left: 36px;
+            background-color: white;
+            z-index: 500;
+
             >* {
                 cursor: pointer;
                 height: 16px;
@@ -99,35 +116,42 @@
             }
         }
 
-        .numbers, .txt {
+        .numbers,
+        .txt {
             &:hover {
                 @include cellBorderHover;
+
                 .not-editing-mode {
                     visibility: inherit;
 
                 }
 
             }
+
             .plus {
                 svg {
                     fill: $primary-blue;
                     scale: 0.8;
                 }
             }
+
             .editing-mode {
                 margin: 0;
                 padding: 4px;
                 height: 100%;
                 outline: 0.5px solid $primary-blue;
-                .inner-frame{
+
+                .inner-frame {
                     padding: 4px;
                 }
 
-                    width: 100%;
+                width: 100%;
+
                 input::-webkit-outer-spin-button,
                 input::-webkit-inner-spin-button {
                     appearance: none;
                 }
+
                 input {
                     height: 100%;
                     outline: 0.5px solid $primary-blue;
@@ -208,7 +232,7 @@
         align-items: center;
         position: relative;
 
-        &:hover{
+        &:hover {
             @include cellBorderHover;
             cursor: text;
         }
@@ -217,6 +241,10 @@
     .task-list-item-header,
     .task-title-item {
         grid-column: 3/6;
+        position: sticky;
+        background-color: white;
+        left: 72px;
+        z-index: 500;
     }
 
     .task-title-item {

@@ -3,11 +3,12 @@
         <regular-modal v-if="showModal" :groupId="group._id" :showModal="showModal" @closeModal="(showModal = false)"
             @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
             @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle" />
+            
         <div class="group-title flex align-center" :class="{ minimized: !viewTasks }"
             @keydown.escape="(showModal = false)">
 
-            <div class="options hidden flex center">
-                <span @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
+            <div class="options flex center">
+                <span class="dots hidden" @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="group-arrow" :class="{ 'closed': !viewTasks }" v-svg-icon="'arrowDown'"
                 @click="toggleTaskView"></span>
