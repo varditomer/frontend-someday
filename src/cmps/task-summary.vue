@@ -120,8 +120,8 @@ export default {
                     case 'numbers':
                         const numbers = summary[idx].toLocaleString()
                         const numbersStr = `<div class="numbers-summary flex column center">
-                            <div>${numbers}</div>
-                            <p>sum</p> 
+                            <p class="numbers-summary">${numbers}</p>
+                            <p class="sum">sum</p> 
                             </div>`
                         summary[idx] = numbersStr
 

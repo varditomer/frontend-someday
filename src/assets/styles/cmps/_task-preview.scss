@@ -101,8 +101,9 @@
 
         .numbers {
             &:hover {
+                @include cellBorderHover;
                 .not-editing-mode {
-                    visibility: inherit !important;
+                    visibility: inherit;
 
                 }
 
