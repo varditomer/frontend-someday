@@ -10,25 +10,7 @@
         box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
     }
 
-    // .modal-group {
-    // padding: 8px;
-    // .modal-item {
 
-    //     .title {
-    //         flex: 1;
-    //         // font-family: roboto-medium;
-    // font-size: rem(15px);
-    //         color: $primary-text-color;
-    //     }
-    //     .subtitle {
-    //         font-family: roboto-light;
-    //     }
-    // }
-
-    // span {
-    //     margin-right: 8px;
-    // }
-    // }
 
     // Dynamic modals (modal-children's) prefs set:
 
@@ -114,6 +96,7 @@
         }
 
         .modal-item {
+            height: 32px;
             cursor: pointer;
             padding: 4px 8px;
             border-radius: 4px;
@@ -144,8 +127,33 @@
     .group-opt-modal {
         top: 40px;
 
+        >* {
+            div {
+                p {
+                    margin-top: 1px;
+                }
+            }
+        }
+
         .upper-group {
             border-bottom: 1px solid $hr-clr;
+        }
+
+        .lowest-group {
+
+            .delete-group {
+                margin-left: 2px;
+
+                div {
+                    display: flex;
+                    align-items: center;
+
+                    p {
+                        padding-left: 1px;
+                    }
+
+                }
+            }
         }
     }
 
@@ -197,32 +205,32 @@
         align-items: center;
         height: 100%;
 
-        >*{
+        >* {
             width: 63px;
             height: 100%;
         }
 
-        .close-modal-btn{
+        .close-modal-btn {
             cursor: pointer;
             border-left: 1px solid $brdr-clr;
         }
 
-        .tasks-item{
+        .tasks-item {
             cursor: pointer;
-            
+
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
 
-            .delete-tasks-btn{
+            .delete-tasks-btn {
                 scale: .8;
                 position: relative;
                 top: 6px;
                 fill: $layout-gray;
             }
 
-            p{
+            p {
                 font-size: 13px;
                 font-family: roboto-light;
                 padding-bottom: 6px;

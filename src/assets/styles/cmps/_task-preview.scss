@@ -6,7 +6,7 @@
     li {
         display: grid;
         color: $layout-black;
-        grid-template-columns: 36px 36px repeat(auto-fill, 150px);
+        grid-template-columns: 36px 36px repeat(auto-fit, 150px);
         grid-auto-columns: 150px;
         grid-auto-flow: column;
         grid-template-rows: 36px;
@@ -272,13 +272,13 @@
 
         span {
             height: 60%;
-            
+
 
             .task-title {
                 text-overflow: ellipsis;
                 display: flex;
-            justify-content: center;
-            align-items: center;
+                justify-content: center;
+                align-items: center;
                 white-space: nowrap;
                 overflow: hidden;
                 border: none;
@@ -303,7 +303,7 @@
 
 
     .task-comment-icon {
-        height: 100%;
+        height: 100% !important;
         padding: 0px 16px;
         border-left: 1px solid $brdr-clr;
         display: flex;

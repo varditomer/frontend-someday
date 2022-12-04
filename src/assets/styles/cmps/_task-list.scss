@@ -32,14 +32,18 @@
             }
             
             div {
-                width: 100%;
-                display: grid;
-                grid-template-columns: repeat(auto-fill, 150px);
+                display: flex;
                 align-items: center;
+                // justify-content: center;
                 border-right: none;
                 
                 div{
                     border-right: 1px solid $brdr-clr;
+                    width: 150px;
+                    flex-basis: 150px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
             }
 
