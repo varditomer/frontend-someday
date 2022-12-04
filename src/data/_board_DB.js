@@ -4,10 +4,10 @@ export const labels = {
     Stuck: '$clr-red',
     Unattained: '$clr-dark-blue',
     Kaka: '$clr-yllw',
-    _none: '$clr-lgt-gry',
+    _none: '$clr-explosive',
     High: '$clr-red',
     Medium: '$priority-prpl',
     Low: '$priority-blue',
     Critical: '$priority-blc',
-    default: '$priority-gry'
+    Default: '$clr-explosive'
 }

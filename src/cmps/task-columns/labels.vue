@@ -34,7 +34,7 @@ export default {
     },
     computed: {
         getStyle() {
-            if (!this.content || !this.content === 'Default') return { 'background-color': colors['$clr-lgt-gry'] }
+            if (!this.content || !this.content === 'default') return { 'background-color': colors['$clr-lgt-gry'] }
             return {
                 'background-color': colors[labels[this.content]],
                 color: 'white'
