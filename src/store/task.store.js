@@ -6,7 +6,7 @@ export const taskStore = {
             taskToEdit: null,
             selectedTasks: [],
             priorities: [
-                { title: 'Critical', color: '#333333', colorName: '$priority-blackish' },
+                { title: 'Critical', color: '#333333', colorName: '$clr-blackish' },
                 { title: 'High', color: '#fe7575', colorName: '$clr-red' },
                 { title: 'Medium', color: '#777ae5', colorNmae: '$status-indigo' },
                 { title: 'Low', color: '#579bfc', colorName: '$clr-blue' },
@@ -16,7 +16,7 @@ export const taskStore = {
                 { title: 'Done', color: '#4fccc6', colorName: '$clr-lgt-teal' },
                 { title: 'Working on it', color: '#fdac3d', colorName: '$clr-lgt-orng' },
                 { title: 'Stuck', color: '#fe7575', colorName: '$clr-red' },
-                { title: 'Unattained', color: '#0086c0', colorName: '$clr-drk-blue' },
+                { title: 'Unattained', color: '#0086c0', colorName: '$clr-dark-blue' },
                 { title: 'Kaka', color: '#ffcb00', colorName: '$clr-yllw' },
                 { title: 'default', color: '#c4c4c4', colorName: '$clr-lgt-gry' },
             ],
@@ -57,9 +57,8 @@ export const taskStore = {
         async saveTask({ commit }, { task }) {
             try {
                 const savedTask = await taskService.save(task, false)
-                const taskToSave = { task, bool: false }
-                commit({ type: 'saveTask', taskToSave })
-                return savedTask
+                let taskToSave = { task: savedTask, bool: false }
+                return taskToSave
             } catch (err) {
                 console.log(`Cannot save task: ${err}`)
             }

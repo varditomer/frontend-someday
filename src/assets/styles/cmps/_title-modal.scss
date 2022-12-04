@@ -1,5 +1,5 @@
 .title-modal {
-    background-color: $priority-blackish;
+    background-color: $clr-blackish;
     border-radius: .2em;
     height: 35px;
     position: absolute;
@@ -34,7 +34,7 @@
         height: 0;
         border-left: 8px solid transparent;
         border-right: 8px solid transparent;
-        border-top: 10px solid$priority-blackish;
+        border-top: 10px solid$clr-blackish;
     }
 
 }
