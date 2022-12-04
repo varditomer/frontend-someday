@@ -29,7 +29,7 @@
                 </div>
                 <button @click="addBoard" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
                     class="add-board-btn flex center">
-                    <title-modal :class="{ 'show': showTitle }" :content="'Add board to Workspace'" />
+                    <!-- <title-modal :class="{ 'show': showTitle }" :content="'Add board to Workspace'" /> -->
                     <span v-svg-icon="'add'"></span>
                 </button>
             </div>

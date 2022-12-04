@@ -57,9 +57,8 @@ export const taskStore = {
         async saveTask({ commit }, { task }) {
             try {
                 const savedTask = await taskService.save(task, false)
-                const taskToSave = { task, bool: false }
-                commit({ type: 'saveTask', taskToSave })
-                return savedTask
+                let taskToSave = { task: savedTask, bool: false }
+                return taskToSave
             } catch (err) {
                 console.log(`Cannot save task: ${err}`)
             }

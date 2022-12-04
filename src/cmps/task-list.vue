@@ -42,17 +42,6 @@
             <span class="empty-fill-span"></span>
         </li>
         <task-summary :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer" />
-        <!-- <li class="task-footer">
-            <span class="empty-span"></span>
-            <span class="empty-span"></span>
-            <span class="empty-span"></span>
-            <span class="empty-span"></span>
-            <span class="empty-span"></span>
-            <span v-for="cmp in cmpsOrder" class="footer-span">
-                
-            </span>
-            <span class="empty-fill-span"></span>
-        </li> -->
     </ul>
 
 
