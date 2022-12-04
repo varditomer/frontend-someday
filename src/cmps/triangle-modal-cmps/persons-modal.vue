@@ -21,7 +21,7 @@
 <script>
 export default {
     name: 'persons-modal',
-    emits: ['updateTask'],
+    emits: ['updateTask', 'hideModal'],
     props: {
         content: {
             type: Array,
@@ -50,6 +50,7 @@ export default {
                 : []
             persons.push(person)
             this.updateTask(persons)
+            this.$emit('hideModal')
         },
         removePerson(personId) {
             const persons = JSON.parse(JSON.stringify(this.content))
@@ -57,6 +58,7 @@ export default {
             if (idx === -1) return
             persons.splice(idx, 1)
             this.updateTask(persons)
+            
         },
         updateTask(persons) {
             this.$emit('updateTask', { key: 'person', val: persons })

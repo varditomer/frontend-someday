@@ -4,8 +4,8 @@
             :class="{ cover: person.pic }" :title="person.fullname">
             {{ !person.pic ? person.initials : '' }}
         </span>
-        <triangle-modal v-if="show" @updateTask="updateTask" :additionalDb="additionalDb"
-            :content="formattedPersons" :cmp="'personsModal'" @hideModal="(show = false)" />
+        <triangle-modal v-if="show" @updateTask="updateTask" :additionalDb="additionalDb" :content="formattedPersons"
+            :cmp="'personsModal'" @hideModal="hide" />
     </section>
     <!-- <span v-else></span> -->
 </template>
@@ -47,6 +47,9 @@ export default {
     methods: {
         updateTask(personsObj) {
             this.$emit('updateTask', personsObj)
+        },
+        hide() {
+            setTimeout(() => this.show = false, 1)
         }
     },
     components: {

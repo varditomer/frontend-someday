@@ -10,9 +10,8 @@ $layout-padding: 12px;
 // Colors
 
 //basics
-$clr--white: #fff;
-$clr--black: #000;
-$primary-text-color: #323338;
+$clr-white: #fff;
+$clr-black: #000;
 
 //regular-modal
 $hr-clr: #e6e9ef;
@@ -44,7 +43,6 @@ $brdr-clr: #d0d5e4;
 $fltr-bgc: #cce5ff;
 
 // msg-color
-$clr-mud_black: #323338;
 $clr-success: #258750;
 $clr-success-hover: #007038;
 $clr-success-highlight: #bbdbc9;
@@ -56,24 +54,24 @@ $clr-error-highlight: #f4c3cb;
 // user-palette
 $usr-fuccia: #fb275d;
 $usr-bright-green: #00ca72;
-$usr-purple: rgb(163, 88, 208);
-$usr-dark-indigo: rgb(89, 90, 212);
-$usr-blackish: rgb(28, 31, 59);
-$usr-chilli-blue: rgb(102, 204, 255);
-$usr-brigh-orange: rgb(253, 171, 61);
-$usr-egg-yolk: rgb(255, 203, 0);
-$usr-royal: rgb(0, 154, 255);
-$usr-light-red: rgb(246, 95, 124);
-$usr-sophia-pink: rgb(255, 21, 138);
-$usr-dark-red: rgb(226, 68, 92);
-$usr-gray: rgb(128, 128, 128);
-$usr-sky: rgb(87, 155, 252);
-$usr-wine: rgb(187, 51, 84);
-$usr-grass-green: rgb(3, 127, 76);
-$usr-bubble: rgb(255, 90, 196);
-$usr-bright-blue: rgb(31, 118, 194);
-$usr-dark-orange: rgb(255, 100, 46);
-$usr-dark-blue: rgb(34, 80, 145);
+$usr-purple: #a358d0;
+$usr-dark-indigo: #595ad4;
+$usr-blackish: #1c1f3b;
+$usr-chilli-blue: #66ccff;
+$usr-brigh-orange: #fdab3d;
+$usr-egg-yolk: #ffcb00;
+$usr-royal: #009aff;
+$usr-light-red: #f65f7c;
+$usr-sophia-pink: #ff158a;
+$usr-dark-red: #e2445c;
+$usr-gray: #808080;
+$usr-sky: #579bfc;
+$usr-wine: #bb3354;
+$usr-grass-green: #037f4c;
+$usr-bubble: #ff5ac4;
+$usr-bright-blue: #1f76c2;
+$usr-dark-orange: #ff642e;
+$usr-dark-blue: #225091;
 
 
 // entire palette
@@ -126,31 +124,3 @@ $clr-purple: #a25ddc;
 $clr-lavender: #BDA8F9;
 $clr-dark-purple: #784bd1;
 $clr-dark_indigo: #401694;
-
-
-// label-colors
-$clr-dark_indigo: #401694;
-$clr-egg_yolk: #ffcb00;
-$clr-bright-green: #9cd326;
-$clr-sofia_pink: #ff158a;
-$clr-berry: #7e3b8a;
-$clr-royal: #2B76E5;
-$clr-jade: #03c875;
-$clr-grass_green: #037f4c;
-$clr-dark-purple: #784bd1;
-$clr-bubble: #faa1f1;
-$clr-aqua: #00d1d1;
-$clr-teal: #175A63;
-$clr-navy: #225091;
-$clr-peach: #ffadad;
-$clr-dark-orange: #ff642e;
-$clr-indigo: #5559df;
-$clr-river: #68a1bd;
-$clr-sky: #A1E3F6;
-$clr-lipstick: #ff5ac4;
-$clr-purple: #a25ddc;
-$clr-chili-blue: #66ccff;
-$clr-stuck-red: #e2445c;
-$clr-orange: #fdab3d;
-$clr-live_blue: #009aff;
-$clr-sunset: #ff7575;

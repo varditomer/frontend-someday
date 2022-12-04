@@ -1,6 +1,6 @@
 <template>
 
-    <ul class="task-list">
+    <ul class="task-list test">
         <li>
             <span class="empty-span"></span>
             <span class="task-select header-task-select" :style="{ 'border-left-color': group.style.color }">
@@ -8,18 +8,18 @@
             </span>
             <span class="task-list-item-header">item</span>
 
-            <!-- <span v-for="(cmp,idx) in cmpOrder" :key="idx" :group="{ name: 'columns' }">
-                <draggable :v-model="cmpsOrder[idx]">
-                    <template #item="cmp" >cmp</template>
+            <div class="columns">
+                <draggable v-model="cmpsOrder" itemKey="element" dataIdAttrtag="div" @start="isBeingDragged = true">
+                    <template #item="{ element }">
+                        <div group="cmps" ghost-class="ghost" :class="{ columnDragged: isBeingDragged }"> {{ element }}
+                        </div>
+                    </template>
                 </draggable>
-            </span> -->
-            <span v-for="column in cmpsOrder">
-                {{ column }}
-            </span>
+                <span v-svg-icon="'add'" class="add"></span>
+            </div>
 
-            <span v-svg-icon="'add'"></span>
         </li>
-        <draggable v-model="tasks" group="tasks" ghost-class="ghost" animation="200" @start="beingDragged = true"
+        <draggable v-model="group.tasks" group="tasks" ghost-class="ghost" animation="200" @start="beingDragged = true"
             :class="{ taskDragged: beingDragged }" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
@@ -52,7 +52,7 @@ import taskPreview from './task-preview.vue'
 import taskSummary from './task-summary.vue'
 export default {
     name: 'task-list',
-    emits: ['saveTask', 'removeTask', 'saveSelectedTasks','saveBoard'],
+    emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard'],
     props: {
         tasks: Array,
         cmpsOrder: Array,
@@ -83,7 +83,8 @@ export default {
     data() {
         return {
             taskToAdd: {},
-            beingDragged: false
+            beingDragged: false,
+            isBeingDragged: false,
         }
     },
     created() {
@@ -110,15 +111,9 @@ export default {
             this.$emit('removeTask', task)
         },
         updateTask(task) {
-            console.log(`task:`, task)
             this.$emit('saveTask', task)
         },
         async saveBoard(ev) {
-            // this.beingDragged = false
-            // const group = JSON.parse(JSON.stringify(this.group))
-            // group.tasks = this.tasks
-            // console.log(`this.tasks`, this.tasks)
-            // this.$store.dispatch({ type: 'saveGroup', group })
             this.$emit('saveBoard')
         },
         saveSelectedTasks(taskId) {

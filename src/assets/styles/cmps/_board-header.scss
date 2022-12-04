@@ -15,12 +15,17 @@
 
             .board-title {
                 font-size: rem(32px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 position: relative;
                 left: -6px;
+                line-height:.4;
                 padding: 6px;
                 letter-spacing: -1px;
                 border-radius: .1em;
                 transition: padding .4s;
+                height: 100%;
 
                 &:hover{
                     outline: 1px solid $brdr-clr;

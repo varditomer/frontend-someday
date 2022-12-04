@@ -8,7 +8,6 @@
 
         <div class="workspace-header flex column">
 
-
             <div class="workspace-main-header flex justify-between">
                 <div class="workspace-dropdown-container flex align-center">
                     <div class="workspace-indicator-container flex center">

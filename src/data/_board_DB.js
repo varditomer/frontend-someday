@@ -1,13 +1,13 @@
 export const labels = {
-    Done: '$clr-lgt-teal',
+    Done: '$clr-done-green',
     'Working on it': '$clr-lgt-orng',
-    Stuck: '$clr-red',
+    Stuck: '$clr-stuck-red',
     Unattained: '$clr-dark-blue',
     Kaka: '$clr-yllw',
-    _none: '$clr-lgt-gry',
-    High: '$clr-red',
-    Medium: '$priority-prpl',
-    Low: '$priority-blue',
+    _none: '$clr-explosive',
+    High: '$clr-dark_indigo',
+    Medium: '$clr-indigo',
+    Low: '$clr-bright-blue',
     Critical: '$priority-blc',
-    default: '$priority-gry'
+    Default: '$clr-explosive'
 }

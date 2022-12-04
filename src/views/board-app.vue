@@ -10,7 +10,8 @@
                 @addGroup="addGroup" @filter="setFilter" />
             <group-list :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                 :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
-                @saveBoard="saveBoard" @removeGroup="removeGroup" :board="board" :priorities="priorities" :statuses="statuses" />
+                @saveBoard="saveBoard" @removeGroup="removeGroup" :board="board" :priorities="priorities"
+                :statuses="statuses" />
         </section>
         <router-view />
     </section>
@@ -38,7 +39,9 @@ export default {
             this.$store.commit({ type: 'saveTask', taskToSave })
             this.$store.dispatch({ type: 'saveTask', task })
         },
-        saveBoard() {
+        saveBoard(board) {
+            this.$store.commit({ type: 'setBoard', board })
+            this.$store.dispatch({ type:'saveBoard', board })
             // console.log(`this.board.groups`, this.board.groups) help!
         },
         removeTask(task) {
