@@ -10,6 +10,28 @@
     width: 570px;
     right: 0;
 
+    .upload-files {
+        .upload-icon {
+            cursor: pointer;
+        }
+        
+        .drag {
+            color: lightgray;
+        }
+        
+        .drag-zone {
+            outline: 10px dashed lightgray;
+            margin: 15px;
+        }
+        
+        .img-upload {
+            min-height: 200px;
+        }
+        .empty-state-image {
+            width: 300px;
+        }
+    }
+
     .close-modal-btn {
         background-color: transparent;
         padding: 0;
@@ -42,9 +64,8 @@
             color: $layout-gray;
         }
 
-        >*:first-child {
+        .selected {
             box-shadow: inset 0px -2px 0px 0px #0373ea;
-
         }
 
         >* {

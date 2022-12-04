@@ -4,14 +4,14 @@
         <span v-if="taskToEdit" @click="close" v-svg-icon="'exit'" class="close-modal-btn"></span>
         <h1 v-if="taskToEdit" class="task-modal-title">{{ taskToEdit.title }}</h1>
         <div v-if="taskToEdit" class="modal-btns">
-            <div>
+            <div :class="{ 'selected': showUpdates }">
                 <span v-svg-icon="'outlineHome'"></span>
-                <button class="task-comments-btn">Updates</button>
+                <button @click="goToUpdates" class="task-comments-btn">Updates</button>
             </div>
             <span>|</span>
-            <div>
+            <div :class="{ 'selected': showFiles }">
                 <span></span>
-                <button>Files</button>
+                <button @click="goToFiles">Files</button>
             </div>
             <span>|</span>
             <div>
@@ -19,7 +19,8 @@
                 <button>Activity Log</button>
             </div>
         </div>
-        <section v-if="taskToEdit" class="task-comments">
+        
+        <section v-if="(taskToEdit && showUpdates)" class="task-comments">
             <form @submit.prevent="addComment">
                 <textarea v-model="commentToAdd" type="text" placeholder="Write an update..." class="comment-add-txt" />
                 <button @click="" class="add-comment-btn">Update</button>
@@ -51,6 +52,34 @@
                 </div>
             </div>
         </section>
+
+        <section v-if="showFiles" class="upload-files flex center">
+            <section class="img-upload flex column center" :class="{ 'drag-zone': isDragover }" @drop.prevent="handleFile"
+                @dragover.prevent="isDragover = true" @dragleave="isDragover = false">
+
+                <label v-if="!isLoading" :class="{ drag: isDragover }">
+                    <upload-icon :class="{ drag: isDragover }" />
+                    <input type="file" @change="handleFile" hidden />
+                </label>
+
+                <img v-else src="../assets/loader.gif" alt="" />
+                <img class="empty-state-image" src="https://cdn.monday.com/images/files-gallery/empty-state.png" />
+
+                <div class="cta-container flex column center">
+                    <div class="cta-container-title">
+                        <b>Drag &amp; drop</b>&nbsp;or&nbsp;<b>add files here</b>
+                    </div>
+                    <div class="cta-container-subtitle">Upload, comment and review all files in this item to easily collaborate in context</div>
+                    <button type="button" class="monday-style-button monday-style-button--size-medium monday-style-button--kind-primary monday-style-button--color-primary has-style-size" data-testid="button" aria-disabled="false" aria-busy="false" style="--element-width:113.672px; --element-height:40px;">
+                        <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" aria-hidden="true" class="icon_component monday-style-button--left-icon icon_component--no-focus-style"><path d="M10.75 3C10.75 2.58579 10.4142 2.25 10 2.25C9.58579 2.25 9.25 2.58579 9.25 3V9.25H3C2.58579 9.25 2.25 9.58579 2.25 10C2.25 10.4142 2.58579 10.75 3 10.75H9.25V17C9.25 17.4142 9.58579 17.75 10 17.75C10.4142 17.75 10.75 17.4142 10.75 17V10.75H17C17.4142 10.75 17.75 10.4142 17.75 10C17.75 9.58579 17.4142 9.25 17 9.25H10.75V3Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>Add file
+                    </button>
+                </div>
+
+
+            </section>
+
+        </section>
+
     </section>
 
 </template>
@@ -60,11 +89,37 @@ export default {
     data() {
         return {
             commentToAdd: '',
-            taskToEdit: null
+            taskToEdit: null,
+            showUpdates: null,
+            showFiles: null,
         }
     },
+    async created() {
+        this.showUpdates = true
+        const { taskId } = this.$route.params
+        const { id } = this.$route.params
+        await this.$store.dispatch({ type: 'queryBoard', id })
+        this.board.groups.some(({ tasks }) => tasks.some(task => {
+            if (task._id === taskId) this.taskToEdit = JSON.parse(JSON.stringify(task))
+        }))
 
+    },
+    computed: {
+        board() {
+            return this.$store.getters.board
+        }
+    },
     methods: {
+        goToFiles() {
+            this.showUpdates = false
+            this.showFiles = true
+        },
+        goToUpdates() {
+            this.showFiles = false
+            this.showUpdates = true
+        },
+
+
         close() {
             this.$router.push('/board/' + this.board._id)
         },
@@ -88,19 +143,6 @@ export default {
             this.commentToAdd = ''
         }
     },
-    computed: {
-        board() {
-            return this.$store.getters.board
-        }
-    },
-    async created() {
-        const { taskId } = this.$route.params
-        const { id } = this.$route.params
-        await this.$store.dispatch({ type: 'queryBoard', id })
-        this.board.groups.some(({ tasks }) => tasks.some(task => {
-            if (task._id === taskId) this.taskToEdit = JSON.parse(JSON.stringify(task))
-        }))
 
-    }
 }
 </script>
