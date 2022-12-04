@@ -4,8 +4,8 @@
         <draggable v-model="groups" :group="{ name: 'board' }" animation="150" itemKey="element._id"
             @start="minimizeGroups(true, $event)" @end="minimizeGroups(false, $event)">
             <template #item="{ element }">
-                <group-preview @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks" :group="element"
-                    :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
+                <group-preview :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
+                    :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
                     :statuses="statuses" v-if="board" @saveTask="saveTask" @removeTask="removeTask"
                     @saveGroup="saveGroup" @addGroup="addGroup" @removeGroup="removeGroup" />
             </template>
@@ -34,6 +34,10 @@ export default {
         },
         selectedTasks: {
             type: Array,
+            required: false
+        },
+        uncheck: {
+            type: Boolean,
             required: false
         }
     },

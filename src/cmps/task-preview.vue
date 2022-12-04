@@ -7,7 +7,7 @@
                 <span @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="task-select" :style="{ 'border-left-color': group.style.color }">
-                <input @click="selectTask(task._id)" type="checkbox" />
+                <input :checked="checkIfUncheck" ref="checkbox" @click="selectTask(task._id)" type="checkbox" />
             </span>
             <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
                 <div class="task-title-item">
@@ -59,6 +59,10 @@ export default {
         selectedTasks: {
             type: Array,
             required: false
+        },
+        uncheck: {
+            type: Boolean,
+            required: false
         }
     },
     created() {
@@ -105,7 +109,11 @@ export default {
         },
         board() {
             return this.$store.getters.board
-        }
+        },
+        checkIfUncheck() {
+            if (this.uncheck) return false
+        },
+
     },
     methods: {
         updateTask({ key, val }) {
@@ -125,7 +133,6 @@ export default {
         },
         selectTask(taskId) {
             this.$emit('saveSelectedTasks', taskId)
-
         }
     },
     components: {
