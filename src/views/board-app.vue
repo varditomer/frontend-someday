@@ -50,6 +50,9 @@ export default {
             this.$store.dispatch({ type: 'addGroup' })
         },
         setFilter(filter) {
+            if (filter.userId && this.filterBy?.userId) {
+                if (filter.userId === this.filterBy.userId) filter.userId = null
+            }
             this.$store.dispatch({ type: 'queryBoard', id: this.board._id, filter })
         },
         saveGroup(group) {
