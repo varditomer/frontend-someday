@@ -8,10 +8,9 @@
                 :cmp="'person-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
-            <group-list @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks" :users="users"
-                @saveBoard="saveBoard" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
-                @addGroup="addGroup" @removeGroup="removeGroup" :board="board" :priorities="priorities"
-                :statuses="statuses" />
+            <group-list :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
+                :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
+                @saveBoard="saveBoard" @removeGroup="removeGroup" :board="board" :priorities="priorities" :statuses="statuses" />
         </section>
         <router-view />
     </section>
@@ -32,6 +31,7 @@ export default {
         taskNav,
         regularModal
     },
+
     methods: {
         saveTask(task) {
             let taskToSave = { task, bool: false }
@@ -72,9 +72,11 @@ export default {
             await this.$store.commit({ type: 'saveSelectedTasks', taskId })
             this.showModal = (this.selectedTasks.length) ? true : false
         },
-        unselectTasks() {
-            this.$store.commit({ type: 'unselectTasks' })
+        async unselectTasks() {
+            this.uncheck = true
+            await this.$store.commit({ type: 'unselectTasks' })
             this.showModal = false
+            this.uncheck = false
         },
         async saveBoardTitle(title) {
             const board = JSON.parse(JSON.stringify(this.board))
@@ -112,7 +114,8 @@ export default {
     },
     data() {
         return {
-            showModal: false
+            showModal: false,
+            uncheck: false
         }
     },
     async created() {

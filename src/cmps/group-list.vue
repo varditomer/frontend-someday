@@ -6,8 +6,8 @@
             @end="saveBoard"
             :class="{ groupDragged: beingDragged }">
             <template #item="{ element }">
-                <group-preview @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks" :group="element"
-                    :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
+                <group-preview :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
+                    :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
                     :statuses="statuses" v-if="board" @saveTask="saveTask" @removeTask="removeTask"
                     @saveGroup="saveGroup" @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" />
             </template>
@@ -36,6 +36,10 @@ export default {
         },
         selectedTasks: {
             type: Array,
+            required: false
+        },
+        uncheck: {
+            type: Boolean,
             required: false
         }
     },

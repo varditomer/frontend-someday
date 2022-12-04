@@ -24,7 +24,7 @@
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users"
-                    :group="group" :additionalDb="additionalDb" @removeTask="removeTask" />
+                    :uncheck="uncheck" :group="group" :additionalDb="additionalDb" @removeTask="removeTask" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -68,6 +68,10 @@ export default {
         },
         selectedTasks: {
             type: Array,
+            required: false
+        },
+        uncheck: {
+            type: Boolean,
             required: false
         }
     },

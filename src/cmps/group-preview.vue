@@ -20,9 +20,9 @@
             </div>
             <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
         </div>
-        <task-list v-if="viewTasks" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
-            :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users" :priorities="priorities"
-            :statuses="statuses" @saveBoard="saveBoard" @saveTask="saveTask" @removeTask="removeTask" />
+        <task-list v-if="viewTasks" :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard"
+            :selectedTasks="selectedTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
+            :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />
     </section>
 </template>
 <script>
@@ -47,6 +47,10 @@ export default {
         },
         selectedTasks: {
             type: Array,
+            required: false
+        },
+        uncheck: {
+            type: Boolean,
             required: false
         }
     },
