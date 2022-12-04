@@ -30,7 +30,7 @@
         <input type="text" v-model="signupCred.fullname" placeholder="Your full name" />
         <input type="text" v-model="signupCred.password" placeholder="Password" />
         <input type="text" v-model="signupCred.username" placeholder="Username" />
-        <img-uploader @uploaded="onUploaded"></img-uploader>
+        <!-- <img-uploader @uploaded="onUploaded"></img-uploader> -->
         <button>Signup</button>
       </form>
     </div>
@@ -51,7 +51,7 @@
 
 <script>
 
-import imgUploader from '../cmps/img-uploader.vue'
+// import imgUploader from '../cmps/img-uploader.vue'
 
 export default {
   name: 'login-signup',
@@ -116,7 +116,7 @@ export default {
 
   },
   components: {
-    imgUploader
+    // imgUploader
   }
 }
 </script>
