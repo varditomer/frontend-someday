@@ -7,7 +7,7 @@
         <span class="empty-span overlay-span">
             <span class="border-overlay-span"></span>
         </span>
-        <section v-for="html in getHtmlSumData" class="footer-section flex center" v-html="(html)">
+        <section v-for="html in getHtmlSumData" v-html="(html)" class="footer-section flex center">
         </section>
         <span class="empty-fill-span"></span>
     </li>
