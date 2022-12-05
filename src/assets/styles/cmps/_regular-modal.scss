@@ -1,6 +1,6 @@
 .regular-modal {
     position: fixed;
-    z-index: 1000;
+    z-index: 10000;
 
     //need to set position and other prefs. at children cmp
     >* {
@@ -99,6 +99,7 @@
     .more-options-modal {
         width: 264px;
         left: 11px;
+        
         border-radius: 10px;
 
         .modal-group {
