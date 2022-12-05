@@ -30,7 +30,7 @@
         <li class="add-new-task">
             <span class="empty-span"></span>
             <span class="task-select add-task-select" :style="{ 'border-left-color': `${group.style.light}` }">
-                <input type="checkbox" />
+                <input type="checkbox"  disabled/>
             </span>
             <form @submit.prevent="addTask">
                 <span @click="addTask" v-svg-icon="'add'"></span>

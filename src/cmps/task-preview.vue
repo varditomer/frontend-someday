@@ -7,7 +7,7 @@
                 <span class="hidden" @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="task-select" :style="{ 'border-left-color': group.style.color }">
-                <input :checked="checkIfUncheck" ref="checkbox" @click="selectTask(task._id)" type="checkbox" />
+                <input :checked="checkIfUncheck" ref="checkbox" @input="selectTask(task._id, $event)" type="checkbox"  />
             </span>
             <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
                 <div class="task-title-item">
@@ -129,7 +129,9 @@ export default {
             this.$emit('removeTask', this.task)
             this.showModal = false
         },
-        selectTask(taskId) {
+        selectTask(taskId, ev) {
+            console.log(`ev.target.value`, ev.target.value)
+            if (!taskId) return ev.target.value = false
             this.$emit('saveSelectedTasks', taskId)
         }
     },
