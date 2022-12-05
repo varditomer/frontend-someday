@@ -11,15 +11,17 @@
     width: 570px;
     right: 0;
 
-    
+
 
     .upload-files {
         padding: 24px 20px 0;
+
         .sub-header {
             width: 529px;
             padding: 0 8px 0;
             margin-bottom: 24px;
         }
+
         .upload-icon {
             cursor: pointer;
         }
@@ -40,13 +42,16 @@
         .cta-container {
             margin: 8px 0;
             padding: 8px 0;
+
             .files-gallery-cmp {
                 margin-top: 100px;
+
                 .cta-container-title {
                     margin-top: 16px;
                     font-size: rem(16px);
                     margin-bottom: 8px;
                 }
+
                 .cta-container-subtitle {
 
                     text-align: center;
@@ -54,6 +59,7 @@
                     margin-bottom: 24px;
                 }
             }
+
             .add-file-btn {
                 border-radius: 0.4em;
                 padding: 8px 16px;
@@ -69,6 +75,7 @@
         .img-upload {
             min-height: 200px;
         }
+
         .empty-state-image {
             width: 300px;
         }
@@ -110,7 +117,7 @@
             box-shadow: inset 0px -2px 0px 0px #0373ea;
         }
 
-        > * {
+        >* {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -241,6 +248,51 @@
             .comment-reactions {
                 grid-area: reactions;
                 border-bottom: 1px solid $brdr-clr;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-left: 18px;
+                padding-right: 16px;
+                padding-bottom: 16px;
+
+                .likes {
+                    display: flex;
+                    align-items: center;
+
+                    p {
+                        font-size: 14px;
+                        font-family: roboto-light;
+                        padding-left: 8px;
+                    }
+
+                    .liked-users {
+
+
+                        img {
+                            border-radius: 2em;
+                            border: 1px solid white;
+                            width: 24px;
+                            height: 24px;
+                            margin: 0 -3px;
+                        }
+                    }
+                }
+
+                .seen-count {
+                    display: flex;
+                    align-items: center;
+
+                    p {
+                        font-size: 14px;
+                        font-family: roboto-light;
+                    }
+
+                    span {
+                        padding-right: 4px;
+                        padding-bottom: 2px;
+                    }
+                }
+
             }
 
             .comment-like {
