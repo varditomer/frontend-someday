@@ -1,8 +1,8 @@
 <template>
-    <section class="main-app-container" :class="{ 'folded': isWorkspaceClosed }">
+    <section class="main-app-container" :class="{ 'folded': isWorkspaceCollapsed }">
         <task-nav />
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
-            :isWorkspaceClosed="isWorkspaceClosed" />
+            :isWorkspaceCollapsed="isWorkspaceCollapsed" />
         <section class='board-app-container'>
             <regular-modal @unselectTasks="unselectTasks" :selectedTasks="selectedTasks" :showModal="showModal"
                 :cmp="'person-select-modal'" />
@@ -110,8 +110,8 @@ export default {
         statuses() {
             return this.$store.getters.statuses
         },
-        isWorkspaceClosed() {
-            return this.$store.getters.isWorkspaceClosed
+        isWorkspaceCollapsed() {
+            return this.$store.getters.isWorkspaceCollapsed
         },
         filterBy() {
             return this.$store.getters.filterBy

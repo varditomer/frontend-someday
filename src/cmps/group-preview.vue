@@ -5,7 +5,7 @@
             @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
             @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle" />
 
-        <div class="group-title flex align-center" :class="{ minimized: !viewTasks }"
+        <div class="group-title flex align-center" :class="{ collapse: !viewTasks }"
             @keydown.escape="(showModal = false)">
 
             
@@ -13,8 +13,8 @@
                 <span class="dots hidden" @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
             </div>
 
-            <span class="group-arrow" :class="{ 'closed': !viewTasks }"
-                :style="{ fill: group.style.color, 'border-left': isCollapsed }" v-svg-icon="'arrowDown'"
+            <span class="group-arrow" :class="{ 'collapsed': !viewTasks }"
+                :style="{ fill: group.style.color, 'border-left': collapsedBorder }" v-svg-icon="'arrowDown'"
                 @click="toggleTaskView"></span>
 
             <div class="group-title-content">
@@ -70,10 +70,10 @@ export default {
         }
     },
     mounted() {
-        eventBus.on('minimized-groups', minimizeGroups => {
+        eventBus.on('collapse-groups', minimizeGroups => {
             this.viewTasks = !minimizeGroups
         })
-        eventBus.on('minimized-single-group', ({ _id, minimizeGroup }) => {
+        eventBus.on('collapse-single-group', ({ _id, minimizeGroup }) => {
             // this.viewTasks = !minimizeGroup
             if (this.group._id === _id) this.viewTasks = !minimizeGroup
         })
@@ -138,7 +138,7 @@ export default {
                 return acc
             }, 0)
         },
-        isCollapsed() {
+        collapsedBorder() {
             const border = this.viewTasks ? 'none' : `5px solid ${this.group.style.color}`
             return border
         }

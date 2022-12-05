@@ -1,8 +1,8 @@
 <template>
-    <aside class="workspace-container" :class="{ 'closed': isWorkspaceClosed }">
+    <aside class="workspace-container" :class="{ 'collapsed': isWorkspaceCollapsed }">
 
         <div @click="toggleWorkspace" class="toggle-workspace-div">
-            <span class="toggle-workspace" v-if="!isWorkspaceClosed" v-svg-icon="'arrowLeft'"></span>
+            <span class="toggle-workspace" v-if="!isWorkspaceCollapsed" v-svg-icon="'arrowLeft'"></span>
             <span class="toggle-workspace" v-else v-svg-icon="'arrowRight'"></span>
         </div>
 
@@ -54,7 +54,7 @@ export default {
     name: 'board-workspace',
     emits: ['addBoard', 'toggleWorkspace'],
     props: {
-        isWorkspaceClosed: Boolean
+        isWorkspaceCollapsed: Boolean
     },
     data() {
         return {

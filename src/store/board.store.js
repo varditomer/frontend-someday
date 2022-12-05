@@ -36,7 +36,7 @@ export const boardStore = {
         board: [],
         firstBoardId: null,
         miniBoards: null,
-        isWorkspaceClosed: false,
+        isWorkspaceCollapsed: false,
         filterBy: {
             txt: '',
             userId: null
@@ -46,7 +46,7 @@ export const boardStore = {
         board({ board }) { return board },
         boardsTitles({ boardsTitles }) { return boardsTitles },
         miniBoards({ miniBoards }) { return miniBoards },
-        isWorkspaceClosed({ isWorkspaceClosed }) { return isWorkspaceClosed },
+        isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         filterBy({ filterBy }) { return filterBy },
     },
     mutations: {
@@ -106,12 +106,12 @@ export const boardStore = {
             state.board.groups.splice(idx, 1)
         },
         toggleWorkspace(state) {
-            state.isWorkspaceClosed = !state.isWorkspaceClosed
-            boardService.saveToSessionStorage('workspace', state.isWorkspaceClosed)
+            state.isWorkspaceCollapsed = !state.isWorkspaceCollapsed
+            boardService.saveToSessionStorage('workspace', state.isWorkspaceCollapsed)
         },
         setWorkspaceState(state) {
             const workspaceState = boardService.loadFromSessionStorage('workspace')
-            state.isWorkspaceClosed = JSON.parse(workspaceState)
+            state.isWorkspaceCollapsed = JSON.parse(workspaceState)
         }
     },
     actions: {

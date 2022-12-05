@@ -62,7 +62,7 @@ export default {
     methods: {
         minimizeGroups(minimize, ev) {
             // if (!ev?.item?.classList || !ev.item.classList[0] === 'group-preview') return
-            // eventBus.emit('minimized-groups', minimize)
+            // eventBus.emit('collapse-groups', minimize)
         },
         saveBoard() {
             this.beingDragged = false
