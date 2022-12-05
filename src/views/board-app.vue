@@ -1,5 +1,5 @@
 <template>
-    <section class="main-app-container" :class="{ 'folded': isWorkspaceCollapsed }">
+    <section class="main-app-container" :class="{ 'folded': isWorkspaceCollapsed }" @scroll.x="scrolling">
         <task-nav />
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
@@ -35,6 +35,7 @@ export default {
     data() {
         return {
             boardUpdated: 0,
+            scrollX: null
         }
     },
     methods: {
@@ -91,7 +92,8 @@ export default {
             board.title = title
             await this.$store.dispatch({ type: 'saveBoard', board })
             this.$store.dispatch({ type: 'loadMiniBoards' })
-        }
+        },
+
     },
     computed: {
         users() {
@@ -135,6 +137,8 @@ export default {
         } catch (err) {
             this.$router.push('/')
         }
+
+
     }
 }
 

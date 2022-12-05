@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import taskOptModal from '../option-cmps/task-opt-modal.vue';
+import taskOptModal from '../regular-modal-cmps/task-opt-modal.vue';
 import groupOptModal from '../regular-modal-cmps/group-opt-modal.vue';
 import newItemModal from '../filter-modals-cmps/new-item-modal.vue';
 import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue';

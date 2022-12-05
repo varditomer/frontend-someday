@@ -27,26 +27,26 @@
                     <p>Duplicate</p>
                 </div>
                 <span v-svg-icon="'arrowLeft'"></span>
-            </div>
-            <div class="modal-item flex align-center">
+            </div> -->
+            <div class="modal-item flex align-center" @click="$emit('taskTitleToClipboard')">
                 <div class="item-title flex align-center">
-                    <span v-svg-icon="'text'"></span>
+                    <span v-svg-icon="'copyText'"></span>
                     <p>Copy Name</p>
                 </div>
             </div>
-            <div class="modal-item flex align-center">
+            <!-- <div class="modal-item flex align-center">
                 <div class="item-title flex align-center">
                     <span v-svg-icon="'paste'"></span>
                     <p>Paste</p>
                 </div>
-            </div>
-            <div class="modal-item flex align-center justify-between">
+            </div> -->
+            <div class="modal-item flex align-center justify-between" @click="$emit('linkToClipboard')">
                 <div class="item-title flex align-center">
                     <span v-svg-icon="'link'"></span>
                     <p>Copy item link</p>
                 </div>
                 <span v-svg-icon="'commentCount'"></span>
-            </div> -->
+            </div>
         </div>
 
         <!-- <div class="middle-group">
@@ -86,7 +86,7 @@
 <script>
 export default {
     name: 'task-opt-modal',
-    emits: ['openTask', 'removeTask'],
+    emits: ['openTask', 'removeTask', 'linkToClipboard', 'taskTitleToClipboard'],
     props: {},
     data() {
         return {}

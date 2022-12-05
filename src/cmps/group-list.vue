@@ -1,11 +1,12 @@
 <template>
 
-    <section class='group-list-container' v-if="boardCopy" :key="boardUpdated">
+    <section class='group-list-container' v-if="boardCopy" :key="boardUpdated" @scroll="scrolling">
         <draggable v-model="boardCopy.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
             @end="saveBoard" :class="{ groupDragged: beingDragged }">
             <template #item="{ element }">
-                <group-preview :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
-                    :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
+                <group-preview :uncheck="uncheck" :isHorizontalScrolling="isHorizontalScrolling"
+                    @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks" :group="element"
+                    :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
                     :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
                     @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" />
             </template>
@@ -53,7 +54,9 @@ export default {
     data() {
         return {
             beingDragged: false,
-            boardCopy: false
+            boardCopy: false,
+            isHorizontalScrolling: null,
+            // pageX: null
         }
     },
     mounted() {
@@ -96,11 +99,16 @@ export default {
             this.$emit('saveSelectedTasks', taskId)
             this.saveBoard()
         },
+        scrolling(event) {
+            const { scrollLeft } = event.target
+            return this.isHorizontalScrolling = scrollLeft? true: false
+        },
     },
     computed: {
         cmpsOrder() {
             return [...this.board.cmpsOrder]
-        }
+        },
+
     },
     components: {
         groupPreview,
@@ -115,6 +123,9 @@ export default {
             },
             deep: true
         }
+    },
+    created() {
+        this.isHorizontalScrolling = false
     }
 }
 </script>
