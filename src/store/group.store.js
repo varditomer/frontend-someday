@@ -40,8 +40,8 @@ export const groupStore = {
         async removeGroup({ commit }, { group }) {
             console.log(`group removing:`, group)
             try {
-                commit({ type: 'removeGroup', group })
                 await groupService.remove(group)
+                commit({ type: 'removeGroup', group })
                 console.log(`success`)
             } catch (err) {
                 console.log(`Cannot remove group`, err)

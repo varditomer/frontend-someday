@@ -58,6 +58,7 @@ export const taskStore = {
             try {
                 const savedTask = await taskService.save(task, false)
                 let taskToSave = { task: savedTask, bool: false }
+                commit({type: 'saveTask', taskToSave})
                 return taskToSave
             } catch (err) {
                 console.log(`Cannot save task: ${err}`)
@@ -77,9 +78,8 @@ export const taskStore = {
         },
         async removeTask({commit}, { task }) {
             try {
-                commit({ type: 'removeTask', task })
                 await taskService.remove(task)
-                return task
+                commit({ type: 'removeTask', task })
             } catch (err) {
                 console.log(`Cannot remove task: ${err}`)
             }

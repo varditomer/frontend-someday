@@ -40,7 +40,6 @@ export default {
     methods: {
         saveTask(task) {
             let taskToSave = { task, bool: false }
-            this.$store.commit({ type: 'saveTask', taskToSave })
             this.$store.dispatch({ type: 'saveTask', task })
         },
         saveBoard(board) {

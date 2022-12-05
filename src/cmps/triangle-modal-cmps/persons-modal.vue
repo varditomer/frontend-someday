@@ -46,14 +46,14 @@ export default {
         addPerson(personId) {
             const person = this.additionalDb.find(user => user._id === personId)
             const persons = this.content
-                ? JSON.parse(JSON.stringify(this.content))
+                ? this.content
                 : []
             persons.push(person)
             this.updateTask(persons)
             this.$emit('hideModal')
         },
         removePerson(personId) {
-            const persons = JSON.parse(JSON.stringify(this.content))
+            const persons = this.content
             const idx = persons.findIndex(person => person._id === personId)
             if (idx === -1) return
             persons.splice(idx, 1)
