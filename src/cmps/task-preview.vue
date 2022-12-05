@@ -1,13 +1,13 @@
 <template>
     <section class="li-wrapper">
-        <regular-modal :cmp="'task-opt-modal'" @addGroup="addGroup" @openTask="openTask" @removeTask="removeTask"
+        <regular-modal :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
             @closeModal="(showModal = false)" :showModal="showModal" />
         <li class="content-li">
             <div class="options flex center">
                 <span class="hidden" @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="task-select" :style="{ 'border-left-color': group.style.color }">
-                <input :checked="checkIfUncheck" ref="checkbox" @input="selectTask(task._id, $event)" type="checkbox"  />
+                <input :checked="isSelected" ref="checkbox" @click="selectTask(task._id)" type="checkbox" />
             </span>
             <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
                 <div class="task-title-item">
@@ -44,7 +44,7 @@ import textTask from './task-columns/text-task.vue'
 
 export default {
     name: 'task-preview',
-    emits: ['updateTask', 'removeTask', 'saveSelectedTasks', 'addGroup'],
+    emits: ['updateTask', 'removeTask', 'saveSelectedTasks'],
     props: {
         task: Object,
         cmpsOrder: Array,
@@ -58,10 +58,7 @@ export default {
             type: Array,
             required: false
         },
-        uncheck: {
-            type: Boolean,
-            required: false
-        }
+        isSelected: Boolean
     },
     created() {
     },
@@ -108,9 +105,6 @@ export default {
         board() {
             return this.$store.getters.board
         },
-        checkIfUncheck() {
-            if (this.uncheck) return false
-        },
 
     },
     methods: {
@@ -129,24 +123,16 @@ export default {
             this.$emit('removeTask', this.task)
             this.showModal = false
         },
-        selectTask(taskId, ev) {
-            console.log(`ev.target.value`, ev.target.value)
-            if (!taskId) return ev.target.value = false
+        selectTask(taskId) {
             this.$emit('saveSelectedTasks', taskId)
-        },
-        addGroup() {
-            this.$emit('addGroup')
-        },
-
+        }
     },
     components: {
         dateTask,
         linkTask,
         personTask,
         labelTask,
-        // statusTask,
         shallowTask,
-        // priorityTask,
         timelineTask,
         regularModal,
         numbersTask,

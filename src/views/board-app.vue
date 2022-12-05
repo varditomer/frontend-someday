@@ -4,12 +4,13 @@
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
         <section class='board-app-container'>
-            <regular-modal @unselectTasks="unselectTasks" :selectedTasks="selectedTasks"
+            <regular-modal :selectedTasks="selectedTasks"
                 @deleteSelectedTasks="deleteSelectedTasks" :showModal="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
-            <group-list :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
-                :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
+            <group-list @saveSelectedTasks="saveSelectedTasks"
+                @toggleSelectAllTasks="toggleSelectAllTasks" :selectedTasks="selectedTasks" :users="users"
+                @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
                 @saveBoard="saveBoard" @removeGroup="removeGroup" :board="board" :priorities="priorities"
                 :statuses="statuses" :watcher="boardUpdated" />
         </section>
@@ -22,6 +23,7 @@ import boardHeader from '../cmps/board-header.vue'
 import groupList from '../cmps/group-list.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
+import {eventBus} from '../services/event-bus.service.js'
 
 export default {
     name: 'board-app',
@@ -36,6 +38,12 @@ export default {
         return {
             boardUpdated: 0,
         }
+    },
+    mounted(){
+        eventBus.on('unselectTasks', ()=>this.unselectTasks())
+    },
+    unmounted(){
+        
     },
     methods: {
         saveTask(task) {
@@ -77,21 +85,19 @@ export default {
         },
         async saveSelectedTasks(taskId) {
             await this.$store.commit({ type: 'saveSelectedTasks', taskId })
-            this.showModal = (this.selectedTasks.length) ? true : false
+            // this.showModal = (this.selectedTasks.length) ? true : false
         },
         async deleteSelectedTasks() {
             try {
+
                 await this.$store.dispatch({ type: 'removeTasks' })
                 this.unselectTasks()
             } catch (err) {
                 console.log(`Cannot delete selected tasks`, err)
             }
         },
-        async unselectTasks() {
-            this.uncheck = true
-            await this.$store.commit({ type: 'unselectTasks' })
-            this.showModal = false
-            this.uncheck = false
+        unselectTasks() {
+            this.$store.commit({ type: 'unselectTasks' })
         },
         async saveBoardTitle(title) {
             const board = JSON.parse(JSON.stringify(this.board))
@@ -99,6 +105,10 @@ export default {
             board.title = title
             await this.$store.dispatch({ type: 'saveBoard', board })
             this.$store.dispatch({ type: 'loadMiniBoards' })
+        },
+        toggleSelectAllTasks(tasks, groupId, areAllSelected) {
+            // console.log(`tasks`, tasks)
+            this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })
         }
     },
     computed: {
@@ -128,12 +138,15 @@ export default {
         },
         loggedinUser() {
             return this.$store.getters.loggedinUser
+        },
+        showModal(){
+            return this.$store.getters.selectedTasks?.length
+                ? true
+                : false
         }
     },
     data() {
         return {
-            showModal: false,
-            uncheck: false
         }
     },
     async created() {

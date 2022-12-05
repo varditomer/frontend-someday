@@ -16,8 +16,9 @@
     </section>
 </template>
 <script>
+import {eventBus} from '../../services/event-bus.service.js'
 export default {
-    emits: ['unselectTasks','deleteMultiple'],
+    emits: ['deleteMultiple'],
     props: {
         selectedTasks: Array,
         required: false
@@ -25,8 +26,7 @@ export default {
     name: 'task-select-modal',
     methods: {
         unselectTasks() {
-            
-            this.$emit('unselectTasks')
+            eventBus.emit('unselectTasks')
         },
         deleteMultiple(){
             this.$emit('deleteMultiple')

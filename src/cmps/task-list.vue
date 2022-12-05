@@ -4,7 +4,7 @@
         <li>
             <span class="empty-span"></span>
             <span class="task-select header-task-select" :style="{ 'border-left-color': group.style.color }">
-                <input type="checkbox" />
+                <input type="checkbox" @input="toggleSelectAll" />
             </span>
             <span class="task-list-item-header">item</span>
 
@@ -23,14 +23,14 @@
             :class="{ taskDragged: beingDragged }" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
-                    @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users"
-                    :uncheck="uncheck" :group="group" :additionalDb="additionalDb" @removeTask="removeTask" />
+                    :isSelected="selectedTasks.includes(element._id)" @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users"
+                    :group="group" :additionalDb="additionalDb" @removeTask="removeTask" />
             </template>
         </draggable>
         <li class="add-new-task">
             <span class="empty-span"></span>
             <span class="task-select add-task-select" :style="{ 'border-left-color': `${group.style.light}` }">
-                <input type="checkbox"  disabled/>
+                <input type="checkbox" disabled />
             </span>
             <form @submit.prevent="addTask">
                 <span @click="addTask" v-svg-icon="'add'"></span>
@@ -52,7 +52,7 @@ import taskPreview from './task-preview.vue'
 import taskSummary from './task-summary.vue'
 export default {
     name: 'task-list',
-    emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard', 'addGroup'],
+    emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks'],
     props: {
         tasks: Array,
         cmpsOrder: Array,
@@ -70,10 +70,6 @@ export default {
             type: Array,
             required: false
         },
-        uncheck: {
-            type: Boolean,
-            required: false
-        }
     },
     components: {
         taskPreview,
@@ -85,6 +81,7 @@ export default {
             taskToAdd: {},
             beingDragged: false,
             isBeingDragged: false,
+            areAllSelected: false,
         }
     },
     created() {
@@ -119,6 +116,11 @@ export default {
         saveSelectedTasks(taskId) {
             this.$emit('saveSelectedTasks', taskId)
         },
+        toggleSelectAll() {
+            this.areAllSelected = !this.areAllSelected
+            const formattedTasks = this.group.tasks.map(task => task._id)
+            this.$emit('toggleSelectAllTasks', formattedTasks, this.group._id, this.areAllSelected)
+        },
         addGroup() {
             this.$emit('addGroup')
         }
@@ -133,7 +135,7 @@ export default {
         },
         formattedSummary() {
 
-        }
+        },
     }
 }
 </script>

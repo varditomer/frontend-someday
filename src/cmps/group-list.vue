@@ -4,7 +4,7 @@
         <draggable v-model="boardCopy.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
             @end="saveBoard" :class="{ groupDragged: beingDragged }">
             <template #item="{ element }">
-                <group-preview :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
+                <group-preview @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks" :selectedTasks="selectedTasks"
                     :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
                     :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
                     @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" />
@@ -28,7 +28,7 @@ import { eventBus } from '../services/event-bus.service'
 
 export default {
     name: 'group-list',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'addGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'addGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'select','toggleSelectAllTasks',],
     props: {
         users: Array,
         board: Object,
@@ -42,10 +42,6 @@ export default {
         },
         selectedTasks: {
             type: Array,
-            required: false
-        },
-        uncheck: {
-            type: Boolean,
             required: false
         },
         boardUpdated: Number,
@@ -96,6 +92,9 @@ export default {
             this.$emit('saveSelectedTasks', taskId)
             this.saveBoard()
         },
+        toggleSelectAllTasks(tasks,groupId, areAllSelected){
+            this.$emit('toggleSelectAllTasks', tasks,groupId,areAllSelected)
+        }
     },
     computed: {
         cmpsOrder() {

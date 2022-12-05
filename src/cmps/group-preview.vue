@@ -35,7 +35,7 @@
 
 
 
-        <task-list v-if="viewTasks" :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard"
+        <task-list v-if="viewTasks" @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks" @saveBoard="saveBoard"
             :selectedTasks="selectedTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
             :priorities="priorities" :statuses="statuses" @addGroup="addGroup" @saveTask="saveTask"
             @removeTask="removeTask" />
@@ -49,7 +49,7 @@ import regularModal from './dynamic-modals/regular-modal.vue'
 import taskSummary from './task-summary.vue'
 export default {
     name: 'group-preview',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup','toggleSelectAllTasks'],
     props: {
         group: Object,
         cmpsOrder: Array,
@@ -66,10 +66,6 @@ export default {
             type: Array,
             required: false
         },
-        uncheck: {
-            type: Boolean,
-            required: false
-        }
     },
     data() {
         return {
@@ -123,6 +119,9 @@ export default {
         },
         saveSelectedTasks(taskId) {
             this.$emit('saveSelectedTasks', taskId)
+        },
+        toggleSelectAllTasks(tasks,groupId,areAllSelected){
+            this.$emit('toggleSelectAllTasks', tasks,groupId,areAllSelected)
         }
     },
     computed: {
