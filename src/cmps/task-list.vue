@@ -1,6 +1,6 @@
 <template>
 
-    <ul class="task-list test">
+    <ul class="task-list">
         <li>
             <span class="empty-span"></span>
             <span class="task-select header-task-select" :style="{ 'border-left-color': group.style.color }">
@@ -19,8 +19,8 @@
             </div>
 
         </li>
-        <draggable v-model="group.tasks" group="tasks" ghost-class="ghost" animation="200" @start="beingDragged = true"
-            :class="{ taskDragged: beingDragged }" @end="saveBoard" itemKey="element._id">
+        <draggable v-model="group.tasks" group="tasks" ghost-class="ghost" animation="200"
+            @start="beingDragged = true" :class="{ taskDragged: beingDragged }" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users"
@@ -41,7 +41,7 @@
             <span v-for="cmp in cmpsOrder" class="empty-fill-span"></span>
             <span class="empty-fill-span"></span>
         </li>
-        <task-summary :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer" />
+        <task-summary :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer"/>
     </ul>
 
 

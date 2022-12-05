@@ -79,7 +79,7 @@ export default {
         },
         collapseGroup() {
             console.log(`im here:`,)
-            eventBus.emit('collapse-single-group', { _id: this.groupId, minimizeGroup: true })
+            eventBus.emit('collapse-single-group', { _id: this.groupId, collapseGroup: true })
         },
         editGroupTitle() {
             this.$emit('editGroupTitle')
