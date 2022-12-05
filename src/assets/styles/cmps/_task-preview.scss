@@ -99,7 +99,6 @@
             }
         }
 
-
         .task-members {
 
             .add-person-icon {
@@ -110,7 +109,7 @@
                 opacity: 0;
             }
 
-            &:hover{
+            &:hover {
                 .add-person-icon {
                     opacity: 1;
                 }
@@ -222,6 +221,7 @@
                 overflow: hidden;
                 display: flex;
                 align-items: center;
+
                 .value {
                     height: 100%;
                 }
@@ -233,7 +233,7 @@
                     text-overflow: ellipsis;
                     color: $clr-white;
                     font-size: rem(8px);
-                    width:110px;
+                    width: 110px;
                     text-align: center;
                 }
             }
@@ -289,6 +289,8 @@
         }
     }
 
+
+
     .task-list-item-header,
     .task-title-item {
         grid-column: 3/6;
@@ -335,7 +337,6 @@
 
         }
     }
-
 
     .task-comment-icon {
         height: 100% !important;
