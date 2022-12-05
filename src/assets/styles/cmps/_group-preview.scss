@@ -23,7 +23,56 @@
         align-items: center;
 
 
+        &.minimized {
+            border: 1px solid $brdr-clr;
+            height: 60px;
+
+            .options {
+                outline: 1px solid white;
+                width: 35px;
+
+                .dots{
+                    padding-bottom: 22px;
+                }
+            }
+            
+            .group-arrow {
+                left: 36px;
+                padding-bottom: 23px;
+
+                svg {
+                    transform: translate(90deg);
+                }
+
+                &.closed {
+
+                    svg {
+                        transform: rotateZ(-90deg);
+                    }
+
+                }
+            }
+
+            .group-title-content {
+
+                margin-bottom: 5px;
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+
+                p {
+                    visibility: visible;
+                    font-size: 14px;
+                    font-family: roboto-light;
+                    margin: 0;
+                }
+            }
+        }
+
+
         .group-title-content {
+            display: flex;
+            align-items: center;
             height: 60%;
 
             position: sticky;
@@ -34,6 +83,7 @@
 
                 p {
                     width: 100px;
+
                 }
             }
 
@@ -42,7 +92,7 @@
                 position: relative;
                 right: 5px;
                 align-items: center;
-                padding-right: 10px;
+                padding-right: 5px;
                 padding-left: 5px;
                 cursor: text;
                 height: 100%;
@@ -62,13 +112,7 @@
             left: 0px;
         }
 
-        .group-arrow {
-            left: 36px;
 
-            &.closed {
-                transform: rotate(180deg);
-            }
-        }
 
         .options,
         .group-arrow {
@@ -115,16 +159,11 @@
                 padding: 0;
                 margin-left: 2px;
                 font-family: roboto-light;
-
-                //////////XXX////
-                padding-top: 5px;
             }
         }
     }
 
-    .minimized {
-        border: 1px solid $brdr-clr;
-    }
+
 
     .highlight {
         background-color: $fltr-bgc;
