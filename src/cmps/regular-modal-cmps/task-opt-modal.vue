@@ -45,7 +45,6 @@
                     <span v-svg-icon="'link'"></span>
                     <p>Copy item link</p>
                 </div>
-                <span v-svg-icon="'commentCount'"></span>
             </div>
         </div>
 
