@@ -91,7 +91,7 @@ Files
 | c:\Users\User\Desktop\Tomer\Programming\Tomer Vardi\someday\src\cmps\option-cmps\task-opt-modal.vue             | vue        |         39 |         63 |          4 |        106 |
 | c:\Users\User\Desktop\Tomer\Programming\Tomer Vardi\someday\src\cmps\regular-modal-cmps\color-picker-modal.vue  | vue        |         35 |          0 |          2 |         37 |
 | c:\Users\User\Desktop\Tomer\Programming\Tomer Vardi\someday\src\cmps\regular-modal-cmps\group-opt-modal.vue     | vue        |         75 |         12 |          6 |         93 |
-| c:\Users\User\Desktop\Tomer\Programming\Tomer Vardi\someday\src\cmps\regular-modal-cmps\person-select-modal.vue | vue        |         30 |          0 |          3 |         33 |
+| c:\Users\User\Desktop\Tomer\Programming\Tomer Vardi\someday\src\cmps\regular-modal-cmps\task-select-modal.vue | vue        |         30 |          0 |          3 |         33 |
 | c:\Users\User\Desktop\Tomer\Programming\Tomer Vardi\someday\src\cmps\task-columns\date.vue                      | vue        |         44 |          0 |          1 |         45 |
 | c:\Users\User\Desktop\Tomer\Programming\Tomer Vardi\someday\src\cmps\task-columns\labels.vue                    | vue        |         47 |          0 |          1 |         48 |
 | c:\Users\User\Desktop\Tomer\Programming\Tomer Vardi\someday\src\cmps\task-columns\link.vue                      | vue        |         32 |          1 |          2 |         35 |

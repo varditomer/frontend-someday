@@ -57,6 +57,17 @@ export const groupStore = {
             } catch (err) {
                 console.log(`Cannot add group at store`, err)
             }
+        },
+        async removeTasks({ commit, getters }) {
+            try {
+                console.log(`getters`, getters)
+                const taskIds = getters.selectedTasks
+                const boardId = this.getters.board._id
+                const board = await groupService.removeManyTasks([...taskIds], boardId)
+                commit({ type: 'setBoard', board })
+            } catch (err) {
+                console.log(`Cannot delete many tasks at store`, err)
+            }
         }
     },
 }

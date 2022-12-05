@@ -7,6 +7,9 @@
         <span class="empty-span overlay-span">
             <span class="border-overlay-span"></span>
         </span>
+        <div class="summary-footer-title">
+            <p v-for="cmp in cmpsOrder"  v-if="isCollapsed">{{cmp}}</p>
+        </div>
         <section v-for="html in getHtmlSumData" v-html="(html)" class="footer-section flex center">
         </section>
         <span class="empty-fill-span"></span>
@@ -26,6 +29,10 @@ export default {
         tasks: {
             type: Array,
             required: true
+        },
+        isCollapsed: {
+            type: Boolean,
+            required: false
         }
     },
     data() {

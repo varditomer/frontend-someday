@@ -11,6 +11,7 @@ export const groupService = {
     add,
     remove,
     save,
+    removeManyTasks,
 }
 window.bs = groupService
 
@@ -35,6 +36,32 @@ async function remove(group) {
     const removedGroup = board.groups.splice(idx, 1)
     if (!boardService.save(board)) return Promise.reject('Cannot remove group because board cannot be saved')
     return removedGroup
+}
+
+async function removeManyTasks(taskIds, boardId) {
+    if (!taskIds?.length || !boardId) return
+    const board = await boardService.queryBoard(boardId)
+    if (!board) return
+    board.groups = board.groups.reduce((groupArr, group) => {
+        if (!taskIds.length) {
+            groupArr.push(group)
+            return groupArr
+        }
+        group.tasks = group.tasks.reduce((tasksToKeep, task) => {
+            if (!taskIds.length) {
+                tasksToKeep.push(task)
+                return tasksToKeep
+            }
+            const idx = taskIds.indexOf(task._id)
+            if (idx === -1) tasksToKeep.push(task)
+            else taskIds.splice(idx, 1)
+            return tasksToKeep
+        }, [])
+        groupArr.push(group)
+        return groupArr
+    }, [])
+    if (!(await boardService.save(board))) return Promise.reject('Cannot save group because board cannot be saved')
+    return board
 }
 
 async function save(group, isFifo) {
@@ -117,29 +144,21 @@ function _getRandomColor() {
 }
 
 const colors = {
-    'dark_indigo': '#401694',
-    'egg_yolk': '#ffcb00',
-    'bright-green': '#9cd326',
-    'sofia_pink': '#ff158a',
-    'berry': '#7e3b8a',
-    'royal': '#2B76E5',
+    'grass green': '#037f4c',
+    'green haze': '#00a359',
     'jade': '#03c875',
-    'grass_green': '#037f4c',
-    'dark-purple': '#784bd1',
-    'bubble': '#faa1f1',
-    'aqua': '#00d1d1',
-    'teal': '#175A63',
-    'navy': '#225091',
-    'peach': '#ffadad',
-    'dark-orange': '#ff642e',
-    'indigo': '#5559df',
-    'river': '#68a1bd',
-    'sky': '#A1E3F6',
-    'lipstick': '#ff5ac4',
+    'saladish': '#cab641',
+    'egg yolk': '#ffcb00',
+    'dark purple': '#784bd1',
     'purple': '#a25ddc',
-    'chili-blue': '#66ccff',
-    'stuck-red': '#e2445c',
+    'dark blue': '#0086c0',
+    'chilli blue': '#66ccff',
+    'dark red': '#bb3354',
+    'red': '#e2445c',
+    'sofia pink': '#ff158a',
+    'dark orange': '#ff642e',
     'orange': '#fdab3d',
-    'live_blue': '#009aff',
-    'sunset': '#ff7575',
+    'brown': '#7f5347',
+    'explosive': '#c4c4c4',
+    'american gray': '#808080',
 }

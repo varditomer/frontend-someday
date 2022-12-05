@@ -1,7 +1,6 @@
 .regular-modal {
-    position: fixed;
     z-index: 10000;
-
+    position: absolute;
     //need to set position and other prefs. at children cmp
     >* {
         z-index: 10;
@@ -192,7 +191,7 @@
         }
     }
 
-    .person-select-modal {
+    .task-select-modal {
         height: 100%;
         display: flex;
         align-items: center;
