@@ -47,7 +47,7 @@ import regularModal from './dynamic-modals/regular-modal.vue'
 import taskSummary from './task-summary.vue'
 export default {
     name: 'group-preview',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup','toggleSelectAllTasks'],
     props: {
         group: Object,
         cmpsOrder: Array,
@@ -68,10 +68,6 @@ export default {
             type: Array,
             required: false
         },
-        uncheck: {
-            type: Boolean,
-            required: false
-        }
     },
     data() {
         return {
@@ -125,6 +121,9 @@ export default {
         },
         saveSelectedTasks(taskId) {
             this.$emit('saveSelectedTasks', taskId)
+        },
+        toggleSelectAllTasks(tasks,groupId,areAllSelected){
+            this.$emit('toggleSelectAllTasks', tasks,groupId,areAllSelected)
         }
     },
     computed: {

@@ -36,6 +36,14 @@ export const taskStore = {
         },
         unselectTasks(state) {
             state.selectedTasks = []
+        },
+        toggleSelectAllTasks(state, { tasks, groupId, areAllSelected }) {
+            state.selectedTasks = state.selectedTasks.reduce((taskIds, task) => { 
+                if (!tasks.includes(task)) taskIds.push(task)
+                    return taskIds
+                }, [])
+                if (areAllSelected) state.selectedTasks.unshift(...tasks)
+
         }
     },
     getters: {
@@ -59,13 +67,13 @@ export const taskStore = {
                 console.log(`task:`, task)
                 const savedTask = await taskService.save(task, false)
                 let taskToSave = { task: savedTask, bool: false }
-                commit({type: 'saveTask', taskToSave})
+                commit({ type: 'saveTask', taskToSave })
                 return taskToSave
             } catch (err) {
                 console.log(`Cannot save task: ${err}`)
             }
         },
-        async saveEmptyTask({commit, getters}) {
+        async saveEmptyTask({ commit, getters }) {
             try {
                 const groupId = getters.board.groups[0]._id
                 const boardId = getters.board._id
@@ -77,7 +85,7 @@ export const taskStore = {
                 console.log(`Cannot save task: ${err}`)
             }
         },
-        async removeTask({commit}, { task }) {
+        async removeTask({ commit }, { task }) {
             try {
                 await taskService.remove(task)
                 commit({ type: 'removeTask', task })
