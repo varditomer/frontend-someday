@@ -44,7 +44,7 @@ import textTask from './task-columns/text-task.vue'
 
 export default {
     name: 'task-preview',
-    emits: ['updateTask', 'removeTask', 'saveSelectedTasks'],
+    emits: ['updateTask', 'removeTask', 'saveSelectedTasks', 'addGroup'],
     props: {
         task: Object,
         cmpsOrder: Array,

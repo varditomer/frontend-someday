@@ -1,8 +1,8 @@
 <template>
 
     <section class='group-preview' @keydown.escape="(showModal = false)">
-        <regular-modal v-if="showModal" :groupId="group._id" :selectedColor="group.style.color" :showModal="showModal" @closeModal="(showModal = false)"
-            @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
+        <regular-modal v-if="showModal" :groupId="group._id" :selectedColor="group.style.color" :showModal="showModal"
+            @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
             @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
             @propagateMenu="showColorPicker = true" />
 
@@ -23,7 +23,8 @@
                     contenteditable @input="saveGroup($event.target.innerText, 'title')"
                     :style="{ color: group.style.color }" v-html="group.title" ref="title">
                 </h4>
-                <regular-modal class="group-color-picker" :cmp="'color-picker-modal'" :selectedColor="group.style.color" :showModal="showColorPicker" @updateSelection="saveGroup" @closeModal="showColorPicker=false"/>
+                <regular-modal class="group-color-picker" :cmp="'color-picker-modal'" :selectedColor="group.style.color"
+                    :showModal="showColorPicker" @updateSelection="saveGroup" @closeModal="showColorPicker = false" />
                 <!-- <title-modal :class="{ 'show': showTitle }" :content="'Click to Edit'" /> -->
                 <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
             </div>
@@ -36,7 +37,8 @@
 
         <task-list v-if="viewTasks" :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard"
             :selectedTasks="selectedTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
-            :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />
+            :priorities="priorities" :statuses="statuses" @addGroup="addGroup" @saveTask="saveTask"
+            @removeTask="removeTask" />
     </section>
 </template>
 <script>
@@ -47,7 +49,7 @@ import regularModal from './dynamic-modals/regular-modal.vue'
 import taskSummary from './task-summary.vue'
 export default {
     name: 'group-preview',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup'],
     props: {
         group: Object,
         cmpsOrder: Array,
