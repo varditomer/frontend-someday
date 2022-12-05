@@ -79,26 +79,23 @@ export const boardStore = {
             board.msgs.push(msg)
         },
         saveTask(state, { taskToSave }) {
-            const board = state.board
-            const group = board.groups.find(anyGroup => anyGroup._id === taskToSave.task.groupId)
-            const idx = group.tasks.findIndex(anyTask => anyTask._id === taskToSave.task?._id)
-            if (idx === -1) {
-                if (!taskToSave.bool) group.tasks.push(taskToSave.task)
-                else group.tasks.unshift(taskToSave.task)
-            }
-            else (group.tasks[idx] = taskToSave.task)
-            state.board.groups[idx] = group
-            console.log(`state.board.groups`, state.board.groups)
-            eventBus.emit('reload', state.board)
+            const {task, bool} = taskToSave
+            const groupIdx = state.board.groups.findIndex(group => group._id === task.groupId)
+            if (groupIdx === -1) return null
+            const taskIdx = state.board.groups[groupIdx].tasks.findIndex(anyTask => anyTask._id === task._id)
+            if (taskIdx === -1) {
+                if (bool) state.board.groups[groupIdx].tasks.unshift(task)
+                else state.board.groups[groupIdx].tasks.push(task)
+            } else state.board.groups[groupIdx].tasks[taskIdx] = task
         },
         removeTask(state, { task }) {
-            const group = state.board.groups.find(anyGroup => anyGroup._id === task.groupId)
-            const idx = group.tasks.findIndex(anyTask => anyTask._id === task._id)
-            if (idx < 0) return
-            group.tasks.splice(idx, 1)
+            const groupIdx = state.board.groups.findIndex(anyGroup => anyGroup._id === task.groupId)
+            if (groupIdx === -1) return
+            const taskIdx = state.board.groups[groupIdx].tasks.findIndex(anyTask => anyTask._id === task._id)
+            if (taskIdx < 0) return
+            state.board.groups[groupIdx].tasks.splice(taskIdx, 1)
         },
         addGroup(state, { group }) {
-            console.log(`groupskdjvnksjdnvksdj`, group)
             state.board.groups.unshift(group)
         },
         removeGroup(state, { group }) {

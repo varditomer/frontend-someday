@@ -32,19 +32,19 @@
     </section>
 </template>
 <script>
-import dateTask from './task-columns/date.vue'
-import linkTask from './task-columns/link.vue'
-import personTask from './task-columns/person.vue'
-import shallowTask from './task-columns/shallow.vue'
-import labelTask from './task-columns/labels.vue'
-import timelineTask from './task-columns/timeline.vue'
+import dateTask from './task-columns/date-task.vue'
+import linkTask from './task-columns/link-task.vue'
+import personTask from './task-columns/person-task.vue'
+import shallowTask from './task-columns/shallow-task.vue'
+import labelTask from './task-columns/labels-task.vue'
+import timelineTask from './task-columns/timeline-task.vue'
 import regularModal from './dynamic-modals/regular-modal.vue'
-import numbersTask from './task-columns/numbers.vue'
-import textTask from './task-columns/text.vue'
+import numbersTask from './task-columns/numbers-task.vue'
+import textTask from './task-columns/text-task.vue'
 
 export default {
     name: 'task-preview',
-    emits: ['updateTask', 'updateTask', 'removeTask', 'saveSelectedTasks'],
+    emits: ['updateTask', 'removeTask', 'saveSelectedTasks'],
     props: {
         task: Object,
         cmpsOrder: Array,
