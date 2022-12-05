@@ -1,16 +1,16 @@
 <template>
     <section class="task-label-modal">
-        <span v-for="label in getFormattedLabels" :class="label.pClass" :style="label.style"
+        <span v-for="label in getFormattedLabels" class="color-box" :class="label.pClass" :style="label.style"
             @click="updateTask(label.title)">
             <!-- <span v-svg-icon="'changeColor'" class="change-color" @click.stop=""></span> -->
             {{ label.title === 'Default' ? '' : label.title }}
         </span>
-        <colorPicker selectedColor="''"/>
+        <regular-modal :cmp="'color-picker-modal'" :showModal="true" :color="''" @updateSelection="updateProperty" />
     </section>
 </template>
 
 <script>
-import colorPicker from '../regular-modal-cmps/color-picker-modal.vue'
+import regularModal from '../dynamic-modals/regular-modal.vue'
 export default {
     name: 'label-picker-modal',
     props: {
@@ -24,12 +24,15 @@ export default {
     emits: ['updateTask'],
     data() {
         return {
+            showColorPicker: false
         }
     },
     methods: {
         updateTask(val) {
             const key = this.name
             this.$emit('updateTask', { key, val })
+        },
+        updateProperty(value) {
         }
     },
     computed: {
@@ -45,7 +48,7 @@ export default {
         }
     },
     components: {
-        colorPicker
+        regularModal
     },
 }
 </script>

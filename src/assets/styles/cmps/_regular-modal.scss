@@ -10,7 +10,17 @@
         box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
     }
 
+    .color-picker {
+        padding: 12px;
+        border-radius: 8px;
 
+        .color-box {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            @include little-box;
+        }
+    }
 
     // Dynamic modals (modal-children's) prefs set:
 
