@@ -25,7 +25,7 @@
                 <textarea v-model="commentToAdd" type="text" placeholder="Write an update..." class="comment-add-txt" />
                 <button @click="" class="add-comment-btn">Update</button>
             </form>
-            <div v-for="comment in taskToEdit.comments" v-if="taskToEdit.comments" class="comment">
+            <div v-for="(comment, idx) in taskToEdit.comments" v-if="taskToEdit.comments" class="comment">
                 <div class="comment-profile">
                     <img v-if="comment.byMember.imgUrl" :src="comment.byMember.imgUrl" alt="">
                     <div v-else class="guest-profile-pic">G</div>
@@ -38,15 +38,16 @@
                 </div>
                 <div class="comment-content">{{ comment.txt }}</div>
                 <div class="comment-reactions">
-                    <div class="likes">
-                        <div class="liked-users">
+                    <div v-if="comment.likes?.length" class="likes">
+                        <div class="liked-users" v-for="userId in comment.likes">
+                            <img :src="getUserImg(userId)" alt="">
 
                             <!-- TODO: Make array of likes containing users -->
-                            <img src="src/assets/imgs/refael-avatar.png" alt="">
+                            <!-- <img src="src/assets/imgs/refael-avatar.png" alt="">
                             <img src="src/assets/imgs/tomer-avatar.png" alt="">
                             <img src="src/assets/imgs/default-avatar.svg" alt="">
                             {{ loggedinUser }}
-                            <img v-for="user in users" :src="user.imgUrl" alt="">
+                            <img v-for="user in users" :src="user.imgUrl" alt=""> -->
 
                             <!-- TODO: Put likes array in model -->
                             <!-- {{ taskToEdit.comments[0].likes.userId }} -->
@@ -59,9 +60,10 @@
                         <p>1 Seen</p>
                     </div>
                 </div>
-                <div class="comment-like">
+                <div class="comment-like" @click="likeComment(idx)" :class="{liked: comment?.likes?.includes(`${loggedinUser._id}`)}">
                     <div>
-                        <span v-svg-icon="'like'"></span>
+                        <span v-if="comment?.likes?.includes(`${loggedinUser._id}`)" v-svg-icon="'filledLike'"></span>
+                        <span v-else v-svg-icon="'like'"></span>
                         <button>Like</button>
                     </div>
                 </div>
@@ -72,6 +74,7 @@
                     </div>
                 </div>
             </div>
+
         </section>
 
         <section v-if="showFiles" class="upload-files flex column align-center">
@@ -218,6 +221,25 @@ export default {
             this.taskToEdit.comments.unshift(comment)
             this.$store.dispatch({ type: 'saveTask', task })
             this.commentToAdd = ''
+        },
+        getUserImg(userId) {
+
+            return this.users.find(user => user._id === userId).imgUrl
+        },
+        likeComment(commentIdx) {
+            const task = JSON.parse(JSON.stringify(this.taskToEdit))
+            if (!task.comments[commentIdx].likes) {
+                task.comments[commentIdx].likes = []
+            }
+            const loggedinUserId = this.loggedinUser._id
+            const idx = task.comments[commentIdx].likes.findIndex(likeId => likeId === `${loggedinUserId}`)
+            if (idx !== -1) task.comments[commentIdx].likes.splice(idx, 1)
+            else {
+                task.comments[commentIdx].likes.unshift(`${loggedinUserId}`)
+                this.showLiked
+            }
+            this.taskToEdit = task
+            this.$store.dispatch({ type: 'saveTask', task })
         }
     },
     components: {

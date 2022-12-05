@@ -25,6 +25,16 @@ window.userService = userService
 function getUsers() {
     return [
         {
+            _id: "0",
+            fullname: "Guest",
+            imgUrl: "src/assets/imgs/default-avatar.svg",
+            color: 'rgb(236, 105, 192)',
+            isAdmin: true,
+            contact: {
+                mail: 'guest@gmail.com'
+            }
+        },
+        {
             _id: "u102",
             fullname: "Refael Abramov",
             imgUrl: "src/assets/imgs/refael-avatar.png",

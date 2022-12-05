@@ -122,7 +122,7 @@ function _getNewBoard() {
                 title: 'Group Title',
                 style: {
                     color: color1,
-                    light: color1+'99'
+                    light: color1 + '99'
                 },
                 tasks: [
                     {
@@ -130,7 +130,7 @@ function _getNewBoard() {
                         title: 'Item 1',
                         status: 'Working on it',
                         date: Date.now() + 24 * 60 * 60 * 1000,
-                        comments:[]
+                        comments: []
                     },
                     {
                         _id: utilService.makeId(),
@@ -153,7 +153,7 @@ function _getNewBoard() {
                 title: 'Group Title',
                 style: {
                     color: color2,
-                    light: color2+'99'
+                    light: color2 + '99'
                 },
                 tasks: [
                     {
@@ -258,7 +258,7 @@ const boards = [
                                     fullname: 'Tomer Vardi',
                                     imgUrl: 'src/assets/imgs/tomer-avatar.png'
                                 }
-                            }
+                            },
                         ],
                         person: [
                             {
@@ -282,6 +282,19 @@ const boards = [
                                 _id: 'u104',
                                 fullname: 'Ronen Boxer',
                                 imgUrl: 'src/assets/imgs/ronen-avatar.png'
+                            }
+                        ],
+                        comments: [
+                            {
+                                _id: 'ZeSzm',
+                                taskId: 'xwe45',
+                                txt: 'Mother fucker',
+                                createdAt: 1590999817436,
+                                byMember: {
+                                    _id: '0',
+                                    fullname: 'Guest',
+                                    imgUrl: 'src/assets/imgs/default-avatar.svg'
+                                }
                             }
                         ],
                         status: 'Unattained',
@@ -542,7 +555,21 @@ const boards = [
                                 fullname: 'Tomer Vardi',
                                 imgUrl: 'src/assets/imgs/tomer-avatar.png'
                             }
-                        ]
+                        ],
+                        comments: [
+                            {
+                                _id: 'Zeesm',
+                                taskId: 'xwe45',
+                                txt: 'Mother fucker',
+                                createdAt: 1590999817436,
+                                byMember: {
+                                    _id: '0',
+                                    fullname: 'Guest',
+                                    imgUrl: 'src/assets/imgs/default-avatar.svg'
+                                },
+                                likes: ['u102', 'u103']
+                            }
+                        ],
                     }
                 ]
             },

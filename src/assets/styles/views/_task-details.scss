@@ -281,6 +281,7 @@
                 .seen-count {
                     display: flex;
                     align-items: center;
+                    margin-left: auto;
 
                     p {
                         font-size: 14px;
@@ -305,6 +306,19 @@
                 justify-content: center;
                 cursor: pointer;
 
+                &.liked {
+                    button {
+
+                        color: $primary-blue;
+                        padding-right: 1px;
+                    }
+
+                    span {
+                        fill: $primary-blue;
+                        scale: 1.1;
+                    }
+                }
+
                 div {
                     display: flex;
                     align-items: center;
@@ -326,7 +340,6 @@
                 grid-area: reply;
                 height: 100%;
                 width: 100%;
-                border-right: 1px solid $brdr-clr;
                 display: flex;
                 align-items: center;
                 justify-content: center;
