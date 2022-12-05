@@ -1,7 +1,10 @@
 <template>
     <section class="li-wrapper">
         <regular-modal :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
-            @closeModal="(showModal = false)" :showModal="showModal" />
+            @closeModal="(showModal = false)" :showModal="showModal" 
+            @taskTitleToClipboard="copyToClipboard(task.title)" 
+            @linkToClipboard="copyToClipboard(task.link.url)"
+            />
         <li class="content-li">
             <div class="options flex center">
                 <span class="hidden" @click="lineOptions" v-svg-icon="'fatMore'"></span>
@@ -125,6 +128,10 @@ export default {
         },
         selectTask(taskId) {
             this.$emit('saveSelectedTasks', taskId)
+        },
+        copyToClipboard(data) {
+            if(!data) return
+            this.$copyText(`${data}`)
         }
     },
     components: {

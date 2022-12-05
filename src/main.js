@@ -1,7 +1,10 @@
 import { createApp } from 'vue'
 
+
 import { router } from './router.js'
 import { store } from './store/store.js'
+import copyText from "@meforma/vue-copy-to-clipboard";
+
 
 import {
     focusDirective,
@@ -26,5 +29,6 @@ app.directive('svg-icon', svgIconDirective)
 
 app.use(router)
 app.use(store)
+app.use(copyText)
 
 app.mount('#app')
