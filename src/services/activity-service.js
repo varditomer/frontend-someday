@@ -83,13 +83,55 @@ const activities = [
         icon: 'date',
         createdAt: Date.now(),
         by: {
-            _id: 'u103',
-            imgUrl: 'src/assets/imgs/tomer-avatar.png',
-            fullname: 'Tomer Vardy'
+            _id: 'u102',
+            imgUrl: 'src/assets/imgs/refael-avatar.png',
+            fullname: 'Refael Abramov'
         },
         txt: 'Changed date',
         from: 'Nov 25',
         to: 'Nov 28',
+        taskId: 'bg754'
+    },
+    {
+        type: 'text',
+        icon: 'copyText',
+        createdAt: Date.now(),
+        by: {
+            _id: 'u104',
+            imgUrl: 'src/assets/imgs/ronen-avatar.png',
+            fullname: 'Ronen Boxer'
+        },
+        txt: 'Changed text',
+        from: '',
+        to: 'Set github pages',
+        taskId: 'xwe45'
+    },
+    {
+        type: 'link',
+        icon: 'link',
+        createdAt: Date.now(),
+        by: {
+            _id: 'u102',
+            imgUrl: 'src/assets/imgs/refael-avatar.png',
+            fullname: 'Refael Abramov'
+        },
+        txt: 'Added link',
+        from: '',
+        to: 'Google',
+        taskId: 'wdec4'
+    },
+    {
+        type: 'like',
+        icon: 'like',
+        createdAt: Date.now(),
+        by: {
+            _id: 'u103',
+            imgUrl: 'src/assets/imgs/tomer-avatar.png',
+            fullname: 'Tomer Vardy'
+        },
+        txt: 'Liked a comment',
+        from: '',
+        to: 'Like',
         taskId: 'bg754'
     },
 ]
