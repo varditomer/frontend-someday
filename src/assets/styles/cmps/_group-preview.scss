@@ -166,7 +166,7 @@
             }
 
             .group-title-content {
-                height: 100%;
+                height: 100% !important;
                 flex-direction: column;
                 align-items: flex-start;
                 background-color: white;
@@ -233,6 +233,11 @@
             svg {
                 color: inherit;
             }
+        }
+
+        .group-arrow{
+            left: 36px;
+
         }
 
         &:hover {
