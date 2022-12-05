@@ -23,6 +23,7 @@
         cursor: grab;
         display: flex;
         align-items: center;
+        z-index: 6000;
 
         &.collapse {
             display: grid;

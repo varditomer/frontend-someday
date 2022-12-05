@@ -1,6 +1,6 @@
 .regular-modal {
     position: fixed;
-    z-index: 1000;
+    z-index: 10000;
 
     //need to set position and other prefs. at children cmp
     >* {
@@ -99,6 +99,7 @@
     .more-options-modal {
         width: 264px;
         left: 11px;
+        
         border-radius: 10px;
 
         .modal-group {
@@ -153,9 +154,12 @@
             border-radius: 50%;
             width: 14px;
             height: 14px;
+            margin-left: 3px;
         }
 
-
+        .color-title{
+            margin-left: 2px;
+        }
 
         .lowest-group {
 
@@ -177,11 +181,10 @@
 
     &.group-color-picker {
         .color-picker {
-            top: 14px;
+            top: 20px;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            z-index: 5000000;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
 
             .color-box {
                 @include little-box;

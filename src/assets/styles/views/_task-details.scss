@@ -281,6 +281,7 @@
                 .seen-count {
                     display: flex;
                     align-items: center;
+                    margin-left: auto;
 
                     p {
                         font-size: 14px;
@@ -304,12 +305,14 @@
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
+
                 &.liked {
-                    button{
+                    button {
 
                         color: $primary-blue;
                         padding-right: 1px;
                     }
+
                     span {
                         fill: $primary-blue;
                         scale: 1.1;

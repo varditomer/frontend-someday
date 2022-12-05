@@ -11,7 +11,7 @@
             </template>
         </draggable>
 
-        <button class="add-group-list-btn flex center" @click="addGroup">
+        <button class="add-group-list-btn flex center" @click="addGroup(false)">
             <span v-svg-icon="'addbig'"></span>
             <div>Add new group</div>
         </button>
@@ -88,8 +88,8 @@ export default {
             this.$emit('removeGroup', group)
             this.saveBoard()
         },
-        addGroup() {
-            this.$emit('addGroup', false)
+        addGroup(isFifo = true) {
+            this.$emit('addGroup', isFifo)
             this.saveBoard()
         },
         saveSelectedTasks(taskId) {

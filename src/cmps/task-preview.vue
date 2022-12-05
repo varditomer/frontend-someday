@@ -1,6 +1,6 @@
 <template>
     <section class="li-wrapper">
-        <regular-modal :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
+        <regular-modal :cmp="'task-opt-modal'" @addGroup="addGroup" @openTask="openTask" @removeTask="removeTask"
             @closeModal="(showModal = false)" :showModal="showModal" />
         <li class="content-li">
             <div class="options flex center">
@@ -44,7 +44,7 @@ import textTask from './task-columns/text-task.vue'
 
 export default {
     name: 'task-preview',
-    emits: ['updateTask', 'removeTask', 'saveSelectedTasks'],
+    emits: ['updateTask', 'removeTask', 'saveSelectedTasks', 'addGroup'],
     props: {
         task: Object,
         cmpsOrder: Array,
@@ -131,7 +131,11 @@ export default {
         },
         selectTask(taskId) {
             this.$emit('saveSelectedTasks', taskId)
-        }
+        },
+        addGroup() {
+            this.$emit('addGroup')
+        },
+
     },
     components: {
         dateTask,
