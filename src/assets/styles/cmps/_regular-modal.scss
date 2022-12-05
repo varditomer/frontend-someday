@@ -178,11 +178,10 @@
 
     &.group-color-picker {
         .color-picker {
-            top: 14px;
+            top: 20px;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            z-index: 5000000;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
 
             .color-box {
                 @include little-box;

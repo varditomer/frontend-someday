@@ -5,7 +5,7 @@
             <!-- <span v-svg-icon="'changeColor'" class="change-color" @click.stop=""></span> -->
             {{ label.title === 'Default' ? '' : label.title }}
         </span>
-        <regular-modal :cmp="'color-picker-modal'" :showModal="true" :color="''" @updateSelection="updateProperty" />
+        <regular-modal :cmp="'color-picker-modal'" :showModal="false" :color="''" @updateSelection="updateProperty" />
     </section>
 </template>
 

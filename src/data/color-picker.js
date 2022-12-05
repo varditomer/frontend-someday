@@ -47,6 +47,26 @@ export const colors = {
     '$brdr-clr': '#d0d5e4'
 }
 
+export const groupColors = {
+    '$clr-grass_green': '#037f4c',
+    '$clr-green-haze': '#00a359',
+    '$clr-jade': '#03c875',
+    '$clr-saladish': '#cab641',
+    '$clr-egg_yolk': '#ffcb00',
+    '$clr-dark-purple': '#784bd1',
+    '$clr-purple': '#a25ddc',
+    '$clr-dark-blue': '#0086c0',
+    '$usr-chilli-blue': '#66ccff',
+    '$clr-dark-red': '#bb3354',
+    '$clr-red': '#e2445c',
+    '$clr-sofia_pink': '#ff158a',
+    '$clr-dark-orange': '#ff642e',
+    '$clr-orange': '#fdab3d',
+    '$clr-brown': '#7f5347',
+    '$clr-explosive': '#c4c4c4',
+    '$clr-american_gray': '#808080',
+}
+
 export function randomColor() {
     const colorNames = Object.keys(colors)
     const randomIdx = getRandomInt(0, colorNames.length)
