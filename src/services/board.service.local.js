@@ -300,7 +300,7 @@ const boards = [
                                 taskId: 'xwe45',
                                 txt: 'Thanks, great job as always :-)',
                                 createdAt: Date.now() - 48 * 60 * 60 * 1000,
-                                byMember:  {
+                                byMember: {
                                     _id: 'u103',
                                     fullname: 'Tomer Vardi',
                                     imgUrl: 'src/assets/imgs/tomer-avatar.png'
@@ -321,7 +321,7 @@ const boards = [
                         ],
                         status: 'Done',
                         priority: 'High',
-                        date: 1590999817436,
+                        date: Date.now() - 144 * 60 * 60 * 1000,
                         link: {
                             url: 'https://github.com/varditomer/Someday',
                             title: 'Someday Github'
@@ -344,8 +344,8 @@ const boards = [
                         boardId: 'b101',
                         groupId: 'sc7aw',
                         title: 'Make the project ours',
-                        status: '',
-                        priority: 'Critical',
+                        status: 'Working on it',
+                        priority: 'Low',
                         date: 1590999817436,
                         timeline: {
                             start: {
@@ -361,19 +361,66 @@ const boards = [
                         },
                         person: [
                             {
+                                _id: 'u103',
+                                fullname: 'Tomer Vardi',
+                                imgUrl: 'src/assets/imgs/tomer-avatar.png'
+                            },
+                            {
                                 _id: 'u102',
                                 fullname: 'Refael Abramov',
                                 imgUrl: `src/assets/imgs/refael-avatar.png`
-                            }
+                            },
                         ],
 
 
                     },
                     {
+                        _id: 'xa8sd',
+                        boardId: 'b101',
+                        groupId: 'sd93d',
+                        title: 'Get familiar with features',
+                        date: 1589983468418,
+                        priority: 'Medium',
+                        status: 'Stuck',
+                        person: [
+                            {
+                                _id: '0',
+                                fullname: 'Guest',
+                                imgUrl: `src/assets/imgs/default-avatar.svg`
+                            }
+                        ],
+                        timeline: {
+                            start: {
+                                month: 11,
+                                day: 1,
+                                year: 2022
+                            },
+                            end: {
+                                month: 1,
+                                day: 1,
+                                year: 2023
+                            }
+                        },
+                    },
+
+
+                ],
+            },
+            {
+                _id: 'sd93d',
+                title: 'Working on it',
+                boardId: 'b101',
+                style: {
+                    color: '#fdac3d',
+                    light: '#fdac3d99',
+                },
+                tasks: [
+                    {
                         _id: 's0dme',
                         boardId: 'b101',
                         groupId: 'sc7aw',
                         title: 'Create Features',
+                        text: 'D&D, Kanban, Perfect-pixel',
                         person: [
                             {
                                 _id: 'u102',
@@ -406,62 +453,24 @@ const boards = [
                                 year: 2022
                             }
                         },
-                    }
-                ],
-            },
-            {
-                _id: 'sd93d',
-                title: 'Working on it',
-                boardId: 'b101',
-                style: {
-                    color: '#fdac3d',
-                    light: '#fdac3d99',
-                },
-                tasks: [
-                    {
-                        _id: 'xa8sd',
-                        boardId: 'b101',
-                        groupId: 'sd93d',
-                        title: 'Get familiar with features',
-                        date: 1589983468418,
-                        priority: 'Critical',
-                        status: 'Done',
-                        person: [
-                            {
-                                _id: 'u102',
-                                fullname: 'Refael Abramov',
-                                imgUrl: `src/assets/imgs/refael-avatar.png`
-                            }
-                        ],
-                        timeline: {
-                            start: {
-                                month: 11,
-                                day: 1,
-                                year: 2022
-                            },
-                            end: {
-                                month: 1,
-                                day: 1,
-                                year: 2023
-                            }
-                        },
                     },
+
                     {
                         _id: 'adx8w',
                         boardId: 'b101',
                         groupId: 'sd93d',
                         title: 'Build demo data',
-                        date: 1589983468418,
+                        date: Date.now() + 72 * 60 * 60 * 1000,
                         timeline: {
                             start: {
-                                month: 0,
-                                day: 1,
-                                year: 2023
+                                month: 12,
+                                day: 5,
+                                year: 2022
                             },
                             end: {
                                 month: 0,
-                                day: 10,
-                                year: 2023
+                                day: 11,
+                                year: 2022
                             }
                         },
                         priority: 'Critical',
@@ -481,14 +490,15 @@ const boards = [
                             {
                                 _id: 'ZqPnm',
                                 taskId: 'adm8w',
-                                txt: '@Ronen Boxer in a minute',
+                                txt: '@Ronen Boxer in a minute ☕',
                                 attachment: 'https://sprint-4-company.monday.com/protected_static/14268178/resources/683016563/big-JPEG_29112022_163653_2246356385772545662.jpg',
                                 createdAt: 1590999817436,
                                 byMember: {
                                     _id: 'u103',
                                     fullname: 'Tomer Vardi',
                                     imgUrl: 'src/assets/imgs/tomer-avatar.png'
-                                }
+                                },
+                                likes: ['u104', '0']
                             },
                         ],
                         person: [
@@ -522,8 +532,8 @@ const boards = [
                                 year: 2022
                             }
                         },
-                        priority: 'Critical',
-                        status: 'Done',
+                        priority: 'Default',
+                        status: 'Working on it',
                         person: [
                             {
                                 _id: 'u104',
@@ -556,33 +566,44 @@ const boards = [
                         boardId: 'b101',
                         groupId: 'asj23',
                         title: 'First team meeting',
-                        date: 1589983468418,
+                        date: 1669726800000,
                         timeline: {
                             start: {
                                 month: 11,
-                                day: 1,
+                                day: 29,
                                 year: 2022
                             },
                             end: {
                                 month: 11,
-                                day: 20,
+                                day: 29,
                                 year: 2022
                             }
                         },
                         priority: 'Medium',
-                        status: 'Working on it',
+                        status: 'Done',
                         person: [
                             {
                                 _id: 'u103',
                                 fullname: 'Tomer Vardi',
                                 imgUrl: 'src/assets/imgs/tomer-avatar.png'
-                            }
+                            },
+                            {
+                                _id: 'u104',
+                                fullname: 'Ronen Boxer',
+                                imgUrl: 'src/assets/imgs/ronen-avatar.png'
+                            },
+                            {
+                                _id: 'u102',
+                                fullname: 'Refael Abramov',
+                                imgUrl: `src/assets/imgs/refael-avatar.png`
+                            },
+
                         ],
                         comments: [
                             {
                                 _id: 'Zeesm',
                                 taskId: 'xwe45',
-                                txt: 'Mother fucker',
+                                txt: 'Yeah 🎈🎉🎊',
                                 createdAt: 1590999817436,
                                 byMember: {
                                     _id: '0',
@@ -609,7 +630,7 @@ const boards = [
                         boardId: 'b101',
                         groupId: 'ascw2',
                         title: 'Meet up with team leader',
-                        date: 1589983468418,
+                        date: Date.now() + 11 * 60 * 60 * 1000,                        
                         timeline: {
                             start: {
                                 month: 10,
@@ -675,7 +696,7 @@ const boards = [
                         boardId: 'b101',
                         groupId: 'ascw2',
                         title: 'Think about app architecture',
-                        date: 1589983468418,
+                        date: Date.now() + 36 * 60 * 60 * 1000,
                         timeline: {
                             start: {
                                 month: 10,
@@ -688,25 +709,15 @@ const boards = [
                                 year: 2022
                             }
                         },
-                        status: 'Unattained',
+                        status: 'Default',
                         priority: 'Critical',
-                        members: [
-                            {
-                                _id: 'u102',
-                                fullname: 'Refael Abramov',
-                                imgUrl: `src/assets/imgs/refael-avatar.png`
-                            },
-                            {
-                                _id: 'u103',
-                                fullname: 'Tomer Vardi',
-                                imgUrl: 'src/assets/imgs/tomer-avatar.png'
-                            }
+                        person: [
                         ]
                     },
                 ]
             },
             {
-                _id: 'a7scq',
+                _id: 'n1mm34',
                 boardId: 'b101',
                 title: 'Bugs',
                 createdAt: 238392842234,
@@ -719,7 +730,83 @@ const boards = [
                     fullname: 'Tomer Vardi',
                     imgUrl: 'src/assets/imgs/tomer-avatar.png'
                 },
-                tasks: []
+                tasks: [
+                    {
+                        _id: 'ycao34',
+                        boardId: 'b101',
+                        groupId: 'n1mm34',
+                        title: 'Modal covered when hovering rows',
+                        date: Date.now() - 24* 60 * 60 * 1000,
+                        timeline: {
+                            start: {
+                                month: 10,
+                                day: 30,
+                                year: 2022
+                            },
+                            end: {
+                                month: 11,
+                                day: 3,
+                                year: 2022
+                            }
+                        },
+                        status: 'Done',
+                        priority: 'Critical',
+                        person: [
+                            {
+                                _id: 'u102',
+                                fullname: 'Refael Abramov',
+                                imgUrl: `src/assets/imgs/refael-avatar.png`
+                            },
+                            {
+                                _id: 'u104',
+                                fullname: 'Ronen Boxer',
+                                imgUrl: 'src/assets/imgs/ronen-avatar.png'
+                            },
+                        ]
+                    },
+                    {
+                        _id: 'dzwq34',
+                        boardId: 'b101',
+                        groupId: 'n1mm34',
+                        title: 'Upload img stuck',
+                        date: Date.now() + 20 * 60 * 60 * 1000,
+                        timeline: {
+                            start: {
+                                month: 10,
+                                day: 30,
+                                year: 2022
+                            },
+                            end: {
+                                month: 11,
+                                day: 3,
+                                year: 2022
+                            }
+                        },
+                        status: 'Working on it',
+                        priority: 'Medium',
+                        person: [
+                            {
+                                _id: 'u103',
+                                fullname: 'Tomer Vardi',
+                                imgUrl: 'src/assets/imgs/tomer-avatar.png'
+                            }
+                        ],
+                        comments: [
+                            {
+                                _id: 'Zeesm',
+                                taskId: 'dzwq34',
+                                txt: 'I think it happens with large photos',
+                                createdAt: Date.now(),
+                                byMember: {
+                                    _id: '0',
+                                    fullname: 'Guest',
+                                    imgUrl: 'src/assets/imgs/default-avatar.svg'
+                                },
+                                likes: ['u102', 'u103', 'u104']
+                            }
+                        ],
+                    },
+                ]
             }
         ],
         activities: [

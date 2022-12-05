@@ -36,7 +36,6 @@ export default {
     },
     computed: {
         getStyle() {
-            console.log(`this.prop`, this.prop)
             if (!this.prop || !this.prop === 'Default') return { 'background-color': colors['$clr-explosive'] }
             return {
                 'background-color': colors[status[this.prop.trim()]],

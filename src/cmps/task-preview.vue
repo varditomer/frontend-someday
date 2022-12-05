@@ -135,23 +135,10 @@ export default {
             this.$copyText(`${data}`)
         },
         setIsEditing() {
-            // console.log(`editing:`, editing)
-            this.editing = true
-            // this.$nextTick(() => {
-            //     this.$refs.line.style.backgroundColor = 'blue';
-            // })
-            return
-
+            return this.editing = true
         },
         unSelectLine() {
-            console.log(`1:`, )
-            // console.log(`editing:`, editing)
-            this.editing = false
-            // this.$nextTick(() => {
-            //     this.$refs.line.style.backgroundColor = 'blue';
-            // })
-            return
-
+            return this.editing = false
         }
     },
     components: {
