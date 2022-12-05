@@ -363,4 +363,109 @@
             }
         }
     }
+
+    .activity-log {
+
+        .activities-list {
+            padding: 25px;
+
+            >*:not(:last-child) {
+                border-bottom: 1px solid $brdr-clr;
+            }
+
+            .activity-item {
+                height: 56px;
+                display: grid;
+                grid-template-columns: 56px 190px 120px 1fr;
+
+                >* {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .created-time {
+                    p {
+                        font-size: 14px;
+                        font-family: roboto-light;
+                        position: relative;
+                        right: 3px;
+                    }
+
+                    span {
+                        scale: .8;
+                        position: relative;
+                        bottom: 4px;
+                    }
+                }
+
+                .user {
+                    img {
+                        width: 30px;
+                        height: 30px;
+                        margin-right: 8px;
+                    }
+
+                    p {
+                        font-size: 14px;
+                        font-family: roboto-light;
+                    }
+                }
+
+                .activity {
+                    display: flex;
+                    align-items: center;
+                    padding-left: 40px;
+                    span {
+                        margin-right: 3px;
+                    }
+
+                    p {
+                        font-size: 14px;
+                        width: 70%;
+                        font-family: roboto-light;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        text-transform: capitalize;
+                    }
+                }
+
+                .activity-change {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+
+                    .from,
+                    .to {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-basis: 45%;
+                        width: 40%;
+                        background-color: #0373ea;
+                        height: 60%;
+
+                        p {
+                            text-align: center;
+                            font-size: rem(14px);
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            width: 80%;
+                            color: white;
+                        }
+                    }
+
+
+                    span {
+                        flex-grow: 1;
+                    }
+                }
+            }
+
+
+
+        }
+    }
+
 }
