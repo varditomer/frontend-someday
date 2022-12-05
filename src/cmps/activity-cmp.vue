@@ -3,13 +3,24 @@
         <span v-svg-icon="activity.icon"></span>
         <p>{{ activity.type }}</p>
     </div>
-    <div class="activity-change">
+    <div v-if="(activity.type === 'status' || activity.type === 'priority')" class="activity-change">
         <div class="from" :style="`background-color:${formattedDataFrom.color}`">
             <p>{{ formattedDataFrom.title }}</p>
         </div>
         <span v-svg-icon="'arrowRight'"></span>
         <div class="to" :style="`background-color:${formattedDataTo.color}`">
             <p>
+                {{ activity.to }}
+            </p>
+        </div>
+    </div>
+    <div v-else class="activity-change">
+        <div class="from">
+            <p class="txt">{{ (activity.from) ? activity.from : '⎯⎯⎯⎯⎯' }}</p>
+        </div>
+        <span v-svg-icon="'arrowRight'"></span>
+        <div class="to">
+            <p class="txt">
                 {{ activity.to }}
             </p>
         </div>
