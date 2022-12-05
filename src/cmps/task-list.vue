@@ -4,7 +4,7 @@
         <li>
             <span class="empty-span"></span>
             <span class="task-select header-task-select" :style="{ 'border-left-color': group.style.color }">
-                <input type="checkbox" @input="toggleSelectAll" />
+                <input type="checkbox" @input="toggleSelectAll" v-model="areAllSelected"/>
             </span>
             <span class="task-list-item-header">item</span>
 
@@ -50,6 +50,7 @@
 import draggable from 'vuedraggable'
 import taskPreview from './task-preview.vue'
 import taskSummary from './task-summary.vue'
+import {eventBus} from '../services/event-bus.service.js'
 export default {
     name: 'task-list',
     emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks'],
@@ -90,6 +91,9 @@ export default {
             boardId: this.group.boardId
         }
     },
+    mounted(){
+        eventBus.on('unselectTasks', ()=>this.areAllSelected = false)
+    },
     methods: {
         addTask() {
             if (!this.taskToAdd.title) return
@@ -114,6 +118,7 @@ export default {
             this.$emit('saveBoard')
         },
         saveSelectedTasks(taskId) {
+            this.areAllSelected = false
             this.$emit('saveSelectedTasks', taskId)
         },
         toggleSelectAll() {
