@@ -1,11 +1,9 @@
 <template>
-    <section class="li-wrapper">
+    <section class="li-wrapper" ref="line" :class="{editedLine: editing}">
         <regular-modal :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
-            @closeModal="(showModal = false)" :showModal="showModal" 
-            @taskTitleToClipboard="copyToClipboard(task.title)" 
-            @linkToClipboard="copyToClipboard(task.link.url)"
-            />
-        <li class="content-li">
+            @closeModal="(showModal = false)" :showModal="showModal" @taskTitleToClipboard="copyToClipboard(task.title)"
+            @linkToClipboard="copyToClipboard(task.link.url)" />
+        <li class="content-li" v-click-outside="unSelectLine">
             <div class="options flex center">
                 <span class="hidden" @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
@@ -28,7 +26,7 @@
             </router-link>
             <component v-for="(column, idx) in formattedData" :is="column.cmpName + 'Task'" :content="column.content"
                 :name="column.name" :additionalDb="column.additionalDb" :color="group.style.color" :key="idx"
-                @updateTask="updateTask">
+                @updateTask="updateTask" @editing="setIsEditing">
             </component>
             <span class="empty-span"></span>
         </li>
@@ -64,10 +62,13 @@ export default {
         isSelected: Boolean
     },
     created() {
+        this.editing = false
     },
     data() {
         return {
-            showModal: false
+            showModal: false,
+            editing: null,
+            
         }
     },
     computed: {
@@ -130,8 +131,27 @@ export default {
             this.$emit('saveSelectedTasks', taskId)
         },
         copyToClipboard(data) {
-            if(!data) return
+            if (!data) return
             this.$copyText(`${data}`)
+        },
+        setIsEditing() {
+            // console.log(`editing:`, editing)
+            this.editing = true
+            // this.$nextTick(() => {
+            //     this.$refs.line.style.backgroundColor = 'blue';
+            // })
+            return
+
+        },
+        unSelectLine() {
+            console.log(`1:`, )
+            // console.log(`editing:`, editing)
+            this.editing = false
+            // this.$nextTick(() => {
+            //     this.$refs.line.style.backgroundColor = 'blue';
+            // })
+            return
+
         }
     },
     components: {

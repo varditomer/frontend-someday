@@ -1,6 +1,19 @@
 .task-list {
+    .columns {
+        .titles {
+            cursor: grab;
+
+        }
+    }
     .li-wrapper {
         position: relative;
+        &.editedLine {
+            background-color: #000 !important;
+            .content-li:hover{
+                background-color: unset;
+            }
+
+        }
     }
 
     li {
@@ -17,13 +30,11 @@
         }
 
         &.content-li {
-
             .options {
                 background-color: white;
                 position: sticky;
                 left: 0px;
-                z-index: 1000;  
-
+                z-index: 1000;
             }
 
             // position: relative;
@@ -31,7 +42,6 @@
                 background-color: $wrkspce-bgc;
 
                 .options {
-
                     span {
                         visibility: visible;
                         background-color: white;
@@ -55,7 +65,17 @@
             }
         }
 
-        >*:not(:first-child) {
+        .empty-fill-span {
+            height: 100%;
+            border-right: none;
+        }
+        &:first-child {
+            span {
+                justify-content: center;
+            }
+        }
+
+        > *:not(:first-child) {
             justify-self: space-between;
             display: flex;
             align-items: center;
@@ -64,9 +84,13 @@
             border-right: 1px solid $brdr-clr;
         }
 
-        .empty-fill-span {
-            height: 100%;
-            border-right: none;
+        > *:not(:first-child) {
+            justify-self: space-between;
+            display: flex;
+            align-items: center;
+            color: lighten($layout-black, 10%);
+            border-bottom: 1px solid $brdr-clr;
+            border-right: 1px solid $brdr-clr;
         }
 
         .task-select {
@@ -81,7 +105,7 @@
             background-color: white;
             z-index: 500;
 
-            >* {
+            > * {
                 cursor: pointer;
                 height: 16px;
                 width: 16px;
@@ -99,9 +123,8 @@
         }
 
         .task-members {
-
             .add-person-icon {
-                scale: .9;
+                scale: 0.9;
                 fill: $primary-blue;
                 position: absolute;
                 left: 6px;
@@ -122,7 +145,6 @@
             justify-content: center;
 
             .task-avatar {
-
                 position: relative;
                 display: flex;
                 background-size: cover;
@@ -135,19 +157,12 @@
             }
 
             .default-person {
-                scale: .8;
+                scale: 0.8;
 
                 svg {
                     fill: lighten($layout-gray, 12%);
                     border-radius: 2em;
                 }
-            }
-
-        }
-
-        &:first-child {
-            span {
-                justify-content: center;
             }
         }
 
@@ -158,9 +173,7 @@
 
                 .not-editing-mode {
                     visibility: inherit;
-
                 }
-
             }
 
             .plus {
@@ -288,8 +301,6 @@
         }
     }
 
-
-
     .task-list-item-header,
     .task-title-item {
         grid-column: 3/6;
@@ -308,7 +319,6 @@
 
         span {
             height: 60%;
-
 
             .task-title {
                 text-overflow: ellipsis;
@@ -333,7 +343,6 @@
                     outline: 1px solid $primary-blue;
                 }
             }
-
         }
     }
 

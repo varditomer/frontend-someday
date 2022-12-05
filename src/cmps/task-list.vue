@@ -11,7 +11,7 @@
             <div class="columns">
                 <draggable v-model="cmpsOrder" itemKey="element" dataIdAttrtag="div" @start="isBeingDragged = true">
                     <template #item="{ element }">
-                        <div group="cmps" ghost-class="ghost" :class="{ columnDragged: isBeingDragged }"> {{ element }}
+                        <div group="cmps" ghost-class="ghost" :class="{ columnDragged: isBeingDragged }" class="titles"> {{ element }}
                         </div>
                     </template>
                 </draggable>

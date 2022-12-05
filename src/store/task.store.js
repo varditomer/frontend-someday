@@ -17,7 +17,6 @@ export const taskStore = {
                 { title: 'Working on it', color: '#fdac3d', colorName: '$clr-lgt-orng' },
                 { title: 'Stuck', color: '#e2445c', colorName: '$clr-stuck-red' },
                 { title: 'Unattained', color: '#0086c0', colorName: '$clr-dark-blue' },
-                { title: 'Kaka', color: '#ffcb00', colorName: '$clr-yllw' },
                 { title: 'Default', color: '#c4c4c4', colorName: '$clr-explosive' },
             ],
         }

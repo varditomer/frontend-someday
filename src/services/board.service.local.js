@@ -180,7 +180,6 @@ const boards = [
         _id: 'b101',
         title: 'Flow',
         isStarred: true,
-        archivedAt: 1669741716944,
         createdBy: {
             _id: 'u102',
             fullname: 'Refael Abramov',
@@ -208,7 +207,6 @@ const boards = [
                 _id: 'sc7aw',
                 title: 'Backlog',
                 boardId: 'b101',
-                archivedAt: 1589983468418,
                 style: {
                     color: 'rgb(151,99,212)',
                     light: 'rgba(151,99,212,0.6)'
@@ -218,12 +216,12 @@ const boards = [
                         _id: 'xwe45',
                         boardId: 'b101',
                         groupId: 'sc7aw',
-                        title: 'Present Monday',
+                        title: 'Present Our Someday App',
                         status: 'Unattained',
-                        priority: 'High',
-                        date: 1590999817436,
-                        numbers: 666,
-                        text: 'Present Monday today',
+                        priority: 'Critical',
+                        date: 1670936400000,
+                        numbers: 121212,
+                        text: 'Make a plan B',
                         timeline: {
                             start: {
                                 month: 10,
@@ -251,7 +249,7 @@ const boards = [
                             {
                                 _id: 'ZePnm',
                                 taskId: 'xwe45',
-                                txt: 'Good luck',
+                                txt: 'Good luck 😎',
                                 createdAt: 1590999817436,
                                 byMember: {
                                     _id: 'u103',
@@ -262,14 +260,25 @@ const boards = [
                         ],
                         person: [
                             {
+                                _id: 'u102',
+                                fullname: 'Refael Abramov',
+                                imgUrl: `src/assets/imgs/refael-avatar.png`
+                            },
+                            {
                                 _id: 'u103',
                                 fullname: 'Tomer Vardi',
                                 imgUrl: 'src/assets/imgs/tomer-avatar.png'
-                            }
+                            },
+                            {
+                                _id: 'u104',
+                                fullname: 'Ronen Boxer',
+                                imgUrl: 'src/assets/imgs/ronen-avatar.png'
+                            },
+
                         ],
                         link: {
                             url: 'https://sprint-4-company.monday.com/boards/3590839107/pulses/3590900012',
-                            title: 'Monday'
+                            title: 'Original Monday'
                         }
                     },
                     {
@@ -277,6 +286,7 @@ const boards = [
                         boardId: 'b101',
                         groupId: 'sc7aw',
                         title: 'Upload project to Github',
+                        text: 'Set github pages',
                         person: [
                             {
                                 _id: 'u104',
@@ -286,23 +296,35 @@ const boards = [
                         ],
                         comments: [
                             {
+                                _id: 'Zelzm',
+                                taskId: 'xwe45',
+                                txt: 'Thanks, great job as always :-)',
+                                createdAt: Date.now() - 48 * 60 * 60 * 1000,
+                                byMember:  {
+                                    _id: 'u103',
+                                    fullname: 'Tomer Vardi',
+                                    imgUrl: 'src/assets/imgs/tomer-avatar.png'
+                                },
+                            },
+                            {
                                 _id: 'ZeSzm',
                                 taskId: 'xwe45',
-                                txt: 'Mother fucker',
-                                createdAt: 1590999817436,
+                                txt: 'Amazing, already forked! 🍴',
+                                createdAt: Date.now() - 24 * 60 * 60 * 1000,
                                 byMember: {
                                     _id: '0',
                                     fullname: 'Guest',
                                     imgUrl: 'src/assets/imgs/default-avatar.svg'
-                                }
+                                },
+                                likes: ['u102', 'u103', 'u104']
                             }
                         ],
-                        status: 'Unattained',
+                        status: 'Done',
                         priority: 'High',
                         date: 1590999817436,
                         link: {
-                            url: 'https://sprint-4-company.monday.com/boards/3590839107/pulses/3590923229',
-                            title: 'Monday'
+                            url: 'https://github.com/varditomer/Someday',
+                            title: 'Someday Github'
                         },
                         timeline: {
                             start: {
@@ -322,7 +344,7 @@ const boards = [
                         boardId: 'b101',
                         groupId: 'sc7aw',
                         title: 'Make the project ours',
-                        status: 'Working on it',
+                        status: '',
                         priority: 'Critical',
                         date: 1590999817436,
                         timeline: {
@@ -724,7 +746,6 @@ const boards = [
         _id: 'b102',
         title: 'Robot dev proj',
         isStarred: false,
-        archivedAt: 1589983468418,
         createdBy: {
             _id: 'u102',
             fullname: 'Refael Abramov',
@@ -747,7 +768,6 @@ const boards = [
                 _id: 'g101',
                 boardId: 'b102',
                 title: 'PR conference',
-                archivedAt: 1589983468418,
                 style: '#ff642e',
                 tasks: [
                     {
@@ -801,7 +821,6 @@ const boards = [
                 _id: 'g102',
                 boardId: 'b102',
                 title: 'Digital',
-                archivedAt: 1589983468418,
                 'createdBy':
                 {
                     _id: 'u103',
@@ -921,4 +940,4 @@ function _connectIds(board) {
 }
 
 // TEST DATA
-// utilService.saveToStorage(BOARD_STORAGE_KEY, boards)
+utilService.saveToStorage(BOARD_STORAGE_KEY, boards)

@@ -115,9 +115,7 @@ export default {
             this.showModal = true
         },
         editGroupTitle() {
-            this.$nextTick(() => {
-                this.$refs.title.focus();
-            })
+            this.$nextTick(() => this.$refs.title.focus())
         },
         saveSelectedTasks(taskId) {
             this.$emit('saveSelectedTasks', taskId)

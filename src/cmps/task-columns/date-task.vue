@@ -1,5 +1,5 @@
 <template>
-        <span @click="(show = true)" class="task-date">
+        <span @click="clickLine" class="task-date">
             <triangle-modal v-if="show" @hideModal="(show = false)" @updateTask="updateTask"
                 :content="(content || Date.now())" :cmp="'dateModal'" />
             {{ formattedDate || ' ' }}
@@ -9,7 +9,7 @@
 <script>
 import triangleModal from '../dynamic-modals/triangle-modal.vue'
 export default {
-    emits: ['updateTask'],
+    emits: ['updateTask', 'editing'],
     name: 'date-column',
     props: {
         content: Number,
@@ -37,6 +37,10 @@ export default {
                 this.show = false
             }, 1)
         },
+        clickLine() {
+            this.show=true
+            this.$emit('editing')
+        }
     },
     components: {
         triangleModal
