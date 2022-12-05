@@ -6,8 +6,8 @@
             <template #item="{ element }">
                 <group-preview :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     :group="element" :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
-                    :statuses="statuses" v-if="board" @saveTask="saveTask" @removeTask="removeTask"
-                    @saveGroup="saveGroup" @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" />
+                    :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
+                    @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" />
             </template>
         </draggable>
     </section>
@@ -80,7 +80,7 @@ export default {
             this.saveBoard()
         },
         addGroup() {
-            this.$emit('addGroup')
+            // this.$emit('addGroup')
             this.saveBoard()
         },
         saveSelectedTasks(taskId) {
@@ -98,11 +98,13 @@ export default {
         draggable
     },
     watch: {
-        board: function (newBoard) {
-            console.log(`newBoard`, newBoard)
-            this.boardCopy = newBoard
-                ? JSON.parse(JSON.stringify(newBoard))
-                : null
+        board: {
+            handler(newBoard) {
+                this.boardCopy = newBoard
+                    ? JSON.parse(JSON.stringify(newBoard))
+                    : null
+            },
+            deep: true
         }
     }
 }

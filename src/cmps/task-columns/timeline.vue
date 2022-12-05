@@ -5,7 +5,7 @@
             <p v-if="isHovering" class="text">{{timeDiff}} d</p>
             <p v-else class="text">{{ dateStr }}</p>
         </div>
-        <triangle-modal v-if="show" :cmp="'timelineModal'" :content="'baba'" />
+        <!-- <triangle-modal v-if="show" :cmp="'timelineModal'" :content="content" /> -->
     </section>
 </template>
 
