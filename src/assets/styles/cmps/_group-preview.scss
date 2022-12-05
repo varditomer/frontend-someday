@@ -25,7 +25,7 @@
         align-items: center;
 
 
-        &.minimized {
+        &.collapse {
             border: 1px solid $brdr-clr;
             height: 60px;
 
@@ -46,7 +46,7 @@
                     transform: translate(90deg);
                 }
 
-                &.closed {
+                &.collapsed {
 
                     svg {
                         transform: rotateZ(-90deg);
