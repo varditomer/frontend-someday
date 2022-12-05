@@ -53,14 +53,12 @@ export default {
         saveBoard(board) {
             this.$store.commit({ type: 'setBoard', board })
             this.$store.dispatch({ type: 'saveBoard', board })
-            // console.log(`this.board.groups`, this.board.groups) help!
         },
         removeTask(task) {
             this.$store.dispatch({ type: 'removeTask', task })
         },
         async saveEmptyTask() {
             await this.$store.dispatch({ type: 'saveEmptyTask' })
-            // this.boardUpdated++
         },
         addBoard() {
             this.$store.dispatch({ type: 'addBoard' })
@@ -85,7 +83,6 @@ export default {
         },
         async saveSelectedTasks(taskId) {
             await this.$store.commit({ type: 'saveSelectedTasks', taskId })
-            // this.showModal = (this.selectedTasks.length) ? true : false
         },
         async deleteSelectedTasks() {
             try {
@@ -107,7 +104,6 @@ export default {
             this.$store.dispatch({ type: 'loadMiniBoards' })
         },
         toggleSelectAllTasks(tasks, groupId, areAllSelected) {
-            // console.log(`tasks`, tasks)
             this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })
         }
     },
