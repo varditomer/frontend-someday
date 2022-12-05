@@ -156,8 +156,6 @@ export default {
         } catch (err) {
             this.$router.push('/')
         }
-
-
     }
 }
 

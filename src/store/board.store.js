@@ -1,6 +1,6 @@
 import { boardService } from '../services/board.service.local'
 import { router } from '../router.js'
-import {eventBus} from '../services/event-bus.service.js'
+import { eventBus } from '../services/event-bus.service.js'
 
 export function getActionRemoveBoard(boardId) {
     return {
@@ -79,7 +79,7 @@ export const boardStore = {
             board.msgs.push(msg)
         },
         saveTask(state, { taskToSave }) {
-            const {task, bool} = taskToSave
+            const { task, bool } = taskToSave
             const groupIdx = state.board.groups.findIndex(group => group._id === task.groupId)
             if (groupIdx === -1) return null
             const taskIdx = state.board.groups[groupIdx].tasks.findIndex(anyTask => anyTask._id === task._id)
@@ -96,7 +96,7 @@ export const boardStore = {
             state.board.groups[groupIdx].tasks.splice(taskIdx, 1)
         },
         addGroup(state, { group, isFifo }) {
-            isFifo? state.board.groups.unshift(group): state.board.groups.push(group)
+            isFifo ? state.board.groups.unshift(group) : state.board.groups.push(group)
         },
         removeGroup(state, { group }) {
             var idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)

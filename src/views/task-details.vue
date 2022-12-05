@@ -4,23 +4,23 @@
         <span v-if="taskToEdit" @click="close" v-svg-icon="'exit'" class="close-modal-btn"></span>
         <h1 v-if="taskToEdit" class="task-modal-title">{{ taskToEdit.title }}</h1>
         <div v-if="taskToEdit" class="modal-btns">
-            <div :class="{ 'selected': showUpdates }">
+            <div @click="goTo('comments')" :class="{ 'selected': showComp === 'comments' }">
                 <span v-svg-icon="'outlineHome'"></span>
-                <button @click="goToUpdates" class="task-comments-btn">Updates</button>
+                <button class="task-comments-btn">Updates</button>
             </div>
             <span>|</span>
-            <div :class="{ 'selected': showFiles }">
+            <div @click="goTo('files')" :class="{ 'selected': showComp === 'files' }">
                 <span></span>
-                <button @click="goToFiles">Files</button>
+                <button>Files</button>
             </div>
             <span>|</span>
-            <div>
+            <div @click="goTo('activities')" :class="{ 'selected': showComp === 'activities' }">
                 <span></span>
                 <button>Activity Log</button>
             </div>
         </div>
 
-        <section v-if="(taskToEdit && showUpdates)" class="task-comments">
+        <section v-if="(taskToEdit && showComp === 'comments')" class="task-comments">
             <form @submit.prevent="addComment">
                 <textarea v-model="commentToAdd" type="text" placeholder="Write an update..." class="comment-add-txt" />
                 <button @click="" class="add-comment-btn">Update</button>
@@ -78,7 +78,7 @@
 
         </section>
 
-        <section v-if="showFiles" class="upload-files flex column align-center">
+        <section v-if="(showComp === 'files')" class="upload-files flex column align-center">
             <div class="sub-header">
 
             </div>
@@ -119,15 +119,30 @@
 
         </section>
 
+        <section v-if="showComp === 'activities'" class="activity-log">
+            <div class="activities-list">
+                <div v-for="activity in getUserActivities" class="activity-item">
+                    <div class="created-time">
+                        <span v-svg-icon="'time'"></span>
+                        <p>10h</p>
+                    </div>
+                    <div class="user">
+                        <img src="src/assets/imgs/default-avatar.svg" alt="">
+                        <p>{{activity.txt}}</p>
+                    </div>
+                    <activity-cmp :activity="activity" />
+                </div>
+            </div>
+        </section>
+
     </section>
 
 </template>
 <script>
-
 import { uploadImg } from '../services/img-upload.service'
+import activityCmp from '../cmps/activity-cmp.vue'
 import { imgService } from '../services/img-service'
 import imgList from '../cmps/img-list.cmp.vue'
-
 
 export default {
     name: 'task-details',
@@ -135,12 +150,15 @@ export default {
         return {
             commentToAdd: '',
             taskToEdit: null,
-            showUpdates: null,
-            showFiles: null,
+            showComp: 'comments',
             imgUrls: [],
             imgToShow: '',
             isLoading: false,
             isDragover: false,
+            content: {
+                icon: 'addComment',
+                type: 'Comment'
+            }
         }
     },
     async created() {
@@ -154,6 +172,7 @@ export default {
         this.board.groups.some(({ tasks }) => tasks.some(task => {
             if (task._id === taskId) this.taskToEdit = JSON.parse(JSON.stringify(task))
         }))
+        await this.$store.dispatch({ type: 'loadActivities' })
 
     },
     computed: {
@@ -165,16 +184,25 @@ export default {
         },
         users() {
             return this.$store.getters.users
+        },
+        activities() {
+            return this.$store.getters.activities
+        },
+        getUserActivities() {
+            const activities = this.activities.filter(activity => activity.taskId === this.taskToEdit._id)
+            return activities
         }
     },
     methods: {
-        goToFiles() {
-            this.showUpdates = false
-            this.showFiles = true
-        },
-        goToUpdates() {
-            this.showFiles = false
-            this.showUpdates = true
+        goTo(dest) {
+            switch (dest) {
+                case 'comments': this.showComp = 'comments'
+                    break
+                case 'files': this.showComp = 'files'
+                    break
+                case 'activities': this.showComp = 'activities'
+                    break
+            }
         },
 
         handleFile(ev) {
@@ -201,8 +229,6 @@ export default {
         setImg(url) {
             this.imgToShow = url
         },
-
-
         close() {
             this.$router.push('/board/' + this.board._id)
         },
@@ -247,6 +273,7 @@ export default {
     },
     components: {
         imgList,
+        activityCmp
     },
 
 }
