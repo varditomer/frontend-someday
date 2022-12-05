@@ -197,9 +197,21 @@
                 background-color: $layout-black;
                 margin-inline: 16px;
                 overflow: hidden;
-
+                display: flex;
+                align-items: center;
                 .value {
                     height: 100%;
+                }
+
+                .text {
+                    position: absolute;
+                    height: min-content;
+                    line-height: 1;
+                    text-overflow: ellipsis;
+                    color: $clr-white;
+                    font-size: rem(8px);
+                    width:110px;
+                    text-align: center;
                 }
             }
         }
@@ -272,13 +284,13 @@
 
         span {
             height: 60%;
-            
+
 
             .task-title {
                 text-overflow: ellipsis;
                 display: flex;
-            justify-content: center;
-            align-items: center;
+                justify-content: center;
+                align-items: center;
                 white-space: nowrap;
                 overflow: hidden;
                 border: none;

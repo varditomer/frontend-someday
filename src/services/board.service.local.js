@@ -130,16 +130,7 @@ function _getNewBoard() {
                         title: 'Item 1',
                         status: 'Working on it',
                         date: Date.now() + 24 * 60 * 60 * 1000,
-                        comments: [
-                            {
-                                _id: utilService.makeId(),
-                                createdAt: Date.now(),
-                                byMember: {
-                                    _id: 0,
-                                    fullname: 'Guest',
-                                }
-                            },
-                        ]
+                        comments:[]
                     },
                     {
                         _id: utilService.makeId(),
@@ -152,16 +143,7 @@ function _getNewBoard() {
                         _id: utilService.makeId(),
                         title: 'Item 3',
                         date: Date.now() - 24 * 60 * 60 * 1000,
-                        comments: [
-                            {
-                                _id: utilService.makeId(),
-                                createdAt: Date.now(),
-                                byMember: {
-                                    _id: 0,
-                                    fullname: 'Guest',
-                                }
-                            },
-                        ]
+                        comments: []
                     }
                 ]
 
