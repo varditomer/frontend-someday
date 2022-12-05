@@ -1,6 +1,6 @@
 <template>
     <section class="color-picker">
-        <span v-for="color in colors" class="color-box" :style="{  backgroundColor: color  }">
+        <span v-for="color in colors" class="color-box" :style="{  backgroundColor: color  }" @click="select(color)">
         </span>
     </section>
 </template>
@@ -9,7 +9,7 @@
 import { colors } from '../../data/color-picker.js'
 export default {
     name: '',
-    emits: ['updateColor'],
+    emits: ['updateSelection'],
     props: {
         selectedColor: {
             type: String,
@@ -24,8 +24,8 @@ export default {
         console.log(`this.priorities`, this.priorities)
     },
     methods: {
-        pickColor(){
-            
+        select(value){
+            this.$emit('updateSelection', value)
         }
     },
     computed: {
