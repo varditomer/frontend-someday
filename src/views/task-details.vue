@@ -127,8 +127,8 @@
                         <p>10h</p>
                     </div>
                     <div class="user">
-                        <img src="src/assets/imgs/default-avatar.svg" alt="">
-                        <p>{{activity.txt}}</p>
+                        <img :src="activity.by.imgUrl" alt="">
+                        <p>{{ activity.txt }}</p>
                     </div>
                     <activity-cmp :activity="activity" />
                 </div>
