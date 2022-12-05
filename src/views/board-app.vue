@@ -52,9 +52,8 @@ export default {
             this.$store.dispatch({ type: 'removeTask', task })
         },
         async saveEmptyTask() {
-            console.log(`shit`)
             await this.$store.dispatch({ type: 'saveEmptyTask' })
-            this.boardUpdated++
+            // this.boardUpdated++
         },
         addBoard() {
             this.$store.dispatch({ type: 'addBoard' })

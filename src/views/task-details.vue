@@ -55,7 +55,7 @@
 
         <section v-if="showFiles" class="upload-files flex column align-center">
             <div class="sub-header">
-                
+
             </div>
             <section class="img-upload flex column center" :class="{ 'drag-zone': isDragover }"
                 @drop.prevent="handleFile" @dragover.prevent="isDragover = true" @dragleave="isDragover = false">

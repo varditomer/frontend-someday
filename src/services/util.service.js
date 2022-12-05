@@ -126,7 +126,7 @@ Date.DateDiff = function (p_Interval, p_Date1, p_Date2, p_FirstDayOfWeek = 1) {
     }
 }
 
-function getReasonableTimeDiff(formerTime, latterTime) {
+export function getReasonableTimeDiff(formerTime, latterTime) {
     return Date.DateDiff('d', formerTime, latterTime)
 }
 

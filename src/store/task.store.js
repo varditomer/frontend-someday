@@ -63,22 +63,22 @@ export const taskStore = {
                 console.log(`Cannot save task: ${err}`)
             }
         },
-        async saveEmptyTask(context) {
+        async saveEmptyTask({commit, getters}) {
             try {
-                const groupId = context.getters.board.groups[0]._id
-                const boardId = context.getters.board._id
+                const groupId = getters.board.groups[0]._id
+                const boardId = getters.board._id
                 const task = await taskService.saveEmptyTask(groupId, boardId)
                 const taskToSave = { task, bool: true }
-                context.commit({ type: 'saveTask', taskToSave })
+                commit({ type: 'saveTask', taskToSave })
                 return task
             } catch (err) {
                 console.log(`Cannot save task: ${err}`)
             }
         },
-        async removeTask(context, { task }) {
+        async removeTask({commit}, { task }) {
             try {
-                context.commit({ type: 'removeTask', task })
-                const removedTask = await taskService.remove(task)
+                commit({ type: 'removeTask', task })
+                await taskService.remove(task)
                 return task
             } catch (err) {
                 console.log(`Cannot remove task: ${err}`)

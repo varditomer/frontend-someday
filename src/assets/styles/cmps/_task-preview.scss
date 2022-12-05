@@ -99,8 +99,21 @@
             }
         }
 
-
         .task-members {
+
+            .add-person-icon {
+                scale: .9;
+                fill: $primary-blue;
+                position: absolute;
+                left: 6px;
+                opacity: 0;
+            }
+
+            &:hover {
+                .add-person-icon {
+                    opacity: 1;
+                }
+            }
 
             position: relative;
             height: 100%;
@@ -120,6 +133,15 @@
                 border-radius: 2em;
                 box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);
                 margin: 0 -5px;
+            }
+
+            .default-person {
+                scale: .8;
+
+                svg {
+                    fill: lighten($layout-gray, 12%);
+                    border-radius: 2em;
+                }
             }
 
         }
@@ -197,9 +219,22 @@
                 background-color: $layout-black;
                 margin-inline: 16px;
                 overflow: hidden;
+                display: flex;
+                align-items: center;
 
                 .value {
                     height: 100%;
+                }
+
+                .text {
+                    position: absolute;
+                    height: min-content;
+                    line-height: 1;
+                    text-overflow: ellipsis;
+                    color: $clr-white;
+                    font-size: rem(8px);
+                    width: 110px;
+                    text-align: center;
                 }
             }
         }
@@ -254,6 +289,8 @@
         }
     }
 
+
+
     .task-list-item-header,
     .task-title-item {
         grid-column: 3/6;
@@ -300,7 +337,6 @@
 
         }
     }
-
 
     .task-comment-icon {
         height: 100% !important;
