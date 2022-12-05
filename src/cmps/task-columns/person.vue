@@ -1,9 +1,11 @@
 <template>
     <section @click="(show = true)" class="task-members flex center">
-        <span class="task-avatar" v-for="person in formattedPersons" :style="person.style"
-            :class="{ cover: person.pic }" :title="person.fullname">
+        <div class="add-person-icon" v-svg-icon="'addPerson'"></div>
+        <span v-if="formattedPersons.length" class="task-avatar" v-for="person in formattedPersons"
+            :style="person.style" :class="{ cover: person.pic }" :title="person.fullname">
             {{ !person.pic ? person.initials : '' }}
         </span>
+        <span class="default-person" v-else v-svg-icon="'defaultPerson'"></span>
         <triangle-modal v-if="show" @updateTask="updateTask" :additionalDb="additionalDb" :content="formattedPersons"
             :cmp="'personsModal'" @hideModal="hide" />
     </section>
