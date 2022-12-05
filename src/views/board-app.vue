@@ -107,14 +107,10 @@ export default {
             await this.$store.dispatch({ type: 'saveBoard', board })
             this.$store.dispatch({ type: 'loadMiniBoards' })
         },
-<<<<<<< HEAD
-
-=======
         toggleSelectAllTasks(tasks, groupId, areAllSelected) {
             // console.log(`tasks`, tasks)
             this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })
         }
->>>>>>> 1a0c8e95ed4efe36d783b0bff240c3a6c125e0ae
     },
     computed: {
         users() {
