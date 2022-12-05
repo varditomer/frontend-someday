@@ -1,7 +1,6 @@
 <template>
     <nav class="main-nav flex column align-center justify-between">
         <section class="top-nav flex column center">
-            <div class="triangle"></div>
             <router-link to="/">
                 <img class="logo" src="../assets/imgs/logo.svg" alt="">
             </router-link>
@@ -22,6 +21,12 @@ export default {
         board() {
             return this.$store.getters.board
         }
+    },
+    created() {
+        console.log('asdasd');
+    },
+    watch: {
+        
     }
 }
 </script>

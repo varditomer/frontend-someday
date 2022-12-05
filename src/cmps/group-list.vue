@@ -4,9 +4,9 @@
         <draggable v-model="boardCopy.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
             @end="saveBoard" :class="{ groupDragged: beingDragged }">
             <template #item="{ element }">
-                <group-preview :isHorizontalScrolling="isHorizontalScrolling"
-                    @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks" :group="element"
-                    :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities" @toggleSelectAllTasks="toggleSelectAllTasks"
+                <group-preview :isHorizontalScrolling="isHorizontalScrolling" @saveSelectedTasks="saveSelectedTasks"
+                    :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
+                    :key="element._id" :priorities="priorities" @toggleSelectAllTasks="toggleSelectAllTasks"
                     :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
                     @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" />
             </template>
@@ -29,7 +29,7 @@ import { eventBus } from '../services/event-bus.service'
 
 export default {
     name: 'group-list',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'addGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'select','toggleSelectAllTasks',],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'addGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'select', 'toggleSelectAllTasks',],
     props: {
         users: Array,
         board: Object,
@@ -97,13 +97,14 @@ export default {
         },
         scrolling(event) {
             const { scrollLeft } = event.target
-            return this.isHorizontalScrolling = scrollLeft? true: false
+            return this.isHorizontalScrolling = scrollLeft ? true : false
         },
-        toggleSelectAllTasks(tasks,groupId, areAllSelected){
-            this.$emit('toggleSelectAllTasks', tasks,groupId,areAllSelected)
-        }
+        toggleSelectAllTasks(tasks, groupId, areAllSelected) {
+            this.$emit('toggleSelectAllTasks', tasks, groupId, areAllSelected)
+        },
     },
     computed: {
+
         cmpsOrder() {
             return [...this.board.cmpsOrder]
         },
@@ -116,9 +117,7 @@ export default {
     watch: {
         board: {
             handler(newBoard) {
-                this.boardCopy = newBoard
-                    ? JSON.parse(JSON.stringify(newBoard))
-                    : null
+                this.boardCopy = newBoard ? JSON.parse(JSON.stringify(newBoard)) : null
             },
             deep: true
         }

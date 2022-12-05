@@ -60,7 +60,8 @@
                         <p>1 Seen</p>
                     </div>
                 </div>
-                <div class="comment-like" @click="likeComment(idx)" :class="{liked: comment?.likes?.includes(`${loggedinUser._id}`)}">
+                <div class="comment-like" @click="likeComment(idx)"
+                    :class="{ liked: comment?.likes?.includes(`${loggedinUser._id}`) }">
                     <div>
                         <span v-if="comment?.likes?.includes(`${loggedinUser._id}`)" v-svg-icon="'filledLike'"></span>
                         <span v-else v-svg-icon="'like'"></span>
@@ -147,7 +148,9 @@ export default {
         this.imgUrls = imgService.getImgs()
         const { taskId } = this.$route.params
         const { id } = this.$route.params
-        await this.$store.dispatch({ type: 'queryBoard', id })
+        if (Object.keys(this.board).length === 0) {
+            await this.$store.dispatch({ type: 'queryBoard', id })
+        }
         this.board.groups.some(({ tasks }) => tasks.some(task => {
             if (task._id === taskId) this.taskToEdit = JSON.parse(JSON.stringify(task))
         }))

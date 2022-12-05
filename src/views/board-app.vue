@@ -4,15 +4,14 @@
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
         <section class='board-app-container'>
-            <regular-modal :selectedTasks="selectedTasks"
-                @deleteSelectedTasks="deleteSelectedTasks" :showModal="showModal" :cmp="'task-select-modal'" />
+            <regular-modal :selectedTasks="selectedTasks" @deleteSelectedTasks="deleteSelectedTasks"
+                :showModal="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
-            <group-list @saveSelectedTasks="saveSelectedTasks"
-                @toggleSelectAllTasks="toggleSelectAllTasks" :selectedTasks="selectedTasks" :users="users"
-                @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
-                @saveBoard="saveBoard" @removeGroup="removeGroup" :board="board" :priorities="priorities"
-                :statuses="statuses" :watcher="boardUpdated" />
+            <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
+                :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
+                @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard" @removeGroup="removeGroup"
+                :board="board" :priorities="priorities" :statuses="statuses" :watcher="boardUpdated" />
         </section>
         <router-view />
     </section>
@@ -23,7 +22,7 @@ import boardHeader from '../cmps/board-header.vue'
 import groupList from '../cmps/group-list.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
-import {eventBus} from '../services/event-bus.service.js'
+import { eventBus } from '../services/event-bus.service.js'
 
 export default {
     name: 'board-app',
@@ -40,11 +39,11 @@ export default {
             scrollX: null
         }
     },
-    mounted(){
-        eventBus.on('unselectTasks', ()=>this.unselectTasks())
+    mounted() {
+        eventBus.on('unselectTasks', () => this.unselectTasks())
     },
-    unmounted(){
-        
+    unmounted() {
+
     },
     methods: {
         saveTask(task) {
@@ -140,7 +139,7 @@ export default {
         loggedinUser() {
             return this.$store.getters.loggedinUser
         },
-        showModal(){
+        showModal() {
             return this.$store.getters.selectedTasks?.length
                 ? true
                 : false
