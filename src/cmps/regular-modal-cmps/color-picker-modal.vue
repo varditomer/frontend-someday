@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { colors } from '../../data/color-picker.js'
+import { groupColors } from '../../data/color-picker.js'
 export default {
     name: '',
     emits: ['updateSelection'],
@@ -27,7 +27,7 @@ export default {
     },
     computed: {
         colors() {
-            return colors
+            return groupColors
         }
     },
     components: {
