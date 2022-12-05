@@ -1,6 +1,7 @@
 <template>
 
     <section class='group-preview' @keydown.escape="(showModal = false)">
+
         <regular-modal v-if="showModal" :groupId="group._id" :selectedColor="group.style.color" :showModal="showModal"
             @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
             @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
@@ -8,7 +9,6 @@
 
         <div class="group-title flex align-center" :class="{ collapse: !viewTasks }"
             @keydown.escape="(showModal = false)">
-
 
             <div class="options flex center">
                 <span class="dots hidden" @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
@@ -28,18 +28,17 @@
                 <!-- <title-modal :class="{ 'show': showTitle }" :content="'Click to Edit'" /> -->
                 <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
             </div>
-            <task-summary v-if="!viewTasks" :cmpsOrder="cmpsOrder" :tasks="group.tasks"
+            <task-summary v-if="!viewTasks" :isCollapsed="true" :cmpsOrder="cmpsOrder" :tasks="group.tasks"
                 class="task-footer group-collapsed" />
         </div>
 
-
-
-
-        <task-list v-if="viewTasks" @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks" @saveBoard="saveBoard"
+        <task-list v-if="viewTasks" :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard"
             :selectedTasks="selectedTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
             :priorities="priorities" :statuses="statuses" @addGroup="addGroup" @saveTask="saveTask"
             @removeTask="removeTask" />
+
     </section>
+
 </template>
 <script>
 import titleModal from './dynamic-modals/title-modal.vue'
