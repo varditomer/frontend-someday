@@ -119,6 +119,7 @@ export default {
         toggleSelectAll() {
             this.areAllSelected = !this.areAllSelected
             const formattedTasks = this.group.tasks.map(task => task._id)
+
             this.$emit('toggleSelectAllTasks', formattedTasks, this.group._id, this.areAllSelected)
         },
         addGroup() {
