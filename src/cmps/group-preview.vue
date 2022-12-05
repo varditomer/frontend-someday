@@ -31,7 +31,7 @@
                 class="task-footer group-collapsed" />
         </div>
 
-        <task-list v-if="viewTasks" :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard"
+        <task-list v-if="viewTasks" @toggleSelectAllTasks="toggleSelectAllTasks" @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard"
             :selectedTasks="selectedTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
             :priorities="priorities" :statuses="statuses" @addGroup="addGroup" @saveTask="saveTask"
             @removeTask="removeTask" />
