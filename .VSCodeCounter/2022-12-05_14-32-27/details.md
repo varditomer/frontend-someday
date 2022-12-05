@@ -56,7 +56,7 @@ Total : 99 files,  9713 codes, 216 comments, 911 blanks, all 10840 lines
 | [src/cmps/option-cmps/task-opt-modal.vue](/src/cmps/option-cmps/task-opt-modal.vue) | vue | 39 | 63 | 4 | 106 |
 | [src/cmps/regular-modal-cmps/color-picker-modal.vue](/src/cmps/regular-modal-cmps/color-picker-modal.vue) | vue | 35 | 0 | 2 | 37 |
 | [src/cmps/regular-modal-cmps/group-opt-modal.vue](/src/cmps/regular-modal-cmps/group-opt-modal.vue) | vue | 75 | 12 | 6 | 93 |
-| [src/cmps/regular-modal-cmps/person-select-modal.vue](/src/cmps/regular-modal-cmps/person-select-modal.vue) | vue | 30 | 0 | 3 | 33 |
+| [src/cmps/regular-modal-cmps/task-select-modal.vue](/src/cmps/regular-modal-cmps/task-select-modal.vue) | vue | 30 | 0 | 3 | 33 |
 | [src/cmps/task-columns/date.vue](/src/cmps/task-columns/date.vue) | vue | 44 | 0 | 1 | 45 |
 | [src/cmps/task-columns/labels.vue](/src/cmps/task-columns/labels.vue) | vue | 47 | 0 | 1 | 48 |
 | [src/cmps/task-columns/link.vue](/src/cmps/task-columns/link.vue) | vue | 32 | 1 | 2 | 35 |

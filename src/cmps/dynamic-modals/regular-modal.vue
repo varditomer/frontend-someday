@@ -3,7 +3,7 @@
         <component @unselectTasks="$emit('unselectTasks')" @updateSelection="updateSelection"
             :selectedTasks="selectedTasks" :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask"
             :users="users" @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :groupId="groupId"
-            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" />
+            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" @deleteMultiple="deleteSelectedTasks" />
     </section>
 </template>
 
@@ -12,12 +12,12 @@ import taskOptModal from '../option-cmps/task-opt-modal.vue';
 import groupOptModal from '../regular-modal-cmps/group-opt-modal.vue';
 import newItemModal from '../filter-modals-cmps/new-item-modal.vue';
 import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue';
-import personSelectModal from '../regular-modal-cmps/person-select-modal.vue';
+import taskSelectModal from '../regular-modal-cmps/task-select-modal.vue';
 import colorPickerModal from '../regular-modal-cmps/color-picker-modal.vue';
 export default {
 
     name: 'regular-modal',
-    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'unselectTasks', 'updateSelection', 'propagateMenu'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'unselectTasks', 'updateSelection', 'propagateMenu','deleteSelectedTasks'], //emit all types of dynamic cmps events
     props: {
         showModal: {
             type: Boolean,
@@ -81,6 +81,9 @@ export default {
         },
         propagateMenu() {
             this.$emit('propagateMenu')
+        },
+        deleteSelectedTasks(){
+            this.$emit('deleteSelectedTasks')
         }
     },
     components: { //specify each dynamic cmps thats created
@@ -88,7 +91,7 @@ export default {
         filterPersonModal,
         taskOptModal,
         groupOptModal,
-        personSelectModal,
+        taskSelectModal,
         colorPickerModal
     }
 }

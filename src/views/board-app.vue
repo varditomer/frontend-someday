@@ -4,8 +4,8 @@
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
         <section class='board-app-container'>
-            <regular-modal @unselectTasks="unselectTasks" :selectedTasks="selectedTasks" :showModal="showModal"
-                :cmp="'person-select-modal'" />
+            <regular-modal @unselectTasks="unselectTasks" :selectedTasks="selectedTasks"
+                @deleteSelectedTasks="deleteSelectedTasks" :showModal="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
             <group-list :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
@@ -78,6 +78,14 @@ export default {
         async saveSelectedTasks(taskId) {
             await this.$store.commit({ type: 'saveSelectedTasks', taskId })
             this.showModal = (this.selectedTasks.length) ? true : false
+        },
+        async deleteSelectedTasks() {
+            try {
+                await this.$store.dispatch({ type: 'removeTasks' })
+                this.unselectTasks()
+            } catch (err) {
+                console.log(`Cannot delete selected tasks`, err)
+            }
         },
         async unselectTasks() {
             this.uncheck = true
