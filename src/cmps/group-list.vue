@@ -89,7 +89,7 @@ export default {
             this.saveBoard()
         },
         addGroup() {
-            // this.$emit('addGroup')
+            this.$emit('addGroup', false)
             this.saveBoard()
         },
         saveSelectedTasks(taskId) {

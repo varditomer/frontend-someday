@@ -37,7 +37,7 @@ async function remove(group) {
     return removedGroup
 }
 
-async function save(group) {
+async function save(group, isFifo) {
     const { boardId } = group
     if (!group || !boardId) return Promise.reject('Cannot save group')
     const board = await boardService.queryBoard(boardId)
@@ -46,7 +46,7 @@ async function save(group) {
         const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)
         if (idx === -1) return Promise.reject('Group not found')
         board.groups[idx] = group
-    } else board.groups.unshift(_connectIds(group))
+    } else isFifo? board.groups.unshift(_connectIds(group)): board.groups.push(_connectIds(group))
     if (!(await boardService.save(board))) return Promise.reject('Cannot save group because board cannot be saved')
     return group
 }
@@ -113,7 +113,7 @@ function _getRandomColor() {
     const idx = utilService.getRandomIntInclusive(0, colorNames.length - 1)
     const color = colors[colorNames[idx]]
     const light = color + '99'
-    return {color, light}
+    return { color, light }
 }
 
 const colors = {
