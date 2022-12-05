@@ -304,6 +304,15 @@
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
+                &.liked {
+                    button{
+
+                        color: $primary-blue;
+                    }
+                    span {
+                        fill: $primary-blue;
+                    }
+                }
 
                 div {
                     display: flex;
@@ -326,7 +335,6 @@
                 grid-area: reply;
                 height: 100%;
                 width: 100%;
-                border-right: 1px solid $brdr-clr;
                 display: flex;
                 align-items: center;
                 justify-content: center;
