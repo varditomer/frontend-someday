@@ -12,10 +12,18 @@ export default {
   async created() {
     this.$store.commit({ type: 'setWorkspaceState' })
     await this.$store.dispatch({ type: 'getFirstBoard' })
-    await this.$store.dispatch({ type: 'loadUsers' })
     await this.$store.dispatch({ type: 'loadGroups' })
-    const user = userService.getLoggedinUser()
+
+    await this.$store.dispatch({ type: 'loadUsers' })
+    let user = userService.getLoggedinUser()
     if (user) store.commit({ type: 'setLoggedinUser', user })
+    else {
+      user = {
+        _id: 0,
+        fullname: 'Guest'
+      }
+      store.commit({ type: 'setLoggedinUser', user })
+    }
   },
   components: {
     userMsg

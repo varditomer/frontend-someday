@@ -37,7 +37,28 @@
                     <span v-svg-icon="'more'"></span>
                 </div>
                 <div class="comment-content">{{ comment.txt }}</div>
-                <div class="comment-reactions"></div>
+                <div class="comment-reactions">
+                    <div class="likes">
+                        <div class="liked-users">
+
+                            <!-- TODO: Make array of likes containing users -->
+                            <img src="src/assets/imgs/refael-avatar.png" alt="">
+                            <img src="src/assets/imgs/tomer-avatar.png" alt="">
+                            <img src="src/assets/imgs/default-avatar.svg" alt="">
+                            {{ loggedinUser }}
+                            <img v-for="user in users" :src="user.imgUrl" alt="">
+
+                            <!-- TODO: Put likes array in model -->
+                            <!-- {{ taskToEdit.comments[0].likes.userId }} -->
+
+                        </div>
+                        <p>Liked</p>
+                    </div>
+                    <div class="seen-count">
+                        <span v-svg-icon="'seen'"></span>
+                        <p>1 Seen</p>
+                    </div>
+                </div>
                 <div class="comment-like">
                     <div>
                         <span v-svg-icon="'like'"></span>
@@ -115,7 +136,7 @@ export default {
             imgUrls: [],
             imgToShow: '',
             isLoading: false,
-            isDragover: false
+            isDragover: false,
         }
     },
     async created() {
@@ -132,6 +153,12 @@ export default {
     computed: {
         board() {
             return this.$store.getters.board
+        },
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
+        },
+        users() {
+            return this.$store.getters.users
         }
     },
     methods: {

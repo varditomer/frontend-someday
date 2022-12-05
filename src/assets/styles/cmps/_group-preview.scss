@@ -1,16 +1,16 @@
 .group-preview {
     background-color: $clr-white;
-    
+
     &.ghost,
     .ghost {
         opacity: 0.2;
     }
-    
+
     &.task-dragged,
     .group-dragged {
         box-shadow: 0 0 30px 2px black;
         background-color: $clr-white;
-        opacity: .9;
+        opacity: 0.9;
     }
 
     position: relative;
@@ -24,20 +24,34 @@
         display: flex;
         align-items: center;
 
-
         &.collapse {
+            display: grid;
+            grid-template-columns: 36px 36px 450px 1fr;
             border: 1px solid $brdr-clr;
             height: 60px;
+            .task-footer{
+
+                &.group-collapsed {
+                    height: 100%;
+                    display: grid;
+                    background-color: #000 !important;
+                    grid-template-columns: repeat(auto-fill, 150px) !important;
+                    .footer-section {
+                        height:100%;
+                        background-color: #fff;
+                    }
+                }
+            }
 
             .options {
                 outline: 1px solid white;
                 width: 35px;
 
-                .dots{
+                .dots {
                     padding-bottom: 22px;
                 }
             }
-            
+
             .group-arrow {
                 left: 36px;
                 padding-bottom: 23px;
@@ -47,16 +61,13 @@
                 }
 
                 &.collapsed {
-
                     svg {
                         transform: rotateZ(-90deg);
                     }
-
                 }
             }
 
             .group-title-content {
-
                 margin-bottom: 5px;
                 flex-direction: column;
                 gap: 10px;
@@ -71,7 +82,6 @@
             }
         }
 
-
         .group-title-content {
             display: flex;
             align-items: center;
@@ -85,7 +95,6 @@
 
                 p {
                     width: 100px;
-
                 }
             }
 
@@ -104,7 +113,7 @@
                 }
 
                 &:focus {
-                    border-radius: .2em;
+                    border-radius: 0.2em;
                     outline: 1px solid $primary-blue;
                 }
             }
@@ -114,14 +123,12 @@
             left: 0px;
         }
 
-
-
         .options,
         .group-arrow {
             cursor: pointer;
             width: 36px;
             height: 100%;
-            transition: .4;
+            transition: 0.4;
             position: sticky;
             background-color: white;
 
@@ -130,11 +137,8 @@
             }
         }
 
-
         &:hover {
             .options {
-
-
                 span {
                     visibility: inherit;
                     height: 100%;
@@ -164,8 +168,6 @@
             }
         }
     }
-
-
 
     .highlight {
         background-color: $fltr-bgc;

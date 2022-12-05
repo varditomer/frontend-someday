@@ -11,7 +11,7 @@
             <group-list :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                 :users="users" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup" @addGroup="addGroup"
                 @saveBoard="saveBoard" @removeGroup="removeGroup" :board="board" :priorities="priorities"
-                :statuses="statuses" :watcher="boardUpdated"/>
+                :statuses="statuses" :watcher="boardUpdated" />
         </section>
         <router-view />
     </section>
@@ -118,6 +118,9 @@ export default {
         selectedTasks() {
             return this.$store.getters.selectedTasks
         },
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
+        }
     },
     data() {
         return {

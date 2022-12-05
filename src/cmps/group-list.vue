@@ -60,9 +60,9 @@ export default {
         eventBus.on('reload', board => this.boardCopy = JSON.parse(JSON.stringify(board)))
     },
     methods: {
-        minimizeGroups(minimize, ev) {
+        collapseGroups(collapse, ev) {
             // if (!ev?.item?.classList || !ev.item.classList[0] === 'group-preview') return
-            // eventBus.emit('collapse-groups', minimize)
+            // eventBus.emit('collapse-groups', collapse)
         },
         saveBoard() {
             this.beingDragged = false

@@ -25,8 +25,12 @@
                 <!-- <title-modal :class="{ 'show': showTitle }" :content="'Click to Edit'" /> -->
                 <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
             </div>
-
+            <task-summary v-if="!viewTasks" :cmpsOrder="cmpsOrder" :tasks="group.tasks" class="task-footer group-collapsed" />
         </div>
+
+
+
+
         <task-list v-if="viewTasks" :uncheck="uncheck" @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard"
             :selectedTasks="selectedTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
             :priorities="priorities" :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" />
@@ -37,6 +41,7 @@ import titleModal from './dynamic-modals/title-modal.vue'
 import taskList from './task-list.vue'
 import { eventBus } from '../services/event-bus.service.js'
 import regularModal from './dynamic-modals/regular-modal.vue'
+import taskSummary from './task-summary.vue'
 export default {
     name: 'group-preview',
     emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard'],
@@ -70,12 +75,12 @@ export default {
         }
     },
     mounted() {
-        eventBus.on('collapse-groups', minimizeGroups => {
-            this.viewTasks = !minimizeGroups
+        eventBus.on('collapse-groups', collapseGroups => {
+            this.viewTasks = !collapseGroups
         })
-        eventBus.on('collapse-single-group', ({ _id, minimizeGroup }) => {
-            // this.viewTasks = !minimizeGroup
-            if (this.group._id === _id) this.viewTasks = !minimizeGroup
+        eventBus.on('collapse-single-group', ({ _id, collapseGroup }) => {
+            // this.viewTasks = !collapseGroup
+            if (this.group._id === _id) this.viewTasks = !collapseGroup
         })
     },
     methods: {
@@ -146,7 +151,8 @@ export default {
     components: {
         taskList,
         regularModal,
-        titleModal
+        titleModal,
+        taskSummary
     }
 }
 </script>
