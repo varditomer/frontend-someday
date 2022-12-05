@@ -64,7 +64,7 @@ async function removeManyTasks(taskIds, boardId) {
     return board
 }
 
-async function save(group) {
+async function save(group, isFifo) {
     const { boardId } = group
     if (!group || !boardId) return Promise.reject('Cannot save group')
     const board = await boardService.queryBoard(boardId)
@@ -73,7 +73,7 @@ async function save(group) {
         const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)
         if (idx === -1) return Promise.reject('Group not found')
         board.groups[idx] = group
-    } else board.groups.unshift(_connectIds(group))
+    } else isFifo? board.groups.unshift(_connectIds(group)): board.groups.push(_connectIds(group))
     if (!(await boardService.save(board))) return Promise.reject('Cannot save group because board cannot be saved')
     return group
 }

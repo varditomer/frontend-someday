@@ -57,8 +57,8 @@ export default {
         addBoard() {
             this.$store.dispatch({ type: 'addBoard' })
         },
-        addGroup() {
-            this.$store.dispatch({ type: 'addGroup' })
+        addGroup(isFifo = true) {
+            this.$store.dispatch({ type: 'addGroup', isFifo })
         },
         setFilter(filter) {
             if (filter.userId && this.filterBy?.userId) {

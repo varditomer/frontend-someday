@@ -19,10 +19,10 @@
             </div>
 
         </li>
-        <draggable v-model="group.tasks" group="tasks" ghost-class="ghost" animation="200"
-            @start="beingDragged = true" :class="{ taskDragged: beingDragged }" @end="saveBoard" itemKey="element._id">
+        <draggable v-model="group.tasks" group="tasks" ghost-class="ghost" animation="200" @start="beingDragged = true"
+            :class="{ taskDragged: beingDragged }" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
-                <task-preview @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
+                <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users"
                     :uncheck="uncheck" :group="group" :additionalDb="additionalDb" @removeTask="removeTask" />
             </template>
@@ -41,7 +41,7 @@
             <span v-for="cmp in cmpsOrder" class="empty-fill-span"></span>
             <span class="empty-fill-span"></span>
         </li>
-        <task-summary :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer"/>
+        <task-summary :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer" />
     </ul>
 
 
@@ -52,7 +52,7 @@ import taskPreview from './task-preview.vue'
 import taskSummary from './task-summary.vue'
 export default {
     name: 'task-list',
-    emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard'],
+    emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard', 'addGroup'],
     props: {
         tasks: Array,
         cmpsOrder: Array,
@@ -118,6 +118,9 @@ export default {
         },
         saveSelectedTasks(taskId) {
             this.$emit('saveSelectedTasks', taskId)
+        },
+        addGroup() {
+            this.$emit('addGroup')
         }
     },
     computed: {

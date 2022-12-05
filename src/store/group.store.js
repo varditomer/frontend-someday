@@ -47,11 +47,11 @@ export const groupStore = {
                 console.log(`Cannot remove group`, err)
             }
         },
-        async addGroup({ commit }) {
+        async addGroup({ commit }, {isFifo}) {
             try {
                 const { _id } = this.getters.board
-                const group = await groupService.add(_id)
-                commit({ type: 'addGroup', group })
+                const group = await groupService.add(_id, isFifo)
+                commit({ type: 'addGroup', group, isFifo })
                 // eventBus.emit('reload', this.getters.board)
                 return group
             } catch (err) {

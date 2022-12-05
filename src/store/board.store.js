@@ -95,8 +95,8 @@ export const boardStore = {
             if (taskIdx < 0) return
             state.board.groups[groupIdx].tasks.splice(taskIdx, 1)
         },
-        addGroup(state, { group }) {
-            state.board.groups.unshift(group)
+        addGroup(state, { group, isFifo }) {
+            isFifo? state.board.groups.unshift(group): state.board.groups.push(group)
         },
         removeGroup(state, { group }) {
             var idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)
