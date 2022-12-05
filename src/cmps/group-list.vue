@@ -10,7 +10,15 @@
                     @saveGroup="saveGroup" @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" />
             </template>
         </draggable>
+
+        <button class="add-group-list-btn flex center" @click="addGroup">
+            <span v-svg-icon="'addbig'"></span>
+            <div>Add new group</div>
+        </button>
     </section>
+
+
+
 
 </template>
 <script>
@@ -20,7 +28,7 @@ import { eventBus } from '../services/event-bus.service'
 
 export default {
     name: 'group-list',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'addGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard'],
     props: {
         users: Array,
         board: Object,

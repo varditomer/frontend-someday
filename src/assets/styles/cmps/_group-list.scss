@@ -3,4 +3,27 @@
     overflow-y: auto;
     overflow-x: auto;
     max-height: calc(100vh - 180px);
+
+    .add-group-list-btn {
+        border-radius: 4px;
+        
+        border: 1px solid rgb(195, 198, 212);
+        padding: 4px 8px;
+        width: 143.5px;
+        height: 32px;
+        position: relative;
+        color: $layout-black;
+        font-size: rem(14px);
+        margin: 36px 0 76px 39px;
+        background-color: transparent;
+        svg {
+            margin-right: 8px;
+        }
+    
+        &:hover {
+            background-color: $modal-hover-clr;
+        }
+    }
+
 }
+
