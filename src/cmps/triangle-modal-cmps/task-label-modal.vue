@@ -5,7 +5,7 @@
             <!-- <span v-svg-icon="'changeColor'" class="change-color" @click.stop=""></span> -->
             {{ label.title === 'Default' ? '' : label.title }}
         </span>
-        <regular-modal :cmp="'color-picker-modal'" :showModal="showColorPicker" :color="''"/>
+        <regular-modal :cmp="'color-picker-modal'" :showModal="true" :color="''" @updateSelection="updateProperty" />
     </section>
 </template>
 
@@ -31,6 +31,8 @@ export default {
         updateTask(val) {
             const key = this.name
             this.$emit('updateTask', { key, val })
+        },
+        updateProperty(value) {
         }
     },
     computed: {

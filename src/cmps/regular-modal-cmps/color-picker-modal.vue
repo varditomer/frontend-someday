@@ -13,15 +13,12 @@ export default {
     props: {
         selectedColor: {
             type: String,
-            required: true,
+            required: false,
         }
     },
     data() {
         return {
         }
-    },
-    created() {
-        console.log(`this.priorities`, this.priorities)
     },
     methods: {
         select(value){

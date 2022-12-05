@@ -1,6 +1,6 @@
 <template>
     <section v-if="showModal" v-click-outside="closeModal" @keydown.escape="closeModal" class='regular-modal'>
-        <component @unselectTasks="$emit('unselectTasks')" :selectedTasks="selectedTasks" :filterBy="filterBy"
+        <component @unselectTasks="$emit('unselectTasks')" @updateSelection="updateSelection" :selectedTasks="selectedTasks" :filterBy="filterBy"
             @filter="filter" :is="cmp" @openTask="openTask" :users="users" @removeTask="removeTask" @addGroup="addGroup"
             @removeGroup="removeGroup" :groupId="groupId" @editGroupTitle="editGroupTitle" :color="color"/>
     </section>
@@ -16,7 +16,7 @@ import colorPickerModal from '../regular-modal-cmps/color-picker-modal.vue';
 export default {
 
     name: 'regular-modal',
-    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'unselectTasks'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'unselectTasks','updateSelection'], //emit all types of dynamic cmps events
     props: {
         showModal: {
             type: Boolean,
@@ -55,7 +55,6 @@ export default {
     },
     methods: {
         closeModal() {
-            console.log(`modelClose:`)
             this.$emit('closeModal')
         },
         openTask() {
@@ -75,8 +74,10 @@ export default {
         },
         editGroupTitle() {
             this.$emit('editGroupTitle')
+        },
+        updateSelection(value){
+            this.$emit('updateSelection', value)
         }
-
     },
     components: { //specify each dynamic cmps thats created
         newItemModal,
