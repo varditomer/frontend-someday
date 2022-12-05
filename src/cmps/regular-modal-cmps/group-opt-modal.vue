@@ -39,12 +39,12 @@
                     <p class="title">Rename group</p>
                 </div>
             </div>
-            <!-- <div class="modal-item flex align-center" @click="changeGroupColor">
+            <div class="modal-item flex align-center" @click="propagateMenu">
                 <div class="flex align-center">
-                    <span v-svg-icon="'board'"></span>
+                    <span class="group-color" :style="{  backgroundColor:  selectedColor  }"></span>
                     <p class="title">Change group color</p>
                 </div>
-            </div> -->
+            </div>
             <div class="modal-item flex align-center delete-group" @click="removeGroup">
                 <div class="flex align-center">
                     <span v-svg-icon="'delete'"></span>
@@ -60,9 +60,10 @@
 import { eventBus } from '../../services/event-bus.service';
 export default {
     name: 'group-opt-modal',
-    emits: ['addGroup', 'editGroupTitle', 'removeGroup'],
+    emits: ['addGroup', 'editGroupTitle', 'removeGroup','propagateMenu'],
     props: {
         groupId: String,
+        selectedColor: String,
     },
     data() {
         return {}
@@ -86,6 +87,9 @@ export default {
         },
         removeGroup() {
             this.$emit('removeGroup')
+        },
+        propagateMenu() {
+            this.$emit('propagateMenu')
         }
     },
     components: {}

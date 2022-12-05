@@ -149,6 +149,14 @@
             border-bottom: 1px solid $hr-clr;
         }
 
+        .group-color {
+            border-radius: 50%;
+            width: 14px;
+            height: 14px;
+        }
+
+
+
         .lowest-group {
 
             .delete-group {
@@ -163,6 +171,20 @@
                     }
 
                 }
+            }
+        }
+    }
+
+    &.group-color-picker {
+        .color-picker {
+            top: 14px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            z-index: 5000000;
+
+            .color-box {
+                @include little-box;
             }
         }
     }

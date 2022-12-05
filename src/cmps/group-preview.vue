@@ -1,14 +1,15 @@
 <template>
 
     <section class='group-preview' @keydown.escape="(showModal = false)">
-        <regular-modal v-if="showModal" :groupId="group._id" :showModal="showModal" @closeModal="(showModal = false)"
+        <regular-modal v-if="showModal" :groupId="group._id" :selectedColor="group.style.color" :showModal="showModal" @closeModal="(showModal = false)"
             @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
-            @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle" />
+            @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
+            @propagateMenu="showColorPicker = true" />
 
         <div class="group-title flex align-center" :class="{ collapse: !viewTasks }"
             @keydown.escape="(showModal = false)">
 
-            
+
             <div class="options flex center">
                 <span class="dots hidden" @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
             </div>
@@ -22,10 +23,12 @@
                     contenteditable @input="saveGroup($event.target.innerText, 'title')"
                     :style="{ color: group.style.color }" v-html="group.title" ref="title">
                 </h4>
+                <regular-modal class="group-color-picker" :cmp="'color-picker-modal'" :selectedColor="group.style.color" :showModal="showColorPicker" @updateSelection="saveGroup"/>
                 <!-- <title-modal :class="{ 'show': showTitle }" :content="'Click to Edit'" /> -->
                 <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
             </div>
-            <task-summary v-if="!viewTasks" :cmpsOrder="cmpsOrder" :tasks="group.tasks" class="task-footer group-collapsed" />
+            <task-summary v-if="!viewTasks" :cmpsOrder="cmpsOrder" :tasks="group.tasks"
+                class="task-footer group-collapsed" />
         </div>
 
 
@@ -72,6 +75,7 @@ export default {
             showModal: false,
             isEditing: false,
             showTitle: false,
+            showColorPicker: false
         }
     },
     mounted() {

@@ -1,8 +1,9 @@
 <template>
     <section v-if="showModal" v-click-outside="closeModal" @keydown.escape="closeModal" class='regular-modal'>
-        <component @unselectTasks="$emit('unselectTasks')" @updateSelection="updateSelection" :selectedTasks="selectedTasks" :filterBy="filterBy"
-            @filter="filter" :is="cmp" @openTask="openTask" :users="users" @removeTask="removeTask" @addGroup="addGroup"
-            @removeGroup="removeGroup" :groupId="groupId" @editGroupTitle="editGroupTitle" :color="color"/>
+        <component @unselectTasks="$emit('unselectTasks')" @updateSelection="updateSelection"
+            :selectedTasks="selectedTasks" :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask"
+            :users="users" @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :groupId="groupId"
+            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" />
     </section>
 </template>
 
@@ -16,7 +17,7 @@ import colorPickerModal from '../regular-modal-cmps/color-picker-modal.vue';
 export default {
 
     name: 'regular-modal',
-    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'unselectTasks','updateSelection'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'unselectTasks', 'updateSelection', 'propagateMenu'], //emit all types of dynamic cmps events
     props: {
         showModal: {
             type: Boolean,
@@ -42,9 +43,9 @@ export default {
             type: Array,
             require: false
         },
-        color: {
+        selectedColor: {
             type: String,
-            reduired: true,
+            reduired: false,
         },
 
     },
@@ -75,8 +76,11 @@ export default {
         editGroupTitle() {
             this.$emit('editGroupTitle')
         },
-        updateSelection(value){
-            this.$emit('updateSelection', value)
+        updateSelection(value) {
+            this.$emit('updateSelection', { color: value, light: value + '99' }, 'style')
+        },
+        propagateMenu() {
+            this.$emit('propagateMenu')
         }
     },
     components: { //specify each dynamic cmps thats created
