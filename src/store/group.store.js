@@ -51,8 +51,8 @@ export const groupStore = {
             try {
                 const { _id } = this.getters.board
                 const group = await groupService.add(_id)
-                await commit({ type: 'addGroup', group })
-                eventBus.emit('reload', this.getters.board)
+                commit({ type: 'addGroup', group })
+                // eventBus.emit('reload', this.getters.board)
                 return group
             } catch (err) {
                 console.log(`Cannot add group at store`, err)

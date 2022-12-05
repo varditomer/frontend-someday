@@ -98,6 +98,7 @@ export const boardStore = {
             group.tasks.splice(idx, 1)
         },
         addGroup(state, { group }) {
+            console.log(`groupskdjvnksjdnvksdj`, group)
             state.board.groups.unshift(group)
         },
         removeGroup(state, { group }) {

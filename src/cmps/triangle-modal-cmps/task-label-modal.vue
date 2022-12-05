@@ -5,10 +5,12 @@
             <!-- <span v-svg-icon="'changeColor'" class="change-color" @click.stop=""></span> -->
             {{ label.title === 'Default' ? '' : label.title }}
         </span>
+        <colorPicker selectedColor="''"/>
     </section>
 </template>
 
 <script>
+import colorPicker from '../regular-modal-cmps/color-picker-modal.vue'
 export default {
     name: 'label-picker-modal',
     props: {
@@ -43,6 +45,7 @@ export default {
         }
     },
     components: {
+        colorPicker
     },
 }
 </script>
