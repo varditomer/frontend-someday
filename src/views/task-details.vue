@@ -60,9 +60,9 @@
                         <p>1 Seen</p>
                     </div>
                 </div>
-                <div class="comment-like" @click="likeComment(idx)" :class="{liked: comment.likes.includes(`${loggedinUser._id}`)}">
+                <div class="comment-like" @click="likeComment(idx)" :class="{liked: comment?.likes?.includes(`${loggedinUser._id}`)}">
                     <div>
-                        <span v-if="comment.likes.includes(`${loggedinUser._id}`)" v-svg-icon="'filledLike'"></span>
+                        <span v-if="comment?.likes?.includes(`${loggedinUser._id}`)" v-svg-icon="'filledLike'"></span>
                         <span v-else v-svg-icon="'like'"></span>
                         <button>Like</button>
                     </div>
@@ -227,21 +227,19 @@ export default {
             return this.users.find(user => user._id === userId).imgUrl
         },
         likeComment(commentIdx) {
-            if (!this.taskToEdit.comments[commentIdx].likes) {
-                this.taskToEdit.comments[commentIdx].likes = []
+            const task = JSON.parse(JSON.stringify(this.taskToEdit))
+            if (!task.comments[commentIdx].likes) {
+                task.comments[commentIdx].likes = []
             }
             const loggedinUserId = this.loggedinUser._id
-            const taskToEdit = this.taskToEdit
-            const idx = taskToEdit.comments[commentIdx].likes.findIndex(likeId => likeId === `${loggedinUserId}`)
-            console.log(`taskToEdit.comments[commentIdx].likes:`, taskToEdit.comments[commentIdx].likes)
-            console.log(`idx:`, idx)
-            if (idx !== -1) this.taskToEdit.comments[commentIdx].likes.splice(idx, 1)
+            const idx = task.comments[commentIdx].likes.findIndex(likeId => likeId === `${loggedinUserId}`)
+            if (idx !== -1) task.comments[commentIdx].likes.splice(idx, 1)
             else {
-                this.taskToEdit.comments[commentIdx].likes.unshift(`${loggedinUserId}`)
+                task.comments[commentIdx].likes.unshift(`${loggedinUserId}`)
                 this.showLiked
             }
-            console.log(`taskToEdit:`, taskToEdit)
-            this.$store.dispatch({ type: 'saveTask', task: taskToEdit })
+            this.taskToEdit = task
+            this.$store.dispatch({ type: 'saveTask', task })
         }
     },
     components: {

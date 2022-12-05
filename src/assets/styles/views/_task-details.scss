@@ -308,9 +308,11 @@
                     button{
 
                         color: $primary-blue;
+                        padding-right: 1px;
                     }
                     span {
                         fill: $primary-blue;
+                        scale: 1.1;
                     }
                 }
 
