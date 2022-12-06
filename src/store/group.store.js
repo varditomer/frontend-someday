@@ -47,7 +47,7 @@ export const groupStore = {
                 console.log(`Cannot remove group`, err)
             }
         },
-        async addGroup({ commit }, {isFifo}) {
+        async addGroup({ commit }, { isFifo }) {
             try {
                 const { _id } = this.getters.board
                 const group = await groupService.add(_id, isFifo)
@@ -58,12 +58,11 @@ export const groupStore = {
                 console.log(`Cannot add group at store`, err)
             }
         },
-        async duplicateGroup({ commit }, {group}) {
+        async duplicateGroup({ commit }, { group }) {
             try {
-                const group = await groupService.duplicate(group)
-                const isFifo = true
-                commit({ type: 'addGroup', group, isFifo })
-                return group
+                const duplicatedGroup = await groupService.duplicate(group)
+                commit({ type: 'addGroup', group: duplicatedGroup, isFifo: true })
+                return duplicatedGroup
             } catch (err) {
                 console.log(`Cannot duplicate group at store`, err)
             }

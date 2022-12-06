@@ -18,7 +18,7 @@ import colorPickerModal from '../regular-modal-cmps/color-picker-modal.vue';
 export default {
 
     name: 'regular-modal',
-    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu','deleteSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu','deleteSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup'], //emit all types of dynamic cmps events
     props: {
         showModal: {
             type: Boolean,
