@@ -1,11 +1,14 @@
 <template>
     <section class="task-label-modal">
-        <div v-for="label in getFormattedLabels" class="color-box">
-            <span :class="label.pClass" :style="label.style"
-                @click="updateTask(label.title)">
-                <!-- <span v-svg-icon="'changeColor'" class="change-color" @click.stop=""></span> -->
+        <div v-for="(label, idx) in getFormattedLabels" class="color-box" :class="{ 'on-edit': isBeingEditted }">
+            <span :class="label.pClass" :style="label.style" @click="(renderModal(idx))">
+                <span v-if="isBeingEditted" v-svg-icon="'changeColor'" class="change-color"></span>
             </span>
-            <span class="name">{{ label.title === 'Default' ? '' : label.title }}</span>
+            <span class="name" :class="{ 'on-edit': isBeingEditted }" :contenteditable="isBeingEditted"
+                @blur="updateLabels(idx, 'title', $event.target.innerText)">
+                {{ label.title !== 'Default' ? label.title : isBeingEditted ? 'Default' : '' }}
+            </span>
+            <regular-modal :cmp="'color-picker-modal'" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateProperty" />
         </div>
         <span class="label-btn flex helper">
             <div class="flex center" @click="toggleEdit">
@@ -13,7 +16,6 @@
                 {{ isBeingEditted ? 'Apply' : 'Edit Labels' }}
             </div>
         </span>
-        <regular-modal :cmp="'color-picker-modal'" :showModal="false" :color="''" @updateSelection="updateProperty" />
     </section>
 </template>
 
@@ -33,7 +35,9 @@ export default {
     data() {
         return {
             showColorPicker: false,
-            isBeingEditted: false
+            isBeingEditted: false,
+            updatedDb: [],
+            selectedIdx: -1
         }
     },
     methods: {
@@ -48,7 +52,18 @@ export default {
             if (!this.isBeingEditted) this.saveChoice()
         },
         saveChoice() {
-
+            console.log(`this.updatedDb`, this.updatedDb)
+        },
+        updateLabels(labelIdx, key, val) {
+            this.updatedDb = this.additionalDb.map((label, idx) => {
+                const newLabel = {...label}
+                if (idx === labelIdx) newLabel[key] = val
+                return newLabel
+            })
+        },
+        renderModal(idx){
+            this.showColorPicker = true; 
+            this.selectedIdx = idx
         }
     },
     computed: {
@@ -56,7 +71,7 @@ export default {
 
             if (!this.additionalDb?.length) return []
             return this.additionalDb.map(label => {
-                const pClass = `label ${this.isBeingEditted ? 'onEdit' : ''}`
+                const pClass = `label ${this.isBeingEditted ? 'on-edit' : ''}`
                 const style = { backgroundColor: label.color }
                 const { title } = label
                 return { title, pClass, style }
