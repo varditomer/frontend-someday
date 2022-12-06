@@ -41,7 +41,28 @@ async function save(activity) {
         byUser,
         createdAt: Date.now()
     }
-    return await storageService.post(ACTIVITY_STORAGE_KEY, savedActivity)
+    if (key === 'person') {
+        savedActivity.from = _getPerson(oldVal, newVal)
+    }
+
+    return await storageService.post(ACTIVITY_STORAGE_KEY, savedActivity, true)
+}
+
+function _getPerson(oldVal, newVal) {
+    let user
+    if (oldVal.length < newVal.length) {
+        user = newVal.filter(person => {
+            oldVal.find(newPerson => newPerson._id !== person._id)
+        })
+        if (!user.length) user = newVal
+        return { name: user[0].fullname, txt: 'Added' }
+    } else {
+        user = oldVal.filter(person => {
+            return !newVal.find(newPerson => newPerson._id === person._id)
+        })
+        console.log(user);
+        return { name: user[0].fullname, txt: 'Removed' }
+    }
 }
 
 // utilService.saveToStorage(ACTIVITY_STORAGE_KEY, activities)

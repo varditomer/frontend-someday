@@ -18,10 +18,37 @@ export const boardService = {
     remove,
     saveToSessionStorage,
     loadFromSessionStorage,
-    multiFilter
+    multiFilter,
+    getFilterMap
 }
 window.bs = boardService
 
+
+
+async function getFilterMap(boardId) {
+    const board = await queryBoard(boardId)
+    const personFilter = userService.getUsers().map(user => user._id)
+    const groupTitle = []
+    const taskFilter = {
+        status: [],
+        priority: [],
+        date: [],
+        text: [],
+        numbers: []
+    }
+    board.groups.forEach(group => {
+        if (!groupTitle.includes(group.title)) groupTitle.push(group.title)
+        group.tasks.forEach(task => {
+            for (let prop in taskFilter) {
+                if (!taskFilter[prop].includes(task[prop])) taskFilter[prop].push(task[prop])
+            }
+        })
+    })
+    return {
+        groupTitle,
+        tasks: { ...taskFilter, person: personFilter }
+    }
+}
 
 async function getFirstBoard() {
     let boards = await storageService.query(BOARD_STORAGE_KEY)
@@ -101,7 +128,8 @@ function _filterByTxt(board, txt) {
     return board
 }
 
-function multiFilter(filterBy, board) {
+async function multiFilter(filterBy, boardId) {
+    const board = await queryBoard(boardId)
     board.groups = board.groups.reduce((filteredGroups, group) => {
         if (filterBy?.groupTitle && filterBy.groupTitle !== group.title) return filteredGroups
         if (filterBy.tasks) group.tasks = group.tasks.reduce((filteredTasks, task) => {

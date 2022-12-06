@@ -11,7 +11,6 @@
     width: 570px;
     right: 0;
 
-
     .upload-files {
         padding: 24px 20px 0;
 
@@ -52,7 +51,6 @@
                 }
 
                 .cta-container-subtitle {
-
                     text-align: center;
                     font-size: rem(14px);
                     margin-bottom: 24px;
@@ -116,7 +114,7 @@
             box-shadow: inset 0px -2px 0px 0px #0373ea;
         }
 
-        >* {
+        > * {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -265,8 +263,6 @@
                     }
 
                     .liked-users {
-
-
                         img {
                             border-radius: 2em;
                             border: 1px solid white;
@@ -292,7 +288,6 @@
                         padding-bottom: 2px;
                     }
                 }
-
             }
 
             .comment-like {
@@ -307,7 +302,6 @@
 
                 &.liked {
                     button {
-
                         color: $primary-blue;
                         padding-right: 1px;
                     }
@@ -364,11 +358,10 @@
     }
 
     .activity-log {
-
         .activities-list {
             padding: 25px;
 
-            >*:not(:last-child) {
+            > *:not(:last-child) {
                 border-bottom: 1px solid $brdr-clr;
             }
 
@@ -377,12 +370,14 @@
                 display: flex;
                 align-items: center;
 
-                >* {
+                > * {
                     display: flex;
                     align-items: center;
                 }
 
                 .created-time {
+                    width: 56px;
+
                     p {
                         font-size: 14px;
                         font-family: roboto-light;
@@ -391,32 +386,34 @@
                     }
 
                     span {
-                        scale: .8;
+                        scale: 0.8;
                         position: relative;
                         bottom: 4px;
                     }
                 }
 
                 .user {
-                    width: 50%;
+                    flex-basis: 35%;
 
                     img {
                         width: 30px;
                         height: 30px;
                         margin-right: 8px;
                         margin-left: 6px;
-
                     }
 
                     p {
                         font-size: 14px;
                         font-family: roboto-light;
+                        width: 50% !important;
+                        @include ellipsis;
                     }
                 }
 
                 .activity {
                     display: flex;
                     align-items: center;
+                    flex-basis: 20%;
 
                     span {
                         margin-right: 3px;
@@ -424,23 +421,24 @@
 
                     p {
                         font-size: 14px;
-                        width: 70%;
                         font-family: roboto-light;
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
+                        @include ellipsis;
                         text-transform: capitalize;
+                    }
+
+                }
+
+                .person-activity {
+                    margin: auto;
+                    p {
+                        @include ellipsis(14px,100%);
+                        font-family: roboto-light;
                     }
                 }
 
                 .activity-change {
-                    display: flex;
-                    align-items: center;
                     height: 100%;
-
-                    .from {
-                        margin-left: 30px;
-                    }
+                    margin: auto;
 
                     .from,
                     .to {
@@ -450,13 +448,10 @@
                         height: 60%;
                         width: 60px;
 
-
                         p {
                             text-align: center;
                             font-size: rem(14px);
-                            overflow: hidden;
-                            white-space: nowrap;
-                            text-overflow: ellipsis;
+                            @include ellipsis;
                             width: 80%;
                             color: white;
 
@@ -466,18 +461,13 @@
                         }
                     }
 
-
                     span {
                         flex-grow: 1;
                     }
                 }
             }
-
-
-
         }
     }
-
 }
 
 .black-screen {
@@ -487,11 +477,10 @@
     background-color: $primary-brand;
     z-index: 10000;
     opacity: 0;
-    transition: .1s;
+    transition: 0.1s;
     pointer-events: none;
 
     &.show {
-        opacity: 0.50;
+        opacity: 0.5;
     }
-
 }

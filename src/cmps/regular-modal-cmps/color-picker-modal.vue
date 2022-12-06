@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { groupColors } from '../../data/color-picker.js'
+import { groupColors , labelColors } from '../../data/color-picker.js'
 export default {
     name: '',
     emits: ['updateSelection'],
@@ -14,6 +14,11 @@ export default {
         selectedColor: {
             type: String,
             required: false,
+        },
+        idx :Number,
+        target: {
+            type: String,
+            required: true
         }
     },
     data() {
@@ -22,12 +27,17 @@ export default {
     },
     methods: {
         select(value){
-            this.$emit('updateSelection', value)
+            const colors= Object.keys(this.colors)
+            const colorName = colors.find(key => this.colors[key] === value)
+            this.$emit('updateSelection', this.idx, 'color', value)
+            this.$emit('updateSelection', this.idx, 'colorName', colorName)
         }
     },
     computed: {
         colors() {
-            return groupColors
+            return this.target === 'group'
+                ? groupColors
+                : labelColors
         }
     },
     components: {

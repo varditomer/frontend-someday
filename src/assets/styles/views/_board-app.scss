@@ -2,4 +2,8 @@
     display: grid;
     position: relative;
     grid-template-rows: 186px 1fr;
+
+    &.folded{
+        margin-right: 570px;
+    }
 }

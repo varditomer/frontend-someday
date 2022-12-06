@@ -29,8 +29,7 @@
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     :isSelected="selectedTasks.includes(element._id)" @update-task="updateTask" :sort="true"
                     :task="element" :cmpsOrder="cmpsOrder" :users="users" :group="group" :additionalDb="additionalDb"
-                    @removeTask="removeTask" @editing="(editing = true)" @editDone="(editing = false)"
-                    :areAllChecked="allCheckedClicked" />
+                    @removeTask="removeTask" @duplicateTask="duplicateTask" @editing="(editing = true)" @editDone="(editing = false)" :areAllChecked="allCheckedClicked" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -60,7 +59,7 @@ import taskSummary from './task-summary.vue'
 import { eventBus } from '../services/event-bus.service.js'
 export default {
     name: 'task-list',
-    emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks'],
+    emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks', 'duplicateTask'],
     props: {
         tasks: Array,
         cmpsOrder: Array,
@@ -122,11 +121,14 @@ export default {
         removeTask(task) {
             this.$emit('removeTask', task)
         },
+        duplicateTask(task) {
+            this.$emit('duplicateTask', task)
+        },
         updateTask(task, activity) {
             this.$emit('saveTask', task, activity)
         },
         async saveBoard(ev) {
-            this.$emit('saveBoard')
+            this.$emit('saveBoard', this.cmpsOrder)
         },
         saveSelectedTasks(taskId) {
             this.areAllChecked = false

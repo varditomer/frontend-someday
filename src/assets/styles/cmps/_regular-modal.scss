@@ -127,6 +127,9 @@
 
     .task-opt-modal {
         top: 36px;
+        .upper-group {
+            border-bottom: 1px solid $hr-clr;
+        }
     }
 
     .modal-group {
@@ -259,6 +262,12 @@
             justify-content: center;
 
             .delete-tasks-btn {
+                scale: .8;
+                position: relative;
+                top: 6px;
+                fill: $layout-gray;
+            }
+            .duplicate-tasks-btn {
                 scale: .8;
                 position: relative;
                 top: 6px;

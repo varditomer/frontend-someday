@@ -48,6 +48,7 @@ export const boardStore = {
         miniBoards({ miniBoards }) { return miniBoards },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         filterBy({ filterBy }) { return filterBy },
+        filterMap({ board }) { return boardService.getFilterMap(board._id) },
     },
     mutations: {
         setBoard(state, { board }) {
@@ -79,7 +80,9 @@ export const boardStore = {
             board.msgs.push(msg)
         },
         saveTask(state, { taskToSave }) {
+            console.log(`taskToSave:`, taskToSave)
             const { task, bool } = taskToSave
+            console.log(`task:`, task)
             const groupIdx = state.board.groups.findIndex(group => group._id === task.groupId)
             if (groupIdx === -1) return null
             const taskIdx = state.board.groups[groupIdx].tasks.findIndex(anyTask => anyTask._id === task._id)
@@ -176,6 +179,14 @@ export const boardStore = {
                 console.log('Could not find board');
             }
 
+        },
+        async multiFilteredBoard({ commit }, { multiFilter, boardId }) {
+            try {
+                const board = await boardService.multiFilter(multiFilter, boardId)
+                commit({ type: 'setBoard', board })
+            } catch (err) {
+                console.log('Cannot load filtered board')
+            }
         },
         async removeBoard({ commit }, { boardId }) {
             try {

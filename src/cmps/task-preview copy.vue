@@ -1,11 +1,10 @@
 <template>
-    <li class="task-preview" ref="line" :class="{ beingEdit: areAllChecked || editing || isChecked }">
+    <section class="li-wrapper" ref="line" :class="{ beingEdit: areAllChecked || editing || isChecked }">
         <regular-modal :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
             @closeModal="(showModal = false)" :showModal="showModal" @taskTitleToClipboard="copyToClipboard(task.title)"
-            v-click-outside="unSelectLine" @linkToClipboard="copyToClipboard(task.link.url)"
-            @duplicateTask="duplicateTask" />
+            @linkToClipboard="copyToClipboard(task.link.url)" />
 
-        <section class="static">
+        <li class="content-li" v-click-outside="unSelectLine">
 
             <div class="options flex center">
                 <span class="hidden" @click="lineOptions" v-svg-icon="'fatMore'"></span>
@@ -14,27 +13,27 @@
                 :class="{ beingEdit: areAllChecked || editing || isChecked }">
                 <input :checked="isSelected" ref="checkbox" @click="selectTask(task._id)" type="checkbox" />
             </span>
-            <!-- <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)"> -->
-            <div class="task-title-item" :class="{ beingEdit: areAllChecked || editing || isChecked }">
-
-                <p @blur="updateTask({ key: 'title', val: $event.target.innerText })"
-                    @keydown.enter.prevent="updateTask({ key: 'title', val: $event.target.innerText })"
-                    @click.prevent="" class="task-title" contenteditable="true" v-html="task.title"></p>
-            </div>
-            <span v-if="task.comments?.length" class="task-comment-icon count-comment">
-                <span v-svg-icon="'commentCount'"></span>
-                <span class="task-comments-length">{{ task.comments.length }}</span>
-            </span>
-            <span v-else v-svg-icon="'addComment'" class="task-comment-icon"></span>
-        </section>
-        <!-- </router-link> -->
-        <section class="dynamic">
+            <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
+                <div class="task-title-item" :class="{ beingEdit: areAllChecked || editing || isChecked }">
+                    <span>
+                        <p @blur="updateTask({ key: 'title', val: $event.target.innerText })"
+                            @keydown.enter.prevent="updateTask({ key: 'title', val: $event.target.innerText })"
+                            @click.prevent="" class="task-title" contenteditable="true" v-html="task.title"></p>
+                    </span>
+                    <span v-if="task.comments?.length" class="task-comment-icon count-comment">
+                        <span v-svg-icon="'commentCount'"></span>
+                        <span class="task-comments-length">{{ task.comments.length }}</span>
+                    </span>
+                    <span v-else v-svg-icon="'addComment'" class="task-comment-icon"></span>
+                </div>
+            </router-link>
             <component v-for="(column, idx) in formattedData" :is="column.cmpName + 'Task'" :content="column.content"
                 :name="column.name" :additionalDb="column.additionalDb" :color="group.style.color" :key="idx"
                 @updateTask="updateTask" @editing="setIsEditing">
             </component>
-        </section>
-    </li>
+            <span class="empty-span"></span>
+        </li>
+    </section>
 </template>
 <script>
 import dateTask from './task-columns/date-task.vue'
@@ -49,7 +48,7 @@ import textTask from './task-columns/text-task.vue'
 
 export default {
     name: 'task-preview',
-    emits: ['updateTask', 'removeTask', 'saveSelectedTasks', 'duplicateTask'],
+    emits: ['updateTask', 'removeTask', 'saveSelectedTasks'],
     props: {
         task: Object,
         cmpsOrder: Array,
@@ -157,11 +156,7 @@ export default {
         },
         unSelectLine() {
             this.editing = false
-        },
-        duplicateTask() {
-            this.$emit('duplicateTask', this.task)
         }
-
     },
 
     watch: {
@@ -171,7 +166,7 @@ export default {
             } else {
                 this.isChecked = false
             }
-
+            
         },
     },
     components: {

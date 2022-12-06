@@ -3,8 +3,8 @@ import { taskService } from '../services/task.service.js'
 export const taskStore = {
     state() {
         return {
-            taskToEdit: null,
             selectedTasks: [],
+            selectedTaskColors: [],
             priorities: [
                 { title: 'Critical', color: '#333333', colorName: '$clr-blackish' },
                 { title: 'High', color: '#401694', colorName: '$clr-dark-indigo' },
@@ -22,34 +22,47 @@ export const taskStore = {
         }
     },
     mutations: {
-        setTask(state, { taskToEdit }) {
-            state.taskToEdit = taskToEdit
-        },
         saveSelectedTasks(state, { taskId }) {
             if (state.selectedTasks.includes(taskId)) {
                 const idx = state.selectedTasks.indexOf(taskId)
                 state.selectedTasks.splice(idx, 1)
+                state.selectedTaskColors.splice(state.selectedTaskColors.length - 1, 1)
             } else {
                 state.selectedTasks.push(taskId)
+                const groups = this.getters.board.groups
+                const taskGroup = groups.tasks.filter(task=>task._id === taskId)
+
             }
+            const groups = this.getters.board.groups
+            console.log(`groups:`, groups)
+            console.log(`state.selectedTasks:`, state.selectedTasks)
+
+            const includedGroups = group.filter(tasks => {
+                task.filter(task => task._id === selectedTask._id)
+            })
+
+
         },
         unselectTasks(state) {
             state.selectedTasks = []
         },
         toggleSelectAllTasks(state, { tasks, groupId, areAllSelected }) {
-            state.selectedTasks = state.selectedTasks.reduce((taskIds, task) => { 
+            state.selectedTasks = state.selectedTasks.reduce((taskIds, task) => {
                 if (!tasks.includes(task)) taskIds.push(task)
-                    return taskIds
-                }, [])
-                if (areAllSelected) state.selectedTasks.unshift(...tasks)
+                return taskIds
+            }, [])
+            if (areAllSelected) state.selectedTasks.unshift(...tasks)
 
         }
     },
     getters: {
-        taskToEdit({ taskToEdit }) { return taskToEdit },
         priorities({ priorities }) { return priorities },
         statuses({ statuses }) { return statuses },
         selectedTasks({ selectedTasks }) { return selectedTasks },
+        getSelectedTasksColorsByIds({ selectedTasks }) {
+            // console.log(`selectedTasks:`, selectedTasks)
+            return selectedTasks
+        }
     },
     actions: {
         async loadTask(context, { taskId }) {
@@ -89,6 +102,16 @@ export const taskStore = {
                 commit({ type: 'removeTask', task })
             } catch (err) {
                 console.log(`Cannot remove task: ${err}`)
+            }
+        },
+        async duplicateTask({ commit }, { task }) {
+            try {
+                console.log(`task:`, task)
+                const duplicatedTask = await taskService.duplicate(task)
+                const taskToSave = { task: duplicatedTask, bool: true }
+                commit({ type: 'saveTask', taskToSave: taskToSave })
+            } catch (err) {
+                console.log(`Cannot duplicate task: ${err}`)
             }
         }
     },

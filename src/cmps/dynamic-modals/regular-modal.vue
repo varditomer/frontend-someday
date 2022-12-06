@@ -1,24 +1,25 @@
 <template>
     <section v-if="showModal"  @keydown.escape="closeModal" class='regular-modal' v-click-outside="closeModal">
         
-        <component @updateSelection="updateSelection"
+        <component @updateSelection="updateSelection" :idx="idx"
             :selectedTasks="selectedTasks" :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask"
             :users="users" @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :groupId="groupId"
-            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" @deleteMultiple="deleteSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard" @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup"  />
+            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" @deleteMultiple="deleteSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard" @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :target="target" />
     </section>
 </template>
 
 <script>
-import taskOptModal from '../regular-modal-cmps/task-opt-modal.vue';
-import groupOptModal from '../regular-modal-cmps/group-opt-modal.vue';
-import newItemModal from '../filter-modals-cmps/new-item-modal.vue';
-import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue';
-import taskSelectModal from '../regular-modal-cmps/task-select-modal.vue';
-import colorPickerModal from '../regular-modal-cmps/color-picker-modal.vue';
+import taskOptModal from '../regular-modal-cmps/task-opt-modal.vue'
+import groupOptModal from '../regular-modal-cmps/group-opt-modal.vue'
+import newItemModal from '../filter-modals-cmps/new-item-modal.vue'
+import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue'
+import multiFilterModal from '../filter-modals-cmps/multi-filter-modal.vue'
+import taskSelectModal from '../regular-modal-cmps/task-select-modal.vue'
+import colorPickerModal from '../regular-modal-cmps/color-picker-modal.vue'
 export default {
 
     name: 'regular-modal',
-    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu','deleteSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu','deleteSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup', 'duplicateTask'], //emit all types of dynamic cmps events
     props: {
         showModal: {
             type: Boolean,
@@ -48,12 +49,15 @@ export default {
             type: String,
             reduired: false,
         },
+        target: {
+            type: String,
+            required: false
+        },
+        idx: {
+            type: Number,
+            required: false
+        }
 
-    },
-    computed: {
-
-    },
-    created() {
     },
     methods: {
         closeModal() {
@@ -64,6 +68,9 @@ export default {
         },
         removeTask() {
             this.$emit('removeTask')
+        },
+        duplicateTask() {
+            this.$emit('duplicateTask')
         },
         addGroup() {
             this.$emit('addGroup')
@@ -77,9 +84,8 @@ export default {
         editGroupTitle() {
             this.$emit('editGroupTitle')
         },
-        updateSelection(value) {
-            console.log(`value`, value)
-            this.$emit('updateSelection', { color: value, light: value + '99' }, 'style')
+        updateSelection(idx, key, val) {
+            this.$emit('updateSelection', idx, key, val)
         },
         propagateMenu() {
             this.$emit('propagateMenu')
@@ -95,7 +101,8 @@ export default {
         },
         duplicateGroup() {
             this.$emit('duplicateGroup')
-        }
+        },
+
 
 
     },
@@ -105,7 +112,8 @@ export default {
         taskOptModal,
         groupOptModal,
         taskSelectModal,
-        colorPickerModal
+        colorPickerModal,
+        multiFilterModal
     }
 }
 </script>
