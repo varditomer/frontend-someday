@@ -79,7 +79,9 @@ export const boardStore = {
             board.msgs.push(msg)
         },
         saveTask(state, { taskToSave }) {
+            console.log(`taskToSave:`, taskToSave)
             const { task, bool } = taskToSave
+            console.log(`task:`, task)
             const groupIdx = state.board.groups.findIndex(group => group._id === task.groupId)
             if (groupIdx === -1) return null
             const taskIdx = state.board.groups[groupIdx].tasks.findIndex(anyTask => anyTask._id === task._id)

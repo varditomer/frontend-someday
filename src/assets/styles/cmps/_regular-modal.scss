@@ -127,6 +127,9 @@
 
     .task-opt-modal {
         top: 36px;
+        .upper-group {
+            border-bottom: 1px solid $hr-clr;
+        }
     }
 
     .modal-group {

@@ -35,7 +35,7 @@
         <task-list v-if="viewTasks" @toggleSelectAllTasks="toggleSelectAllTasks" @saveSelectedTasks="saveSelectedTasks"
             @saveBoard="saveBoard" :selectedTasks="selectedTasks" :tasks="group.tasks" :group="group"
             :cmpsOrder="cmpsOrder" :users="users" :priorities="priorities" :statuses="statuses" @addGroup="addGroup"
-            @saveTask="saveTask" @removeTask="removeTask" />
+            @saveTask="saveTask" @removeTask="removeTask" @duplicateTask="duplicateTask" />
 
     </section>
 
@@ -48,7 +48,7 @@ import regularModal from './dynamic-modals/regular-modal.vue'
 import taskSummary from './task-summary.vue'
 export default {
     name: 'group-preview',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup','toggleSelectAllTasks', 'duplicateGroup'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup','toggleSelectAllTasks', 'duplicateGroup', 'duplicateTask'],
     props: {
         group: Object,
         cmpsOrder: Array,
@@ -100,6 +100,9 @@ export default {
         },
         removeTask(task) {
             this.$emit('removeTask', task)
+        },
+        duplicateTask(task) {
+            this.$emit('duplicateTask', task)
         },
         saveGroup(val, prop) {
             this.showColorPicker = false;
