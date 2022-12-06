@@ -488,6 +488,7 @@
     z-index: 10000;
     opacity: 0;
     transition: .1s;
+    pointer-events: none;
 
     &.show {
         opacity: 0.50;
