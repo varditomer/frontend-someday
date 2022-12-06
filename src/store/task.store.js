@@ -26,14 +26,21 @@ export const taskStore = {
             if (state.selectedTasks.includes(taskId)) {
                 const idx = state.selectedTasks.indexOf(taskId)
                 state.selectedTasks.splice(idx, 1)
-                // state.selectedTaskColors.splice(state.selectedTaskColors.length - 1, 1)
+                state.selectedTaskColors.splice(state.selectedTaskColors.length - 1, 1)
             } else {
                 state.selectedTasks.push(taskId)
+                const groups = this.getters.board.groups
+                const taskGroup = groups.tasks.filter(task=>task._id === taskId)
+
             }
             const groups = this.getters.board.groups
             console.log(`groups:`, groups)
             console.log(`state.selectedTasks:`, state.selectedTasks)
-            
+
+            const includedGroups = group.filter(tasks => {
+                task.filter(task => task._id === selectedTask._id)
+            })
+
 
         },
         unselectTasks(state) {

@@ -48,11 +48,7 @@ export const boardStore = {
         miniBoards({ miniBoards }) { return miniBoards },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         filterBy({ filterBy }) { return filterBy },
-<<<<<<< HEAD
-    
-=======
         filterMap({ board }) { return boardService.getFilterMap(board._id) },
->>>>>>> 19c3fc27443fa47fa131aa970b3d6f9b514a7f0d
     },
     mutations: {
         setBoard(state, { board }) {
