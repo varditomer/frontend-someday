@@ -383,6 +383,7 @@
                 }
 
                 .created-time {
+                    width: 56px;
                     p {
                         font-size: 14px;
                         font-family: roboto-light;
@@ -398,7 +399,6 @@
                 }
 
                 .user {
-                    width: 50%;
 
                     img {
                         width: 30px;
@@ -411,6 +411,8 @@
                     p {
                         font-size: 14px;
                         font-family: roboto-light;
+                        width: 50% !important;
+                        @include ellipsis;
                     }
                 }
 
@@ -424,7 +426,6 @@
 
                     p {
                         font-size: 14px;
-                        width: 70%;
                         font-family: roboto-light;
                         overflow: hidden;
                         white-space: nowrap;

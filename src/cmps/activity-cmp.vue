@@ -1,6 +1,6 @@
 <template>
     <div class="activity">
-        <span v-svg-icon="activity.icon"></span>
+        <span v-svg-icon="'add'"></span>
         <p>{{ activity.type }}</p>
     </div>
 
@@ -15,8 +15,8 @@
             </p>
         </div>
     </div>
-    
-    <div v-else class="activity-change">
+
+    <!-- <div v-else class="activity-change">
         <div class="from">
             <p class="txt">{{ (activity.from) ? activity.from : '⎯⎯⎯⎯⎯' }}</p>
         </div>
@@ -26,7 +26,7 @@
                 {{ activity.to }}
             </p>
         </div>
-    </div>
+    </div> -->
 </template>
 <script>
 export default {
