@@ -399,7 +399,7 @@
                 }
 
                 .user {
-
+                    flex-basis: 35%;
                     img {
                         width: 30px;
                         height: 30px;
@@ -419,7 +419,7 @@
                 .activity {
                     display: flex;
                     align-items: center;
-
+                    flex-basis: 20%;
                     span {
                         margin-right: 3px;
                     }
@@ -435,8 +435,6 @@
                 }
 
                 .activity-change {
-                    display: flex;
-                    align-items: center;
                     height: 100%;
 
                     .from {

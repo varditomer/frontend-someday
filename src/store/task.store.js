@@ -3,7 +3,6 @@ import { taskService } from '../services/task.service.js'
 export const taskStore = {
     state() {
         return {
-            taskToEdit: null,
             selectedTasks: [],
             priorities: [
                 { title: 'Critical', color: '#333333', colorName: '$clr-blackish' },
@@ -22,9 +21,6 @@ export const taskStore = {
         }
     },
     mutations: {
-        setTask(state, { taskToEdit }) {
-            state.taskToEdit = taskToEdit
-        },
         saveSelectedTasks(state, { taskId }) {
             if (state.selectedTasks.includes(taskId)) {
                 const idx = state.selectedTasks.indexOf(taskId)
@@ -37,16 +33,15 @@ export const taskStore = {
             state.selectedTasks = []
         },
         toggleSelectAllTasks(state, { tasks, groupId, areAllSelected }) {
-            state.selectedTasks = state.selectedTasks.reduce((taskIds, task) => { 
+            state.selectedTasks = state.selectedTasks.reduce((taskIds, task) => {
                 if (!tasks.includes(task)) taskIds.push(task)
-                    return taskIds
-                }, [])
-                if (areAllSelected) state.selectedTasks.unshift(...tasks)
+                return taskIds
+            }, [])
+            if (areAllSelected) state.selectedTasks.unshift(...tasks)
 
         }
     },
     getters: {
-        taskToEdit({ taskToEdit }) { return taskToEdit },
         priorities({ priorities }) { return priorities },
         statuses({ statuses }) { return statuses },
         selectedTasks({ selectedTasks }) { return selectedTasks },
