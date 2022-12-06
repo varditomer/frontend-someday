@@ -1,5 +1,5 @@
 <template>
-    <section @click="(show = true)" class="task-members flex center">
+    <section @click="clickToEdit" class="task-members flex center">
         <div class="add-person-icon" v-svg-icon="'addPerson'"></div>
         <span v-if="formattedPersons.length" class="task-avatar" v-for="person in formattedPersons"
             :style="person.style" :class="{ cover: person.pic }" :title="person.fullname">
@@ -9,14 +9,13 @@
         <triangle-modal v-if="show" @updateTask="updateTask" :additionalDb="additionalDb" :content="formattedPersons"
             :cmp="'personsModal'" @hideModal="hide" />
     </section>
-    <!-- <span v-else></span> -->
 </template>
 
 <script>
 import triangleModal from '../dynamic-modals/triangle-modal.vue'
 export default {
     name: 'persons-column',
-    emits: ['updateTask'],
+    emits: ['updateTask', 'editing'],
     props: {
         content: Array,
         additionalDb: Array
@@ -52,6 +51,10 @@ export default {
         },
         hide() {
             setTimeout(() => this.show = false, 1)
+        },
+        clickToEdit() {
+            this.show = true
+            this.$emit('editing')
         }
     },
     components: {

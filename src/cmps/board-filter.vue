@@ -13,7 +13,6 @@
         </div>
         <div @click="openModal('filterPersonModal')" @mouseover="(showTitleModal = true)"
             @mouseout="(showTitleModal = false)" class="person-attach">
-            <!-- <title-modal :class="{ 'show': showTitleModal }" :content="'Filter by Person'" /> -->
             <span v-svg-icon="'account'"></span>
             <button>Person</button>
         </div>

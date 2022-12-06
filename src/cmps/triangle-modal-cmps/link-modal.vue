@@ -1,5 +1,6 @@
 <template>
     <section class='link-modal flex column center' @keydown.enter="saveLink" v-click-outside.prevent="saveLink">
+        
         <div class="address">
             <label for="link-address-url" class="link-title">Web address</label>
             <input v-model="url" id="link-address-url" v-focus type="link" placeholder="www.example.com">

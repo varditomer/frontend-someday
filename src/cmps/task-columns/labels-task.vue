@@ -1,5 +1,5 @@
 <template>
-    <section class="labels" @click="(show = true)">
+    <section class="labels" @click="clickToEdit">
         <span class="label-name" :style="getStyle">{{ content === 'Default' ? '' : content }}</span>
         <triangle-modal :content="content" :name="name" :additionalDb="additionalDb" @updateTask="updateTask"
             @hideModal="(show=false)" :cmp="'task-label-modal'" v-if="show" />
@@ -12,7 +12,7 @@ import { labels } from '../../data/_board_DB.js'
 import triangleModal from '../dynamic-modals/triangle-modal.vue'
 export default {
     name: 'labels',
-    emits: ['updateTask'],
+    emits: ['updateTask', 'editing'],
     props: {
         content: String,
         name: String,
@@ -31,6 +31,10 @@ export default {
             this.$emit('updateTask', labelObj)
             setTimeout(() => this.show = false, 1)
         },
+        clickToEdit() {
+            this.show = true
+            this.$emit('editing')
+        }
     },
     computed: {
         getStyle() {

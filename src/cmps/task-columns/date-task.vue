@@ -1,5 +1,5 @@
 <template>
-        <span @click="clickLine" class="task-date">
+        <span @click="clickToEdit" class="task-date">
             <triangle-modal v-if="show" @hideModal="(show = false)" @updateTask="updateTask"
                 :content="(content || Date.now())" :cmp="'dateModal'" />
             {{ formattedDate || ' ' }}
@@ -36,7 +36,7 @@ export default {
                 this.show = false
             }, 1)
         },
-        clickLine() {
+        clickToEdit() {
             this.show=true
             this.$emit('editing')
         }

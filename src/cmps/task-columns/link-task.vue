@@ -1,5 +1,5 @@
 <template>
-    <section class="link flex center" @click="(show = true)">
+    <section class="link flex center" @click="clickToEdit">
         <a @click.stop="" v-if="content?.url" :href="`//${content.url}`" target="_blank">{{ content.title }}</a>
         <triangle-modal :cmp="'linkModal'" :content="content" @hideModal="(show = false)" v-if="show"
             @updateTask="updateTask" />
@@ -10,7 +10,7 @@
 <script>
 import triangleModal from '../dynamic-modals/triangle-modal.vue';
 export default {
-    emits: ['updateTask'],
+    emits: ['updateTask', 'editing'],
     name: 'link-column',
     props: {
         content: Object,
@@ -26,6 +26,10 @@ export default {
         },
         updateTask(linkObj) {
             this.$emit('updateTask', linkObj)
+        },
+        clickToEdit() {
+            this.show = true
+            this.$emit('editing')
         }
     },
     components: {

@@ -1,6 +1,7 @@
 <template>
 
-    <section v-click-outside="close" class='task-details-container'>
+    <section  class='task-details-container' v-click-outside="close">
+        
         <span v-if="taskToEdit" @click="close" v-svg-icon="'exit'" class="close-modal-btn"></span>
         <h1 v-if="taskToEdit" class="task-modal-title">{{ taskToEdit.title }}</h1>
         <div v-if="taskToEdit" class="modal-btns">

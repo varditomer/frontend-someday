@@ -3,7 +3,9 @@
         <regular-modal :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
             @closeModal="(showModal = false)" :showModal="showModal" @taskTitleToClipboard="copyToClipboard(task.title)"
             @linkToClipboard="copyToClipboard(task.link.url)" />
-        <li class="content-li" v-click-outside="unSelectLine">
+
+            <li class="content-li" v-click-outside="unSelectLine">
+                
             <div class="options flex center">
                 <span class="hidden" @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>

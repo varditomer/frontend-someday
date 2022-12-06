@@ -1,6 +1,7 @@
 <template>
-    <section class="txt flex center" @click="(isEditing = true)">
-        <div v-if="isEditing" class="editing-mode" v-click-outside="updateTask" @key.enter="updateTask">
+    <section class="txt flex center" @click="clickToEdit">
+        <div v-if="isEditing" class="editing-mode" @key.enter="updateTask" v-click-outside="updateTask">
+            
             <input v-focus type="text" class="edit" v-model="text">
         </div>
         <div v-if="(text && !isEditing)">
@@ -17,7 +18,7 @@
 
 <script>
 export default {
-    emits: ['updateTask'],
+    emits: ['updateTask', 'editing'],
     name: 'txt',
     props: {
         content: String,
@@ -39,8 +40,12 @@ export default {
         updateTask() {
             console.log(`this.text:`, this.text)
             this.setNotEditing()
-            if(!this.text) return
+            if (!this.text) return
             this.$emit('updateTask', { key: 'text', val: this.text })
+        },
+        clickToEdit() {
+            this.isEditing = true
+            this.$emit('editing')
         }
     },
     components: {

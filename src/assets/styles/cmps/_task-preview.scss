@@ -8,7 +8,7 @@
     .li-wrapper {
         position: relative;
         &.editedLine {
-            background-color: #000 !important;
+            background-color: $fltr-bgc;
             .content-li:hover{
                 background-color: unset;
             }
