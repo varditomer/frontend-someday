@@ -236,17 +236,24 @@
 
                 .value {
                     height: 100%;
+                    // position: absolute;
+                    align-self: flex-start;
+                    justify-self: grid;
                 }
 
                 .text {
                     position: absolute;
-                    height: min-content;
-                    line-height: 1;
+                    // height: min-content;
+                    // line-height: 1;
+                    overflow: hidden;
+                    white-space: nowrap;
                     text-overflow: ellipsis;
                     color: $clr-white;
-                    font-size: rem(8px);
-                    width: 110px;
+                    font-size: rem(12px);
+                    width: 80%;
                     text-align: center;
+                    padding-left: 10%;
+                    padding-right: 10%;
                 }
             }
         }

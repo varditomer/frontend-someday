@@ -1,7 +1,7 @@
 <template>
 
-    <section class='group-list-container' v-if="boardCopy" :key="boardUpdated" @scroll="scrolling">
-        <draggable v-model="boardCopy.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
+    <section class='group-list-container' v-if="boardToShow" :key="boardUpdated" @scroll="scrolling">
+        <draggable v-model="boardToShow.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
             @end="saveBoard" :class="{ groupDragged: beingDragged }">
             <template #item="{ element }">
                 <group-preview :isHorizontalScrolling="isHorizontalScrolling" @saveSelectedTasks="saveSelectedTasks"
@@ -50,13 +50,12 @@ export default {
     data() {
         return {
             beingDragged: false,
-            boardCopy: false,
             isHorizontalScrolling: null,
             // pageX: null
         }
     },
     mounted() {
-        eventBus.on('reload', board => this.boardCopy = JSON.parse(JSON.stringify(board)))
+        eventBus.on('reload', board => this.boardToShow = JSON.parse(JSON.stringify(board)))
     },
     methods: {
         collapseGroups(collapse, ev) {
@@ -65,10 +64,10 @@ export default {
         },
         saveBoard() {
             this.beingDragged = false
-            this.$emit('saveBoard', this.boardCopy)
+            this.$emit('saveBoard', this.boardToShow)
         },
         saveTask(task) {
-            this.boardCopy.groups.forEach(group => {
+            this.boardToShow.groups.forEach(group => {
                 group.tasks.forEach(task => task.groupId = group._id)
                 // if (task.groupId === group._id) group.tasks.push(task)
             })
@@ -104,9 +103,11 @@ export default {
         },
     },
     computed: {
-
         cmpsOrder() {
             return [...this.board.cmpsOrder]
+        },
+        boardToShow() {
+            return JSON.parse(JSON.stringify(this.board))
         },
 
     },
@@ -114,14 +115,14 @@ export default {
         groupPreview,
         draggable
     },
-    watch: {
-        board: {
-            handler(newBoard) {
-                this.boardCopy = newBoard ? JSON.parse(JSON.stringify(newBoard)) : null
-            },
-            deep: true
-        }
-    },
+    // watch: {
+    //     board: {
+    //         handler(newBoard) {
+    //             this.boardToShow = newBoard ? JSON.parse(JSON.stringify(newBoard)) : null
+    //         },
+    //         deep: true
+    //     }
+    // },
     created() {
         this.isHorizontalScrolling = false
     }
