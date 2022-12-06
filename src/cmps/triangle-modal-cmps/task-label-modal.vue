@@ -8,6 +8,7 @@
                 @blur="updateLabels(idx, 'title', $event.target.innerText)" @click="updateTask($event.target.innerText)">
                 {{ label.title !== 'Default' ? label.title : isBeingEditted ? 'Default' : '' }}
             </span>
+            <!-- <regular-modal :cmp="'color-picker-modal'"  :idx="selectedIdx" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateProperty" /> -->
             <regular-modal :target="'label'" :cmp="'color-picker-modal'" :idx="selectedIdx" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateLabels" />
         </div>
         <span class="label-btn flex helper">
@@ -53,7 +54,7 @@ export default {
             if (!this.isBeingEditted) this.updateTask(this.labelTitle)
         },
         updateLabels(labelIdx, key, val) {
-            debugger
+            
             this.updatedDb = this.additionalDb.map((label, idx) => {
                 const newLabel = { ...label }
                 if (idx === labelIdx) newLabel[key] = val

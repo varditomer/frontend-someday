@@ -51,6 +51,8 @@ export default {
     },
     methods: {
         saveTask(task, activity) {
+            const taskToSave = { task, bool: false }
+            this.$store.commit({ type: 'saveTask', taskToSave })
             this.$store.dispatch({ type: 'saveActivity', activity })
             this.$store.dispatch({ type: 'saveTask', task })
         },
@@ -157,6 +159,9 @@ export default {
         },
         isViewingTask() {
             return typeof (this.$route.params.taskId) === 'string'
+        },
+        dataMap() {
+            return this.$store.getters.filterMap
         }
 
     },

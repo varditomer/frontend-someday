@@ -39,6 +39,7 @@
 
     </section>
 
+
 </template>
 <script>
 import titleModal from './dynamic-modals/title-modal.vue'

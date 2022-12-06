@@ -4,131 +4,125 @@
     border-right: none;
     width: fit-content;
     font-size: rem(14px);
+    min-width: 100%;
 
-    li {
-        > * {
-            &:first-child {
-                background-color: rgb(255, 255, 255);
-                position: sticky;
-                left: 0px;
-            }
-        }
+    * {
+        text-align: center;
     }
 
-    > *:first-child {
-        text-transform: capitalize;
+    >li:first-child {
+        .static {
+            display: grid;
+            grid-template-columns: 36px 36px 1fr;
+            position: sticky;
+            left: 0;
+            z-index: 500;
+            background-color: white;
 
-        .columns {
-            grid-column: 6/-1;
+            .task-list-item-header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-top: 1px solid $brdr-clr;
+                border-bottom: 1px solid $brdr-clr;
+                border-right: 1px solid $brdr-clr;
+                text-transform: capitalize;
 
-            * {
-                text-align: center;
-                height: 100%;
             }
 
-            .add {
-                width: 150px;
+            .header-task-select {
+                border-top: 1px solid #d0d5e4;
+                border-bottom: 1px solid $brdr-clr;
+
+            }
+        }
+
+        .dynamic {
+            height: 36px;
+            border-bottom: 1px solid $brdr-clr;
+            border-top: 1px solid #d0d5e4;
+            display: flex;
+            align-items: center;
+
+            span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 50px;
+                height: 70%;
+                scale: 1.4;
+                padding-right: 6px;
+
+                svg {
+                    cursor: pointer;
+                    border-radius: .4em;
+
+                    &:hover {
+                        background-color: $brdr-clr;
+                    }
+                }
             }
 
             div {
                 display: flex;
-                align-items: center;
-                // justify-content: center;
-                border-right: none;
+                height: 100%;
 
-                div {
-                    border-right: 1px solid $brdr-clr;
+                .titles {
                     width: 150px;
-                    flex-basis: 150px;
                     display: flex;
-                    justify-content: center;
                     align-items: center;
+                    justify-content: center;
+                    border-right: 1px solid $brdr-clr;
+                    text-transform: capitalize;
                 }
             }
-
-            &.ghost,
-            .ghost {
-                opacity: 0.2;
-            }
-
-            &.column-dragged {
-                box-shadow: 0 0 30px 2px black;
-            }
-
-            &.beingEdit {
-                background-color: $fltr-bgc;
-            }
-
-            .empty-span {
-                position: sticky;
-                background-color: white;
-                left: 0px;
-            }
-        }
-
-        > *:not(:first-child) {
-            border-top: 1px solid $brdr-clr;
         }
     }
 
-    > *:not(:last-child) {
-        box-shadow: -5px 0px 0px 0px $brdr-clr;
+    li {
+        display: grid;
+        grid-template-columns: 436px 1fr;
+
     }
 
     .add-new-task {
-        display: grid;
-        align-items: center;
+        display: flex;
         width: 100%;
         height: 36px;
-        position: relative;
-        color: lighten($layout-black, 25%);
-        box-shadow: -5px 0px 0px 0px lighten($brdr-clr, 7%);
-        position: sticky;
-        background-color: white;
-        left: 0px;
         z-index: 500;
 
-        :first-child {
-            &.empty-span {
+        .static {
+            width: 436px;
+            flex-basis: 436px;
+            display: flex;
+            position: sticky;
+            left: 0px;
+            border-bottom: 1px solid $brdr-clr;
+
+            .task-select {
+                border-bottom: none;
+            }
+
+            .add-task-icon {
+                position: relative;
+                left: 15px;
+            }
+
+            .add-new-task-inline {
+                text-align: left;
+                padding-left: 15px;
+            }
+
+            .empty-span {
+                width: 36px;
+                height: 36px;
                 background-color: white;
-                z-index: 50;
-                position: sticky;
-                left: 0px;
-                height: 100%;
-                width: 100%;
             }
         }
 
-        form {
-            height: 100%;
-            width: 100%;
-            grid-column: 3/6;
+        .dynamic {
+            flex-grow: 1;
             border-bottom: 1px solid $brdr-clr;
-            border-right: none !important;
-            position: sticky;
-            background-color: white;
-            left: 72px;
-            z-index: 500;
-
-            input {
-                border-radius: 0.2em;
-                padding: 2px;
-                width: 100%;
-                margin-left: 30px;
-                margin-right: 20px;
-            }
-
-            input:focus {
-                outline: 1px solid $primary-blue;
-            }
-
-            span {
-                color: lighten($layout-black, 25%);
-                border: none;
-                position: absolute;
-                left: 12px;
-                scale: 0.8;
-            }
         }
     }
 
@@ -136,9 +130,8 @@
         display: grid;
         color: $layout-black;
         grid-auto-flow: column;
-        // grid-template-rows: 36px;
 
-     
+
 
         .empty-span {
             border: none;
@@ -156,80 +149,48 @@
     }
 
     .task-summary {
-        position: sticky;
         background-color: white;
-        left: 72px;
         z-index: 500;
+        height: 36px;
 
-        .empty-span {
-            position: sticky;
+        .static {
             background-color: white;
-            z-index: 50;
-        }
-
-        :nth-child(1) {
             left: 0px;
-        }
-
-        :nth-child(2) {
-            left: 36px;
-        }
-
-        :nth-child(3) {
-            left: 72px;
-        }
-
-        :nth-child(4) {
-            left: 222px;
-            width: 300px;
-        }
-
-        .task-avatar {
-            left: 0px;
-        }
-
-        .overlay-span {
             position: sticky;
-            border-bottom-left-radius: 0;
-            left: 522px;
-            width: 8px;
-            height: 36px;
-            border-left: 1px solid white;
-            border-bottom: 1px solid white;
-            z-index: 50;
 
-            .border-overlay-span {
-                background-color: transparent;
-                border-left: 1px solid $brdr-clr;
-                border-bottom: 1px solid $brdr-clr;
-                border-bottom-left-radius: 0.3em;
-                height: 36px;
-                margin-top: auto;
-                min-width: 0.6em;
-                // width: 8px;
+            .static-overlay {
+                width: 14px;
+                height: 100%;
+                background-color: rgb(255, 255, 255);
+                position: absolute;
+                left: 436px;
+                width: 10px;
+
+                div {
+                    border-left: 1px solid $brdr-clr;
+                    border-bottom: 1px solid $brdr-clr;
+                    border-bottom-left-radius: .4em;
+                    width: 100%;
+                    height: 100%;
+                }
+
+
             }
+
         }
 
-        .remove-border-span {
-            background-color: rgb(0, 0, 0);
-            border: 1px solid white;
-            width: 8px;
-            height: 36px;
-            // border-radius: 0;
-            position: sticky;
-            left: 522px;
-            z-index: 60;
-        }
+        .dynamic {
+            display: flex;
+            border-bottom: 1px solid $brdr-clr;
+            border-left: 1px solid $brdr-clr;
 
-        .label-progress {
-            height: 36px;
-            width: 150px;
-            padding: 6px 8px;
-
-            .label {
-                height: 24px;
-                display: inline-block;
+            >* {
+                width: 150px;
+                border-right: 1px solid $brdr-clr;
             }
+
         }
     }
+
+
 }

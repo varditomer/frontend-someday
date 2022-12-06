@@ -81,7 +81,7 @@ export const groupColors = {
 
 export const colorMap = {
     '$clr-grass_green': '#037f4c',
-    '$clr-done-green': '#00c875',
+    '$clr-jade': '#03c875',
     '$clr-bright-green': '#9cd326',
     '$clr-saladish': '#cab641',
     '$clr-egg_yolk': '#ffcb00',

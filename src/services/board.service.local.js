@@ -19,13 +19,13 @@ export const boardService = {
     saveToSessionStorage,
     loadFromSessionStorage,
     multiFilter,
-    getFilterMap
+    getDataMap
 }
 window.bs = boardService
 
 
 
-async function getFilterMap(boardId) {
+async function getDataMap(boardId) {
     const board = await queryBoard(boardId)
     const personFilter = userService.getUsers().map(user => user._id)
     const groupTitle = []
@@ -242,4 +242,4 @@ function _connectIds(board) {
     return board
 }
 
-// utilService.saveToStorage(BOARD_STORAGE_KEY, _boardDB)
+utilService.saveToStorage(BOARD_STORAGE_KEY, _boardDB)

@@ -1,134 +1,142 @@
-.task-list {
-    .columns {
-        .titles {
-            cursor: grab;
-        }
-    }
+.task-preview {
 
-    .li-wrapper {
-        position: relative;
+    &:hover {
+        .static {
+            .options {
+                span {
 
-        &.beingEdit {
-            background-color: $fltr-bgc;
+                    &:hover {
+                        background-color: $brdr-clr;
+                        border-radius: .2em;
+                        cursor: pointer;
+                    }
 
-            .content-li:hover {
-                background-color: unset;
+                    &.hidden {
+                        visibility: visible;
+                    }
+                }
             }
         }
-
-        .content-li .beingEdit {
-            background-color: $fltr-bgc;
-        }
     }
 
-    li {
+    .static {
         display: grid;
-        color: $layout-black;
-        grid-template-columns: 36px 36px repeat(auto-fit, 150px);
+        grid-template-columns: 36px 36px 1fr;
+        position: sticky;
+        left: 0;
+        z-index: 500;
+        background-color: white;
+
+        .task-title-container {
+            border-bottom: 1px solid $brdr-clr;
+            max-height: 37px;
+            display: flex;
+
+            .task-comment-icon {
+                height: 100%;
+                // width: 100%;
+                width: 65px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                cursor: pointer;
+                transition: 0.4s;
+                border-left: 1px solid $brdr-clr;
+                border-right: 1px solid $brdr-clr;
+
+                &:hover {
+                    fill: $primary-blue;
+                }
+
+                &.count-comment span svg {
+                    color: $primary-blue;
+                }
+
+                .task-comments-length {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    bottom: 3px;
+                    right: 13px;
+                    position: absolute;
+                    background-color: $primary-blue;
+                    color: white;
+                    width: 13px;
+                    height: 13px;
+                    border-radius: 2em;
+                    font-size: rem(10px);
+                }
+            }
+
+            .task-title-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                padding-left: 34px;
+                background-color: white;
+                position: sticky;
+                left: 72px;
+                z-index: 5000;
+
+
+                &div {
+                    border: none !important;
+                }
+
+                .task-title {
+                    text-align: left;
+                    width: fit-content;
+                    // max-width: 60%;
+                    position: relative;
+                    right: 4px;
+                    height: 60%;
+                    padding-left: 4px;
+                    padding-right: 4px;
+                    border-radius: 0.2em;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    padding-top: calc(11.8px - 0.5rem);
+                    max-width: 200px;
+
+                    &:hover {
+                        outline: 1px solid $brdr-clr;
+                    }
+
+                    &:focus {
+
+                        outline: 1px solid $primary-blue;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    .dynamic {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 150px);
         grid-auto-columns: 150px;
         grid-auto-flow: column;
         grid-template-rows: 36px;
+        border-bottom: 1px solid $brdr-clr;
+
+
+        >* {
+
+            border-right: 1px solid $brdr-clr;
+        }
+
 
         .task-members {
             position: relative;
             cursor: pointer;
-        }
 
-        &.content-li {
-            .options {
-                background-color: white;
-                position: sticky;
-                left: 0px;
-                z-index: 1000;
-            }
-
-            // position: relative;
-            &:hover {
-                background-color: $wrkspce-bgc;
-
-                .options {
-                    span {
-                        visibility: visible;
-                        background-color: white;
-                    }
-
-                    .more {
-                        &:hover {
-                            color: #000;
-
-                            background-color: $brdr-clr;
-                            // padding-left: 8px;
-                            border-radius: 7px;
-                            cursor: pointer;
-                        }
-                    }
-                }
-
-                &.labels {
-                    opacity: 0.9;
-                }
-            }
-        }
-
-        .empty-fill-span {
-            height: 100%;
-            border-right: none;
-        }
-
-        &:first-child {
-            span {
-                justify-content: center;
-            }
-        }
-
-        > *:not(:first-child) {
-            justify-self: space-between;
-            display: flex;
-            align-items: center;
-            color: lighten($layout-black, 10%);
-            border-bottom: 1px solid $brdr-clr;
-            border-right: 1px solid $brdr-clr;
-        }
-
-        > *:not(:first-child) {
-            justify-self: space-between;
-            display: flex;
-            align-items: center;
-            color: lighten($layout-black, 10%);
-            border-bottom: 1px solid $brdr-clr;
-            border-right: 1px solid $brdr-clr;
-        }
-
-        .task-select {
-            border-left: 5px solid $layout-gray;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            position: sticky;
-            left: 36px;
-            background-color: white;
-            z-index: 500;
-
-            > * {
-                cursor: pointer;
-                height: 16px;
-                width: 16px;
-            }
-        }
-
-        .status-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &:hover {
-                opacity: 0.9;
-            }
-        }
-
-        .task-members {
             .add-person-icon {
                 scale: 0.9;
                 fill: $primary-blue;
@@ -163,19 +171,71 @@
             }
 
             .default-person {
+                border-radius: 2em;
                 scale: 0.8;
 
                 svg {
                     fill: lighten($layout-gray, 12%);
-                    border-radius: 2em;
                 }
+            }
+        }
+
+        .options {
+            background-color: white;
+            position: sticky;
+            left: 0px;
+            z-index: 1000;
+        }
+
+        // position: relative;
+        &:hover {
+            background-color: $wrkspce-bgc;
+
+            .options {
+                span {
+                    visibility: visible;
+                    background-color: white;
+                }
+
+                .more {
+                    &:hover {
+                        color: #000;
+                        background-color: $brdr-clr;
+                        border-radius: 7px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            &.labels {
+                opacity: 0.9;
+            }
+        }
+
+
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+                opacity: 0.9;
             }
         }
 
         .numbers,
         .txt {
             div {
-                @include ellipsis;
+                @include ellipsis(14px, 100%);
+                padding-left: 6px;
+                padding-right: 6px;
+                border: none;
+
+                input {
+                    padding-left: 8px;
+                    padding-right: 8px;
+                }
             }
 
             &:hover {
@@ -185,61 +245,20 @@
                     visibility: inherit;
                 }
             }
-
-            .plus {
-                svg {
-                    fill: $primary-blue;
-                    scale: 0.8;
-                }
-            }
-
-            .editing-mode {
-                margin: 0;
-                padding: 4px;
-                height: 100%;
-                outline: 0.5px solid $primary-blue;
-
-                .inner-frame {
-                    padding: 4px;
-                }
-
-                width: 100%;
-
-                input::-webkit-outer-spin-button,
-                input::-webkit-inner-spin-button {
-                    appearance: none;
-                }
-
-                input {
-                    height: 100%;
-                    outline: 0.5px solid $primary-blue;
-                    text-align: center;
-
-                    width: 100%;
-                }
-            }
-        }
-
-        // Cols style:
-        .header-task-select {
-            border-top-left-radius: 0.3em;
-        }
-
-        .add-task-select {
-            border-bottom-left-radius: 0.3em;
-            border-left: 5px solid lighten($layout-gray, 30%);
         }
 
         .timeline {
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             .range {
                 border-radius: 11px;
                 max-width: 100%;
-                width: 100%;
+                width: 80%;
                 height: 22px;
                 background-color: $layout-black;
-                margin-inline: 16px;
                 overflow: hidden;
                 display: flex;
                 align-items: center;
@@ -263,6 +282,78 @@
             }
         }
 
+        .header-task-select {
+            border-top-left-radius: 0.3em;
+        }
+
+        .add-task-select {
+            border-bottom-left-radius: 0.3em;
+            border-left: 5px solid lighten($layout-gray, 30%);
+        }
+
+
+
+        .link {
+            @include cellBorderHover;
+
+            a {
+                color: $clr-dark-blue;
+            }
+        }
+
+        .task-date {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+
+            &:hover {
+                @include cellBorderHover;
+                cursor: text;
+            }
+        }
+
+        .-header {
+            background-color: white;
+            position: sticky;
+            left: 72px;
+            z-index: 5000;
+        }
+
+        .plus {
+            svg {
+                fill: $primary-blue;
+                scale: 0.8;
+            }
+        }
+
+        .editing-mode {
+            margin: 0;
+            padding: 4px;
+            height: 100%;
+            outline: 0.5px solid $primary-blue;
+
+            .inner-frame {
+                padding: 4px;
+            }
+
+            width: 100%;
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                appearance: none;
+            }
+
+            input {
+                height: 100%;
+                outline: 0.5px solid $primary-blue;
+                text-align: center;
+
+                width: 100%;
+            }
+        }
+
+
         .labels {
             position: relative;
             width: 100%;
@@ -282,116 +373,14 @@
             }
         }
 
-        .link {
-            @include cellBorderHover;
+        &.beingEdit {
+            background-color: $fltr-bgc;
 
-            a {
-                color: $clr-dark-blue;
+            .content-li:hover {
+                background-color: unset;
+
             }
-        }
-    }
 
-    .shallow {
-        .static {
-            padding-inline: 10px;
-        }
-
-        textarea {
-            resize: none;
-        }
-    }
-
-    .task-date {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-
-        &:hover {
-            @include cellBorderHover;
-            cursor: text;
-        }
-    }
-
-    .task-list-item-header,
-    .task-title-item {
-        grid-column: 3/6;
-        position: sticky;
-        background-color: white;
-        left: 72px;
-        z-index: 500;
-    }
-
-    .task-title-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-
-        span {
-            height: 60%;
-
-            .task-title {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                // text-overflow: ellipsis;
-                // overflow: hidden;
-                // white-space: nowrap;
-                // width: 50%;
-                // @include ellipsis(14px, 100%);
-                
-                border: none;
-                margin-left: 25px;
-                padding-left: 5px;
-                padding-right: 5px;
-                cursor: text;
-                height: 100%;
-
-                &:hover {
-                    outline: 1px solid $brdr-clr;
-                }
-
-                &:focus {
-                    border-radius: 0.2em;
-                    outline: 1px solid $primary-blue;
-                }
-            }
-        }
-    }
-
-    .task-comment-icon {
-        height: 100% !important;
-        padding: 0px 16px;
-        border-left: 1px solid $brdr-clr;
-        display: flex;
-        align-items: center;
-        position: relative;
-        cursor: pointer;
-        transition: 0.4;
-
-        &:hover {
-            fill: $primary-blue;
-        }
-
-        &.count-comment span svg {
-            color: $primary-blue;
-        }
-
-        .task-comments-length {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            bottom: 3px;
-            right: 13px;
-            position: absolute;
-            background-color: $primary-blue;
-            color: white;
-            width: 13px;
-            height: 13px;
-            border-radius: 2em;
-            font-size: rem(10px);
         }
     }
 }

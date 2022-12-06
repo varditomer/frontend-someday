@@ -29,7 +29,7 @@
                 <button @click="addBoard" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
                     class="add-board-btn flex center">
                     <!-- <title-modal :class="{ 'show': showTitle }" :content="'Add board to Workspace'" /> -->
-                    <span v-svg-icon="'add'"></span>
+                    <span v-svg-icon="'outlinePlus'"></span>
                 </button>
             </div>
         </div>
