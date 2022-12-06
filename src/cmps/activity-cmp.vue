@@ -1,18 +1,23 @@
 <template>
     <div class="activity">
-        <span v-svg-icon="'add'"></span>
+        <span v-svg-icon="getIcon"></span>
         <p>{{ activity.type }}</p>
     </div>
-    <div class="activity-change">
+    <div class="activity-change" v-if="isString">
         <div class="from" :style="`background-color:${formattedData('from')}`">
-            <p :class="{ 'txt': isColored }">{{ activity.from }}</p>
+            <p :class="{ 'txt': isColored }">{{ formattedText(activity.from) ? formattedText(activity.from) : '━━' }}</p>
         </div>
         <span v-svg-icon="'arrowRight'"></span>
         <div class="to" :style="`background-color:${formattedData('to')}`">
             <p :class="{ 'txt': isColored }">
-                {{ activity.to }}
+                {{ formattedText(activity.to) }}
             </p>
         </div>
+    </div>
+    <div class="person-activity" v-else>
+        <p class="person-activity-txt">
+            {{ formattedText(activity.from) }}
+        </p>
     </div>
 
 </template>
@@ -35,33 +40,40 @@ export default {
         },
         isColored() {
             return (this.activity.type !== 'status' && this.activity.type !== 'priority')
+        },
+        getIcon() {
+            const type = this.activity.type
+            console.log(type);
+            switch (type) {
+                case 'status': return 'board'
+                case 'priority': return 'board'
+                case 'date': return 'time'
+                case 'text': return 'copyText'
+                case 'title': return 'copyText'
+                case 'numbers': return 'numbers'
+                case 'person': return 'filterPerson'
+            }
+        },
+        isString() {
+            const text = this.activity.from
+            const lastText = this.activity.to
+            return (typeof text === 'string' || typeof text === 'number' || typeof lastText === 'string' || typeof lastText === 'number')
         }
     },
     methods: {
         formattedData(dir) {
             const type = this.activity.type
-            console.log(dir);
             switch (type) {
                 case 'status': return this.statuses.find(status => status.title === this.activity[dir]).color
                 case 'priority': return this.priorities.find(priorities => priorities.title === this.activity[dir]).color
                 default: return 'white'
             }
+        },
+        formattedText(text) {
+            if (typeof text === 'string' || typeof text === 'number') return text
+            if (typeof text === 'object') return `${text.txt} ${text.name}`
         }
+
     }
 }
 </script>
-
-<!-- priorities: [
-{ title: 'Critical', color: '#333333', colorName: '$clr-blackish' },
-{ title: 'High', color: '#401694', colorName: '$clr-dark-indigo' },
-{ title: 'Medium', color: '#5559df', colorNmae: '$clr-indigo' },
-{ title: 'Low', color: '#579bfc', colorName: '$clr-bright-blue' },
-{ title: 'Default', color: '#c4c4c4', colorName: '$clr-explosive' }
-],
-statuses: [
-{ title: 'Done', color: '#00c875', colorName: '$clr-done-green' },
-{ title: 'Working on it', color: '#fdac3d', colorName: '$clr-lgt-orng' },
-{ title: 'Stuck', color: '#e2445c', colorName: '$clr-stuck-red' },
-{ title: 'Unattained', color: '#0086c0', colorName: '$clr-dark-blue' },
-{ title: 'Default', color: '#c4c4c4', colorName: '$clr-explosive' },
-], -->

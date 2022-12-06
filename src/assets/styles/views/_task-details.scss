@@ -384,6 +384,7 @@
 
                 .created-time {
                     width: 56px;
+
                     p {
                         font-size: 14px;
                         font-family: roboto-light;
@@ -400,6 +401,7 @@
 
                 .user {
                     flex-basis: 35%;
+
                     img {
                         width: 30px;
                         height: 30px;
@@ -420,6 +422,7 @@
                     display: flex;
                     align-items: center;
                     flex-basis: 20%;
+
                     span {
                         margin-right: 3px;
                     }
@@ -432,14 +435,20 @@
                         text-overflow: ellipsis;
                         text-transform: capitalize;
                     }
+
+                }
+
+                .person-activity {
+                    margin: auto;
+                    p {
+                        @include ellipsis(14px,100%);
+                        font-family: roboto-light;
+                    }
                 }
 
                 .activity-change {
                     height: 100%;
-
-                    .from {
-                        margin-left: 30px;
-                    }
+                    margin: auto;
 
                     .from,
                     .to {

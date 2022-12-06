@@ -275,7 +275,7 @@ export default {
             }
             this.taskToEdit = task
             this.$store.dispatch({ type: 'saveTask', task })
-        }
+        },
     },
     components: {
         imgList,

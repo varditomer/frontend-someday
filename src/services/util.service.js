@@ -82,11 +82,13 @@ function getTimeDifference(current, previous) {
     var elapsed = current - previous;
 
     if (elapsed < msPerMinute) {
-        return Math.round(elapsed / 1000) + 's';
+        return '5m';
     }
 
     else if (elapsed < msPerHour) {
-        return Math.round(elapsed / msPerMinute) + 'm';
+        if (Math.round(elapsed / msPerMinute) < 6) return '5m'
+        else return Math.round(elapsed / msPerMinute) + 'm';
+
     }
 
     else if (elapsed < msPerDay) {
