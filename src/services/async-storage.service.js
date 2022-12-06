@@ -19,10 +19,11 @@ function get(entityType, entityId) {
     })
 }
 
-function post(entityType, newEntity) {
+function post(entityType, newEntity, fifo = false) {
     newEntity = JSON.parse(JSON.stringify(newEntity))
     return query(entityType).then(entities => {
-        entities.push(newEntity)
+        if (!fifo) entities.push(newEntity)
+        else entities.unshift(newEntity)
         _save(entityType, entities)
         return newEntity
     })

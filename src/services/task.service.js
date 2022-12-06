@@ -12,6 +12,7 @@ export const taskService = {
     save,
     saveEmptyTask,
     remove,
+    duplicate,
 
 }
 window.bs = taskService
@@ -35,7 +36,7 @@ async function saveEmptyTask(groupId, boardId) {
     return task
 }
 
-async function save(task, bool) {
+async function save(task, bool, isDuplicate) {
     const { groupId, boardId } = task
     if (!task || !groupId) return Promise.reject('Cannot save task')
     const group = await groupService.queryBoard(groupId, boardId)
@@ -49,6 +50,7 @@ async function save(task, bool) {
         savedTask = task
     } else {
         savedTask = { ...task, _id: utilService.makeId() }
+        if (isDuplicate) _replaceTaskEntitiesIds(savedTask)
         if (!bool) group.tasks.push(savedTask)
         else group.tasks.unshift(savedTask)
     }
@@ -68,6 +70,21 @@ async function remove(task) {
     return removedTask
 }
 
+function duplicate(task) {
+    const taskToDuplicate = JSON.parse(JSON.stringify(task))
+    taskToDuplicate._id = null
+    return save(taskToDuplicate, false, true)
+}
+
+function _replaceTaskEntitiesIds(taskToDuplicate) {
+    const { taskId: _id } = taskToDuplicate
+    taskToDuplicate.comments?.ForEach(comment => {
+        comment._id = utilService.makeId()
+        comment.taskId = taskId
+        return
+    })
+    return taskToDuplicate
+}
 
 // async function addTaskMsg(taskId, txt) {
 //     // Later, this is all done by the backend

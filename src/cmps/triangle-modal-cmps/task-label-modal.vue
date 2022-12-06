@@ -55,7 +55,7 @@ export default {
         updateLabels(labelIdx, key, val) {
             debugger
             this.updatedDb = this.additionalDb.map((label, idx) => {
-                const newLabel = {...label}
+                const newLabel = { ...label }
                 if (idx === labelIdx) newLabel[key] = val
                 return newLabel
             })
@@ -63,7 +63,8 @@ export default {
             localStorage.setItem('label', JSON.stringify(this.updatedDb))
             if (key === 'title') this.labelTitle = val
         },
-        renderModal(idx){
+        renderModal(idx) {
+            this.showColorPicker = true;
             this.selectedIdx = idx
             this.showColorPicker = true; 
         }

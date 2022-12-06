@@ -2,7 +2,7 @@
     <section class="li-wrapper" ref="line" :class="{ beingEdit: areAllChecked || editing || isChecked }">
         <regular-modal :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
             @closeModal="(showModal = false)" :showModal="showModal" @taskTitleToClipboard="copyToClipboard(task.title)"
-            @linkToClipboard="copyToClipboard(task.link.url)" @duplicateTask="duplicateTask" />
+            @linkToClipboard="copyToClipboard(task.link.url)" />
 
         <li class="content-li" v-click-outside="unSelectLine">
 
@@ -48,7 +48,7 @@ import textTask from './task-columns/text-task.vue'
 
 export default {
     name: 'task-preview',
-    emits: ['updateTask', 'removeTask', 'saveSelectedTasks', 'duplicateTask'],
+    emits: ['updateTask', 'removeTask', 'saveSelectedTasks'],
     props: {
         task: Object,
         cmpsOrder: Array,
@@ -156,11 +156,7 @@ export default {
         },
         unSelectLine() {
             this.editing = false
-        },
-        duplicateTask() {
-            this.$emit('duplicateTask', this.task)
         }
-
     },
 
     watch: {

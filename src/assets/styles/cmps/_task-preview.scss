@@ -2,7 +2,6 @@
     .columns {
         .titles {
             cursor: grab;
-
         }
     }
 
@@ -15,7 +14,6 @@
             .content-li:hover {
                 background-color: unset;
             }
-
         }
 
         .content-li .beingEdit {
@@ -83,7 +81,7 @@
             }
         }
 
-        >*:not(:first-child) {
+        > *:not(:first-child) {
             justify-self: space-between;
             display: flex;
             align-items: center;
@@ -92,7 +90,7 @@
             border-right: 1px solid $brdr-clr;
         }
 
-        >*:not(:first-child) {
+        > *:not(:first-child) {
             justify-self: space-between;
             display: flex;
             align-items: center;
@@ -113,7 +111,7 @@
             background-color: white;
             z-index: 500;
 
-            >* {
+            > * {
                 cursor: pointer;
                 height: 16px;
                 width: 16px;
@@ -176,7 +174,6 @@
 
         .numbers,
         .txt {
-
             div {
                 @include ellipsis;
             }
@@ -188,7 +185,6 @@
                     visibility: inherit;
                 }
             }
-
 
             .plus {
                 svg {
@@ -256,9 +252,7 @@
 
                 .text {
                     position: absolute;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
+                    @include ellipsis;
                     color: $clr-white;
                     font-size: rem(12px);
                     width: 80%;
@@ -339,12 +333,15 @@
             height: 60%;
 
             .task-title {
-                text-overflow: ellipsis;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                white-space: nowrap;
-                overflow: hidden;
+                // text-overflow: ellipsis;
+                // overflow: hidden;
+                // white-space: nowrap;
+                // width: 50%;
+                // @include ellipsis(14px, 100%);
+                
                 border: none;
                 margin-left: 25px;
                 padding-left: 5px;

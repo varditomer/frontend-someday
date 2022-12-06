@@ -82,7 +82,7 @@ async function save(group, isFifo) {
     return group
 }
 
-async function duplicate(group) {
+function duplicate(group) {
     const duplicatedGroup = JSON.parse(JSON.stringify(group))
     duplicatedGroup._id = null
     duplicatedGroup.tasks.forEach(task=> {

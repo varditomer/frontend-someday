@@ -3,13 +3,13 @@
         <task-nav />
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
-        <section class='board-app-container'>
+        <section class='board-app-container' :class="{ 'folded': isViewingTask }">
             <regular-modal :selectedTasks="selectedTasks" @deleteSelectedTasks="deleteSelectedTasks"
                 :showModal="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
-                :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
+                :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask" @duplicateTask="duplicateTask"
                 @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard" @removeGroup="removeGroup"
                 @duplicateGroup="duplicateGroup" :board="board" :priorities="priorities" :statuses="statuses" />
         </section>
@@ -36,7 +36,7 @@ export default {
     data() {
         return {
             boardUpdated: 0,
-            scrollX: null
+            scrollX: null,
         }
     },
     mounted() {
@@ -56,6 +56,9 @@ export default {
         },
         removeTask(task) {
             this.$store.dispatch({ type: 'removeTask', task })
+        },
+        duplicateTask(task) {
+            this.$store.dispatch({ type: 'duplicateTask', task })
         },
         async saveEmptyTask() {
             await this.$store.dispatch({ type: 'saveEmptyTask' })
@@ -89,7 +92,6 @@ export default {
         },
         async deleteSelectedTasks() {
             try {
-
                 await this.$store.dispatch({ type: 'removeTasks' })
                 this.unselectTasks()
             } catch (err) {
@@ -143,7 +145,11 @@ export default {
             return this.$store.getters.selectedTasks?.length
                 ? true
                 : false
+        },
+        isViewingTask() {
+            return typeof (this.$route.params.taskId) === 'string'
         }
+
     },
     data() {
         return {

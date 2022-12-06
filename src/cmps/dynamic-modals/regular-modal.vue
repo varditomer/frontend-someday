@@ -4,7 +4,7 @@
         <component @updateSelection="updateSelection" :idx="idx"
             :selectedTasks="selectedTasks" :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask"
             :users="users" @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :groupId="groupId"
-            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" @deleteMultiple="deleteSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard" @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup" :target="target" />
+            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" @deleteMultiple="deleteSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard" @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :target="target" />
     </section>
 </template>
 
@@ -18,7 +18,7 @@ import colorPickerModal from '../regular-modal-cmps/color-picker-modal.vue';
 export default {
 
     name: 'regular-modal',
-    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu','deleteSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu','deleteSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup', 'duplicateTask'], //emit all types of dynamic cmps events
     props: {
         showModal: {
             type: Boolean,
@@ -68,6 +68,9 @@ export default {
         removeTask() {
             this.$emit('removeTask')
         },
+        duplicateTask() {
+            this.$emit('duplicateTask')
+        },
         addGroup() {
             this.$emit('addGroup')
         },
@@ -97,7 +100,8 @@ export default {
         },
         duplicateGroup() {
             this.$emit('duplicateGroup')
-        }
+        },
+
 
 
     },

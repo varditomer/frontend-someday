@@ -1,0 +1,38 @@
+.home {
+
+    .hero {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -50;
+        height: 100vh;
+        object-fit: cover;
+    }
+
+    .hero-title {
+        font-size: rem(64px);
+        padding-top: 60px;
+        font-weight: 100;
+        color: white;
+        font-family: roboto-light;
+    }
+
+    .hero-subtitle {
+        color: white;
+        margin: auto;
+        max-width: fit-content;
+        padding: 20px;
+        font-size: rem(18px);
+        font-family: roboto-medium;
+    }
+
+    .hero-btn {
+        width: 180px;
+        height: 50px;
+        border-radius: 2em;
+        font-family: roboto-medium;
+        font-size: rem(18px);
+        color: white;
+        background-image: linear-gradient(to left, #8a9fff, #5765a3);
+    }
+}

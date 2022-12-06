@@ -132,7 +132,7 @@
                     </div>
                     <div class="user">
                         <img :src="activity.byUser.imgUrl" alt="">
-                        <p>{{ activity.txt }}</p>
+                        <p>{{ taskToEdit.title }}</p>
                     </div>
                     <activity-cmp :activity="activity" />
                 </div>
@@ -275,7 +275,7 @@ export default {
             }
             this.taskToEdit = task
             this.$store.dispatch({ type: 'saveTask', task })
-        }
+        },
     },
     components: {
         imgList,
