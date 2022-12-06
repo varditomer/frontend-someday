@@ -141,11 +141,6 @@
             z-index: 5;
             background-color: white;
         }
-
-        :nth-child(6) {
-            border-left: 1px solid $brdr-clr;
-            border-bottom-left-radius: 0.3em;
-        }
     }
 
     .task-summary {
