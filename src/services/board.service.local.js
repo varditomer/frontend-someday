@@ -242,4 +242,4 @@ function _connectIds(board) {
     return board
 }
 
-// utilService.saveToStorage(BOARD_STORAGE_KEY, _boardDB)
+utilService.saveToStorage(BOARD_STORAGE_KEY, _boardDB)

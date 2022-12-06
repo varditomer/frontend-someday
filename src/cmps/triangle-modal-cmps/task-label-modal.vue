@@ -54,7 +54,7 @@ export default {
             if (!this.isBeingEditted) this.updateTask(this.labelTitle)
         },
         updateLabels(labelIdx, key, val) {
-            debugger
+            
             this.updatedDb = this.additionalDb.map((label, idx) => {
                 const newLabel = { ...label }
                 if (idx === labelIdx) newLabel[key] = val
