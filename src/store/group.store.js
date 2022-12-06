@@ -58,6 +58,16 @@ export const groupStore = {
                 console.log(`Cannot add group at store`, err)
             }
         },
+        async duplicateGroup({ commit }, {group}) {
+            try {
+                const group = await groupService.duplicate(group)
+                const isFifo = true
+                commit({ type: 'addGroup', group, isFifo })
+                return group
+            } catch (err) {
+                console.log(`Cannot duplicate group at store`, err)
+            }
+        },
         async removeTasks({ commit, getters }) {
             try {
                 console.log(`getters`, getters)

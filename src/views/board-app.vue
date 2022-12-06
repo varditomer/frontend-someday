@@ -63,20 +63,23 @@ export default {
         addBoard() {
             this.$store.dispatch({ type: 'addBoard' })
         },
+        saveGroup(group) {
+            this.$store.dispatch({ type: 'saveGroup', group })
+        },
+        removeGroup(group) {
+            this.$store.dispatch({ type: 'removeGroup', group })
+        },
         addGroup(isFifo = true) {
             this.$store.dispatch({ type: 'addGroup', isFifo })
+        },
+        duplicateGroup(group) {
+            this.$store.dispatch({ type: 'duplicateGroup', group })
         },
         setFilter(filter) {
             if (filter.userId && this.filterBy?.userId) {
                 if (filter.userId === this.filterBy.userId) filter.userId = null
             }
             this.$store.dispatch({ type: 'queryBoard', id: this.board._id, filter })
-        },
-        saveGroup(group) {
-            this.$store.dispatch({ type: 'saveGroup', group })
-        },
-        removeGroup(group) {
-            this.$store.dispatch({ type: 'removeGroup', group })
         },
         toggleWorkspace() {
             this.$store.commit({ type: 'toggleWorkspace' })
@@ -106,9 +109,7 @@ export default {
         toggleSelectAllTasks(tasks, groupId, areAllSelected) {
             this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })
         },
-        duplicateGroup(group) {
-            this.$s
-        }
+
     },
     computed: {
         users() {
