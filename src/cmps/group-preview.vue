@@ -1,9 +1,9 @@
 <template>
 
     <section class='group-preview' @keydown.escape="(showModal = false)">
-        <regular-modal v-if="!isHorizontalScrolling" :groupId="group._id" :selectedColor="group.style.color" :showModal="showModal"
-            @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
-            @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
+        <regular-modal v-if="!isHorizontalScrolling" :groupId="group._id" :selectedColor="group.style.color"
+            :showModal="showModal" @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup"
+            :cmp="'group-opt-modal'" @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
             @propagateMenu="showColorPicker = true" />
 
         <div class="group-title flex align-center" :class="{ collapse: !viewTasks }"
@@ -22,8 +22,9 @@
                     contenteditable @input="saveGroup($event.target.innerText, 'title')"
                     :style="{ color: group.style.color }" v-html="group.title" ref="title">
                 </h4>
-                <regular-modal v-if="!isHorizontalScrolling" class="group-color-picker" :cmp="'color-picker-modal'" :selectedColor="group.style.color"
-                    :showModal="showColorPicker" @updateSelection="saveGroup" @closeModal="showColorPicker = false" />
+                <regular-modal v-if="!isHorizontalScrolling" class="group-color-picker" :cmp="'color-picker-modal'"
+                    :selectedColor="group.style.color" :showModal="showColorPicker" @updateSelection="saveGroup"
+                    @closeModal="showColorPicker = false" />
                 <!-- <title-modal :class="{ 'show': showTitle }" :content="'Click to Edit'" /> -->
                 <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
             </div>
@@ -31,10 +32,10 @@
                 class="task-footer group-collapsed" />
         </div>
 
-        <task-list v-if="viewTasks" @toggleSelectAllTasks="toggleSelectAllTasks" @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard"
-            :selectedTasks="selectedTasks" :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
-            :priorities="priorities" :statuses="statuses" @addGroup="addGroup" @saveTask="saveTask"
-            @removeTask="removeTask" />
+        <task-list v-if="viewTasks" @toggleSelectAllTasks="toggleSelectAllTasks" @saveSelectedTasks="saveSelectedTasks"
+            @saveBoard="saveBoard" :selectedTasks="selectedTasks" :tasks="group.tasks" :group="group"
+            :cmpsOrder="cmpsOrder" :users="users" :priorities="priorities" :statuses="statuses" @addGroup="addGroup"
+            @saveTask="saveTask" @removeTask="removeTask" />
 
     </section>
 
@@ -47,7 +48,7 @@ import regularModal from './dynamic-modals/regular-modal.vue'
 import taskSummary from './task-summary.vue'
 export default {
     name: 'group-preview',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup','toggleSelectAllTasks'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks'],
     props: {
         group: Object,
         cmpsOrder: Array,
@@ -94,8 +95,8 @@ export default {
         toggleTaskView() {
             this.viewTasks = !this.viewTasks
         },
-        saveTask(task) {
-            this.$emit('saveTask', task)
+        saveTask(task, activity) {
+            this.$emit('saveTask', task, activity)
         },
         removeTask(task) {
             this.$emit('removeTask', task)
@@ -120,8 +121,8 @@ export default {
         saveSelectedTasks(taskId) {
             this.$emit('saveSelectedTasks', taskId)
         },
-        toggleSelectAllTasks(tasks,groupId,areAllSelected){
-            this.$emit('toggleSelectAllTasks', tasks,groupId,areAllSelected)
+        toggleSelectAllTasks(tasks, groupId, areAllSelected) {
+            this.$emit('toggleSelectAllTasks', tasks, groupId, areAllSelected)
         }
     },
     computed: {

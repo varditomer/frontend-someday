@@ -6,7 +6,8 @@ export const utilService = {
     randomPastTime,
     saveToStorage,
     loadFromStorage,
-    getReasonableTimeDiff
+    getReasonableTimeDiff,
+    getTimeDifference
 }
 
 function makeId(length = 6) {
@@ -33,7 +34,7 @@ function makeLorem(size = 100) {
 export function getRandomInt(min, max) {
     min = Math.ceil(min)
     max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min )) + min //The maximum is inclusive and the minimum is inclusive 
+    return Math.floor(Math.random() * (max - min)) + min //The maximum is inclusive and the minimum is inclusive 
 }
 
 function getRandomIntInclusive(min, max) {
@@ -69,6 +70,44 @@ function loadFromStorage(key) {
     return (data) ? JSON.parse(data) : undefined
 }
 
+function getTimeDifference(current, previous) {
+
+    var msPerMinute = 60 * 1000;
+    var msPerHour = msPerMinute * 60;
+    var msPerDay = msPerHour * 24;
+    var msPerWeek = msPerDay * 7;
+    var msPerMonth = msPerDay * 30;
+    var msPerYear = msPerDay * 365;
+
+    var elapsed = current - previous;
+
+    if (elapsed < msPerMinute) {
+        return Math.round(elapsed / 1000) + 's';
+    }
+
+    else if (elapsed < msPerHour) {
+        return Math.round(elapsed / msPerMinute) + 'm';
+    }
+
+    else if (elapsed < msPerDay) {
+        return Math.round(elapsed / msPerHour) + 'h';
+    }
+
+    else if (elapsed < msPerWeek) {
+        return Math.round(elapsed / msPerDay) + 'd';
+    }
+    else if (elapsed < msPerMonth) {
+        return Math.round(elapsed / msPerWeek) + 'w';
+    }
+
+    else if (elapsed < msPerYear) {
+        return Math.round(elapsed / msPerMonth) + 'm';
+    }
+
+    else {
+        return Math.round(elapsed / msPerYear) + 'y';
+    }
+}
 
 Date.DateDiff = function (p_Interval, p_Date1, p_Date2, p_FirstDayOfWeek = 1) {
     // p_FirstDayOfWeek = (isNaN(p_FirstDayOfWeek) || p_FirstDayOfWeek == 0) ? 1 : parseInt(p_FirstDayOfWeek);

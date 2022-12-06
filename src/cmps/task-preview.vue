@@ -126,8 +126,15 @@ export default {
     methods: {
         updateTask({ key, val }) {
             const task = this.task
+            const oldVal = task[key]
             task[key] = val
-            this.$emit('updateTask', task)
+            const activity = {
+                key,
+                oldVal,
+                newVal: val,
+                taskId: task._id
+            }
+            this.$emit('updateTask', task, activity)
         },
         lineOptions() {
             this.showModal = true

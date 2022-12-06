@@ -11,7 +11,7 @@
             <div class="columns">
                 <draggable v-model="cmpsOrder" itemKey="element" dataIdAttrtag="div" @start="isBeingDragged = true">
                     <template #item="{ element }">
-                        <div group="cmps" ghost-class="ghost" :class="{ columnDragged: isBeingDragged}" class="titles">
+                        <div group="cmps" ghost-class="ghost" :class="{ columnDragged: isBeingDragged }" class="titles">
                             {{ element }}
                         </div>
                     </template>
@@ -26,7 +26,8 @@
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     :isSelected="selectedTasks.includes(element._id)" @update-task="updateTask" :sort="true"
                     :task="element" :cmpsOrder="cmpsOrder" :users="users" :group="group" :additionalDb="additionalDb"
-                    @removeTask="removeTask" @editing="(editing = true)" @editDone="(editing = false)" :areAllChecked="areAllChecked" />
+                    @removeTask="removeTask" @editing="(editing = true)" @editDone="(editing = false)"
+                    :areAllChecked="areAllChecked" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -86,7 +87,6 @@ export default {
             isBeingDragged: false,
             areAllChecked: false,
             editing: null,
-            allChecked: false
         }
     },
     created() {
@@ -94,8 +94,8 @@ export default {
             groupId: this.group._id,
             boardId: this.group.boardId
         },
-        this.editing = false
-        
+            this.editing = false
+
         // console.log(`this.checkAll-list:`, this.allChecked)
 
     },
@@ -119,8 +119,8 @@ export default {
         removeTask(task) {
             this.$emit('removeTask', task)
         },
-        updateTask(task) {
-            this.$emit('saveTask', task)
+        updateTask(task, activity) {
+            this.$emit('saveTask', task, activity)
         },
         async saveBoard(ev) {
             this.$emit('saveBoard')
@@ -140,6 +140,7 @@ export default {
         }
     },
     computed: {
+
         additionalDb() {
             return {
                 priority: this.priorities,

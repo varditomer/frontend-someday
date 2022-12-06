@@ -41,7 +41,7 @@
             </div>
             <div class="modal-item flex align-center" @click="propagateMenu">
                 <div class="flex align-center">
-                    <span class="group-color" :style="{  backgroundColor:  selectedColor  }"></span>
+                    <span class="group-color" :style="{ backgroundColor: selectedColor }"></span>
                     <p class="title color-title">Change group color</p>
                 </div>
             </div>
@@ -60,7 +60,7 @@
 import { eventBus } from '../../services/event-bus.service';
 export default {
     name: 'group-opt-modal',
-    emits: ['addGroup', 'editGroupTitle', 'removeGroup','propagateMenu'],
+    emits: ['addGroup', 'editGroupTitle', 'removeGroup', 'propagateMenu'],
     props: {
         groupId: String,
         selectedColor: String,

@@ -137,7 +137,9 @@ function saveLocalUser(user) {
 }
 
 function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    let loggedinUser = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    if (!loggedinUser) loggedinUser = { _id: 0, fullname: 'Guest', imgUrl: 'src/assets/imgs/default-avatar.svg' }
+    return loggedinUser
 }
 
 

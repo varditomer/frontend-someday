@@ -16,14 +16,7 @@ export default {
 
     await this.$store.dispatch({ type: 'loadUsers' })
     let user = userService.getLoggedinUser()
-    if (user) store.commit({ type: 'setLoggedinUser', user })
-    else {
-      user = {
-        _id: 0,
-        fullname: 'Guest'
-      }
-      store.commit({ type: 'setLoggedinUser', user })
-    }
+    this.$store.commit({ type: 'setLoggedinUser', user })
   },
   components: {
     userMsg
