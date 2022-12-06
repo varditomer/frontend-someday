@@ -57,9 +57,9 @@ export default {
         eventBus.on('reload', board => this.boardToShow = JSON.parse(JSON.stringify(board)))
     },
     methods: {
-        saveBoard() {
+        saveBoard(cmpsOrder) {
             this.beingDragged = false
-            this.$emit('saveBoard', this.boardToShow)
+            this.$emit('saveBoard', {...this.boardToShow, cmpsOrder})
         },
         saveTask(task, activity) {
             this.boardToShow.groups.forEach(group => {

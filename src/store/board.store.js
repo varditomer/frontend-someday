@@ -48,7 +48,11 @@ export const boardStore = {
         miniBoards({ miniBoards }) { return miniBoards },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         filterBy({ filterBy }) { return filterBy },
+<<<<<<< HEAD
     
+=======
+        filterMap({ board }) { return boardService.getFilterMap(board._id) },
+>>>>>>> 19c3fc27443fa47fa131aa970b3d6f9b514a7f0d
     },
     mutations: {
         setBoard(state, { board }) {
@@ -179,6 +183,14 @@ export const boardStore = {
                 console.log('Could not find board');
             }
 
+        },
+        async multiFilteredBoard({ commit }, { multiFilter, boardId }) {
+            try {
+                const board = await boardService.multiFilter(multiFilter, boardId)
+                commit({ type: 'setBoard', board })
+            } catch (err) {
+                console.log('Cannot load filtered board')
+            }
         },
         async removeBoard({ commit }, { boardId }) {
             try {
