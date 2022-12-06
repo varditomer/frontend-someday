@@ -61,11 +61,11 @@ export default {
             this.beingDragged = false
             this.$emit('saveBoard', this.boardToShow)
         },
-        saveTask(task) {
+        saveTask(task, activity) {
             this.boardToShow.groups.forEach(group => {
                 group.tasks.forEach(task => task.groupId = group._id)
             })
-            this.$emit('saveTask', task)
+            this.$emit('saveTask', task, activity)
             this.saveBoard()
         },
         removeTask(task) {

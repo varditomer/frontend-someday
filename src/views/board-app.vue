@@ -46,8 +46,8 @@ export default {
 
     },
     methods: {
-        saveTask(task) {
-            let taskToSave = { task, bool: false }
+        saveTask(task, activity) {
+            this.$store.dispatch({ type: 'saveActivity', activity })
             this.$store.dispatch({ type: 'saveTask', task })
         },
         saveBoard(board) {

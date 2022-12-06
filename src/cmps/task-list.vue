@@ -11,7 +11,7 @@
             <div class="columns">
                 <draggable v-model="cmpsOrder" itemKey="element" dataIdAttrtag="div" @start="isBeingDragged = true">
                     <template #item="{ element }">
-                        <div group="cmps" ghost-class="ghost" :class="{ columnDragged: isBeingDragged}" class="titles">
+                        <div group="cmps" ghost-class="ghost" :class="{ columnDragged: isBeingDragged }" class="titles">
                             {{ element }}
                         </div>
                     </template>
@@ -95,10 +95,7 @@ export default {
             groupId: this.group._id,
             boardId: this.group.boardId
         },
-        this.editing = false
-        
-        // console.log(`this.checkAll-list:`, this.allChecked)
-
+            this.editing = false
     },
     mounted() {
         eventBus.on('unselectTasks', () => this.areAllChecked = false)
@@ -120,8 +117,8 @@ export default {
         removeTask(task) {
             this.$emit('removeTask', task)
         },
-        updateTask(task) {
-            this.$emit('saveTask', task)
+        updateTask(task, activity) {
+            this.$emit('saveTask', task, activity)
         },
         async saveBoard(ev) {
             this.$emit('saveBoard')
@@ -143,6 +140,7 @@ export default {
         }
     },
     computed: {
+
         additionalDb() {
             return {
                 priority: this.priorities,

@@ -41,7 +41,7 @@
             </div>
             <div class="modal-item flex align-center" @click="propagateMenu">
                 <div class="flex align-center">
-                    <span class="group-color" :style="{  backgroundColor:  selectedColor  }"></span>
+                    <span class="group-color" :style="{ backgroundColor: selectedColor }"></span>
                     <p class="title color-title">Change group color</p>
                 </div>
             </div>

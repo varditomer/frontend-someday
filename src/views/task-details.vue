@@ -128,10 +128,10 @@
                 <div v-for="activity in getUserActivities" class="activity-item">
                     <div class="created-time">
                         <span v-svg-icon="'time'"></span>
-                        <p>10h</p>
+                        <p>{{ getFormattedTime(activity.createdAt) }}</p>
                     </div>
                     <div class="user">
-                        <img :src="activity.by.imgUrl" alt="">
+                        <img :src="activity.byUser.imgUrl" alt="">
                         <p>{{ activity.txt }}</p>
                     </div>
                     <activity-cmp :activity="activity" />
@@ -147,6 +147,7 @@ import { uploadImg } from '../services/img-upload.service'
 import activityCmp from '../cmps/activity-cmp.vue'
 import { imgService } from '../services/img-service'
 import imgList from '../cmps/img-list.cmp.vue'
+import { utilService } from '../services/util.service'
 
 export default {
     name: 'task-details',
@@ -196,9 +197,12 @@ export default {
         getUserActivities() {
             const activities = this.activities.filter(activity => activity.taskId === this.taskToEdit._id)
             return activities
-        }
+        },
     },
     methods: {
+        getFormattedTime(oldTimestamp) {
+            return utilService.getTimeDifference(Date.now(), oldTimestamp)
+        },
         goTo(dest) {
             switch (dest) {
                 case 'comments': this.showComp = 'comments'
@@ -209,7 +213,6 @@ export default {
                     break
             }
         },
-
         handleFile(ev) {
             console.log('ev', ev)
             let file
@@ -225,8 +228,6 @@ export default {
             this.isLoading = false
             console.log('res:', res)
         },
-
-
         saveImg(url) {
             this.imgUrls.push(url)
             imgService.saveImg(url)

@@ -18,7 +18,7 @@
 
 <script>
 import { colors } from '../data/color-picker.js'
-import { labels } from '../data/_board_DB.js'
+import { labels } from '../data/_labelsDB.js'
 export default {
     name: '',
     props: {
