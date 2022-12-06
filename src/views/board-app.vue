@@ -148,6 +148,9 @@ export default {
         },
         isViewingTask() {
             return typeof (this.$route.params.taskId) === 'string'
+        },
+        dataMap(){
+            return this.$store.getters.filterMap
         }
 
     },

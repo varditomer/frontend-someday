@@ -40,7 +40,8 @@ export const boardStore = {
         filterBy: {
             txt: '',
             userId: null
-        }
+        },
+        dataMap:{}
     },
     getters: {
         board({ board }) { return board },
@@ -48,7 +49,7 @@ export const boardStore = {
         miniBoards({ miniBoards }) { return miniBoards },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         filterBy({ filterBy }) { return filterBy },
-        filterMap({ board }) { return boardService.getFilterMap(board._id) },
+        filterMap({ board }) { return boardService.getDataMap(board._id) },
     },
     mutations: {
         setBoard(state, { board }) {
@@ -206,5 +207,13 @@ export const boardStore = {
                 throw err
             }
         },
+        async getDataMap({commit}, { boardId }) {
+            try {
+                const data = await boardService.getDataMap(boardId)
+                commit({type})
+            } catch (err) {
+                
+            }
+        }
     }
 }
