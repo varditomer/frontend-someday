@@ -90,6 +90,16 @@ export const taskStore = {
             } catch (err) {
                 console.log(`Cannot remove task: ${err}`)
             }
+        },
+        async duplicateTask({ commit }, { task }) {
+            try {
+                console.log(`task:`, task)
+                const duplicatedTask = await taskService.duplicate(task)
+                const taskToSave = {task: duplicatedTask, bool: true}
+                commit({ type: 'saveTask', taskToSave: taskToSave })
+            } catch (err) {
+                console.log(`Cannot duplicate task: ${err}`)
+            }
         }
     },
 }

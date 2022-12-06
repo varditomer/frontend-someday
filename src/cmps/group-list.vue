@@ -8,7 +8,7 @@
                     :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
                     :key="element._id" :priorities="priorities" @toggleSelectAllTasks="toggleSelectAllTasks"
                     :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
-                    @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" />
+                    @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" />
             </template>
         </draggable>
 
@@ -29,7 +29,7 @@ import { eventBus } from '../services/event-bus.service'
 
 export default {
     name: 'group-list',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'addGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'select', 'toggleSelectAllTasks', 'duplicateGroup'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'addGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'select', 'toggleSelectAllTasks', 'duplicateGroup', 'duplicateTask'],
     props: {
         users: Array,
         board: Object,
@@ -66,27 +66,24 @@ export default {
                 group.tasks.forEach(task => task.groupId = group._id)
             })
             this.$emit('saveTask', task, activity)
-            this.saveBoard()
         },
         removeTask(task) {
             this.$emit('removeTask', task)
-            this.saveBoard()
+        },
+        duplicateTask(task) {
+            this.$emit('duplicateTask', task)
         },
         saveGroup(group) {
             this.$emit('saveGroup', group)
-            this.saveBoard()
         },
         removeGroup(group) {
             this.$emit('removeGroup', group)
-            this.saveBoard()
         },
         addGroup(isFifo = true) {
             this.$emit('addGroup', isFifo)
-            this.saveBoard()
         },
         saveSelectedTasks(taskId) {
             this.$emit('saveSelectedTasks', taskId)
-            this.saveBoard()
         },
         scrolling(event) {
             const { scrollLeft } = event.target

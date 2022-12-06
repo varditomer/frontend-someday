@@ -18,7 +18,7 @@
                     </div>
                     <div class="workspace-title">Main workspace</div>
                 </div>
-                <span v-svg-icon="'more'" class="more"></span>
+                <span v-svg-icon="'fatMore'" class="more"></span>
             </div>
 
             <div class="workspace-sub-header flex align-center">

@@ -26,7 +26,7 @@
             </div>
             <div class="modal-item flex align-center" @click="duplicateGroup">
                 <div class="flex align-center">
-                    <span v-svg-icon="'board'"></span>
+                    <span v-svg-icon="'duplicate'"></span>
                     <p class="title">Duplicate this group</p>
                 </div>
             </div>
@@ -35,7 +35,7 @@
         <div class="modal-group lowest-group flex column justify-center">
             <div class="modal-item flex align-center" @click="editGroupTitle">
                 <div class="flex align-center">
-                    <span v-svg-icon="'board'"></span>
+                    <span v-svg-icon="'rename'"></span>
                     <p class="title">Rename group</p>
                 </div>
             </div>
