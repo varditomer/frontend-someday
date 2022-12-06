@@ -115,14 +115,6 @@ export default {
         groupPreview,
         draggable
     },
-    // watch: {
-    //     board: {
-    //         handler(newBoard) {
-    //             this.boardToShow = newBoard ? JSON.parse(JSON.stringify(newBoard)) : null
-    //         },
-    //         deep: true
-    //     }
-    // },
     created() {
         this.isHorizontalScrolling = false
     }
