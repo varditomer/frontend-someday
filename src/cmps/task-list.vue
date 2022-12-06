@@ -135,7 +135,6 @@ export default {
             this.$emit('saveSelectedTasks', taskId)
         },
         toggleSelectAll() {
-            console.log(`12:`,)
             this.allCheckedClicked = !this.allCheckedClicked
             this.areAllChecked = !this.areAllChecked
             const formattedTasks = this.group.tasks.map(task => task._id)
