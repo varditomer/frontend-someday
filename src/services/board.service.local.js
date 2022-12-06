@@ -15,7 +15,8 @@ export const boardService = {
     save,
     remove,
     saveToSessionStorage,
-    loadFromSessionStorage
+    loadFromSessionStorage,
+    multiFilter
 }
 window.bs = boardService
 
@@ -94,6 +95,28 @@ function _filterByTxt(board, txt) {
         if (group.tasks?.length || isGroupTitleMatch) groupArr.push(group)
         return groupArr
 
+    }, [])
+    return board
+}
+
+function multiFilter(filterBy, board) {
+    board.groups = board.groups.reduce((filteredGroups, group) => {
+        if (filterBy?.groupTitle && filterBy.groupTitle !== group.title) return filteredGroups
+        if (filterBy.tasks) group.tasks = group.tasks.reduce((filteredTasks, task) => {
+            const taskFilter = JSON.parse(JSON.stringify(filterBy.tasks))
+            if (taskFilter.person?.length &&
+                !taskFilter.person.every(id => {
+                    return (task.person && task.person.find(person => person._id === id))
+                })) return filteredTasks
+            delete taskFilter.person
+            for (let prop in taskFilter) {
+                if (task[prop] !== taskFilter[prop]) return filteredTasks
+            }
+            filteredTasks.push(task)
+            return filteredTasks
+        }, [])
+        if (group.tasks.length) filteredGroups.push(group)
+        return filteredGroups
     }, [])
     return board
 }
