@@ -1,7 +1,6 @@
 <template>
     <section class="txt flex center" @click="clickToEdit">
         <div v-if="isEditing" class="editing-mode" @key.enter="updateTask" v-click-outside="updateTask">
-            
             <input v-focus type="text" class="edit" v-model="text">
         </div>
         <div v-if="(text && !isEditing)">

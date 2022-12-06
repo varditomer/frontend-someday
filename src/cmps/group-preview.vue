@@ -19,7 +19,7 @@
 
             <div class="group-title-content">
                 <h4 @click="(showTitle = false)" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
-                    contenteditable @input="saveGroup($event.target.innerText, 'title')"
+                    contenteditable @blur="saveGroup($event.target.innerText, 'title')"
                     :style="{ color: group.style.color }" v-html="group.title" ref="title">
                 </h4>
                 <regular-modal v-if="!isHorizontalScrolling" class="group-color-picker" :cmp="'color-picker-modal'"
