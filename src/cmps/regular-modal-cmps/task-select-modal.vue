@@ -1,9 +1,14 @@
 <template>
     <section class='task-select-modal'>
         <div class="left-sec">
-            <!-- <div class="selected-count">{{ selectedTasks.length }}</div>
-            <h2>{{ selectedTasks.length > 1 ? 'Items selected' : 'Item selected' }}</h2> -->
-            {{ selectedTasks }}
+            <div class="selected-count">{{ selectedTasks.length }}</div>
+            <div class="selectedItemsAndDots flex column center">
+                <h2>{{ selectedTasks.length > 1 ? 'Items selected' : 'Item selected' }}</h2>
+                <div class="dots-container">
+                    <div class="dots" v-for="task in currSelectedLines" :style="{backgroundColor: task.color}"></div>
+                </div>
+            </div>
+            <!-- {{ selectedTasks }} -->
         </div>
         <div class="right-sec">
             <div class="tasks-item">
@@ -43,20 +48,18 @@ export default {
     },
     data() {
         return {
-            selectedTasksClrs: null
+            currSelectedLines: null
         }
     },
     created() {
-        this.selectedTasksClrs = this.$store.getters.getSelectedTasksColorsByIds
-        // console.log(`this.selectedTasksClrs:`, this.selectedTasksClrs)
+        console.log(`this.selectedTasksWithColor:`, this.selectedTasks)
 
     },
     watch: {
         selectedTasks: {
             handler(newState, oldState) {
-                this.selectedTasksClrs = this.$store.getters.getSelectedTasksColorsByIds
-                console.log(`this.selectedTasksClrs:`, this.selectedTasksClrs)
-                console.log(`newState:`, newState)
+                this.currSelectedLines = newState
+                console.log(`11:`, )
             },
             deep: true
 

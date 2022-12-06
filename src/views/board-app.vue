@@ -4,14 +4,16 @@
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
         <section class='board-app-container' :class="{ 'folded': isViewingTask }">
-            <regular-modal :selectedTasks="selectedTasks" @deleteSelectedTasks="deleteSelectedTasks"
+            <!-- :selectedTasks="selectedTasks" -->
+            <regular-modal :selectedTasks="selectedTasksWithColor" @deleteSelectedTasks="deleteSelectedTasks"
                 :showModal="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
-                :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask" @duplicateTask="duplicateTask"
-                @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard" @removeGroup="removeGroup"
-                @duplicateGroup="duplicateGroup" :board="board" :priorities="priorities" :statuses="statuses" />
+                :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
+                @duplicateTask="duplicateTask" @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard"
+                @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" :board="board" :priorities="priorities"
+                :statuses="statuses" />
         </section>
         <router-view />
     </section>
@@ -23,6 +25,7 @@ import groupList from '../cmps/group-list.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
 import { eventBus } from '../services/event-bus.service.js'
+import { boardService } from '../services/board.service.local.js'
 
 export default {
     name: 'board-app',
@@ -37,6 +40,7 @@ export default {
         return {
             boardUpdated: 0,
             scrollX: null,
+            selectedTasksWithColor: []
         }
     },
     mounted() {
@@ -89,6 +93,11 @@ export default {
         },
         async saveSelectedTasks(taskId) {
             await this.$store.commit({ type: 'saveSelectedTasks', taskId })
+
+            const filterTasks = { tasks: { _id: taskId } }
+            const filtteredBoard = await boardService.multiFilter(filterTasks, 'b101')
+            const color = filtteredBoard.groups[0].style.color
+            this.selectedTasksWithColor.push({taskId, color})
         },
         async deleteSelectedTasks() {
             try {
@@ -150,10 +159,6 @@ export default {
             return typeof (this.$route.params.taskId) === 'string'
         }
 
-    },
-    data() {
-        return {
-        }
     },
     async created() {
         const { id } = this.$route.params

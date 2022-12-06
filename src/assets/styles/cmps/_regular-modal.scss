@@ -205,6 +205,20 @@
         min-width: 600px;
         height: 63px;
         border-radius: 10px;
+        .dots-container {
+            margin-left: 20px;
+            height: 20px;
+            display: flex;
+            align-self:baseline;
+            align-items: center;
+
+        }
+        .dots {
+            width: 7px;
+            height: 7px;
+            border-radius: 20px;
+            margin-right: 4px;
+        }
 
         .left-sec {
             height: 100%;
@@ -231,7 +245,8 @@
         h2 {
             font-size: 24px;
             font-family: roboto-thin;
-            margin-left: 18px;
+            margin-left: 20px;
+            // height: 36px;
 
         }
 
