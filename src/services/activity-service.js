@@ -51,6 +51,34 @@ async function save(activity) {
 
 const activities = [
     {
+        type: 'date',
+        icon: 'time',
+        createdAt: Date.now(),
+        by: {
+            _id: 'u103',
+            imgUrl: 'src/assets/imgs/tomer-avatar.png',
+            fullname: 'Tomer Vardy'
+        },
+        txt: 'Changed date',
+        from: '',
+        to: 'Dec 13',
+        taskId: 'xwe45'
+    },
+    {
+        type: 'text',
+        icon: 'copyText',
+        createdAt: Date.now(),
+        by: {
+            _id: 'u104',
+            imgUrl: 'src/assets/imgs/ronen-avatar.png',
+            fullname: 'Ronen Boxer'
+        },
+        txt: 'Changed text',
+        from: '',
+        to: 'Set github pages',
+        taskId: 'wdec4'
+    },
+    {
         type: 'status',
         icon: 'board',
         createdAt: Date.now(),
@@ -60,13 +88,42 @@ const activities = [
             fullname: 'Ronen Boxer'
         },
         txt: 'Changed status',
+        from: 'Stuck',
+        to: 'Working on it',
+        taskId: 'bg754'
+    },
+
+    {
+        type: 'status',
+        icon: 'board',
+        createdAt: Date.now(),
+        by: {
+            _id: '0',
+            imgUrl: 'src/assets/imgs/default-avatar.svg',
+            fullname: 'Guest'
+        },
+        txt: 'Changed status',
         from: 'Working on it',
         to: 'Stuck',
-        taskId: 'xwe45'
+        taskId: 'xa8sd'
+    },
+    {
+        type: 'text',
+        icon: 'copyText',
+        createdAt: Date.now(),
+        by: {
+            _id: 'u102',
+            imgUrl: 'src/assets/imgs/refael-avatar.png',
+            fullname: 'Refael Abramov'
+        },
+        txt: 'Added text',
+        from: '',
+        to: 'D&D, Kanban, Perfect-pixel',
+        taskId: 's0dme'
     },
     {
         type: 'priority',
-        icon: 'board',
+        icon: 'priority',
         createdAt: Date.now(),
         by: {
             _id: 'u103',
@@ -74,23 +131,9 @@ const activities = [
             fullname: 'Tomer Vardy'
         },
         txt: 'Changed priority',
-        from: 'Low',
-        to: 'Medium',
-        taskId: 'wdec4'
-    },
-    {
-        type: 'date',
-        icon: 'date',
-        createdAt: Date.now(),
-        by: {
-            _id: 'u103',
-            imgUrl: 'src/assets/imgs/tomer-avatar.png',
-            fullname: 'Tomer Vardy'
-        },
-        txt: 'Changed date',
-        from: 'Nov 25',
-        to: 'Nov 28',
-        taskId: 'bg754'
+        from: 'High',
+        to: 'Critical',
+        taskId: 'adx8w'
     },
 ]
 
