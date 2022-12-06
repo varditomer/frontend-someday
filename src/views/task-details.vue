@@ -1,7 +1,10 @@
 <template>
 
-    <section  class='task-details-container' v-click-outside="close">
-        
+    <div class="black-screen" :class="{ 'show': darken }"></div>
+
+    <section class='task-details-container' @mouseover="(darken = true)" @mouseout="(darken = false)"
+        v-click-outside="close">
+
         <span v-if="taskToEdit" @click="close" v-svg-icon="'exit'" class="close-modal-btn"></span>
         <h1 v-if="taskToEdit" class="task-modal-title">{{ taskToEdit.title }}</h1>
         <div v-if="taskToEdit" class="modal-btns">
@@ -159,7 +162,8 @@ export default {
             content: {
                 icon: 'addComment',
                 type: 'Comment'
-            }
+            },
+            darken: false
         }
     },
     async created() {

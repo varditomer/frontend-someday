@@ -4,14 +4,15 @@
         <li>
             <span class="empty-span"></span>
             <span class="task-select header-task-select" :style="{ 'border-left-color': group.style.color }">
-                <input type="checkbox" @input="toggleSelectAll" v-model="areAllSelected"/>
+                <input type="checkbox" @input="toggleSelectAll" v-model="areAllChecked" />
             </span>
             <span class="task-list-item-header">item</span>
 
             <div class="columns">
                 <draggable v-model="cmpsOrder" itemKey="element" dataIdAttrtag="div" @start="isBeingDragged = true">
                     <template #item="{ element }">
-                        <div group="cmps" ghost-class="ghost" :class="{ columnDragged: isBeingDragged }" class="titles"> {{ element }}
+                        <div group="cmps" ghost-class="ghost" :class="{ columnDragged: isBeingDragged}" class="titles">
+                            {{ element }}
                         </div>
                     </template>
                 </draggable>
@@ -23,8 +24,9 @@
             :class="{ taskDragged: beingDragged }" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
-                    :isSelected="selectedTasks.includes(element._id)" @update-task="updateTask" :sort="true" :task="element" :cmpsOrder="cmpsOrder" :users="users"
-                    :group="group" :additionalDb="additionalDb" @removeTask="removeTask" />
+                    :isSelected="selectedTasks.includes(element._id)" @update-task="updateTask" :sort="true"
+                    :task="element" :cmpsOrder="cmpsOrder" :users="users" :group="group" :additionalDb="additionalDb"
+                    @removeTask="removeTask" @editing="(editing = true)" @editDone="(editing = false)" :areAllChecked="areAllChecked" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -50,7 +52,7 @@
 import draggable from 'vuedraggable'
 import taskPreview from './task-preview.vue'
 import taskSummary from './task-summary.vue'
-import {eventBus} from '../services/event-bus.service.js'
+import { eventBus } from '../services/event-bus.service.js'
 export default {
     name: 'task-list',
     emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks'],
@@ -82,17 +84,23 @@ export default {
             taskToAdd: {},
             beingDragged: false,
             isBeingDragged: false,
-            areAllSelected: false,
+            areAllChecked: false,
+            editing: null,
+            allChecked: false
         }
     },
     created() {
         this.taskToAdd = {
             groupId: this.group._id,
             boardId: this.group.boardId
-        }
+        },
+        this.editing = false
+        
+        // console.log(`this.checkAll-list:`, this.allChecked)
+
     },
-    mounted(){
-        eventBus.on('unselectTasks', ()=>this.areAllSelected = false)
+    mounted() {
+        eventBus.on('unselectTasks', () => this.areAllChecked = false)
     },
     methods: {
         addTask() {
@@ -118,14 +126,14 @@ export default {
             this.$emit('saveBoard')
         },
         saveSelectedTasks(taskId) {
-            this.areAllSelected = false
+            this.areAllChecked = false
             this.$emit('saveSelectedTasks', taskId)
         },
         toggleSelectAll() {
-            this.areAllSelected = !this.areAllSelected
+            this.areAllChecked = !this.areAllChecked
             const formattedTasks = this.group.tasks.map(task => task._id)
 
-            this.$emit('toggleSelectAllTasks', formattedTasks, this.group._id, this.areAllSelected)
+            this.$emit('toggleSelectAllTasks', formattedTasks, this.group._id, this.areAllChecked)
         },
         addGroup() {
             this.$emit('addGroup')
