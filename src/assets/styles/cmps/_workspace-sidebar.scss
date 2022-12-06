@@ -152,6 +152,10 @@
             background-color: $primary-blue;
             position: relative;
             color: white;
+            
+            span{
+                fill: white;
+            }
 
             .title-modal {
                 width: 190px;

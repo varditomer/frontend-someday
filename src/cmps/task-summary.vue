@@ -1,16 +1,18 @@
 <template>
     <li class="task-summary">
-        <span class="empty-span"></span>
-        <span class="empty-span"></span>
-        <span class="empty-span"></span>
-        <span class="empty-span"></span>
-        <span class="empty-span overlay-span">
-            <span class="border-overlay-span"></span>
-        </span>
-        <div v-if="isCollapsed" class="summary-footer-title">
-            <p v-for="cmp in cmpsOrder">{{ cmp }}</p>
-        </div>
-        <section v-for="html in getHtmlSumData" v-html="(html)" class="footer-section flex center">
+
+        <section class="static">
+            <div class="static-overlay">
+                <div></div>
+            </div>
+        </section>
+
+        <section class="dynamic">
+            <div v-if="isCollapsed" class="summary-footer-title">
+                <p v-for="cmp in cmpsOrder">{{ cmp }}</p>
+            </div>
+            <section v-for="html in getHtmlSumData" v-html="(html)" class="footer-section flex center">
+            </section>
         </section>
         <span class="empty-fill-span"></span>
     </li>

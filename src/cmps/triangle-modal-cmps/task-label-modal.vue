@@ -8,7 +8,7 @@
                 @blur="updateLabels(idx, 'title', $event.target.innerText)">
                 {{ label.title !== 'Default' ? label.title : isBeingEditted ? 'Default' : '' }}
             </span>
-            <regular-modal :cmp="'color-picker-modal'" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateProperty" />
+            <regular-modal :cmp="'color-picker-modal'"  :idx="selectedIdx" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateProperty" />
         </div>
         <span class="label-btn flex helper">
             <div class="flex center" @click="toggleEdit">
