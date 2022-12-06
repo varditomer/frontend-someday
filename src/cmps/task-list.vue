@@ -9,7 +9,7 @@
             <span class="task-list-item-header">item</span>
 
             <div class="columns">
-                <draggable v-model="cmpsOrder" itemKey="element" dataIdAttrtag="div" @start="isBeingDragged = true">
+                <draggable v-model="cmpsOrder" itemKey="element" dataIdAttrtag="div" @start="isBeingDragged = true" @end="saveBoard">
                     <template #item="{ element }">
                         <div group="cmps" ghost-class="ghost" :class="{ columnDragged: isBeingDragged }" class="titles">
                             {{ element }}
@@ -124,7 +124,7 @@ export default {
             this.$emit('saveTask', task, activity)
         },
         async saveBoard(ev) {
-            this.$emit('saveBoard')
+            this.$emit('saveBoard', this.cmpsOrder)
         },
         saveSelectedTasks(taskId) {
             this.areAllChecked = false

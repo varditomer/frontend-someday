@@ -16,7 +16,7 @@
             <span v-svg-icon="'account'"></span>
             <button>Person</button>
         </div>
-        <div class="filter">
+        <div class="filter" @click="openModal('multiFilter')">
             <span v-svg-icon="'filter'"></span>
             <button>Filter</button>
         </div>

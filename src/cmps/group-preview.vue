@@ -89,8 +89,8 @@ export default {
         })
     },
     methods: {
-        saveBoard() {
-            this.$emit('saveBoard')
+        saveBoard(cmpsOrder) {
+            this.$emit('saveBoard', cmpsOrder)
         },
         toggleTaskView() {
             this.viewTasks = !this.viewTasks
