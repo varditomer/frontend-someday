@@ -6,11 +6,10 @@
                 <div></div>
             </div>
         </section>
-
         <section class="dynamic">
-            <div v-if="isCollapsed" class="summary-footer-title">
+            <!-- <div v-if="isCollapsed" class="summary-footer-title">
                 <p v-for="cmp in cmpsOrder">{{ cmp }}</p>
-            </div>
+            </div> -->
             <section v-for="html in getHtmlSumData" v-html="(html)" class="footer-section flex center">
             </section>
         </section>

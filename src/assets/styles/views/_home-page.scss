@@ -23,7 +23,7 @@
         padding: 20px;
         font-size: rem(18px);
         font-family: roboto-medium;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
     }
 
     .hero-btn {
@@ -31,7 +31,6 @@
         height: 60px;
         border-radius: 2em;
         font-family: roboto-medium;
-        letter-spacing: 1px;
         padding: 2px;
         font-size: rem(18px);
         color: white;
@@ -39,9 +38,11 @@
     }
 
     .home-nav-btns {
-        gap: 50px;
+        gap: 20px;
+
         .login-signup-area {
             position: relative;
+
             .triangle-modal {
                 top: 60px;
                 height: 450px;
@@ -51,19 +52,31 @@
                     padding: 8px;
                     height: 100%;
                     width: 100%;
-                    background-color: #222a37;
+                    border-radius: .3em;
                     justify-content: space-between;
 
                     .nav-btns {
                         display: flex;
 
-                        > * {
-                            box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
-                            width: 50px;
+                        >* {
+                            width: 45%;
                             padding: 5px;
-                            outline: 1px solid $brdr-clr;
+                            height: 40px;
+                            font-family: roboto-medium;
+                            background-color: transparent;
+                            margin: auto;
+                            font-size: rem(14px);
+
+                            &.selected {
+                                box-shadow: 0px 2px 0px 0px #5765a3;
+                                color: #5765a3;
+                            }
+
                             &:hover {
-                                background-color: $primary-blue;
+                                background-color: #5765a3;
+                                border-radius: .3em;
+                                box-shadow: 0px 2px 0px 0px #5765a3;
+                                color: white;
                             }
                         }
                     }
@@ -78,63 +91,62 @@
             flex-wrap: wrap;
             width: 326px;
 
-    
             img {
                 width: 60px;
                 height: 60px;
             }
-    
+
             .active-persons {
                 display: flex;
                 // flex-grow: 1;
                 margin-right: 10px;
                 margin-bottom: 10px;
                 font-size: rem(12px);
-    
+
                 .person {
                     display: flex;
                     align-items: center;
                     background-color: lighten($btn-active, 4%);
                     border-radius: 2em;
-    
+
                     span {
                         width: 22px;
                         height: 22px;
                         border: none;
                     }
-    
+
                     p {
                         margin-left: 10px;
                         margin-top: 2px;
                         padding: 0;
                     }
-    
+
                     .remove-person-btn {
                         cursor: pointer;
                         scale: 0.8;
                     }
                 }
             }
-    
+
             >*:last-child {
                 margin: 0;
             }
-    
+
             .suggested-persons {
                 color: $layout-gray;
                 flex-basis: 100%;
             }
-    
+
             .not-active-persons {
                 display: flex;
                 flex-direction: column;
                 width: 100%;
                 background-color: #fff;
-    
+
                 .not-active-person {
                     display: flex;
                     width: 100%;
-    
+
                     >* {
                         display: flex;
                         width: 100%;
@@ -143,11 +155,11 @@
                         padding: 6px;
                         border-radius: 0.4em;
                         cursor: pointer;
-    
+
                         &:hover {
                             background-color: $brdr-clr;
                         }
-    
+
                         p {
                             padding-left: 8px;
                         }
@@ -155,40 +167,47 @@
                 }
             }
         }
-    
+
 
     }
-    
-    .signup-form {
-        // padding: 0 40px;
-        color: white;
-        margin-top: 20px;
-        gap: 25px;
-        font-family: roboto-medium;
-        font-size: rem(20px);
-        > * {
-            // height: 80px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            // justify-content: space-around;
-            // align-items: center;
-            label {
-                height: 25px;
-                text-align: left;
-            }
-            input {
-                height: 25px;
-            }
-            // >* {
-            //     height: 100%;
-            //     // margin-top: auto;
-            //     display: flex;
-            //     align-items: center;
-            //     justify-content: center;
-            //     text-align: center;
 
-            // }
+    .signup {
+        height: 100%;
+        padding-top: 15px;
+
+        .signup-form {
+            color: white;
+            gap: 12px;
+            font-family: roboto-medium;
+            font-size: rem(20px);
+
+            label {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+
+                p {
+                    text-align: left;
+                    font-size: rem(16px);
+                    color: $layout-black;
+                }
+
+                input {
+                    background-color: lighten($brdr-clr, 8%);
+                    height: 40px;
+                    padding-left: 8px;
+                    border-radius: .3em;
+                }
+            }
+
+            button {
+                background-image: linear-gradient(to left, #8a9fff, #5765a3);
+                height: 40px;
+                color: white;
+                border-radius: .3em;
+                margin-top: 8px;
+            }
         }
     }
+
 }

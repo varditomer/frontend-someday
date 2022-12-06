@@ -1,6 +1,7 @@
 .regular-modal {
     z-index: 10000;
     position: absolute;
+
     //need to set position and other prefs. at children cmp
     >* {
         z-index: 10;
@@ -98,7 +99,7 @@
     .more-options-modal {
         width: 264px;
         left: 11px;
-        
+
         border-radius: 10px;
 
         .modal-group {
@@ -127,6 +128,7 @@
 
     .task-opt-modal {
         top: 36px;
+
         .upper-group {
             border-bottom: 1px solid $hr-clr;
         }
@@ -159,7 +161,7 @@
             margin-left: 3px;
         }
 
-        .color-title{
+        .color-title {
             margin-left: 2px;
         }
 
@@ -195,7 +197,6 @@
     }
 
     .task-select-modal {
-        background-color: yellow !important;
         height: 100%;
         display: flex;
         align-items: center;
@@ -206,14 +207,17 @@
         min-width: 600px;
         height: 63px;
         border-radius: 10px;
+
         .dots-container {
             margin-left: 20px;
+            padding-top: 10px;
             height: 20px;
             display: flex;
-            align-self:baseline;
+            align-self: baseline;
             align-items: center;
 
         }
+
         .dots {
             width: 7px;
             height: 7px;
@@ -282,11 +286,18 @@
                 top: 6px;
                 fill: $layout-gray;
             }
+
             .duplicate-tasks-btn {
-                scale: .8;
+                scale: .65;
                 position: relative;
                 top: 6px;
-                fill: $layout-gray;
+                fill: $layout-black;
+
+            }
+
+            .duplicate-txt{
+                position: relative;
+                bottom: 4px;
             }
 
             p {
@@ -294,6 +305,7 @@
                 font-family: roboto-light;
                 padding-bottom: 6px;
                 color: $layout-gray;
+                height: 30%;
             }
         }
     }
