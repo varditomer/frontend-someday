@@ -30,7 +30,7 @@ export const taskStore = {
             } else {
                 state.selectedTasks.push(taskId)
                 const groups = this.getters.board.groups
-                const taskGroup = groups.tasks.filter(task=>task._id === taskId)
+                const taskGroup = groups.tasks.filter(task => task._id === taskId)
 
             }
             const groups = this.getters.board.groups

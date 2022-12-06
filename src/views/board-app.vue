@@ -9,9 +9,10 @@
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
-                :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask" @duplicateTask="duplicateTask"
-                @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard" @removeGroup="removeGroup"
-                @duplicateGroup="duplicateGroup" :board="board" :priorities="priorities" :statuses="statuses" />
+                :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
+                @duplicateTask="duplicateTask" @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard"
+                @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" :board="board" :priorities="priorities"
+                :statuses="statuses" />
         </section>
         <router-view />
     </section>
@@ -47,6 +48,8 @@ export default {
     },
     methods: {
         saveTask(task, activity) {
+            const taskToSave = { task, bool: false }
+            this.$store.commit({ type: 'saveTask', taskToSave })
             this.$store.dispatch({ type: 'saveActivity', activity })
             this.$store.dispatch({ type: 'saveTask', task })
         },
@@ -149,7 +152,7 @@ export default {
         isViewingTask() {
             return typeof (this.$route.params.taskId) === 'string'
         },
-        dataMap(){
+        dataMap() {
             return this.$store.getters.filterMap
         }
 
