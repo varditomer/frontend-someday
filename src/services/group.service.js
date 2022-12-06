@@ -11,6 +11,7 @@ export const groupService = {
     add,
     remove,
     save,
+    duplicate,
     removeManyTasks,
 }
 window.bs = groupService
@@ -70,12 +71,28 @@ async function save(group, isFifo) {
     const board = await boardService.queryBoard(boardId)
     if (!board) return Promise.reject('Board not found')
     if (group._id) {
+        console.log(`1:`, )
+        console.log(`group._id:`, group._id)
         const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)
         if (idx === -1) return Promise.reject('Group not found')
         board.groups[idx] = group
-    } else isFifo? board.groups.unshift(_connectIds(group)): board.groups.push(_connectIds(group))
+    } else {
+        console.log(`2:`, )
+        isFifo? board.groups.unshift(_connectIds(group)): board.groups.push(_connectIds(group))
+    }
     if (!(await boardService.save(board))) return Promise.reject('Cannot save group because board cannot be saved')
+    console.log(`group-save:`, group)
     return group
+}
+
+async function duplicate(group) {
+    const duplicatedGroup = JSON.parse(JSON.stringify(group))
+    duplicatedGroup._id = null
+    duplicatedGroup.tasks.forEach(task=> {
+        delete task.groupId
+        task._id = utilService.makeId()
+    })
+    return(save(duplicatedGroup, true))
 }
 
 function _getNewGroup(boardId) {

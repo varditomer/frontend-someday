@@ -8,7 +8,7 @@
                     :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
                     :key="element._id" :priorities="priorities" @toggleSelectAllTasks="toggleSelectAllTasks"
                     :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
-                    @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" />
+                    @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" />
             </template>
         </draggable>
 
