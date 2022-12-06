@@ -1,19 +1,20 @@
 <template>
-    <section class="li-wrapper" ref="line" :class="{editedLine: editing}">
+    <section class="li-wrapper" ref="line" :class="{ beingEdit: areAllChecked || editing || isChecked }">
         <regular-modal :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
             @closeModal="(showModal = false)" :showModal="showModal" @taskTitleToClipboard="copyToClipboard(task.title)"
             @linkToClipboard="copyToClipboard(task.link.url)" />
 
-            <li class="content-li" v-click-outside="unSelectLine">
-                
+        <li class="content-li" v-click-outside="unSelectLine">
+
             <div class="options flex center">
                 <span class="hidden" @click="lineOptions" v-svg-icon="'fatMore'"></span>
             </div>
-            <span class="task-select" :style="{ 'border-left-color': group.style.color }">
+            <span class="task-select" :style="{ 'border-left-color': group.style.color }"
+                :class="{ beingEdit: areAllChecked || editing || isChecked }">
                 <input :checked="isSelected" ref="checkbox" @click="selectTask(task._id)" type="checkbox" />
             </span>
             <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)">
-                <div class="task-title-item">
+                <div class="task-title-item" :class="{ beingEdit: areAllChecked || editing || isChecked }">
                     <span>
                         <p @blur="updateTask({ key: 'title', val: $event.target.innerText })"
                             @keydown.enter.prevent="updateTask({ key: 'title', val: $event.target.innerText })"
@@ -61,16 +62,25 @@ export default {
             type: Array,
             required: false
         },
-        isSelected: Boolean
+        isSelected: Boolean,
+        areAllChecked: {
+            type: Boolean,
+            // required: true
+        }
     },
     created() {
         this.editing = false
+        this.isChecked = false
+        // console.log(`this.isChecked:`, this.isChecked)
+        console.log(`this.Allchecked:`, this.areAllChecked)
+        // this.areAllChecked = false
     },
     data() {
         return {
             showModal: false,
             editing: null,
-            
+            isChecked: null,
+
         }
     },
     computed: {
@@ -131,16 +141,18 @@ export default {
         },
         selectTask(taskId) {
             this.$emit('saveSelectedTasks', taskId)
+            this.editing = !this.editing
+            this.isChecked = !this.isChecked
         },
         copyToClipboard(data) {
             if (!data) return
             this.$copyText(`${data}`)
         },
         setIsEditing() {
-            return this.editing = true
+            this.editing = true
         },
         unSelectLine() {
-            return this.editing = false
+            this.editing = false
         }
     },
     components: {

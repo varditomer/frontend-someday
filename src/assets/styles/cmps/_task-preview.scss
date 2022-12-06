@@ -7,12 +7,15 @@
     }
     .li-wrapper {
         position: relative;
-        &.editedLine {
+        &.beingEdit {
             background-color: $fltr-bgc;
             .content-li:hover{
                 background-color: unset;
             }
 
+        }
+        .content-li .beingEdit {
+            background-color: $fltr-bgc;
         }
     }
 
