@@ -11,7 +11,7 @@
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
                 :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
                 @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard" @removeGroup="removeGroup"
-                :board="board" :priorities="priorities" :statuses="statuses" :watcher="boardUpdated" />
+                @duplicateGroup="duplicateGroup" :board="board" :priorities="priorities" :statuses="statuses" />
         </section>
         <router-view />
     </section>
@@ -105,6 +105,9 @@ export default {
         },
         toggleSelectAllTasks(tasks, groupId, areAllSelected) {
             this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })
+        },
+        duplicateGroup(group) {
+            this.$s
         }
     },
     computed: {

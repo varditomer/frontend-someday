@@ -1,10 +1,10 @@
 <template>
 
     <section class='group-preview' @keydown.escape="(showModal = false)">
-        <regular-modal v-if="!isHorizontalScrolling" :groupId="group._id" :selectedColor="group.style.color"
-            :showModal="showModal" @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup"
-            :cmp="'group-opt-modal'" @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
-            @propagateMenu="showColorPicker = true" />
+        <regular-modal v-if="!isHorizontalScrolling" :groupId="group._id" :selectedColor="group.style.color" :showModal="showModal"
+            @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
+            @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
+            @propagateMenu="showColorPicker = true" @duplicateGroup="duplicateGroup" />
 
         <div class="group-title flex align-center" :class="{ collapse: !viewTasks }"
             @keydown.escape="(showModal = false)">
@@ -48,7 +48,7 @@ import regularModal from './dynamic-modals/regular-modal.vue'
 import taskSummary from './task-summary.vue'
 export default {
     name: 'group-preview',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks'],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup','toggleSelectAllTasks', 'duplicateGroup'],
     props: {
         group: Object,
         cmpsOrder: Array,
@@ -121,8 +121,11 @@ export default {
         saveSelectedTasks(taskId) {
             this.$emit('saveSelectedTasks', taskId)
         },
-        toggleSelectAllTasks(tasks, groupId, areAllSelected) {
-            this.$emit('toggleSelectAllTasks', tasks, groupId, areAllSelected)
+        toggleSelectAllTasks(tasks,groupId,areAllSelected){
+            this.$emit('toggleSelectAllTasks', tasks,groupId,areAllSelected)
+        },
+        duplicateGroup() {
+            this.$emit('duplicateGroup', this.group)
         }
     },
     computed: {
