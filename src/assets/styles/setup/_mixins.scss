@@ -50,7 +50,7 @@
     }
 }
 
-@mixin little-box{
+@mixin little-box {
     display: inline-block;
     width: 24px;
     height: 24px;
@@ -105,8 +105,17 @@
     }
 }
 
-@mixin hr(){
+@mixin hr() {
     width: 100%;
     border-top: 1px solid $brdr-clr;
     min-height: .5px;
+}
+
+@mixin ellipsis($size: 14px, $width: 80%) {
+    font-size: $size;
+    width: $width;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
 }

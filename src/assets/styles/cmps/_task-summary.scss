@@ -1,9 +1,12 @@
 .numbers-summary {
-    .numbers-summary{
+    .numbers-summary {
         font-size: 14px;
         line-height: 15px;
+        @include ellipsis;
+        width: 50%;
     }
-    .sum{
+
+    .sum {
         font-size: 12px;
         line-height: 13px;
         color: $primary-blue;
