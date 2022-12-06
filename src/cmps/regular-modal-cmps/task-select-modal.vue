@@ -13,7 +13,7 @@
         <div class="right-sec">
             <div class="tasks-item">
                 <span class="duplicate-tasks-btn" v-svg-icon="'bigDuplicate'" @click="duplicateMultiple"></span>
-                <p>Duplicate</p>
+                <p class="duplicate-txt">Duplicate</p>
             </div>
             <div class="tasks-item">
                 <span class="delete-tasks-btn" v-svg-icon="'bigTrash'" @click="deleteMultiple"></span>
