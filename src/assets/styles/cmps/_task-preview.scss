@@ -21,95 +21,101 @@
 
     .static {
         display: grid;
-        grid-template-columns: 36px 36px 1fr 65px;
+        grid-template-columns: 36px 36px 1fr;
         position: sticky;
         left: 0;
         z-index: 500;
         background-color: white;
 
-        .task-comment-icon {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            cursor: pointer;
-            transition: 0.4s;
-            border-left: 1px solid $brdr-clr;
+        .task-title-container {
             border-bottom: 1px solid $brdr-clr;
-            border-right: 1px solid $brdr-clr;
+            max-height: 37px;
+            display: flex;
 
-
-            svg {}
-
-            &:hover {
-                fill: $primary-blue;
-            }
-
-            &.count-comment span svg {
-                color: $primary-blue;
-            }
-
-            .task-comments-length {
+            .task-comment-icon {
+                height: 100%;
+                // width: 100%;
+                width: 65px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                bottom: 3px;
-                right: 13px;
-                position: absolute;
-                background-color: $primary-blue;
-                color: white;
-                width: 13px;
-                height: 13px;
-                border-radius: 2em;
-                font-size: rem(10px);
-            }
-        }
-
-        .task-title-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            padding-left: 34px;
-            background-color: white;
-            position: sticky;
-            left: 72px;
-            z-index: 5000;
-            border-bottom: 1px solid $brdr-clr;
-
-            .task-title {
-                text-align: left;
-                width: fit-content;
-                max-width: 60%;
                 position: relative;
-                right: 4px;
-                height: 60%;
-                padding-left: 4px;
-                padding-right: 4px;
-                border-radius: 0.2em;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-                padding-top: calc(11.8px - 0.5rem);
-                max-width: 200px;
+                cursor: pointer;
+                transition: 0.4s;
+                border-left: 1px solid $brdr-clr;
+                border-right: 1px solid $brdr-clr;
+
+
+                svg {}
 
                 &:hover {
-                    outline: 1px solid $brdr-clr;
+                    fill: $primary-blue;
                 }
 
-                &:focus {
+                &.count-comment span svg {
+                    color: $primary-blue;
+                }
 
-                    outline: 1px solid $primary-blue;
+                .task-comments-length {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    bottom: 3px;
+                    right: 13px;
+                    position: absolute;
+                    background-color: $primary-blue;
+                    color: white;
+                    width: 13px;
+                    height: 13px;
+                    border-radius: 2em;
+                    font-size: rem(10px);
                 }
             }
 
-            span {
-                height: 60%;
+            .task-title-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                padding-left: 34px;
+                background-color: white;
+                position: sticky;
+                left: 72px;
+                z-index: 5000;
 
+
+                &div {
+                    border: none !important;
+                }
+
+                .task-title {
+                    text-align: left;
+                    width: fit-content;
+                    // max-width: 60%;
+                    position: relative;
+                    right: 4px;
+                    height: 60%;
+                    padding-left: 4px;
+                    padding-right: 4px;
+                    border-radius: 0.2em;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    padding-top: calc(11.8px - 0.5rem);
+                    max-width: 200px;
+
+                    &:hover {
+                        outline: 1px solid $brdr-clr;
+                    }
+
+                    &:focus {
+
+                        outline: 1px solid $primary-blue;
+                    }
+                }
             }
+
         }
 
     }
@@ -381,103 +387,3 @@
         }
     }
 }
-
-//         textarea {
-//             resize: none;
-//         }
-//     }
-
-//     .task-date {
-//         display: flex;
-//         justify-content: center;
-//         align-items: center;
-//         position: relative;
-
-//         &:hover {
-//             @include cellBorderHover;
-//             cursor: text;
-//         }
-//     }
-
-//     .task-list-item-header,
-//     .task-title-item {
-//         grid-column: 3/6;
-//         position: sticky;
-//         background-color: white;
-//         left: 72px;
-//         z-index: 500;
-//     }
-
-//     .task-title-item {
-//         display: flex;
-//         justify-content: space-between;
-//         align-items: center;
-//         width: 100%;
-//         height: 100%;
-
-//         span {
-//             height: 60%;
-
-//             .task-title {
-//                 display: flex;
-//                 justify-content: center;
-//                 align-items: center;
-//                 // text-overflow: ellipsis;
-//                 // overflow: hidden;
-//                 // white-space: nowrap;
-//                 // width: 50%;
-//                 // @include ellipsis(14px, 100%);
-
-//                 border: none;
-//                 margin-left: 25px;
-//                 padding-left: 5px;
-//                 padding-right: 5px;
-//                 cursor: text;
-//                 height: 100%;
-
-//                 &:hover {
-//                     outline: 1px solid $brdr-clr;
-//                 }
-
-//                 &:focus {
-//                     border-radius: 0.2em;
-//                     outline: 1px solid $primary-blue;
-//                 }
-//             }
-//         }
-//     }
-
-//     .task-comment-icon {
-//         height: 100% !important;
-//         padding: 0px 16px;
-//         border-left: 1px solid $brdr-clr;
-//         display: flex;
-//         align-items: center;
-//         position: relative;
-//         cursor: pointer;
-//         transition: 0.4;
-
-//         &:hover {
-//             fill: $primary-blue;
-//         }
-
-//         &.count-comment span svg {
-//             color: $primary-blue;
-//         }
-
-//         .task-comments-length {
-//             display: flex;
-//             align-items: center;
-//             justify-content: center;
-//             bottom: 3px;
-//             right: 13px;
-//             position: absolute;
-//             background-color: $primary-blue;
-//             color: white;
-//             width: 13px;
-//             height: 13px;
-//             border-radius: 2em;
-//             font-size: rem(10px);
-//         }
-//     }
-// }

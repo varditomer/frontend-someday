@@ -14,20 +14,20 @@
                 :class="{ beingEdit: areAllChecked || editing || isChecked }">
                 <input :checked="isSelected" ref="checkbox" @click="selectTask(task._id)" type="checkbox" />
             </span>
-            <!-- <router-link class="task-title-item" :to="('/board/' + board._id + '/task/' + task._id)"> -->
-            <div class="task-title-item" :class="{ beingEdit: areAllChecked || editing || isChecked }">
+            <router-link class="task-title-container" :to="('/board/' + board._id + '/task/' + task._id)">
+                <div class="task-title-item" :class="{ beingEdit: areAllChecked || editing || isChecked }">
 
-                <p @blur="updateTask({ key: 'title', val: $event.target.innerText })"
-                    @keydown.enter.prevent="updateTask({ key: 'title', val: $event.target.innerText })"
-                    @click.prevent="" class="task-title" contenteditable="true" v-html="task.title"></p>
-            </div>
-            <span v-if="task.comments?.length" class="task-comment-icon count-comment">
-                <span v-svg-icon="'commentCount'"></span>
-                <span class="task-comments-length">{{ task.comments.length }}</span>
-            </span>
-            <span v-else v-svg-icon="'addComment'" class="task-comment-icon"></span>
+                    <p @blur="updateTask({ key: 'title', val: $event.target.innerText })"
+                        @keydown.enter.prevent="updateTask({ key: 'title', val: $event.target.innerText })"
+                        @click.prevent="" class="task-title" contenteditable="true" v-html="task.title"></p>
+                </div>
+                <span v-if="task.comments?.length" class="task-comment-icon count-comment">
+                    <span v-svg-icon="'commentCount'"></span>
+                    <span class="task-comments-length">{{ task.comments.length }}</span>
+                </span>
+                <span v-else v-svg-icon="'addComment'" class="task-comment-icon"></span>
+            </router-link>
         </section>
-        <!-- </router-link> -->
         <section class="dynamic">
             <component v-for="(column, idx) in formattedData" :is="column.cmpName + 'Task'" :content="column.content"
                 :name="column.name" :additionalDb="column.additionalDb" :color="group.style.color" :key="idx"
