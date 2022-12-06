@@ -238,10 +238,13 @@
                         "person": [
                             {
                                 "_id": "u104",
-                                "style": "background-image: url(src/assets/imgs/ronen-avatar.png)",
-                                "initials": "RB",
+                                "imgUrl": "src/assets/imgs/ronen-avatar.png",
                                 "fullname": "Ronen Boxer",
-                                "pic": true
+                                "pic": true,
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "ronenboxer@gmail.com"
+                                }
                             },
                             {
                                 "_id": "u102",
@@ -263,23 +266,27 @@
                         "person": [
                             {
                                 "_id": "u102",
-                                "style": "background-image: url(src/assets/imgs/refael-avatar.png)",
-                                "initials": "RA",
+                                "imgUrl":"src/assets/imgs/refael-avatar.png",
                                 "fullname": "Refael Abramov",
-                                "pic": true
+                                "pic": true,
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "refaelavramov@gmail.com"
+                                }
                             },
                             {
                                 "_id": "u103",
-                                "style": "background-image: url(src/assets/imgs/tomer-avatar.png)",
-                                "initials": "TV",
+                                "imgUrl": "src/assets/imgs/tomer-avatar.png",
                                 "fullname": "Tomer Vardi",
-                                "pic": true
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "refaelavramov@gmail.com"
+                                }
                             },
                             {
                                 "_id": "u104",
                                 "fullname": "Ronen Boxer",
                                 "imgUrl": "src/assets/imgs/ronen-avatar.png",
-                                "color": "rgb(238, 109, 64)",
                                 "isAdmin": true,
                                 "contact": {
                                     "mail": "ronenboxer@gmail.com"
@@ -315,18 +322,31 @@
                         "person": [
                             {
                                 "_id": "u102",
+                                "imgUrl":"src/assets/imgs/refael-avatar.png",
                                 "fullname": "Refael Abramov",
-                                "imgUrl": "src/assets/imgs/refael-avatar.png"
+                                "pic": true,
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "refaelavramov@gmail.com"
+                                }
                             },
                             {
                                 "_id": "u103",
+                                "imgUrl": "src/assets/imgs/tomer-avatar.png",
                                 "fullname": "Tomer Vardi",
-                                "imgUrl": "src/assets/imgs/tomer-avatar.png"
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "refaelavramov@gmail.com"
+                                }
                             },
                             {
                                 "_id": "u104",
                                 "fullname": "Ronen Boxer",
-                                "imgUrl": "src/assets/imgs/ronen-avatar.png"
+                                "imgUrl": "src/assets/imgs/ronen-avatar.png",
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "ronenboxer@gmail.com"
+                                }
                             }
                         ],
                         "status": "Unattained",
@@ -397,13 +417,21 @@
                         "person": [
                             {
                                 "_id": "u103",
+                                "imgUrl": "src/assets/imgs/tomer-avatar.png",
                                 "fullname": "Tomer Vardi",
-                                "imgUrl": "src/assets/imgs/tomer-avatar.png"
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "refaelavramov@gmail.com"
+                                }
                             },
                             {
                                 "_id": "u104",
                                 "fullname": "Ronen Boxer",
-                                "imgUrl": "src/assets/imgs/ronen-avatar.png"
+                                "imgUrl": "src/assets/imgs/ronen-avatar.png",
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "ronenboxer@gmail.com"
+                                }
                             }
                         ]
                     },
@@ -431,7 +459,10 @@
                             {
                                 "_id": "u104",
                                 "fullname": "Ronen Boxer",
-                                "imgUrl": "src/assets/imgs/ronen-avatar.png"
+                                "imgUrl": "src/assets/imgs/ronen-avatar.png",
+                                "contact":{
+                                    "mail":"ronenboxer@gmail.com"
+                                }
                             }
                         ]
                     },
@@ -682,17 +713,22 @@
                         "person": [
                             {
                                 "_id": "u102",
-                                "style": "background-image: url(src/assets/imgs/refael-avatar.png)",
-                                "initials": "RA",
+                                "imgUrl":"src/assets/imgs/refael-avatar.png",
                                 "fullname": "Refael Abramov",
-                                "pic": true
+                                "pic": true,
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "refaelavramov@gmail.com"
+                                }
                             },
                             {
                                 "_id": "u103",
-                                "style": "background-image: url(src/assets/imgs/tomer-avatar.png)",
-                                "initials": "TV",
+                                "imgUrl": "src/assets/imgs/tomer-avatar.png",
                                 "fullname": "Tomer Vardi",
-                                "pic": true
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "refaelavramov@gmail.com"
+                                }
                             }
                         ]
                     },
@@ -726,23 +762,27 @@
                         "person": [
                             {
                                 "_id": "u102",
-                                "style": "background-image: url(src/assets/imgs/refael-avatar.png)",
-                                "initials": "RA",
+                                "imgUrl":"src/assets/imgs/refael-avatar.png",
                                 "fullname": "Refael Abramov",
-                                "pic": true
+                                "pic": true,
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "refaelavramov@gmail.com"
+                                }
                             },
                             {
                                 "_id": "u103",
-                                "style": "background-image: url(src/assets/imgs/tomer-avatar.png)",
-                                "initials": "TV",
+                                "imgUrl": "src/assets/imgs/tomer-avatar.png",
                                 "fullname": "Tomer Vardi",
-                                "pic": true
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "refaelavramov@gmail.com"
+                                }
                             },
                             {
                                 "_id": "u104",
                                 "fullname": "Ronen Boxer",
                                 "imgUrl": "src/assets/imgs/ronen-avatar.png",
-                                "color": "rgb(238, 109, 64)",
                                 "isAdmin": true,
                                 "contact": {
                                     "mail": "ronenboxer@gmail.com"
@@ -813,13 +853,22 @@
                         "person": [
                             {
                                 "_id": "u102",
+                                "imgUrl":"src/assets/imgs/refael-avatar.png",
                                 "fullname": "Refael Abramov",
-                                "imgUrl": "src/assets/imgs/refael-avatar.png"
+                                "pic": true,
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "refaelavramov@gmail.com"
+                                }
                             },
                             {
                                 "_id": "u104",
                                 "fullname": "Ronen Boxer",
-                                "imgUrl": "src/assets/imgs/ronen-avatar.png"
+                                "imgUrl": "src/assets/imgs/ronen-avatar.png",
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "ronenboxer@gmail.com"
+                                }
                             }
                         ]
                     },
@@ -898,19 +947,21 @@
                         "person": [
                             {
                                 "_id": "u102",
-                                "style": "background-image: url(src/assets/imgs/refael-avatar.png)",
-                                "initials": "RA",
+                                "imgUrl":"src/assets/imgs/refael-avatar.png",
                                 "fullname": "Refael Abramov",
-                                "pic": true
+                                "pic": true,
+                                "isAdmin": true,
+                                "contact": {
+                                    "mail": "refaelavramov@gmail.com"
+                                }
                             },
                             {
                                 "_id": "u103",
-                                "fullname": "Tomer Vardi",
                                 "imgUrl": "src/assets/imgs/tomer-avatar.png",
-                                "color": "rgb(55, 124, 80)",
+                                "fullname": "Tomer Vardi",
                                 "isAdmin": true,
                                 "contact": {
-                                    "mail": "tomervardi@gmail.com"
+                                    "mail": "refaelavramov@gmail.com"
                                 }
                             }
                         ],

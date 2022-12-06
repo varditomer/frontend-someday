@@ -1,24 +1,17 @@
 <template>
     <li class="task-summary">
-
-        <section class="static">
-            <div class="static-overlay">
-                <div></div>
-            </div>
-        </section>
+        <section class="static"></section>
         <section class="dynamic">
-            <!-- <div v-if="isCollapsed" class="summary-footer-title">
-                <p v-for="cmp in cmpsOrder">{{ cmp }}</p>
-            </div> -->
+
             <section v-for="html in getHtmlSumData" v-html="(html)" class="footer-section flex center">
             </section>
         </section>
-        <span class="empty-fill-span"></span>
+        <!-- <span class="empty-fill-span"></span> -->
     </li>
 </template>
 
 <script>
-import { labelColors } from '../data/color-picker.js'
+import { groupColors } from '../data/color-picker.js'
 import { labelTitles } from '../data/_labelsDB.js'
 export default {
     name: '',
@@ -73,13 +66,15 @@ export default {
                             }
                             break
                         case 'timeline':
-                            if (!task.timline || !Object.keys(task.timline).length) return
+                            if (!task.timeline || !Object.keys(task.timeline).length) return
                             const { start, end } = task.timeline
-                            const startTime = (new Date([start.year, start.month, start.day])).getTime()
-                            const endTime = (new Date([end.year, end.month, end.day])).getTime()
-
-                            if (!summary.start || summary.start > startTime) summary[idx].start = startTime
-                            if (!summary.end || summary.end > endTime) summary[idx].end = endTime
+                            const startTime = (new Date([start.year, start.month+1, start.day])).getTime()
+                            const endTime = (new Date([end.year, end.month+1, end.day])).getTime()
+                            console.log(`endTime`, endTime)
+                            console.log(`end`, end)
+                            console.log(`idx`, idx)
+                            if (!summary[idx].start || summary[idx].start > startTime) summary[idx].start = startTime
+                            if (!summary[idx].end || summary.end > endTime) summary[idx].end = endTime
                             break
                         default:
                             if (task[column]) summary[idx] += +task[column]
@@ -87,6 +82,7 @@ export default {
                     }
                 })
 
+                let htmlStr = ''
                 switch (column) {
                     case 'person':
                         let persons = ''
@@ -112,10 +108,10 @@ export default {
                         for (let label in summary[idx]) {
                             labelsCount += summary[idx][label]
                         }
-                        let htmlStr = `<div class="label-progress">`
+                        htmlStr = `<div class="label-progress" style="background-color: ">`
                         for (let label in summary[idx]) {
                             const width = 100 * (summary[idx][label] / labelsCount) + '%'
-                            const backgroundColor = labelColors[labelTitles[label]]
+                            const backgroundColor = groupColors[labelTitles[label]]
                             htmlStr += `<div class="label" style="width:${width}; background-color: ${backgroundColor || 'transparent'}"
                                     ></div>`
                         }
@@ -123,7 +119,21 @@ export default {
                         summary[idx] = htmlStr
                         break
                     case 'timeline':
-                        summary[idx] = ''
+                        const { start, end } = summary[idx]
+                        const totalTimeDiff = end - start
+                        const timeElapsed = Date.now() - start
+                        console.log(`end`, end)
+                        const width = timeElapsed / totalTimeDiff > 1
+                            ? '100 %'
+                            : timeElapsed / totalTimeDiff > 0
+                                ? 100 * timeElapsed / totalTimeDiff + '%'
+                                : 0
+                        htmlStr = `<div class="timeline">
+                                    <div class="elapsed" style="width:${width} ">
+                                    </div>
+                                <p></p>
+                            </div>`
+                        summary[idx] = htmlStr
                         break
                     case 'numbers':
                         const numbers = summary[idx].toLocaleString()
