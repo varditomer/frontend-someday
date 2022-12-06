@@ -26,7 +26,7 @@
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     :isSelected="selectedTasks.includes(element._id)" @update-task="updateTask" :sort="true"
                     :task="element" :cmpsOrder="cmpsOrder" :users="users" :group="group" :additionalDb="additionalDb"
-                    @removeTask="removeTask" @editing="(editing = true)" @editDone="(editing = false)" :areAllChecked="areAllChecked" />
+                    @removeTask="removeTask" @editing="(editing = true)" @editDone="(editing = false)" :areAllChecked="allCheckedClicked" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -86,7 +86,8 @@ export default {
             isBeingDragged: false,
             areAllChecked: false,
             editing: null,
-            allChecked: false
+            allChecked: false,
+            allCheckedClicked: false
         }
     },
     created() {
@@ -130,6 +131,8 @@ export default {
             this.$emit('saveSelectedTasks', taskId)
         },
         toggleSelectAll() {
+            console.log(`12:`, )
+            this.allCheckedClicked = !this.allCheckedClicked
             this.areAllChecked = !this.areAllChecked
             const formattedTasks = this.group.tasks.map(task => task._id)
 

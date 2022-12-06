@@ -1,6 +1,6 @@
 <template>
 
-    <section class='group-list-container' v-if="boardToShow" :key="boardUpdated" @scroll="scrolling">
+    <section class='group-list-container' v-if="boardToShow" @scroll="scrolling">
         <draggable v-model="boardToShow.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
             @end="saveBoard" :class="{ groupDragged: beingDragged }">
             <template #item="{ element }">
@@ -29,7 +29,7 @@ import { eventBus } from '../services/event-bus.service'
 
 export default {
     name: 'group-list',
-    emits: ['saveTask', 'removeTask', 'saveGroup', 'addGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'select', 'toggleSelectAllTasks',],
+    emits: ['saveTask', 'removeTask', 'saveGroup', 'addGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'select', 'toggleSelectAllTasks', 'duplicateGroup'],
     props: {
         users: Array,
         board: Object,
@@ -45,7 +45,6 @@ export default {
             type: Array,
             required: false
         },
-        boardUpdated: Number,
     },
     data() {
         return {
@@ -58,10 +57,6 @@ export default {
         eventBus.on('reload', board => this.boardToShow = JSON.parse(JSON.stringify(board)))
     },
     methods: {
-        collapseGroups(collapse, ev) {
-            // if (!ev?.item?.classList || !ev.item.classList[0] === 'group-preview') return
-            // eventBus.emit('collapse-groups', collapse)
-        },
         saveBoard() {
             this.beingDragged = false
             this.$emit('saveBoard', this.boardToShow)
@@ -69,7 +64,6 @@ export default {
         saveTask(task) {
             this.boardToShow.groups.forEach(group => {
                 group.tasks.forEach(task => task.groupId = group._id)
-                // if (task.groupId === group._id) group.tasks.push(task)
             })
             this.$emit('saveTask', task)
             this.saveBoard()
@@ -101,6 +95,9 @@ export default {
         toggleSelectAllTasks(tasks, groupId, areAllSelected) {
             this.$emit('toggleSelectAllTasks', tasks, groupId, areAllSelected)
         },
+        duplicateGroup(group) {
+            this.$emit('duplicateGroup', group)
+        }
     },
     computed: {
         cmpsOrder() {
