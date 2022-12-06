@@ -95,11 +95,13 @@ export default {
         },
         async saveSelectedTasks(taskId) {
             await this.$store.commit({ type: 'saveSelectedTasks', taskId })
-
-            const filterTasks = { tasks: { _id: taskId } }
-            const filtteredBoard = await boardService.multiFilter(filterTasks, 'b101')
-            const color = filtteredBoard.groups[0].style.color
-            this.selectedTasksWithColor.push({taskId, color})
+            const idx = this.selectedTasksWithColor.findIndex(anyTask => anyTask.taskId === taskId)
+            if (idx === -1) {
+                const filterTasks = { tasks: { _id: taskId } }
+                const filtteredBoard = await boardService.multiFilter(filterTasks, 'b101')
+                const color = filtteredBoard.groups[0].style.color
+                this.selectedTasksWithColor.push({ taskId, color })
+            } else this.selectedTasksWithColor.splice(idx, 1)
         },
         async deleteSelectedTasks() {
             try {
@@ -111,6 +113,7 @@ export default {
         },
         unselectTasks() {
             this.$store.commit({ type: 'unselectTasks' })
+            this.selectedTasksWithColor = null
         },
         async saveBoardTitle(title) {
             const board = JSON.parse(JSON.stringify(this.board))
@@ -121,7 +124,20 @@ export default {
         },
         toggleSelectAllTasks(tasks, groupId, areAllSelected) {
             this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })
+            if (!areAllSelected) this.selectedTasksWithColor = []
+            else selectAllTasksWithColors()
         },
+
+        selectAllTasksWithColors() {
+            this.selectedTasksWithColor = []
+            const board = this.$store.getters.board
+            const allSelectedTasks = this.$store.getters.selectedTasks
+            const newSelectedTasksWithColors = allSelectedTasks.forEach(taskId => {
+                // const filterTasks = { tasks: { _id: taskId } }
+                // const filtteredBoard = await boardService.multiFilter(filterTasks, 'b101')
+                // const color = filtteredBoard.groups[0].style.color
+            })
+        }
 
     },
     computed: {

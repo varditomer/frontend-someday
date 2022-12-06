@@ -5,15 +5,14 @@
             <div class="selectedItemsAndDots flex column center">
                 <h2>{{ selectedTasks.length > 1 ? 'Items selected' : 'Item selected' }}</h2>
                 <div class="dots-container">
-                    <div class="dots" v-for="task in currSelectedLines" :style="{backgroundColor: task.color}"></div>
+                    <div class="dots" v-for="task in selectedTasks" :style="{backgroundColor: task.color}"></div>
                 </div>
             </div>
-            <!-- {{ selectedTasks }} -->
         </div>
         <div class="right-sec">
             <div class="tasks-item">
                 <span class="duplicate-tasks-btn" v-svg-icon="'bigDuplicate'" @click="duplicateMultiple"></span>
-                <p>Duplicate</p>
+                <p class="duplicate-txt">Duplicate</p>
             </div>
             <div class="tasks-item">
                 <span class="delete-tasks-btn" v-svg-icon="'bigTrash'" @click="deleteMultiple"></span>
@@ -48,23 +47,8 @@ export default {
     },
     data() {
         return {
-            currSelectedLines: null
         }
     },
-    created() {
-        console.log(`this.selectedTasksWithColor:`, this.selectedTasks)
 
-    },
-    watch: {
-        selectedTasks: {
-            handler(newState, oldState) {
-                this.currSelectedLines = newState
-                console.log(`11:`, )
-            },
-            deep: true
-
-        }
-
-    },
 }
 </script>

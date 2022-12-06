@@ -47,10 +47,6 @@ export const taskStore = {
         priorities({ priorities }) { return priorities },
         statuses({ statuses }) { return statuses },
         selectedTasks({ selectedTasks }) { return selectedTasks },
-        getSelectedTasksColorsByIds({ selectedTasks }) {
-            // console.log(`selectedTasks:`, selectedTasks)
-            return selectedTasks
-        }
     },
     actions: {
         async loadTask(context, { taskId }) {
