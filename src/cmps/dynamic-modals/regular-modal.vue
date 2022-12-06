@@ -1,10 +1,10 @@
 <template>
     <section v-if="showModal"  @keydown.escape="closeModal" class='regular-modal' v-click-outside="closeModal">
         
-        <component @updateSelection="updateSelection"
+        <component @updateSelection="updateSelection" :idx="idx"
             :selectedTasks="selectedTasks" :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask"
             :users="users" @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :groupId="groupId"
-            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" @deleteMultiple="deleteSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard" @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup"  />
+            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" @deleteMultiple="deleteSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard" @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup" :target="target" />
     </section>
 </template>
 
@@ -48,12 +48,15 @@ export default {
             type: String,
             reduired: false,
         },
+        target: {
+            type: String,
+            required: false
+        },
+        idx: {
+            type: Number,
+            required: false
+        }
 
-    },
-    computed: {
-
-    },
-    created() {
     },
     methods: {
         closeModal() {
@@ -77,9 +80,8 @@ export default {
         editGroupTitle() {
             this.$emit('editGroupTitle')
         },
-        updateSelection(value) {
-            console.log(`value`, value)
-            this.$emit('updateSelection', { color: value, light: value + '99' }, 'style')
+        updateSelection(idx, key, val) {
+            this.$emit('updateSelection', idx, key, val)
         },
         propagateMenu() {
             this.$emit('propagateMenu')

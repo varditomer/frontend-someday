@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import { colors } from '../../data/color-picker.js'
-import { labels } from '../../data/_labelsDB.js'
+import { labelColors } from '../../data/color-picker.js'
+import { labelTitles } from '../../data/_labelsDB.js'
 import triangleModal from '../dynamic-modals/triangle-modal.vue'
 export default {
     name: 'labels',
@@ -28,6 +28,7 @@ export default {
     },
     methods: {
         updateTask(labelObj) {
+            console.log(`labelObj`, labelObj)
             this.$emit('updateTask', labelObj)
             setTimeout(() => this.show = false, 1)
         },
@@ -38,9 +39,9 @@ export default {
     },
     computed: {
         getStyle() {
-            if (!this.content || !this.content === 'default') return { 'background-color': colors['$clr-explosive'] }
+            if (!this.content || !this.content === 'default') return { 'background-color': labelColors['$clr-explosive'] }
             return {
-                'background-color': colors[labels[this.content]],
+                'background-color': labelColors[labelTitles[this.content]],
                 color: 'white'
             }
         }

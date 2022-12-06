@@ -1,13 +1,16 @@
-export const labels = {
-    Done: '$clr-done-green',
-    'Working on it': '$clr-lgt-orng',
-    Stuck: '$clr-stuck-red',
+const labels = {
+    Done: '$clr-jade',
+    'Working on it': '$clr-orange',
+    Stuck: '$clr-dark-red',
     Unattained: '$clr-dark-blue',
-    Kaka: '$clr-yllw',
     _none: '$clr-explosive',
-    High: '$clr-dark_indigo',
+    High: '$clr-dark-indigo',
     Medium: '$clr-indigo',
     Low: '$clr-bright-blue',
-    Critical: '$priority-blc',
+    Critical: '$clr-blackish',
     Default: '$clr-explosive'
 }
+
+if (!localStorage.getItem('label')?.length) localStorage.setItem('label', JSON.stringify(labels))
+
+export const labelTitles = JSON.parse(localStorage.getItem('label')) || labels

@@ -71,8 +71,6 @@ async function save(group, isFifo) {
     const board = await boardService.queryBoard(boardId)
     if (!board) return Promise.reject('Board not found')
     if (group._id) {
-        console.log(`1:`, )
-        console.log(`group._id:`, group._id)
         const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)
         if (idx === -1) return Promise.reject('Group not found')
         board.groups[idx] = group
@@ -81,7 +79,6 @@ async function save(group, isFifo) {
         isFifo? board.groups.unshift(_connectIds(group)): board.groups.push(_connectIds(group))
     }
     if (!(await boardService.save(board))) return Promise.reject('Cannot save group because board cannot be saved')
-    console.log(`group-save:`, group)
     return group
 }
 

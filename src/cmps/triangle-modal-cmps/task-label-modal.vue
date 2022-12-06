@@ -5,10 +5,10 @@
                 <span v-if="isBeingEditted" v-svg-icon="'changeColor'" class="change-color"></span>
             </span>
             <span class="name" :class="{ 'on-edit': isBeingEditted }" :contenteditable="isBeingEditted"
-                @blur="updateLabels(idx, 'title', $event.target.innerText)">
+                @blur="updateLabels(idx, 'title', $event.target.innerText)" @click="updateTask($event.target.innerText)">
                 {{ label.title !== 'Default' ? label.title : isBeingEditted ? 'Default' : '' }}
             </span>
-            <regular-modal :cmp="'color-picker-modal'" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateProperty" />
+            <regular-modal :target="'label'" :cmp="'color-picker-modal'" :idx="selectedIdx" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateLabels" />
         </div>
         <span class="label-btn flex helper">
             <div class="flex center" @click="toggleEdit">
@@ -37,33 +37,35 @@ export default {
             showColorPicker: false,
             isBeingEditted: false,
             updatedDb: [],
-            selectedIdx: -1
+            selectedIdx: -1,
+            color: '',
+            labelTitle:''
         }
     },
     methods: {
         updateTask(val) {
+            if (this.isBeingEditted) return
             const key = this.name
             this.$emit('updateTask', { key, val })
         },
-        updateProperty(value) {
-        },
         toggleEdit() {
             this.isBeingEditted = !this.isBeingEditted
-            if (!this.isBeingEditted) this.saveChoice()
-        },
-        saveChoice() {
-            console.log(`this.updatedDb`, this.updatedDb)
+            if (!this.isBeingEditted) this.updateTask(this.labelTitle)
         },
         updateLabels(labelIdx, key, val) {
+            debugger
             this.updatedDb = this.additionalDb.map((label, idx) => {
                 const newLabel = {...label}
                 if (idx === labelIdx) newLabel[key] = val
                 return newLabel
             })
+            this.showColorPicker = false
+            localStorage.setItem('label', JSON.stringify(this.updatedDb))
+            if (key === 'title') this.labelTitle = val
         },
         renderModal(idx){
-            this.showColorPicker = true; 
             this.selectedIdx = idx
+            this.showColorPicker = true; 
         }
     },
     computed: {
@@ -76,7 +78,7 @@ export default {
                 const { title } = label
                 return { title, pClass, style }
             })
-        }
+        },
     },
     components: {
         regularModal
