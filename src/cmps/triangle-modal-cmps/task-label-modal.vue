@@ -1,9 +1,17 @@
 <template>
     <section class="task-label-modal">
-        <span v-for="label in getFormattedLabels" class="color-box" :class="label.pClass" :style="label.style"
-            @click="updateTask(label.title)">
-            <!-- <span v-svg-icon="'changeColor'" class="change-color" @click.stop=""></span> -->
-            {{ label.title === 'Default' ? '' : label.title }}
+        <div v-for="label in getFormattedLabels" class="color-box">
+            <span :class="label.pClass" :style="label.style"
+                @click="updateTask(label.title)">
+                <!-- <span v-svg-icon="'changeColor'" class="change-color" @click.stop=""></span> -->
+            </span>
+            <span class="name">{{ label.title === 'Default' ? '' : label.title }}</span>
+        </div>
+        <span class="label-btn flex helper">
+            <div class="flex center" @click="toggleEdit">
+                <span v-if="!isBeingEditted" v-svg-icon="'editLabel'"></span>
+                {{ isBeingEditted ? 'Apply' : 'Edit Labels' }}
+            </div>
         </span>
         <regular-modal :cmp="'color-picker-modal'" :showModal="false" :color="''" @updateSelection="updateProperty" />
     </section>
@@ -24,7 +32,8 @@ export default {
     emits: ['updateTask'],
     data() {
         return {
-            showColorPicker: false
+            showColorPicker: false,
+            isBeingEditted: false
         }
     },
     methods: {
@@ -33,6 +42,13 @@ export default {
             this.$emit('updateTask', { key, val })
         },
         updateProperty(value) {
+        },
+        toggleEdit() {
+            this.isBeingEditted = !this.isBeingEditted
+            if (!this.isBeingEditted) this.saveChoice()
+        },
+        saveChoice() {
+
         }
     },
     computed: {
@@ -40,7 +56,7 @@ export default {
 
             if (!this.additionalDb?.length) return []
             return this.additionalDb.map(label => {
-                const pClass = 'label'
+                const pClass = `label ${this.isBeingEditted ? 'onEdit' : ''}`
                 const style = { backgroundColor: label.color }
                 const { title } = label
                 return { title, pClass, style }
