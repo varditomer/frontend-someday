@@ -76,7 +76,7 @@ export default {
         },
         clearFilter() {
             this.isFiltering = false
-            this.filter = {}
+            this.filter.txt = ''
             this.$emit('filter', { ...this.filter })
         },
     },
