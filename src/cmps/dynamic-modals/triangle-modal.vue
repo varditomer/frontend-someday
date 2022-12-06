@@ -14,6 +14,7 @@ import personsModal from '../triangle-modal-cmps/persons-modal.vue'
 import taskLabelModal from '../triangle-modal-cmps/task-label-modal.vue'
 import dateModal from '../triangle-modal-cmps/date-modal.vue'
 import linkModal from '../triangle-modal-cmps/link-modal.vue'
+import loginSignupModal from '../triangle-modal-cmps/login-signup-modal.vue'
 export default {
     name: 'triangle-modal',
     emits: ['updateTask', 'hideModal'],
@@ -42,7 +43,8 @@ export default {
         taskLabelModal,
         dateModal,
         linkModal,
-        timelineModal
+        timelineModal,
+        loginSignupModal
     }
 }
 </script>

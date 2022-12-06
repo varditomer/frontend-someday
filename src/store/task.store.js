@@ -4,6 +4,7 @@ export const taskStore = {
     state() {
         return {
             selectedTasks: [],
+            selectedTaskColors: [],
             priorities: [
                 { title: 'Critical', color: '#333333', colorName: '$clr-blackish' },
                 { title: 'High', color: '#401694', colorName: '$clr-dark-indigo' },
@@ -25,9 +26,15 @@ export const taskStore = {
             if (state.selectedTasks.includes(taskId)) {
                 const idx = state.selectedTasks.indexOf(taskId)
                 state.selectedTasks.splice(idx, 1)
+                // state.selectedTaskColors.splice(state.selectedTaskColors.length - 1, 1)
             } else {
                 state.selectedTasks.push(taskId)
             }
+            const groups = this.getters.board.groups
+            console.log(`groups:`, groups)
+            console.log(`state.selectedTasks:`, state.selectedTasks)
+            
+
         },
         unselectTasks(state) {
             state.selectedTasks = []
@@ -45,6 +52,10 @@ export const taskStore = {
         priorities({ priorities }) { return priorities },
         statuses({ statuses }) { return statuses },
         selectedTasks({ selectedTasks }) { return selectedTasks },
+        getSelectedTasksColorsByIds({ selectedTasks }) {
+            // console.log(`selectedTasks:`, selectedTasks)
+            return selectedTasks
+        }
     },
     actions: {
         async loadTask(context, { taskId }) {
@@ -90,7 +101,7 @@ export const taskStore = {
             try {
                 console.log(`task:`, task)
                 const duplicatedTask = await taskService.duplicate(task)
-                const taskToSave = {task: duplicatedTask, bool: true}
+                const taskToSave = { task: duplicatedTask, bool: true }
                 commit({ type: 'saveTask', taskToSave: taskToSave })
             } catch (err) {
                 console.log(`Cannot duplicate task: ${err}`)
