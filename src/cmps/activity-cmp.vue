@@ -1,33 +1,22 @@
 <template>
     <div class="activity">
-        <span v-svg-icon="activity.icon"></span>
+        <span v-svg-icon="'add'"></span>
         <p>{{ activity.type }}</p>
     </div>
+    <div class="activity-change">
+        <div class="from" :style="`background-color:${formattedData('from')}`">
+            <p :class="{ 'txt': isColored }">{{ activity.from }}</p>
+        </div>
+        <span v-svg-icon="'arrowRight'"></span>
+        <div class="to" :style="`background-color:${formattedData('to')}`">
+            <p :class="{ 'txt': isColored }">
+                {{ activity.to }}
+            </p>
+        </div>
+    </div>
 
-    <div v-if="(activity.type === 'status' || activity.type === 'priority')" class="activity-change">
-        <div class="from" :style="`background-color:${formattedDataFrom.color}`">
-            <p>{{ formattedDataFrom.title }}</p>
-        </div>
-        <span v-svg-icon="'arrowRight'"></span>
-        <div class="to" :style="`background-color:${formattedDataTo.color}`">
-            <p>
-                {{ activity.to }}
-            </p>
-        </div>
-    </div>
-    
-    <div v-else class="activity-change">
-        <div class="from">
-            <p class="txt">{{ (activity.from) ? activity.from : '⎯⎯⎯⎯⎯' }}</p>
-        </div>
-        <span v-svg-icon="'arrowRight'"></span>
-        <div class="to">
-            <p class="txt">
-                {{ activity.to }}
-            </p>
-        </div>
-    </div>
 </template>
+
 <script>
 export default {
     name: 'activity',
@@ -38,25 +27,25 @@ export default {
         }
     },
     computed: {
-        formattedDataFrom() {
-            const type = this.activity.type
-            switch (type) {
-                case 'status': return this.statuses.find(status => status.title === this.activity.from)
-                case 'priority': return this.priorities.find(priorities => priorities.title === this.activity.from)
-            }
-        },
-        formattedDataTo() {
-            const type = this.activity.type
-            switch (type) {
-                case 'status': return this.statuses.find(status => status.title === this.activity.to)
-                case 'priority': return this.priorities.find(priorities => priorities.title === this.activity.to)
-            }
-        },
         statuses() {
             return this.$store.getters.statuses
         },
         priorities() {
             return this.$store.getters.priorities
+        },
+        isColored() {
+            return (this.activity.type !== 'status' && this.activity.type !== 'priority')
+        }
+    },
+    methods: {
+        formattedData(dir) {
+            const type = this.activity.type
+            console.log(dir);
+            switch (type) {
+                case 'status': return this.statuses.find(status => status.title === this.activity[dir]).color
+                case 'priority': return this.priorities.find(priorities => priorities.title === this.activity[dir]).color
+                default: return 'white'
+            }
         }
     }
 }

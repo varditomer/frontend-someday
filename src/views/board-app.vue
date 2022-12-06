@@ -3,7 +3,7 @@
         <task-nav />
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
-        <section class='board-app-container'>
+        <section class='board-app-container' :class="{ 'folded': isViewingTask }">
             <regular-modal :selectedTasks="selectedTasks" @deleteSelectedTasks="deleteSelectedTasks"
                 :showModal="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
@@ -36,7 +36,7 @@ export default {
     data() {
         return {
             boardUpdated: 0,
-            scrollX: null
+            scrollX: null,
         }
     },
     mounted() {
@@ -145,7 +145,11 @@ export default {
             return this.$store.getters.selectedTasks?.length
                 ? true
                 : false
+        },
+        isViewingTask() {
+            return typeof (this.$route.params.taskId) === 'string'
         }
+
     },
     data() {
         return {

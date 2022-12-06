@@ -376,6 +376,7 @@
                 }
 
                 .created-time {
+                    width: 56px;
                     p {
                         font-size: 14px;
                         font-family: roboto-light;
@@ -391,8 +392,7 @@
                 }
 
                 .user {
-                    width: 50%;
-
+                    flex-basis: 35%;
                     img {
                         width: 30px;
                         height: 30px;
@@ -403,20 +403,21 @@
                     p {
                         font-size: 14px;
                         font-family: roboto-light;
+                        width: 50% !important;
+                        @include ellipsis;
                     }
                 }
 
                 .activity {
                     display: flex;
                     align-items: center;
-
+                    flex-basis: 20%;
                     span {
                         margin-right: 3px;
                     }
 
                     p {
                         font-size: 14px;
-                        width: 70%;
                         font-family: roboto-light;
                         @include ellipsis;
                         text-transform: capitalize;
@@ -424,8 +425,6 @@
                 }
 
                 .activity-change {
-                    display: flex;
-                    align-items: center;
                     height: 100%;
 
                     .from {

@@ -5,10 +5,11 @@
                 <span v-if="isBeingEditted" v-svg-icon="'changeColor'" class="change-color"></span>
             </span>
             <span class="name" :class="{ 'on-edit': isBeingEditted }" :contenteditable="isBeingEditted"
-                @blur="updateLabels(idx, 'title', $event.target.innerText)">
+                @click="updateLabels(idx, 'title', $event.target.innerText)">
                 {{ label.title !== 'Default' ? label.title : isBeingEditted ? 'Default' : '' }}
             </span>
-            <regular-modal :cmp="'color-picker-modal'" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateProperty" />
+            <regular-modal :cmp="'color-picker-modal'" :showModal="(showColorPicker && idx === selectedIdx)" :color="''"
+                @updateSelection="updateProperty" />
         </div>
         <span class="label-btn flex helper">
             <div class="flex center" @click="toggleEdit">
@@ -56,13 +57,13 @@ export default {
         },
         updateLabels(labelIdx, key, val) {
             this.updatedDb = this.additionalDb.map((label, idx) => {
-                const newLabel = {...label}
+                const newLabel = { ...label }
                 if (idx === labelIdx) newLabel[key] = val
                 return newLabel
             })
         },
-        renderModal(idx){
-            this.showColorPicker = true; 
+        renderModal(idx) {
+            this.showColorPicker = true;
             this.selectedIdx = idx
         }
     },

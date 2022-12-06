@@ -134,13 +134,12 @@
                                 "txt": "Amazing, already forked! 🍴",
                                 "createdAt": 1670230590647,
                                 "byMember": {
-                                    "_id": "0",
-                                    "fullname": "Guest",
-                                    "imgUrl": "src/assets/imgs/default-avatar.svg"
+                                    "_id": "u103",
+                                    "fullname": "Tomer Vardi",
+                                    "imgUrl": "src/assets/imgs/tomer-avatar.png"
                                 },
                                 "likes": [
                                     "u102",
-                                    "u103",
                                     "u104"
                                 ]
                             }
@@ -208,9 +207,9 @@
                         "status": "Stuck",
                         "person": [
                             {
-                                "_id": "0",
-                                "fullname": "Guest",
-                                "imgUrl": "src/assets/imgs/default-avatar.svg"
+                                "_id": "u102",
+                                "fullname": "Refael Abramov",
+                                "imgUrl": "src/assets/imgs/refael-avatar.png"
                             }
                         ],
                         "timeline": {

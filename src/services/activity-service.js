@@ -41,7 +41,7 @@ async function save(activity) {
         byUser,
         createdAt: Date.now()
     }
-    return await storageService.post(ACTIVITY_STORAGE_KEY, savedActivity)
+    return await storageService.post(ACTIVITY_STORAGE_KEY, savedActivity, true)
 }
 
 // utilService.saveToStorage(ACTIVITY_STORAGE_KEY, activities)
