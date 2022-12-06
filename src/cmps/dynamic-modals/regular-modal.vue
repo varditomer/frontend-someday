@@ -78,6 +78,7 @@ export default {
             this.$emit('editGroupTitle')
         },
         updateSelection(value) {
+            console.log(`value`, value)
             this.$emit('updateSelection', { color: value, light: value + '99' }, 'style')
         },
         propagateMenu() {
