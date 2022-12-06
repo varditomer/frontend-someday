@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { status } from '../../data/_board_DB.js'
+import { status } from '../../data/_labelsDB.js'
 import { colors } from '../../data/color-picker.js'
 import triangleModal from '../dynamic-modals/triangle-modal.vue'
 

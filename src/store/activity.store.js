@@ -14,10 +14,7 @@ export const activityStore = {
             state.activities = activities
         },
         saveActivity(state, { activity }) {
-            if (activity._id) var idx = state.activities.findIndex(anyActivity => anyActivity._id === activity._id)
-            else return this.activities.unshift(activity)
-            if (idx === -1) return
-            state.activities[idx] = activity
+            state.activities.unshift(activity)
         },
     },
     actions: {
@@ -29,11 +26,10 @@ export const activityStore = {
                 console.log(`Cannot load activities in store`, err)
             }
         },
-        async saveActivity({ dispatch, commit }, { activity }) {
+        async saveActivity({ commit }, { activity }) {
             try {
-                await activityService.save(activity)
-                commit({ type: 'saveActivity', activity })
-                dispatch({ type: 'queryBoard', id: activity.boardId, filter: '' })
+                const savedActivity = await activityService.save(activity)
+                commit({ type: 'saveActivity', savedActivity })
                 console.log(`success`)
             } catch (err) {
                 console.log(`Cannot save activity`, err)

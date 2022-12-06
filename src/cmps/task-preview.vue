@@ -71,16 +71,12 @@ export default {
     created() {
         this.editing = false
         this.isChecked = false
-        // console.log(`this.isChecked:`, this.isChecked)
-        console.log(`this.Allchecked:`, this.areAllChecked)
-        // this.areAllChecked = false
     },
     data() {
         return {
             showModal: false,
             editing: null,
             isChecked: null,
-
         }
     },
     computed: {
@@ -126,8 +122,15 @@ export default {
     methods: {
         updateTask({ key, val }) {
             const task = this.task
+            const oldVal = task[key]
             task[key] = val
-            this.$emit('updateTask', task)
+            const activity = {
+                key,
+                oldVal,
+                newVal: val,
+                taskId: task._id
+            }
+            this.$emit('updateTask', task, activity)
         },
         lineOptions() {
             this.showModal = true
@@ -154,6 +157,17 @@ export default {
         unSelectLine() {
             this.editing = false
         }
+    },
+
+    watch: {
+        areAllChecked(newState, oldState) {
+            if (newState) {
+                this.isChecked = true
+            } else {
+                this.isChecked = false
+            }
+            
+        },
     },
     components: {
         dateTask,

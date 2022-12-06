@@ -24,12 +24,12 @@
                     <p class="title">Add group</p>
                 </div>
             </div>
-            <!-- <div class="modal-item flex align-center" @click="duplicateGroup">
+            <div class="modal-item flex align-center" @click="duplicateGroup">
                 <div class="flex align-center">
                     <span v-svg-icon="'board'"></span>
                     <p class="title">Duplicate this group</p>
                 </div>
-            </div> -->
+            </div>
         </div>
 
         <div class="modal-group lowest-group flex column justify-center">
@@ -41,7 +41,7 @@
             </div>
             <div class="modal-item flex align-center" @click="propagateMenu">
                 <div class="flex align-center">
-                    <span class="group-color" :style="{  backgroundColor:  selectedColor  }"></span>
+                    <span class="group-color" :style="{ backgroundColor: selectedColor }"></span>
                     <p class="title color-title">Change group color</p>
                 </div>
             </div>
@@ -60,7 +60,7 @@
 import { eventBus } from '../../services/event-bus.service';
 export default {
     name: 'group-opt-modal',
-    emits: ['addGroup', 'editGroupTitle', 'removeGroup','propagateMenu'],
+    emits: ['addGroup', 'editGroupTitle', 'removeGroup','propagateMenu', 'duplicateGroup'],
     props: {
         groupId: String,
         selectedColor: String,
@@ -90,6 +90,9 @@ export default {
         },
         propagateMenu() {
             this.$emit('propagateMenu')
+        },
+        duplicateGroup() {
+            this.$emit('duplicateGroup')
         }
     },
     components: {}

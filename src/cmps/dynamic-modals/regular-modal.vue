@@ -4,7 +4,7 @@
         <component @updateSelection="updateSelection"
             :selectedTasks="selectedTasks" :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask"
             :users="users" @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :groupId="groupId"
-            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" @deleteMultiple="deleteSelectedTasks" @taskTitleToClipboard="$emit('taskTitleToClipboard')" @linkToClipboard="$emit('linkToClipboard')" />
+            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" @deleteMultiple="deleteSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard" @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup"  />
     </section>
 </template>
 
@@ -86,7 +86,18 @@ export default {
         },
         deleteSelectedTasks(){
             this.$emit('deleteSelectedTasks')
+        },
+        taskTitleToClipboard() {
+            this.$emit('taskTitleToClipboard')
+        },
+        linkToClipboard() {
+            this.$emit('linkToClipboard')
+        },
+        duplicateGroup() {
+            this.$emit('duplicateGroup')
         }
+
+
     },
     components: { //specify each dynamic cmps thats created
         newItemModal,

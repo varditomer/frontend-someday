@@ -18,7 +18,7 @@
 
 <script>
 import { colors } from '../data/color-picker.js'
-import { labels } from '../data/_board_DB.js'
+import { labels } from '../data/_labelsDB.js'
 export default {
     name: '',
     props: {
@@ -111,7 +111,7 @@ export default {
                         for (let label in summary[idx]) {
                             labelsCount += summary[idx][label]
                         }
-                        let htmlStr = `<div class="label-progress" style="background-color: ">`
+                        let htmlStr = `<div class="label-progress">`
                         for (let label in summary[idx]) {
                             const width = 100 * (summary[idx][label] / labelsCount) + '%'
                             const backgroundColor = colors[labels[label]]
