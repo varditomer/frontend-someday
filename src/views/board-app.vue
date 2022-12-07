@@ -62,6 +62,8 @@ export default {
         },
         removeTask(task) {
             this.$store.dispatch({ type: 'removeTask', task })
+            const idx = this.selectedTasksWithColor?.findIndex(taskWithColor => taskWithColor.taskId === task._id)
+            if (idx !== -1) this.selectedTasksWithColor.splice(idx, 1)
         },
         duplicateTask(task) {
             this.$store.dispatch({ type: 'duplicateTask', task })
@@ -97,13 +99,12 @@ export default {
             await this.$store.commit({ type: 'saveSelectedTasks', taskId })
             const idx = this.selectedTasksWithColor.findIndex(anyTask => anyTask.taskId === taskId)
             if (idx === -1) {
-                const filterTasks = { tasks: { _id: taskId } }
-                const filtteredBoard = await boardService.multiFilter(filterTasks, 'b101')
-                const color = filtteredBoard.groups[0].style.color
-                this.selectedTasksWithColor.push({ taskId, color })
+                const formattedTaskId = this.getFormattedTasksIds([taskId])
+                this.selectedTasksWithColor.push(formattedTaskId[0])
             } else this.selectedTasksWithColor.splice(idx, 1)
         },
         async deleteSelectedTasks() {
+            console.log(`1:`,)
             try {
                 await this.$store.dispatch({ type: 'removeTasks' })
                 this.unselectTasks()
@@ -111,9 +112,14 @@ export default {
                 console.log(`Cannot delete selected tasks`, err)
             }
         },
-        unselectTasks() {
-            this.$store.commit({ type: 'unselectTasks' })
-            this.selectedTasksWithColor = null
+        async unselectTasks() {
+            await this.$store.commit({ type: 'unselectTasks' })
+            const allSelectedTasksIds = this.$store.getters.selectedTasks
+            console.log(`allSelectedTasksIds:`, allSelectedTasksIds)
+            if (allSelectedTasksIds) {
+                if (allSelectedTasksIds.length > 1) this.selectedTasksWithColor = this.getSelectedTasksColors(allSelectedTasksIds)
+                else this.selectedTasksWithColor = this.getFormattedTasksIds([allSelectedTasksIds])
+            } else return
         },
         async saveBoardTitle(title) {
             const board = JSON.parse(JSON.stringify(this.board))
@@ -124,19 +130,21 @@ export default {
         },
         toggleSelectAllTasks(tasks, groupId, areAllSelected) {
             this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })
-            return this.selectedTasksWithColor = this.getFormattedTasksIds()
+            this.selectedTasksWithColor = []
+            const allSelectedTasksIds = this.$store.getters.selectedTasks
+            return this.selectedTasksWithColor = this.getFormattedTasksIds(allSelectedTasksIds)
         },
 
-        getFormattedTasksIds() {
-            this.selectedTasksWithColor = []
+        getFormattedTasksIds(selectedTasksIds) {
             const board = this.$store.getters.board
-            const allSelectedTasks = this.$store.getters.selectedTasks
-            return this.getSelectedTasksColors(allSelectedTasks, board)
+            return this.getSelectedTasksColors(selectedTasksIds, board)
         },
 
         getSelectedTasksColors(selectedTasksIds, { groups }) {
+            console.log(`selectedTasksIds:`, selectedTasksIds)
             const idsCopy = [...selectedTasksIds]
-            return groups.reduce((formattedIds, group) => {
+            console.log(`idsCopy:`, idsCopy)
+            const formattedTaskId = groups.reduce((formattedIds, group) => {
                 const temp = group.tasks.reduce((relevantTaskIds, task) => {
                     const idx = idsCopy.indexOf(task._id)
                     if (idx !== -1) {
@@ -150,7 +158,11 @@ export default {
                 if (temp && temp.length) formattedIds.push(...temp)
                 return formattedIds
             }, [])
+
+            console.log(`formattedTaskId-getSelectedColor..:`, formattedTaskId)
+            return formattedTaskId
         }
+
 
     },
     computed: {

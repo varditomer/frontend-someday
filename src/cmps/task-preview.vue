@@ -1,8 +1,9 @@
 <template>
-    <li class="task-preview" ref="line" :class="{ beingEdit: areAllChecked || editing || isChecked }">
+    <li class="task-preview" ref="line" :class="{ beingEdit: areAllChecked || editing || isChecked }"
+        v-click-outside="closeModal">
         <regular-modal v-if="showModal" :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
             @closeModal="(showModal = false)" :showModal="showModal" @taskTitleToClipboard="copyToClipboard(task.title)"
-            v-click-outside="unSelectLine" @linkToClipboard="copyToClipboard(task.link.url)"
+            v-click-outside="(unSelectLine)" @linkToClipboard="copyToClipboard(task.link.url)"
             @duplicateTask="duplicateTask" />
 
         <section class="static">
@@ -160,6 +161,9 @@ export default {
         },
         duplicateTask() {
             this.$emit('duplicateTask', this.task)
+        },
+        closeModal() {
+            this.showModal = false
         }
 
     },
