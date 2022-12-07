@@ -9,8 +9,8 @@
       </router-link>
 
       <div v-if="!signedIn" class="login-signup-area flex">
-        <button class="login-signup hero-btn" @click="(openLoginSignupModal = true)">Login / Signup</button>
-        <triangle-modal v-if="(openLoginSignupModal && !hideModal)" :cmp="`login-signup-modal`" />
+        <button class="login-signup hero-btn" @click="(showModal = true)">Login / Signup</button>
+        <triangle-modal @login="login" @hideModal="(showModal=false)" v-if="(showModal)" :cmp="`login-signup-modal`" />
       </div>
 
     </div>
@@ -30,15 +30,34 @@ export default {
   },
   data() {
     return {
-      openLoginSignupModal: false,
       signedIn: false,
-      hideModal: false
+      showModal: false
     }
   },
   methods: {
     closeLoginSignupModal() {
       this.openLoginSignupModal = false
     },
+    async login(userCreds) {
+      if (!userCreds.email) {
+        try {
+          await this.$store.dispatch({ type: 'login', userCreds })
+          this.$router.push('/board/' + this.board._id)
+        }
+        catch (err) {
+          console.log('Wrong details', err);
+        }
+      }
+      else {
+        try {
+          await this.$store.dispatch({ type: 'signup', userCreds })
+          this.$router.push('/board/' + this.board._id)
+        }
+        catch (err) {
+          console.log('Could not sign up', err);
+        }
+      }
+    }
   },
   components: {
     triangleModal
