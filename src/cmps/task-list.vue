@@ -177,6 +177,6 @@ export default {
         formattedSummary() {
 
         },
-    }
+    },
 }
 </script>

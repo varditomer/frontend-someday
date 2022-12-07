@@ -5,7 +5,6 @@
             @duplicateTask="duplicateTask" />
 
         <section class="static">
-
             <div class="options flex center">
                 <span class="hidden" @click="openLineOptionModal" v-svg-icon="'fatMore'"></span>
             </div>

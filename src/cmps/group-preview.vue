@@ -64,7 +64,6 @@
             :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users" :priorities="priorities"
             :statuses="statuses" @addGroup="addGroup" @saveTask="saveTask" @removeTask="removeTask"
             @duplicateTask="duplicateTask" :colors="colors" />
-
     </section>
 
 </template>
