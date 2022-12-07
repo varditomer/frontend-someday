@@ -11,7 +11,6 @@
 
 <script>
 import triangleModal from '../dynamic-modals/triangle-modal.vue'
-import { getReasonableTimeDiff } from '../../services/util.service.js'
 
 export default {
     name: '',

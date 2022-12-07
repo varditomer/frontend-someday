@@ -11,7 +11,7 @@ const BOARD_STORAGE_KEY = 'board'
 export const cmps = ['person', 'priority', 'status', 'date', 'timeline', 'text', 'link', 'numbers']
 
 export const boardService = {
-    getMiniBoards,
+    // getMiniBoards,
     queryBoard,
     getFirstBoard,
     getBoardsTitles,
@@ -60,13 +60,13 @@ async function getBoardsTitles() {
     return boards.map(board => board.title)
 }
 
-async function getMiniBoards(filter = null) {
-    let boards = await storageService.query(BOARD_STORAGE_KEY)
-    boards = boards.map(({ _id, title }) => ({ _id, title }))
-    if (!filter) return boards
-    const regex = new RegExp(filter, 'i')
-    return boards.filter(board => regex.test(board.title))
-}
+// async function getMiniBoards(filter = null) {
+//     let boards = await storageService.query(BOARD_STORAGE_KEY)
+//     boards = boards.map(({ _id, title }) => ({ _id, title }))
+//     if (!filter) return boards
+//     const regex = new RegExp(filter, 'i')
+//     return boards.filter(board => regex.test(board.title))
+// }
 
 async function queryBoard(boardId, filterBy = {}) {
     var board = await storageService.get(BOARD_STORAGE_KEY, boardId)
@@ -160,8 +160,8 @@ function saveToSessionStorage(key, state) {
 }
 
 function _getNewBoard() {
-    const color1 = randomColor()
-    const color2 = randomColor()
+    const color1 = randomColor('group')
+    const color2 = randomColor('group')
     return {
         title: 'New Board',
         archivedAt: Date.now(),

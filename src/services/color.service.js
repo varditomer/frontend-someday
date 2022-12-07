@@ -1,9 +1,6 @@
 
-import { groupService } from './group.service.js'
-import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
-import { boardService } from './board.service.local.js'
 
 const COLOR_STORAGE_KEY = 'color_DB'
 
@@ -12,6 +9,7 @@ export const colorService = {
     add,
     update,
     remove,
+    randomColor
 }
 window.bs = colorService
 
@@ -125,7 +123,7 @@ function query() {
                 'Lilac': '#9D99B9',
                 'Pecan': '#563E3E',
             },
-            groupOpts: {
+            group: {
                 'Grass Green': '#037f4c',
                 'Green haze': '#00a359',
                 'Jade': '#03c875',
@@ -144,7 +142,7 @@ function query() {
                 'Explosive': '#c4c4c4',
                 'American Gray': '#808080',
             },
-            labelOpts: {
+            label: {
                 'Grass Green': '#037f4c',
                 'Jade': '#03c875',
                 'Light Green': '#9cd326',
@@ -223,4 +221,11 @@ async function remove(type, id) {
     const label = colors[type].splice(idx, 1)[0]
     localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(colors))
     return label
+}
+
+async function randomColor(type) {
+    const colors = await query()
+    const colorNames = Object.keys(colors[type])
+    const idx = utilService.getRandomInt(0, colorNames.length)
+    return colors[type][colorNames[idx]]
 }

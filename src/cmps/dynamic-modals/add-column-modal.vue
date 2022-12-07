@@ -14,7 +14,7 @@
     </section>
 </template>
 <script>
-import { cmps } from '../../services/board.service.local.js'
+import { cmps } from '../../services/board.service.js'
 export default {
     name: 'add-column-modal',
     emits: ['addColumn'],

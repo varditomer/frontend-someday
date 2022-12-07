@@ -1,78 +1,43 @@
-
-import { groupService } from './group.service.js'
-import { storageService } from './async-storage.service.js'
+import { httpService } from './http.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
-import { boardService } from './board.service.local.js'
 
-const TASK_STORAGE_KEY = 'task'
+const TASK_URL = 'task/'
 
 export const taskService = {
-    query,
     save,
-    saveEmptyTask,
     remove,
     duplicate,
-    duplicateMultiple
-
-}
-window.bs = taskService
-
-
-function query() {
-
+    duplicateMultiple,
+    newTask
 }
 
-
-async function saveEmptyTask(groupId, boardId) {
-    let task = {
-        groupId,
-        boardId,
-        title: 'Item 1',
-        status: '',
-        date: Date.now() + 24 * 60 * 60 * 1000,
-        comments: []
-    }
-    task = await save(task, true)
-    return task
-}
-async function saveMultiple(tasks, isFifo, isDuplicate) {
-    const savedTasks = tasks.map(task => save(task, isFifo, isDuplicate))
-    return Promise.all(savedTasks)
-}
-
-async function save(task, isFifo, isDuplicate) {
-    const { groupId, boardId } = task
-    if (!task || !groupId) return Promise.reject('Cannot save task')
-    const group = await groupService.queryBoard(groupId, boardId)
-    if (!group) return Promise.reject('group not found')
-    if (task.groupId !== group._id) return Promise.reject('Unmatched group')
+async function save(task, isFifo = true, isDuplicate = false) {
     let savedTask
     if (task._id) {
-        const idx = group.tasks.findIndex(anyTask => anyTask._id === task._id)
-        if (idx === -1) return Promise.reject('Task not found and cannot be updated')
-        group.tasks[idx] = task
-        savedTask = task
+        // savedTask = await storageService.put(STORAGE_KEY, group)
+        savedTask = await httpService.put(TASK_URL + task._id, {task, isFifo, isDuplicate})
+
     } else {
-        savedTask = { ...task, _id: utilService.makeId() }
-        if (isDuplicate) _replaceTaskEntitiesIds(savedTask)
-        if (!isFifo) group.tasks.push(savedTask)
-        else group.tasks.unshift(savedTask)
+        // Later, owner is set by the backend
+        // group.owner = userService.getLoggedinUser()
+        // savedTask = await storageService.post(STORAGE_KEY, group)
+        savedTask = await httpService.post(TASK_URL,{task ,isFifo, isDuplicate})
     }
-    if (!groupService.save(group)) return Promise.reject('Task not saved because group cannot be saved')
     return savedTask
 }
 
+async function newTask(groupId, boardId){
+    return {
+        title: 'Item 1',
+        status:'dfbyc',
+        groupId,
+        boardId
+    }
+}
+
 async function remove(task) {
-    const { groupId, boardId } = task
-    if (!task._id || !groupId) return Promise.reject('Cannot remove task')
-    const group = await groupService.queryBoard(groupId, boardId)
-    if (!group) return Promise.reject('group not found')
-    const idx = group.tasks.findIndex(anyTask => anyTask._id === task._id)
-    if (idx === -1) return Promise.reject('Task not found and cannot be removed')
-    const removedTask = group.tasks.splice(idx, 1)
-    if (!groupService.save(group)) return Promise.reject('Task not removed because group cannot be saved')
-    return removedTask
+    return await httpService.delete(TASK_URL + task._id)
 }
 
 function duplicate(task) {
@@ -80,26 +45,20 @@ function duplicate(task) {
     taskToDuplicate._id = null
     return save(taskToDuplicate, true, true)
 }
+
 function duplicateMultiple(tasks) {
     const tasksToDuplicate = tasks.map(task => {
         const clonedTask = JSON.parse(JSON.stringify(task))
-        clonedTask._id = null
+        clonedTask._id = utilService.makeId()
         return clonedTask
     })
-    
-    return saveMultiple(tasksToDuplicate, true, true)
+    _saveMultiple(tasks, tasksToDuplicate)
+    return tasksToDuplicate
 }
 
-function _replaceTaskEntitiesIds(taskToDuplicate) {
-    const { _id: taskId } = taskToDuplicate
-    console.log(`taskToDuplicate:`, taskToDuplicate)
-    console.log(`taskId:`, taskId)
-    taskToDuplicate.comments?.forEach(comment => {
-        comment._id = utilService.makeId()
-        console.log(`comment:`, comment)
-        return comment.taskId = taskId
-    })
-    return taskToDuplicate
+async function _saveMultiple(tasks, tasksCopy) {
+    const { boardId } = tasks[0]
+    await httpService.put(TASK_URL + 'many', tasks, tasksCopy, boardId)
 }
 
 // async function addTaskMsg(taskId, txt) {

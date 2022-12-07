@@ -24,7 +24,7 @@ import groupList from '../cmps/group-list.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
 import { eventBus } from '../services/event-bus.service.js'
-import { boardService } from '../services/board.service.local.js'
+// import { boardService } from '../services/board.service.local.js'
 
 export default {
     name: 'board-app',
@@ -56,7 +56,9 @@ export default {
             this.$store.dispatch({ type: 'saveTask', task })
         },
         saveBoard(board) {
-            this.$store.commit({ type: 'setBoard', board })
+            console.log(`board`, board)
+            console.log(`this.$store.getters.board`, this.$store.getters.board)
+            this.$store.commit({ type: 'setBoard', boardData:{board} })
             this.$store.dispatch({ type: 'saveBoard', board })
         },
         removeTask(task) {
@@ -136,7 +138,7 @@ export default {
             if (board.title === title) return
             board.title = title
             await this.$store.dispatch({ type: 'saveBoard', board })
-            this.$store.dispatch({ type: 'loadMiniBoards' })
+            this.$store.dispatch({ type: 'loadBoard' })
         },
         toggleSelectAllTasks(tasks, groupId, areAllSelected) {
             this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })
@@ -214,7 +216,7 @@ export default {
     async created() {
         const { id } = this.$route.params
         try {
-            await this.$store.dispatch({ type: 'queryBoard', id })
+            await this.$store.dispatch({ type: 'queryBoard', filter:{id} })
         } catch (err) {
             this.$router.push('/')
         }

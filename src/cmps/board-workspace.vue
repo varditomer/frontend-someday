@@ -62,7 +62,7 @@ export default {
         }
     },
     created() {
-        this.$store.dispatch({ type: 'loadMiniBoards' })
+        // this.$store.dispatch({ type: 'loadMiniBoards' })
     },
     computed: {
         miniBoards() {
@@ -72,7 +72,7 @@ export default {
     methods: {
         setFilter(event) {
             const filter = event.target.value
-            this.$store.dispatch({ type: 'loadMiniBoards', filter })
+            // this.$store.dispatch({ type: 'loadMiniBoards', filter })
         },
         addBoard() {
             this.showTitle = false

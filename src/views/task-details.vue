@@ -173,7 +173,7 @@ export default {
         const { taskId } = this.$route.params
         const { id } = this.$route.params
         if (Object.keys(this.board).length === 0) {
-            await this.$store.dispatch({ type: 'queryBoard', id })
+            await this.$store.dispatch({ type: 'queryBoard', filter:{id} })
         }
         this.board.groups.some(({ tasks }) => tasks.some(task => {
             if (task._id === taskId) this.taskToEdit = JSON.parse(JSON.stringify(task))

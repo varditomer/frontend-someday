@@ -2,6 +2,7 @@ export const utilService = {
     makeId,
     makeLorem,
     getRandomIntInclusive,
+    getRandomInt,
     debounce,
     randomPastTime,
     saveToStorage,

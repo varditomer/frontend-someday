@@ -4,7 +4,6 @@
 
 <script>
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
-import { boardService } from '../services/board.service.local'
 
 import taskNav from '../cmps/task-nav.vue'
 import taskWorkspace from '../cmps/board-workspace.vue'
@@ -14,7 +13,7 @@ import taskFilter from '../cmps/board-filter.vue'
 export default {
   data() {
     return {
-      boardToAdd: {} || boardService.getEmptyTask()
+      boardToAdd: {}
     }
   },
   computed: {

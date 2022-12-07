@@ -1,4 +1,3 @@
-import { boardService } from '../services/board.service.local.js'
 import { taskService } from '../services/task.service.js'
 
 export const taskStore = {
@@ -96,7 +95,7 @@ export const taskStore = {
             try {
                 const groupId = getters.board.groups[0]._id
                 const boardId = getters.board._id
-                const task = await taskService.saveEmptyTask(groupId, boardId)
+                const task = await taskService.newTask(groupId, boardId)
                 const taskToSave = { task, bool: true }
                 commit({ type: 'saveTask', taskToSave })
                 return task

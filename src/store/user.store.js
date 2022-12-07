@@ -75,7 +75,7 @@ export const userStore = {
         },
         async loadAndWatchUser({ commit }, { userId }) {
             try {
-                const user = await userService.queryBoard(userId)
+                const user = await userService.query(userId)
                 commit({ type: 'setWatchedUser', user })
 
             } catch (err) {

@@ -1,90 +1,47 @@
-
-import { boardService } from './board.service.local.js'
-import { storageService } from './async-storage.service.js'
+import { httpService } from './http.service.js'
+import { colorService } from './color.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 
-const GROUP_STORAGE_KEY = 'group'
+const GROUP_URL = 'group/'
 
 export const groupService = {
-    getNewGroup,
-    remove,
+    query,
     save,
+    remove,
     duplicate,
-    removeManyTasks,
-}
-window.bs = groupService
-
-async function add(boardId) {
-    // return await save(getNewGroup(boardId))
+    add,
 }
 
-async function remove(group) {
-    // const { boardId } = group
-    // if (!group._id || !boardId) return Promise.reject('Cannot remove group')
-    // const board = await boardService.queryBoard(boardId)
-    // if (!board) return Promise.reject('Board not found')
-    // const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)
-    // if (idx === -1) return Promise.reject('Group not found')
-    // const removedGroup = board.groups.splice(idx, 1)
-    // if (!boardService.save(board)) return Promise.reject('Cannot remove group because board cannot be saved')
-    // return removedGroup
+async function query(filterBy = {}) {
+    return await httpService.get(GROUP_URL, filterBy)
 }
 
-async function removeManyTasks(taskIds, boardId) {
-    // if (!taskIds?.length || !boardId) return
-    // const board = await boardService.queryBoard(boardId)
-    // if (!board) return
-    // board.groups = board.groups.reduce((groupArr, group) => {
-    //     if (!taskIds.length) {
-    //         groupArr.push(group)
-    //         return groupArr
-    //     }
-    //     group.tasks = group.tasks.reduce((tasksToKeep, task) => {
-    //         if (!taskIds.length) {
-    //             tasksToKeep.push(task)
-    //             return tasksToKeep
-    //         }
-    //         const idx = taskIds.indexOf(task._id)
-    //         if (idx === -1) tasksToKeep.push(task)
-    //         else taskIds.splice(idx, 1)
-    //         return tasksToKeep
-    //     }, [])
-    //     groupArr.push(group)
-    //     return groupArr
-    // }, [])
-    // if (!(await boardService.save(board))) return Promise.reject('Cannot save group because board cannot be saved')
-    // return board
+async function remove(groupId, boardId) {
+    return await httpService.delete(GROUP_URL, { groupId, boardId })
+}
+async function save(group, isFifo = false) {
+    if (group._id) {
+        // savedGroup = await storageService.put(STORAGE_KEY, group)
+        await httpService.put(GROUP_URL + group._id, { group, isFifo })
+
+    } else {
+        // Later, owner is set by the backend
+        // group.owner = userService.getLoggedinUser()
+        // await storageService.post(STORAGE_KEY, group)
+        savedGroup = await httpService.post(GROUP_URL, { group, isFifo: false })
+    }
 }
 
-async function save(group, isFifo) {
-    // const { boardId } = group
-    // if (!group || !boardId) return Promise.reject('Cannot save group')
-    // const board = await boardService.queryBoard(boardId)
-    // if (!board) return Promise.reject('Board not found')
-    // if (group._id) {
-    //     const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)
-    //     if (idx === -1) return Promise.reject('Group not found')
-    //     board.groups[idx] = group
-    // } else {
-    //     console.log(`2:`, )
-    //     isFifo? board.groups.unshift(_connectIds(group)): board.groups.push(_connectIds(group))
-    // }
-    // if (!(await boardService.save(board))) return Promise.reject('Cannot save group because board cannot be saved')
-    // return group
+async function duplicate(groupId, boardId) {
+    return await httpService.post(GROUP_URL, { groupId, boardId })
 }
 
-function duplicate(group) {
-    // const duplicatedGroup = JSON.parse(JSON.stringify(group))
-    // duplicatedGroup._id = null
-    // duplicatedGroup.tasks.forEach(task=> {
-    //     delete task.groupId
-    //     task._id = utilService.makeId()
-    // })
-    // return(save(duplicatedGroup, true))
+async function add(boardId, isFifo = false) {
+    return await save(_getNewGroup(boardId), isFifo)
 }
 
-function getNewGroup(boardId) {
+function _getNewGroup(boardId) {
     return {
         title: 'New Group',
         boardId,
@@ -93,7 +50,7 @@ function getNewGroup(boardId) {
             _id: 0,
             fullname: 'Guest'
         },
-        style: _getRandomColor(),
+        style: colorService.randomColor(),
         tasks: [
             {
                 _id: utilService.makeId(),
@@ -135,23 +92,3 @@ function getNewGroup(boardId) {
     }
 }
 
-
-const colors = {
-    'grass green': '#037f4c',
-    'green haze': '#00a359',
-    'jade': '#03c875',
-    'saladish': '#cab641',
-    'egg yolk': '#ffcb00',
-    'dark purple': '#784bd1',
-    'purple': '#a25ddc',
-    'dark blue': '#0086c0',
-    'chilli blue': '#66ccff',
-    'dark red': '#bb3354',
-    'red': '#e2445c',
-    'sofia pink': '#ff158a',
-    'dark orange': '#ff642e',
-    'orange': '#fdab3d',
-    'brown': '#7f5347',
-    'explosive': '#c4c4c4',
-    'american gray': '#808080',
-}
