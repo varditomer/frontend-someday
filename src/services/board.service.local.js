@@ -8,6 +8,8 @@ import _boardDB from '../data/_boardDB.json' assert {type: 'json'}
 
 const BOARD_STORAGE_KEY = 'board'
 
+export const cmps = ['person', 'priority', 'status', 'date', 'timeline', 'text', 'link', 'numbers']
+
 export const boardService = {
     getMiniBoards,
     queryBoard,

@@ -30,7 +30,6 @@ export const activityStore = {
             try {
                 const savedActivity = await activityService.save(activity)
                 commit({ type: 'saveActivity', savedActivity })
-                console.log(`success`)
             } catch (err) {
                 console.log(`Cannot save activity`, err)
             }

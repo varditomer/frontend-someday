@@ -60,7 +60,6 @@ function _getPerson(oldVal, newVal) {
         user = oldVal.filter(person => {
             return !newVal.find(newPerson => newPerson._id === person._id)
         })
-        console.log(user);
         return { name: user[0].fullname, txt: 'Removed' }
     }
 }

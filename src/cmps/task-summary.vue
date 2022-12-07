@@ -1,12 +1,13 @@
 <template>
     <li class="task-summary">
-        <section class="static"></section>
-        <section class="dynamic">
-
-            <section v-for="html in getHtmlSumData" v-html="(html)" class="footer-section flex center">
-            </section>
+        <section class="static">
+            <div class="static-overlay">
+                <div></div>
+            </div>
         </section>
-        <!-- <span class="empty-fill-span"></span> -->
+        <section class="dynamic">
+            <section v-for="html in getHtmlSumData" v-html="(html)" class="footer-section flex center"></section>
+        </section>
     </li>
 </template>
 
@@ -68,11 +69,8 @@ export default {
                         case 'timeline':
                             if (!task.timeline || !Object.keys(task.timeline).length) return
                             const { start, end } = task.timeline
-                            const startTime = (new Date([start.year, start.month+1, start.day])).getTime()
-                            const endTime = (new Date([end.year, end.month+1, end.day])).getTime()
-                            console.log(`endTime`, endTime)
-                            console.log(`end`, end)
-                            console.log(`idx`, idx)
+                            const startTime = (new Date([start.year, start.month + 1, start.day])).getTime()
+                            const endTime = (new Date([end.year, end.month + 1, end.day])).getTime()
                             if (!summary[idx].start || summary[idx].start > startTime) summary[idx].start = startTime
                             if (!summary[idx].end || summary.end > endTime) summary[idx].end = endTime
                             break
@@ -122,7 +120,6 @@ export default {
                         const { start, end } = summary[idx]
                         const totalTimeDiff = end - start
                         const timeElapsed = Date.now() - start
-                        console.log(`end`, end)
                         const width = timeElapsed / totalTimeDiff > 1
                             ? '100 %'
                             : timeElapsed / totalTimeDiff > 0

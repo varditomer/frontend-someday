@@ -28,7 +28,6 @@ export default {
     },
     methods: {
         updateTask(labelObj) {
-            console.log(`labelObj`, labelObj)
             this.$emit('updateTask', labelObj)
             setTimeout(() => this.show = false, 1)
         },
