@@ -49,23 +49,15 @@ export const boardStore = {
     },
     getters: {
         board({ board }) { return board },
-<<<<<<< HEAD
         boardsTitles({ boardsTitles }) { return boardsTitles.map(board => board.title) },
         miniBoards({ miniBoards }) { return miniBoards },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         filterBy({ filterBy }) { return filterBy },
         filterMap({ board }) { return board.dataMap },
-        colors({ colors }) { return colors }
-=======
         kanbanBoard({ kanbanBoard }) { return kanbanBoard },
-        boardsTitles({ boardsTitles }) { return boardsTitles },
-        miniBoards({ miniBoards }) { return miniBoards },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
-        filterBy({ filterBy }) { return filterBy },
-        filterMap({ board }) { return boardService.getDataMap(board._id) },
         colors({ colors }) { return colors },
         statuses({ statuses }) { return statuses }
->>>>>>> 37835aa0fb97836e6c115cf0e7194066f23af434
     },
     mutations: {
         setBoard(state, { boardData }) {

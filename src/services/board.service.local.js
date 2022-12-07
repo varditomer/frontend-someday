@@ -11,10 +11,10 @@ const BOARD_STORAGE_KEY = 'board'
 export const cmps = ['person', 'priority', 'status', 'date', 'timeline', 'text', 'link', 'numbers']
 
 export const boardService = {
-    // getMiniBoards,
+    getMiniBoards,
     queryBoard,
-    // getFirstBoard,
     queryKanbanBoard,
+    getFirstBoard,
     getBoardsTitles,
     add,
     save,
@@ -51,36 +51,7 @@ async function getDataMap(boardId) {
     }
 }
 
-async function queryKanbanBoard(boardId, filterBy = {}) {
-    var board = await storageService.get(BOARD_STORAGE_KEY, boardId)
-    var boardToShow = _filterByTxt(board, filterBy.txt)
-    boardToShow = _filterByUser(boardToShow, filterBy.userId)
-
-    const kanbanBoard = boardToShow.groups.reduce((status, group) => {
-        const map = group.tasks.reduce((innerStatus, task) => {
-            if (task.status) {
-                if (innerStatus[task.status]) innerStatus[task.status].push(task)
-                else innerStatus[task.status] = [task]
-            }
-            return innerStatus
-        }, {})
-        for (let prop in map) {
-            if (status[prop]) status[prop].push(...map[prop])
-            else status[prop] = map[prop]
-        }
-        return status
-    }, {})
-    // let kanbanBoardToShow = []
-    // for (let status in kanbanBoard) {
-    //     const group = {}
-    //     group._id = status
-    //     group.tasks = kanbanBoard[status]
-    //     kanbanBoardToShow.push(group)
-    // }
-    return kanbanBoard
-}
-
-async function w() {
+async function getFirstBoard() {
     let boards = await storageService.query(BOARD_STORAGE_KEY)
     return boards[0]
 }
@@ -90,21 +61,22 @@ async function getBoardsTitles() {
     return boards.map(board => board.title)
 }
 
-// async function getMiniBoards(filter = null) {
-//     let boards = await storageService.query(BOARD_STORAGE_KEY)
-//     boards = boards.map(({ _id, title }) => ({ _id, title }))
-//     if (!filter) return boards
-//     const regex = new RegExp(filter, 'i')
-//     return boards.filter(board => regex.test(board.title))
-// }
+async function getMiniBoards(filter = null) {
+    let boards = await storageService.query(BOARD_STORAGE_KEY)
+    boards = boards.map(({ _id, title }) => ({ _id, title }))
+    if (!filter) return boards
+    const regex = new RegExp(filter, 'i')
+    return boards.filter(board => regex.test(board.title))
+}
 
-async function queryBoard(filterBy = {}) {
+async function queryBoard(boardId, filterBy = {}) {
     var board = await storageService.get(BOARD_STORAGE_KEY, boardId)
     var boardToShow = _filterByTxt(board, filterBy.txt)
     boardToShow = _filterByUser(boardToShow, filterBy.userId)
     if (!boardToShow) boardToShow = board
     return boardToShow
 }
+
 
 async function remove(boardId) {
     return await storageService.remove(BOARD_STORAGE_KEY, boardId)
@@ -190,8 +162,8 @@ function saveToSessionStorage(key, state) {
 }
 
 function _getNewBoard() {
-    const color1 = randomColor('group')
-    const color2 = randomColor('group')
+    const color1 = randomColor()
+    const color2 = randomColor()
     return {
         title: 'New Board',
         archivedAt: Date.now(),
