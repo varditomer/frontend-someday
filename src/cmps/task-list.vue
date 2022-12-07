@@ -22,8 +22,8 @@
                 <div class="add-columns">
                     <span v-if="!showModal" @click="show" v-svg-icon="'add'" class="add-column-btn"></span>
                     <span v-else @click="(showModal = false)" v-svg-icon="'smallExit'" class="close-column-btn"></span>
-                    <regular-modal :cmpsOrder="cmpsOrder" @closeModal="(showModal = false)" :showModal="showModal"
-                        :cmp="'add-column-modal'" />
+                    <regular-modal @addColumn="addColumn" :cmpsOrder="cmpsOrder" @closeModal="(showModal = false)"
+                        :showModal="showModal" :cmp="'add-column-modal'" />
                 </div>
             </section>
 
@@ -66,7 +66,7 @@ import taskSummary from './task-summary.vue'
 import { eventBus } from '../services/event-bus.service.js'
 export default {
     name: 'task-list',
-    emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks', 'duplicateTask'],
+    emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks', 'duplicateTask', 'addColumn'],
     props: {
         tasks: Array,
         cmpsOrder: Array,
@@ -155,6 +155,9 @@ export default {
         },
         show() {
             this.showModal = true
+        },
+        addColumn(cmp) {
+            this.$emit('addColumn', cmp)
         }
     },
     computed: {
