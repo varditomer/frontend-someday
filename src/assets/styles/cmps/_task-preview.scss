@@ -2,7 +2,10 @@
 
     &.being-edit {
         background-color: $fltr-bgc !important;
-        .task-select, .task-title-container, .task-title-item {
+
+        .task-select,
+        .task-title-container,
+        .task-title-item {
             background-color: $fltr-bgc !important;
         }
 
@@ -13,7 +16,10 @@
 
     &:hover {
         background-color: $wrkspce-bgc !important;
-        .task-select, .task-title-container, .task-title-item {
+
+        .task-select,
+        .task-title-container,
+        .task-title-item {
             background-color: $wrkspce-bgc !important;
 
         }
@@ -34,28 +40,6 @@
             }
         }
     }
-  
-    // // &:hover {
-    // //     .options {
-    // //         span {
-    // //             visibility: visible;
-    // //             background-color: white;
-    // //         }
-
-    // //         .more {
-    // //             &:hover {
-    // //                 color: #000;
-    // //                 background-color: $brdr-clr;
-    // //                 border-radius: 7px;
-    // //                 cursor: pointer;
-    // //             }
-    // //         }
-    // //     }
-
-    //     &.labels {
-    //         opacity: 0.9;
-    //     }
-    // }
 
     .static {
         display: grid;
@@ -160,7 +144,7 @@
         grid-template-rows: 36px;
         border-bottom: 1px solid $brdr-clr;
 
-        > * {
+        >* {
             border-right: 1px solid $brdr-clr;
         }
 
@@ -218,8 +202,6 @@
             z-index: 1000;
         }
 
-        // position: relative;
-
         .status-item {
             display: flex;
             align-items: center;
@@ -232,6 +214,8 @@
 
         .numbers,
         .txt {
+            cursor: text;
+
             div {
                 @include ellipsis(14px, 100%);
                 padding-left: 6px;
@@ -249,6 +233,28 @@
 
                 .not-editing-mode {
                     visibility: inherit;
+
+                    .hovering{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        span{
+                            svg{
+                                scale: 1;
+                            }
+                        }
+
+                        .icon{
+                            width: fit-content;
+                            padding: 0;
+                            scale: 1;
+                        }
+
+                        pre{
+                            font-size: rem(10px);
+                        }
+                    }
                 }
             }
         }
@@ -302,6 +308,10 @@
 
             a {
                 color: $clr-dark-blue;
+            }
+
+            &:hover{
+                cursor: text;
             }
         }
 
@@ -376,6 +386,6 @@
             }
         }
 
-        
+
     }
 }

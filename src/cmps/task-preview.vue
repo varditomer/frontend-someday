@@ -5,7 +5,6 @@
             @duplicateTask="duplicateTask" />
 
         <section class="static">
-
             <div class="options flex center">
                 <span class="hidden" @click="openLineOptionModal" v-svg-icon="'fatMore'"></span>
             </div>
@@ -75,6 +74,7 @@ export default {
     created() {
         this.editing = false
         this.isChecked = false
+        console.log(`this.group:`, this.group)
     },
     data() {
         return {

@@ -16,9 +16,9 @@ import taskOptModal from '../regular-modal-cmps/task-opt-modal.vue'
 import groupOptModal from '../regular-modal-cmps/group-opt-modal.vue'
 import newItemModal from '../filter-modals-cmps/new-item-modal.vue'
 import filterPersonModal from '../filter-modals-cmps/filter-person-modal.vue'
-import multiFilterModal from '../filter-modals-cmps/multi-filter-modal.vue'
 import taskSelectModal from '../regular-modal-cmps/task-select-modal.vue'
 import colorPickerModal from '../regular-modal-cmps/color-picker-modal.vue'
+import multiFilterModal from '../filter-modals-cmps/multi-filter-modal.vue'
 export default {
 
     name: 'regular-modal',
@@ -26,7 +26,7 @@ export default {
     props: {
         showModal: {
             type: Boolean,
-            reduired: true,
+            required: true,
         },
         cmp: {
             String,

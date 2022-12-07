@@ -35,6 +35,7 @@ export function getActionAddBoardMsg(boardId) {
 export const boardStore = {
     state: {
         board: [],
+        kanbanBoard: [],
         firstBoardId: null,
         miniBoards: null,
         isWorkspaceCollapsed: false,
@@ -43,22 +44,37 @@ export const boardStore = {
             userId: null
         },
         dataMap: {},
-        colors: {}
+        colors: {},
+        statuses: []
     },
     getters: {
         board({ board }) { return board },
+<<<<<<< HEAD
         boardsTitles({ boardsTitles }) { return boardsTitles.map(board => board.title) },
         miniBoards({ miniBoards }) { return miniBoards },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         filterBy({ filterBy }) { return filterBy },
         filterMap({ board }) { return board.dataMap },
         colors({ colors }) { return colors }
+=======
+        kanbanBoard({ kanbanBoard }) { return kanbanBoard },
+        boardsTitles({ boardsTitles }) { return boardsTitles },
+        miniBoards({ miniBoards }) { return miniBoards },
+        isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
+        filterBy({ filterBy }) { return filterBy },
+        filterMap({ board }) { return boardService.getDataMap(board._id) },
+        colors({ colors }) { return colors },
+        statuses({ statuses }) { return statuses }
+>>>>>>> 37835aa0fb97836e6c115cf0e7194066f23af434
     },
     mutations: {
         setBoard(state, { boardData }) {
             if (boardData.board) state.board = boardData.board
             if (boardData.dataMap) state.dataMap = boardData.dataMap
             if (boardData.miniBoards) state.miniBoards = boardData.miniBoards
+        },
+        setKanbanBoard(state, { board }) {
+            state.kanbanBoard = board
         },
         setFilter(state, { filter }) {
             state.filterBy = filter
@@ -76,6 +92,9 @@ export const boardStore = {
         },
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
+        },
+        setStatuses(state, { statuses }) {
+            state.statuses = statuses
         },
         addBoardMsg(state, { boardId, msg }) {
             const board = state.boards.find(board => board._id === boardId)
@@ -174,6 +193,22 @@ export const boardStore = {
             }
 
         },
+        async queryKanbanBoard(context, payload) {
+            try {
+                const { id } = payload
+                const isFilter = payload.hasOwnProperty('filter')
+                if (isFilter) {
+                    var filter = { ...context.state.filterBy, ...payload.filter }
+                    context.commit({ type: 'setFilter', filter })
+                }
+                const board = await boardService.queryKanbanBoard(id, filter)
+                context.commit({ type: 'setKanbanBoard', board })
+            } catch (err) {
+                console.log('Could not find board');
+                throw new Error()
+            }
+
+        },
         async getFirstBoard({ commit }) {
             try {
                 const board = await boardService.query()
@@ -209,11 +244,19 @@ export const boardStore = {
                 throw err
             }
         },
-        loadColors({ commit, getters }, { boardId }) {
-            // const boardId = getters.board?._id
-            // if (!boardId) return
-            const colors = colorService.query()
-            commit({ type: 'setColors', colors })
+        // loadColw
+        async getDataMap({ commit }, { boardId }) {
+            try {
+                const data = await boardService.getDataMap(boardId)
+                commit({ type })
+            } catch (err) {
+
+            }
+        },
+        async loadStatuses({ commit }) {
+            const data = await colorService.query()
+            const statuses = data.status
+            commit({ type: 'setStatuses', statuses })
         },
         saveLabel({ dispatch }, { type, title, value, id }) {
             if (colorService.save(type, title, value, id)) dispatch({ type: loadColors })

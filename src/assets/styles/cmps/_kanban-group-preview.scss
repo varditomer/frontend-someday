@@ -1,0 +1,134 @@
+.kanban-group-list-container {
+
+
+    .group-preview {
+        background-color: lighten($brdr-clr, 12%);
+        padding: 0;
+        height: max-content;
+        overflow: hidden;
+        border-radius: .4em;
+        border-bottom-left-radius: .2em;
+        border-bottom-right-radius: .2em;
+        display: flex;
+        flex-direction: column;
+        min-height: 210px;
+
+
+
+        .group-title {
+            height: 44px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: roboto-light;
+            letter-spacing: 1px;
+        }
+
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-top: 8px;
+            overflow-y: auto;
+            max-height: 690px;
+
+
+
+            .task-preview {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+                flex-basis: 148px;
+                min-height: 148px;
+                background-color: white;
+                border-radius: .3em;
+                margin-bottom: 8px;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+                .top-sec {
+                    display: flex;
+                }
+
+                .persons {
+                    display: flex;
+                    align-items: center;
+                    height: 34px;
+                    margin-top: auto;
+
+                    .person-icon {
+                        font-size: rem(12px);
+                    }
+
+                    .person-text {
+                        font-size: rem(12px);
+                        padding-top: 2px;
+                        padding-left: 2px;
+                    }
+
+                    .person-label {
+                        margin-left: 12px;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    .task-persons {
+                        background-color: lighten($brdr-clr, 8%);
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        padding-top: 4px;
+                        height: 100%;
+                        width: 140px;
+                        margin-left: auto;
+
+                        .task-avatar {
+
+                            &.default {
+                                scale: 1.4;
+                                padding-top: 2px;
+                            }
+
+                            img {
+                                border-radius: 2em;
+                                width: 28px;
+                                height: 28px;
+                                margin: 0px -3px;
+                                border: 1px solid lighten($brdr-clr, 8%);
+                            }
+                        }
+
+                    }
+                }
+
+                .status {
+                    display: flex;
+                    align-items: center;
+                    height: 34px;
+                    margin-top: 8px;
+
+                    .status-text {
+                        font-size: rem(12px);
+                        padding-left: 2px;
+                    }
+
+                    .status-label {
+                        width: 140px;
+                        background-color: rgb(255, 181, 44);
+                        margin-left: auto;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-family: roboto-medium;
+
+                    }
+                }
+            }
+        }
+    }
+
+
+}

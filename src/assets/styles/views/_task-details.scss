@@ -12,69 +12,166 @@
     right: 0;
 
     .upload-files {
-        padding: 24px 20px 0;
+        padding: 24px 20px;
+        justify-content: space-between;
+        height: 100%;
+        overflow-y: auto;
 
-        .sub-header {
-            width: 529px;
-            padding: 0 8px 0;
-            margin-bottom: 24px;
-        }
-
-        .upload-icon {
-            cursor: pointer;
-        }
-
-        .drag {
-            color: lightgray;
-        }
-
-        .drag-zone {
-            outline: 1.5px dashed;
-            border-color: $layout-black;
-            border-radius: 8px;
-            margin: 8px 0;
-            padding: 8px 0;
-            // margin: 15px;
-        }
-
-        .cta-container {
-            margin: 8px 0;
-            padding: 8px 0;
-
-            .files-gallery-cmp {
-                margin-top: 100px;
-
-                .cta-container-title {
-                    margin-top: 16px;
-                    font-size: rem(16px);
-                    margin-bottom: 8px;
-                }
-
-                .cta-container-subtitle {
-                    text-align: center;
-                    font-size: rem(14px);
-                    margin-bottom: 24px;
-                }
-            }
-
-            .add-file-btn {
-                border-radius: 0.4em;
-                padding: 8px 16px;
-                width: 116px;
-                height: 40px;
-                background-color: $primary-blue;
+        .gallery-header {
+            margin-bottom: 16px;
+            height: 32.5px;
+            padding: 0 8px;
+            .add-img-btn {
                 position: relative;
-                color: white;
-                font-size: rem(16px);
+                cursor: pointer;
+                border-radius: 0.4em;
+                width: 93px;
+                height: 32px;
+                padding: 4px 8px;
+                background-color: white;
+                border: 1px solid #c3c6d4;
+                position: relative;
+                color: $layout-black;
+                font-size: rem(14px);
+
+                span {
+                    fill: $layout-black;
+                }
+                input {
+                    cursor: pointer;
+                    width: 93px;
+                    height: 32px;
+                    position: absolute;
+                    top: 0;
+                    opacity: 0;
+                    z-index: 100000;
+                }
+
+                &:hover {
+                    background-color: $modal-hover-clr;
+                }
             }
         }
 
         .img-upload {
+            height: 100%;
             min-height: 200px;
+
+            .cta-container {
+                margin: 8px 0;
+                padding: 8px 0;
+                height: 100%;
+
+                .files-gallery-cmp {
+                    margin-bottom: 350px;
+                    height: 100%;
+
+                    .empty-state-image {
+                        width: 300px;
+                    }
+
+                    .cta-container-title {
+                        margin-top: 16px;
+                        font-size: rem(16px);
+                        margin-bottom: 8px;
+                    }
+
+                    .cta-container-subtitle {
+                        text-align: center;
+                        font-size: rem(14px);
+                        margin-bottom: 24px;
+                    }
+                }
+
+                .add-file-btn {
+                    border-radius: 0.4em;
+                    padding: 8px 16px;
+                    width: 116px;
+                    height: 40px;
+                    background-color: $primary-blue;
+                    position: relative;
+                    color: white;
+                    span {
+                        fill: white;
+                    }
+                    font-size: rem(16px);
+                    &:hover {
+                        background-color: (darken($primary-blue, 8%));
+                    }
+                    input {
+                        height: 100%;
+                        width: 100%;
+                        position: absolute;
+                        top: 0;
+                        opacity: 0;
+                        cursor: pointer;
+                    }
+                }
+            }
+            &.drag-zone {
+                outline: 1.5px dashed;
+                border-color: $layout-black;
+                border-radius: 8px;
+                margin: 8px 0;
+                padding: 8px 0;
+                height: 100%;
+                width: 100%;
+            }
+
+            .upload-icon {
+                cursor: pointer;
+            }
+
+            .drag {
+                color: lightgray;
+            }
         }
 
-        .empty-state-image {
-            width: 300px;
+        .img-gallery {
+            display: grid;
+            grid-template-rows: repeat(auto-fill, 132px);
+            grid-template-columns: 45% 45%;
+            gap: 20px;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            > * {
+                flex-basis: 45%;
+            }
+
+            .img-preview {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #f6f7fb;
+                height: 132px;
+                width: 220px;
+                img {
+                    aspect-ratio: 1/1;
+                    object-fit: cover;
+                    height: 100%;
+                    width: unset;
+                }
+                span {
+                    position: absolute;
+                    top: 4px;
+                    right: 4px;
+                    height: 32px;
+                    width: 32px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: white;
+                        border-radius: 0.4em;
+                    }
+                    svg {
+                        fill: $layout-black;
+                    }
+                }
+            }
         }
     }
 
@@ -425,13 +522,12 @@
                         @include ellipsis;
                         text-transform: capitalize;
                     }
-
                 }
 
                 .person-activity {
                     margin: auto;
                     p {
-                        @include ellipsis(14px,100%);
+                        @include ellipsis(14px, 100%);
                         font-family: roboto-light;
                     }
                 }

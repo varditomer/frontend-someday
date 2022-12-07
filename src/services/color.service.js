@@ -69,8 +69,8 @@ function query() {
                 },
                 {
                     _id: 'qwdlk',
-                    title: 'Defualt',
-                    value: 'c4c4c4'
+                    title: 'Default',
+                    value: '#c4c4c4'
                 },
             ],
             color: {

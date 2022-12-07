@@ -50,7 +50,7 @@ async function getDataMap(boardId) {
     }
 }
 
-async function getFirstBoard() {
+async function w() {
     let boards = await storageService.query(BOARD_STORAGE_KEY)
     return boards[0]
 }
@@ -68,7 +68,7 @@ async function getBoardsTitles() {
 //     return boards.filter(board => regex.test(board.title))
 // }
 
-async function queryBoard(boardId, filterBy = {}) {
+async function queryBoard(filterBy = {}) {
     var board = await storageService.get(BOARD_STORAGE_KEY, boardId)
     var boardToShow = _filterByTxt(board, filterBy.txt)
     boardToShow = _filterByUser(boardToShow, filterBy.userId)

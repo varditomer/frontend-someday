@@ -24,8 +24,10 @@
 @import "cmps/regular-modal";
 @import "cmps/title-modal";
 @import "cmps/task-summary";
+@import "cmps/kanban-group-preview";
 
 // Views
 @import "views/board-app";
 @import "views/home-page";
 @import "views/task-details";
+@import "views/kanban-group-list";
