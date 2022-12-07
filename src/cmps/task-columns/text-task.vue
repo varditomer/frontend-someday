@@ -9,7 +9,7 @@
         <div v-else-if="!isEditing" class="not-editing-mode flex center hidden">
             <div v-if="!text" class="hovering flex align-center">
                 <span class="plus" v-svg-icon="'plus'"></span>
-                Tt
+                <div class="icon" v-svg-icon="'copyText'"></div>
             </div>
         </div>
     </section>

@@ -6,7 +6,7 @@ import boardApp from './views/board-app.vue'
 import loginSignup from './views/login-signup.vue'
 import userDetails from './views/user-details.vue'
 import taskDetails from './views/task-details.vue'
-
+import kanbanApp from './kanban/kanban-app.vue'
 const routes = [
   {
     path: '/',
@@ -28,6 +28,11 @@ const routes = [
         component: taskDetails
       }
     ]
+  },
+  {
+    path: '/board/:id/kanban',
+    name: 'board-kanban',
+    component: kanbanApp
   },
   {
     path: '/login',

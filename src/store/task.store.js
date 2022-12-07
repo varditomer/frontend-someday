@@ -13,13 +13,6 @@ export const taskStore = {
                 { title: 'Low', color: '#579bfc', colorName: '$clr-bright-blue' },
                 { title: 'Default', color: '#c4c4c4', colorName: '$clr-explosive' }
             ],
-            statuses: [
-                { title: 'Done', color: '#00c875', colorName: '$clr-done-green' },
-                { title: 'Working on it', color: '#fdac3d', colorName: '$clr-lgt-orng' },
-                { title: 'Stuck', color: '#e2445c', colorName: '$clr-stuck-red' },
-                { title: 'Unattained', color: '#0086c0', colorName: '$clr-dark-blue' },
-                { title: 'Default', color: '#c4c4c4', colorName: '$clr-explosive' },
-            ],
         }
     },
     mutations: {
@@ -45,7 +38,6 @@ export const taskStore = {
     },
     getters: {
         priorities({ priorities }) { return priorities },
-        statuses({ statuses }) { return statuses },
         selectedTasks({ selectedTasks }) { return selectedTasks },
     },
     actions: {
@@ -84,7 +76,7 @@ export const taskStore = {
                 console.log(`tasks-store:`, tasks)
                 const duplicatedTasks = await taskService.duplicateMultiple(tasks)
                 console.log(`duplicatedTasks:`, duplicatedTasks)
-                duplicatedTasks.forEach(duplicatedTask=> {
+                duplicatedTasks.forEach(duplicatedTask => {
                     const taskToSave = { task: duplicatedTask, bool: true }
                     commit({ type: 'saveTask', taskToSave })
                 })

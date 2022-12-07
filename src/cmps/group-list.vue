@@ -4,12 +4,12 @@
         <draggable v-model="boardToShow.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
             @end="saveBoard" :class="{ groupDragged: beingDragged }">
             <template #item="{ element }">
-                <group-preview @addColumn="addColumn" :isHorizontalScrolling="isHorizontalScrolling"
-                    @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks" :group="element"
-                    :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
-                    @toggleSelectAllTasks="toggleSelectAllTasks" :statuses="statuses" @saveTask="saveTask"
-                    @removeTask="removeTask" @saveGroup="saveGroup" @saveBoard="saveBoard" @addGroup="addGroup"
-                    @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :colors="colors"/>
+                <group-preview @addColumn="addColumn" @saveSelectedTasks="saveSelectedTasks"
+                    :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
+                    :key="element._id" :priorities="priorities" @toggleSelectAllTasks="toggleSelectAllTasks"
+                    :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
+                    @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup"
+                    @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :colors="colors" />
             </template>
         </draggable>
 
@@ -54,8 +54,6 @@ export default {
     data() {
         return {
             beingDragged: false,
-            isHorizontalScrolling: null,
-            // pageX: null
         }
     },
     mounted() {
@@ -92,7 +90,6 @@ export default {
         },
         scrolling(event) {
             const { scrollLeft } = event.target
-            return this.isHorizontalScrolling = scrollLeft ? true : false
         },
         toggleSelectAllTasks(tasks, groupId, areAllSelected) {
             this.$emit('toggleSelectAllTasks', tasks, groupId, areAllSelected)
@@ -112,15 +109,12 @@ export default {
         },
         boardToShow() {
             return JSON.parse(JSON.stringify(this.board))
-        },
+        }
 
     },
     components: {
         groupPreview,
         draggable
     },
-    created() {
-        this.isHorizontalScrolling = false
-    }
 }
 </script>

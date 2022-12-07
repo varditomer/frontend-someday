@@ -35,6 +35,7 @@ export function getActionAddBoardMsg(boardId) {
 export const boardStore = {
     state: {
         board: [],
+        kanbanBoard: [],
         firstBoardId: null,
         miniBoards: null,
         isWorkspaceCollapsed: false,
@@ -43,20 +44,26 @@ export const boardStore = {
             userId: null
         },
         dataMap: {},
-        colors: {}
+        colors: {},
+        statuses: []
     },
     getters: {
         board({ board }) { return board },
+        kanbanBoard({ kanbanBoard }) { return kanbanBoard },
         boardsTitles({ boardsTitles }) { return boardsTitles },
         miniBoards({ miniBoards }) { return miniBoards },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         filterBy({ filterBy }) { return filterBy },
         filterMap({ board }) { return boardService.getDataMap(board._id) },
-        colors({ colors }) { return colors }
+        colors({ colors }) { return colors },
+        statuses({ statuses }) { return statuses }
     },
     mutations: {
         setBoard(state, { board }) {
             state.board = board
+        },
+        setKanbanBoard(state, { board }) {
+            state.kanbanBoard = board
         },
         setFilter(state, { filter }) {
             state.filterBy = filter
@@ -77,6 +84,9 @@ export const boardStore = {
         },
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
+        },
+        setStatuses(state, { statuses }) {
+            state.statuses = statuses
         },
         addBoardMsg(state, { boardId, msg }) {
             const board = state.boards.find(board => board._id === boardId)
@@ -185,6 +195,22 @@ export const boardStore = {
             }
 
         },
+        async queryKanbanBoard(context, payload) {
+            try {
+                const { id } = payload
+                const isFilter = payload.hasOwnProperty('filter')
+                if (isFilter) {
+                    var filter = { ...context.state.filterBy, ...payload.filter }
+                    context.commit({ type: 'setFilter', filter })
+                }
+                const board = await boardService.queryKanbanBoard(id, filter)
+                context.commit({ type: 'setKanbanBoard', board })
+            } catch (err) {
+                console.log('Could not find board');
+                throw new Error()
+            }
+
+        },
         async getFirstBoard({ commit }) {
             try {
                 const board = await boardService.getFirstBoard()
@@ -228,21 +254,20 @@ export const boardStore = {
 
             }
         },
-        loadColors({ commit, getters }, { boardId }) {
-            // const boardId = getters.board?._id
-            // if (!boardId) return
-            const colors = colorService.query()
-            commit({type: 'setColors', colors})
+        async loadStatuses({ commit }) {
+            const data = await colorService.query()
+            const statuses = data.status
+            commit({ type: 'setStatuses', statuses })
         },
-        saveLabel({dispatch}, {type, title, value, id}){
-            if (colorService.save(type, title, value, id)) dispatch({type: loadColors})
-            
+        saveLabel({ dispatch }, { type, title, value, id }) {
+            if (colorService.save(type, title, value, id)) dispatch({ type: loadColors })
+
         },
-        updateLabel({dispatch}, {type, title, value, id}){
-            if (colorService.update(type, title, value, id)) dispatch({type: loadLabels})
+        updateLabel({ dispatch }, { type, title, value, id }) {
+            if (colorService.update(type, title, value, id)) dispatch({ type: loadLabels })
         },
-        removeLabel({dispatch}, {type, id}){
-            if (colorService.update(type, id)) dispatch({type: loadLabels})
+        removeLabel({ dispatch }, { type, id }) {
+            if (colorService.update(type, id)) dispatch({ type: loadLabels })
         }
     }
 }

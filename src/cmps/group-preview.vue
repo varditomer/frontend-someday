@@ -3,13 +3,14 @@
     <section class='group-preview' @keydown.escape="(showModal = false)">
 
 
-        <regular-modal v-if="!isHorizontalScrolling" :groupId="group._id" :selectedColor="group.style.color"
-            :showModal="showModal" @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup"
-            :cmp="'group-opt-modal'" @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
+        <regular-modal v-if="showModal" :groupId="group._id" :selectedColor="group.style.color" :showModal="showModal"
+            @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
+            @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
             @propagateMenu="showColorPicker = true" @duplicateGroup="duplicateGroup" />
 
 
         <section class="group-preview-title">
+
             <div class="group-prev" :class="{ 'collapse': !viewTasks }">
 
                 <div class="static">
@@ -31,7 +32,7 @@
                         <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
 
                     </div>
-                    <regular-modal v-if="!isHorizontalScrolling" class="group-color-picker" :cmp="'color-picker-modal'"
+                    <regular-modal v-if="showModal" class="group-color-picker" :cmp="'color-picker-modal'"
                         :selectedColor="group.style.color" :showModal="showColorPicker" @updateSelection="saveGroup"
                         @closeModal="showColorPicker = false" />
 
@@ -44,7 +45,6 @@
                         <div v-for="cmp in cmpsOrder" class="cmp-title">
                             {{ (cmp === 'text' || cmp === 'link' || cmp === 'date') ? '' : cmp }}
                         </div>
-                        <div class="last-div"></div>
                     </div>
 
                     <task-summary v-if="!viewTasks" :isCollapsed="true" :cmpsOrder="cmpsOrder" :tasks="group.tasks"
@@ -56,7 +56,6 @@
                 </div>
 
             </div>
-
 
         </section>
 
@@ -85,10 +84,6 @@ export default {
         users: Array,
         priorities: {
             type: Array,
-            required: true
-        },
-        isHorizontalScrolling: {
-            type: Boolean,
             required: true
         },
         statuses: {
@@ -167,6 +162,7 @@ export default {
         addColumn(cmp) {
             this.$emit('addColumn', cmp)
         }
+
     },
     computed: {
         getDoneTasksCount() {
@@ -203,6 +199,8 @@ export default {
         regularModal,
         titleModal,
         taskSummary
+    },
+    created() {
     }
 }
 </script>

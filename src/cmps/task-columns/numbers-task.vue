@@ -1,7 +1,7 @@
 <template>
     <section class="numbers flex center" @click="clickToEdit">
-        <div v-if="isEditing" class="editing-mode"  @key.enter="updateTask" v-click-outside="updateTask">
-            
+        <div v-if="isEditing" class="editing-mode" @key.enter="updateTask" v-click-outside="updateTask">
+
             <input v-focus type="number" class="edit" v-model="numbers">
         </div>
         <div v-if="(numbers && !isEditing)">
@@ -10,7 +10,7 @@
         <div v-else-if="!isEditing" class="not-editing-mode flex center hidden">
             <div v-if="!numbers" class="hovering flex align-center">
                 <span class="plus" v-svg-icon="'plus'"></span>
-                123
+                <pre>123</pre>
             </div>
         </div>
     </section>

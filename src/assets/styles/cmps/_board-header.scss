@@ -20,14 +20,14 @@
                 align-items: center;
                 position: relative;
                 left: -6px;
-                line-height:.4;
+                line-height: .4;
                 padding: 6px;
                 letter-spacing: -1px;
                 border-radius: .1em;
                 transition: padding .4s;
                 height: 100%;
 
-                &:hover{
+                &:hover {
                     outline: 1px solid $brdr-clr;
                 }
 
@@ -35,7 +35,7 @@
                     outline: 1px solid $primary-blue;
                 }
 
-                &.editing{
+                &.editing {
                     padding-right: 200px;
                 }
             }
@@ -46,17 +46,30 @@
         }
 
         .add-views {
+            display: flex;
+            align-items: center;
             border-bottom: 1px solid $brdr-clr;
             margin-top: 10px;
+            gap: 10px;
+
+            .seperator {
+                color: $brdr-clr;
+            }
 
             .view-item {
                 display: flex;
                 align-items: center;
                 background-color: transparent;
-                box-shadow: inset 0px -2px 0px 0px $primary-blue;
+
                 height: 36px;
-                width: 110px;
+                // width: 110px;
+
+                &.selected {
+                    box-shadow: inset 0px -2px 0px 0px $primary-blue;
+                }
             }
+
+
 
             .view-title {
                 padding-left: 6px;
