@@ -1,0 +1,20 @@
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+.board-app-container {
+
+
+    .kanban-group-list-container {
+        display: grid;
+        grid-auto-columns: 264px;
+        grid-auto-flow: column;
+        padding-left: 36px;
+        overflow-x: auto;
+        width: 100%;
+        gap: 12px;
+
+
+    }
+}

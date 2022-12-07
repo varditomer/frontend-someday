@@ -8,14 +8,21 @@
                 <span v-svg-icon="'more'"></span>
             </section>
             <section class="add-views">
-                <button class="view-item">
-                    <span v-svg-icon="'outlineHome'"></span>
-                    <p class="view-title">Main Table</p>
-                </button>
+                <router-link :to="('/board/' + board._id)">
+                    <button @click="(view = 'table')" class="view-item" :class="{ 'selected': view === 'table' }">
+                        <span v-svg-icon="'outlineHome'"></span>
+                        <p class="view-title">Main Table</p>
+                    </button>
+                </router-link>
+                <span class="seperator">|</span>
+                <router-link :to="('/board/' + board._id + '/kanban/')">
+                    <button @click="(view = 'kanban')" class="view-item" :class="{ 'selected': view === 'kanban' }">
+                        <p class="view-title">Kanban</p>
+                    </button>
+                </router-link>
             </section>
         </section>
-        <board-filter :filterBy="filterBy" :users="users" @filter="setFilter" @addTask="addTask"
-            @addGroup="addGroup" />
+        <board-filter :filterBy="filterBy" :users="users" @filter="setFilter" @addTask="addTask" @addGroup="addGroup" />
     </section>
 
 </template>
@@ -30,7 +37,8 @@ export default {
     },
     data() {
         return {
-            isEditing: false
+            isEditing: false,
+            view: ''
         }
     },
     methods: {
@@ -46,7 +54,7 @@ export default {
             const val = ev.target.innerText
             this.$emit('saveBoardTitle', val)
         },
-        addTask(){
+        addTask() {
             this.$emit('addTask')
         }
     },
@@ -54,8 +62,14 @@ export default {
         boardFilter,
     },
     computed: {
-        boardTitle() { return this.$store.getters.board.title }
+        boardTitle() { return this.$store.getters.board.title },
+        board() { return this.$store.getters.board }
     },
+    created() {
+        const route = this.$route
+        this.view = 'table'
+        this.view = (route.name === 'board-kanban') ? 'kanban' : 'table'
+    }
 
 }
 </script>

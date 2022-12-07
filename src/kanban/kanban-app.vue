@@ -5,15 +5,13 @@
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
 
         <section class='board-app-container' :class="{ 'folded': isViewingTask }">
-            <regular-modal :selectedTasks="selectedTasksWithColor" @deleteSelectedTasks="deleteSelectedTasks"
-                @duplicateSelectedTasks="duplicateSelectedTasks" :showModal="showModal" :cmp="'task-select-modal'" />
+            <regular-modal :showModal="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
-            <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
-                :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
-                @duplicateTask="duplicateTask" @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard"
-                @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" :board="board" :priorities="priorities"
-                :statuses="statuses" :colors="colors" />
+            <kanban-group-list />
+            <!-- <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" @duplicateTask="duplicateTask"
+                @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard" @removeGroup="removeGroup"
+                :board="board" :priorities="priorities" :statuses="statuses" :colors="colors" /> -->
         </section>
 
         <router-view />
@@ -22,17 +20,15 @@
 <script>
 import regularModal from '../cmps/dynamic-modals/regular-modal.vue'
 import boardHeader from '../cmps/board-header.vue'
-import groupList from '../cmps/group-list.vue'
+import kanbanGroupList from './cmps/kanban-group-list.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
-import { eventBus } from '../services/event-bus.service.js'
-import { boardService } from '../services/board.service.local.js'
 
 export default {
-    name: 'board-app',
+    name: 'kanban-app',
     components: {
         boardHeader,
-        groupList,
+        kanbanGroupList,
         boardWorkspace,
         taskNav,
         regularModal
@@ -40,15 +36,7 @@ export default {
     data() {
         return {
             boardUpdated: 0,
-            scrollX: null,
-            selectedTasksWithColor: []
         }
-    },
-    mounted() {
-        eventBus.on('unselectTasks', () => this.unselectTasks())
-    },
-    unmounted() {
-
     },
     methods: {
         saveTask(task, activity) {
@@ -63,8 +51,6 @@ export default {
         },
         removeTask(task) {
             this.$store.dispatch({ type: 'removeTask', task })
-            const idx = this.selectedTasksWithColor?.findIndex(taskWithColor => taskWithColor.taskId === task._id)
-            if (idx !== -1) this.selectedTasksWithColor.splice(idx, 1)
         },
         async duplicateTask(task) {
             await this.$store.dispatch({ type: 'duplicateTask', task })
@@ -107,35 +93,6 @@ export default {
                 this.selectedTasksWithColor.push(formattedTaskId[0])
             } else this.selectedTasksWithColor.splice(idx, 1)
         },
-        async deleteSelectedTasks() {
-            try {
-                await this.$store.dispatch({ type: 'removeTasks' })
-                this.unselectTasks()
-            } catch (err) {
-                console.log(`Cannot delete selected tasks`, err)
-            }
-        },
-        async duplicateSelectedTasks() {
-            const allSelectedTasksIds = this.$store.getters.selectedTasks
-            const tasks = []
-            allSelectedTasksIds.forEach((selectedTaskId, idx) => {
-                this.board.groups.forEach(group => {
-                    group.tasks.forEach(task => {
-                        if (task._id === selectedTaskId) return tasks.push(task)
-                    })
-                })
-            })
-            console.log(`tasks:`, tasks)
-            await this.$store.dispatch({ type: 'duplicateMultipleTasks', tasks })
-        },
-        async unselectTasks() {
-            await this.$store.commit({ type: 'unselectTasks' })
-            const allSelectedTasksIds = this.$store.getters.selectedTasks
-            if (allSelectedTasksIds) {
-                if (allSelectedTasksIds.length > 1) this.selectedTasksWithColor = this.getSelectedTasksColors(allSelectedTasksIds)
-                else this.selectedTasksWithColor = this.getSelectedTasksColors([allSelectedTasksIds])
-            } else return
-        },
         async saveBoardTitle(title) {
             const board = JSON.parse(JSON.stringify(this.board))
             if (board.title === title) return
@@ -143,34 +100,6 @@ export default {
             await this.$store.dispatch({ type: 'saveBoard', board })
             this.$store.dispatch({ type: 'loadMiniBoards' })
         },
-        toggleSelectAllTasks(tasks, groupId, areAllSelected) {
-            this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })
-            this.selectedTasksWithColor = []
-            const allSelectedTasksIds = this.$store.getters.selectedTasks
-            return this.selectedTasksWithColor = this.getSelectedTasksColors(allSelectedTasksIds)
-        },
-
-        getSelectedTasksColors(selectedTasksIds) {
-            const { groups } = this.board
-            const idsCopy = [...selectedTasksIds]
-            const formattedTaskId = groups.reduce((formattedIds, group) => {
-                const temp = group.tasks.reduce((relevantTaskIds, task) => {
-                    const idx = idsCopy.indexOf(task._id)
-                    if (idx !== -1) {
-                        relevantTaskIds.push({
-                            taskId: idsCopy.splice(idx, 1)[0],
-                            color: group.style.color
-                        })
-                    }
-                    return relevantTaskIds
-                }, [])
-                if (temp && temp.length) formattedIds.push(...temp)
-                return formattedIds
-            }, [])
-            return formattedTaskId
-        }
-
-
     },
     computed: {
         users() {
@@ -194,16 +123,8 @@ export default {
         filterBy() {
             return this.$store.getters.filterBy
         },
-        selectedTasks() {
-            return this.$store.getters.selectedTasks
-        },
         loggedinUser() {
             return this.$store.getters.loggedinUser
-        },
-        showModal() {
-            return this.$store.getters.selectedTasks?.length
-                ? true
-                : false
         },
         isViewingTask() {
             return typeof (this.$route.params.taskId) === 'string'

@@ -1,5 +1,6 @@
 .regular-modal {
-    z-index: 10000;
+    z-index: 100000;
+
     position: absolute;
     .multi-filter-modal {
         position: absolute;
@@ -25,7 +26,10 @@
     .color-picker {
         padding: 12px;
         border-radius: 8px;
-
+        z-index: 500000;
+        left: 12px;
+        top: 300px;
+        background-color: white;
         .color-box {
             width: 24px;
             height: 24px;
@@ -196,6 +200,7 @@
     }
 
     &.group-color-picker {
+        z-index: 50000;
         .color-picker {
             top: 20px;
             display: grid;

@@ -2,52 +2,30 @@
     <section class="login-signup-modal flex column">
 
         <div class="nav-btns">
-            <button :class="{ 'selected': login }" @click="(login = true, signingUp = false)">Login</button>
-            <button :class="{ 'selected': signingUp }" @click="(signingUp = true, login = false)">Signup</button>
+            <button :class="{ 'selected': isLogin }" @click="(isLogin = true)">Login</button>
+            <button :class="{ 'selected': !isLogin }" @click="(isLogin = false)">Signup</button>
         </div>
 
-        <section v-if="login" class="login">
-            <section class='persons-modal'>
-                <div v-for="person in content" class="active-persons">
-                    <div class="person">
-                        <span :style="person.style" class="task-avatar"></span>
-                        <p>{{ person.fullname }}</p>
-                        <span @click="removePerson(person._id)" v-svg-icon="'smallExit'"
-                            class="remove-person-btn"></span>
-                    </div>
-                </div>
-                <!-- <p v-if="personsToAdd.length" class="suggested-persons">Suggested people</p> -->
-                <div class="not-active-persons">
-                    <div @click="addPerson(person._id)" v-for="person in users" class="not-active-person">
-                        <div>
-                            <img :src="person.imgUrl" />
-                            <p>{{ person.fullname }}</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </section>
-
-        <section v-if="signingUp" class="signup">
-            <form class="signup-form flex column" @submit.prevent="doSignup">
+        <section class="signup login">
+            <form class="signup-form flex column" @submit.prevent="login">
                 <label>
                     <p>Username</p>
-                    <input type="text" v-model="username" placeholder="Username">
+                    <input required type="text" v-model="creds.username" placeholder="Username">
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type="password" v-model="password" placeholder="Password">
+                    <input required type="password" v-model="creds.password" placeholder="Password">
                 </label>
-                <label>
+                <label v-if="!isLogin">
                     <p>Full name</p>
-                    <input type="text" v-model="fullname" placeholder="Full name">
+                    <input required type="text" v-model="creds.fullname" placeholder="Full name">
                 </label>
-                <label>
-                    <p>Mail</p>
-                    <input type="mail" v-model="mail" placeholder="mail">
+                <label v-if="!isLogin">
+                    <p>Email</p>
+                    <input required type="mail" v-model="creds.email" placeholder="Mail">
                 </label>
-                <button type="submit">Sign up</button>
+                <button v-if="!isLogin" type="submit">Sign up</button>
+                <button v-if="isLogin" type="submit">Login</button>
             </form>
 
 
@@ -62,27 +40,25 @@
 import { userService } from '../../services/user.service';
 export default {
     name: 'signup-modal',
-    emits: ['hideModal'],
+    emits: ['hideModal', 'login'],
     props: {
     },
     data() {
         return {
-            signingUp: false,
-            login: false,
-            users: []
+            isLogin: false,
+            creds: {}
         }
     },
     methods: {
-        doSignup() {
-            this.$emit('hideModal')
-        },
-        removePerson() {
-            return
+        login() {
+            const userCreds = this.creds
+            this.$emit('login', userCreds)
+            this.creds = {}
         }
     },
     created() {
         this.users = userService.getUsers()
-        this.login = true
+        this.isLogin = true
     }
 
 }

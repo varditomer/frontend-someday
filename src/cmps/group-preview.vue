@@ -1,36 +1,63 @@
 <template>
 
     <section class='group-preview' @keydown.escape="(showModal = false)">
-        <regular-modal v-if="!isHorizontalScrolling" :groupId="group._id" :selectedColor="group.style.color"
-            :showModal="showModal" @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup"
-            :cmp="'group-opt-modal'" @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
+
+
+        <regular-modal v-if="showModal" :groupId="group._id" :selectedColor="group.style.color" :showModal="showModal"
+            @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
+            @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
             @propagateMenu="showColorPicker = true" @duplicateGroup="duplicateGroup" />
 
-        <div class="group-title flex align-center" :class="{ collapse: !viewTasks }"
-            @keydown.escape="(showModal = false)">
 
-            <div class="options flex center">
-                <span class="dots hidden" @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
+        <section class="group-preview-title">
+
+            <div class="group-prev" :class="{ 'collapse': !viewTasks }">
+
+                <div class="static">
+
+                    <div class="options flex center">
+                        <span class="dots hidden" @click="showGroupOptions" v-svg-icon="'fatMore'"></span>
+                    </div>
+
+                    <span class="group-arrow" :class="{ 'collapsed': !viewTasks }"
+                        :style="{ fill: group.style.color, 'border-left': collapsedBorder }" v-svg-icon="'arrowDown'"
+                        @click="toggleTaskView"></span>
+
+                    <div class="group-title-text">
+                        <h4 @click="(showTitle = false)" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
+                            contenteditable @blur="saveGroup($event.target.innerText, 'title')"
+                            :style="{ color: group.style.color }" v-html="group.title" ref="title">
+                        </h4>
+
+                        <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
+
+                    </div>
+                    <regular-modal v-if="showModal" class="group-color-picker" :cmp="'color-picker-modal'"
+                        :selectedColor="group.style.color" :showModal="showColorPicker" @updateSelection="saveGroup"
+                        @closeModal="showColorPicker = false" />
+
+                </div>
+
+                <div class="dynamic">
+
+
+                    <div v-if="!viewTasks" class="cmps">
+                        <div v-for="cmp in cmpsOrder" class="cmp-title">
+                            {{ (cmp === 'text' || cmp === 'link' || cmp === 'date') ? '' : cmp }}
+                        </div>
+                    </div>
+
+                    <task-summary v-if="!viewTasks" :isCollapsed="true" :cmpsOrder="cmpsOrder" :tasks="group.tasks"
+                        :groupColor="group.style.color" class="task-footer group-collapsed" :colors="colors" />
+
+                    <div v-if="viewTasks" v-for="cmp in cmpsOrder" class="empty-div"></div>
+
+
+                </div>
+
             </div>
 
-            <span class="group-arrow" :class="{ 'collapsed': !viewTasks }"
-                :style="{ fill: group.style.color, 'border-left': collapsedBorder }" v-svg-icon="'arrowDown'"
-                @click="toggleTaskView"></span>
-
-            <div class="group-title-content">
-                <h4 @click="(showTitle = false)" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
-                    contenteditable @blur="saveGroup($event.target.innerText, 'title')"
-                    :style="{ color: group.style.color }" v-html="group.title" ref="title">
-                </h4>
-                <regular-modal v-if="!isHorizontalScrolling" class="group-color-picker" :cmp="'color-picker-modal'"
-                    :selectedColor="group.style.color" :showModal="showColorPicker" @updateSelection="saveGroup"
-                    @closeModal="showColorPicker = false" />
-                <!-- <title-modal :class="{ 'show': showTitle }" :content="'Click to Edit'" /> -->
-                <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
-            </div>
-            <task-summary v-if="!viewTasks" :isCollapsed="true" :cmpsOrder="cmpsOrder" :tasks="group.tasks"
-                :groupColor="group.style.color" class="task-footer group-collapsed" :colors="colors"/>
-        </div>
+        </section>
 
         <task-list v-if="viewTasks" @addColumn="addColumn" @toggleSelectAllTasks="toggleSelectAllTasks"
             @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard" :selectedTasks="selectedTasks"
@@ -40,7 +67,6 @@
 
     </section>
 
-
 </template>
 <script>
 import titleModal from './dynamic-modals/title-modal.vue'
@@ -48,6 +74,7 @@ import taskList from './task-list.vue'
 import { eventBus } from '../services/event-bus.service.js'
 import regularModal from './dynamic-modals/regular-modal.vue'
 import taskSummary from './task-summary.vue'
+
 export default {
     name: 'group-preview',
     emits: ['saveTask', 'removeTask', 'saveGroup', 'removeGroup', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks', 'duplicateGroup', 'duplicateTask', 'addColumn'],
@@ -57,10 +84,6 @@ export default {
         users: Array,
         priorities: {
             type: Array,
-            required: true
-        },
-        isHorizontalScrolling: {
-            type: Boolean,
             required: true
         },
         statuses: {
@@ -139,6 +162,7 @@ export default {
         addColumn(cmp) {
             this.$emit('addColumn', cmp)
         }
+
     },
     computed: {
         getDoneTasksCount() {
@@ -175,6 +199,8 @@ export default {
         regularModal,
         titleModal,
         taskSummary
+    },
+    created() {
     }
 }
 </script>

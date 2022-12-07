@@ -8,12 +8,12 @@ export const userStore = {
     state: {
         loggedinUser: null,
         users: [],
-        watchedUser: null
+        watchedUser: null,
     },
     getters: {
         users({ users }) { return users },
         loggedinUser({ loggedinUser }) { return loggedinUser },
-        watchedUser({ watchedUser }) { return watchedUser }
+        watchedUser({ watchedUser }) { return watchedUser },
     },
     mutations: {
         setLoggedinUser(state, { user }) {
@@ -31,7 +31,7 @@ export const userStore = {
         },
         setUserScore(state, { score }) {
             state.loggedinUser.score = score
-        },
+        }
     },
     actions: {
         async login({ commit }, { userCred }) {

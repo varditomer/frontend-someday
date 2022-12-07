@@ -6,6 +6,7 @@
             </div>
         </section>
         <section class="dynamic">
+            
             <section v-for="html in getHtmlSumData" v-html="(html)" class="footer-section flex center"></section>
         </section>
     </li>
@@ -140,8 +141,8 @@ export default {
                         htmlStr = `<div class="timeline">
                                     <div class="elapsed" style="background-color:${this.groupColor}; width:${width}">
                                     </div>
-                                <p>${this.months[(new Date(start)).getMonth()]} ${(new Date(start)).getDate()}, '${(new Date(start)).getYear()%100} - 
-                                    ${this.months[(new Date(end)).getMonth()]} ${(new Date(end)).getDate()}, '${(new Date(end)).getYear()%100}</p>
+                                <p>${this.months[(new Date(start)).getMonth()]} ${(new Date(start)).getDate()}, '${(new Date(start)).getYear() % 100} - 
+                                    ${this.months[(new Date(end)).getMonth()]} ${(new Date(end)).getDate()}, '${(new Date(end)).getYear() % 100}</p>
                             </div>`
                         summary[idx] = htmlStr
                         break
