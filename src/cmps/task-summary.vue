@@ -78,13 +78,8 @@ export default {
                         case 'timeline':
                             if (!task.timeline || !Object.keys(task.timeline).length) return
                             const { start, end } = task.timeline
-<<<<<<< HEAD
-                            const startTime = (new Date([start.year, start.month+1, start.day])).getTime()
-                            const endTime = (new Date([end.year, end.month+1, end.day])).getTime()
-=======
                             const startTime = (new Date([start.year, start.month + 1, start.day])).getTime()
                             const endTime = (new Date([end.year, end.month + 1, end.day])).getTime()
->>>>>>> 2cccf4b23335834e702101948600619ef536a56b
                             if (!summary[idx].start || summary[idx].start > startTime) summary[idx].start = startTime
                             if (!summary[idx].end || summary.end > endTime) summary[idx].end = endTime
                             break
