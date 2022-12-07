@@ -25,8 +25,6 @@ export const boardService = {
 }
 window.bs = boardService
 
-
-
 async function getDataMap(boardId) {
     const board = await queryBoard(boardId)
     const personFilter = userService.getUsers().map(user => user._id)

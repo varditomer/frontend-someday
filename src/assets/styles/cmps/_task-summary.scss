@@ -72,10 +72,24 @@
         border-radius: 11px;
         overflow: hidden;
         text-align: left;
+
         .elapsed{
             height: 100%;
             display: inline-block;
-            background-color: grayw;
+        }
+
+        p{
+            top:0;
+            position: absolute;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            color: #fff;
+            font-size: 0.75rem;
+            width: 100%;
+            text-align: center;
+            padding-inline: 10%;
+            margin-top: calc((11px - .375rem))
         }
     }
 }

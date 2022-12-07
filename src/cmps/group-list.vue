@@ -9,7 +9,7 @@
                     :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
                     @toggleSelectAllTasks="toggleSelectAllTasks" :statuses="statuses" @saveTask="saveTask"
                     @removeTask="removeTask" @saveGroup="saveGroup" @saveBoard="saveBoard" @addGroup="addGroup"
-                    @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" />
+                    @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :colors="colors"/>
             </template>
         </draggable>
 
@@ -46,6 +46,10 @@ export default {
             type: Array,
             required: false
         },
+        colors: {
+            type: Object,
+            reqiured: true
+        }
     },
     data() {
         return {

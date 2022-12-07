@@ -28,10 +28,19 @@ export default {
         isCollapsed: {
             type: Boolean,
             required: false
+        },
+        groupColor: {
+            type: String,
+            required: false
+        },
+        colors: {
+            type: Object,
+            reqiured: true
         }
     },
     data() {
         return {
+            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         }
     },
     methods: {
@@ -109,7 +118,11 @@ export default {
                         htmlStr = `<div class="label-progress" style="background-color: ">`
                         for (let label in summary[idx]) {
                             const width = 100 * (summary[idx][label] / labelsCount) + '%'
-                            const backgroundColor = groupColors[labelTitles[label]]
+                            console.log(`column`, column)
+                            const labelObj = this.colors[column]
+                                ? this.colors[column].find(anyLabel => anyLabel._id === label)
+                                : null
+                            const backgroundColor = labelObj?.value || 'white'
                             htmlStr += `<div class="label" style="width:${width}; background-color: ${backgroundColor || 'transparent'}"
                                     ></div>`
                         }
@@ -126,9 +139,10 @@ export default {
                                 ? 100 * timeElapsed / totalTimeDiff + '%'
                                 : 0
                         htmlStr = `<div class="timeline">
-                                    <div class="elapsed" style="width:${width} ">
+                                    <div class="elapsed" style="background-color:${this.groupColor}; width:${width}">
                                     </div>
-                                <p></p>
+                                <p>${this.months[(new Date(start)).getMonth()]} ${(new Date(start)).getDate()}, '${(new Date(start)).getYear()%100} - 
+                                    ${this.months[(new Date(end)).getMonth()]} ${(new Date(end)).getDate()}, '${(new Date(end)).getYear()%100}</p>
                             </div>`
                         summary[idx] = htmlStr
                         break
