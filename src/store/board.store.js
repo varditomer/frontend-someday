@@ -49,12 +49,13 @@ export const boardStore = {
     },
     getters: {
         board({ board }) { return board },
-        kanbanBoard({ kanbanBoard }) { return kanbanBoard },
-        boardsTitles({ boardsTitles }) { return boardsTitles },
+        boardsTitles({ boardsTitles }) { return boardsTitles.map(board => board.title) },
         miniBoards({ miniBoards }) { return miniBoards },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         filterBy({ filterBy }) { return filterBy },
-        filterMap({ board }) { return boardService.getDataMap(board._id) },
+        filterMap({ board }) { return board.dataMap },
+        kanbanBoard({ kanbanBoard }) { return kanbanBoard },
+        isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         colors({ colors }) { return colors },
         statuses({ statuses }) { return statuses }
     },
