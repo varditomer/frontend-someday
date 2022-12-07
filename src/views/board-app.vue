@@ -124,19 +124,32 @@ export default {
         },
         toggleSelectAllTasks(tasks, groupId, areAllSelected) {
             this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })
-            if (!areAllSelected) this.selectedTasksWithColor = []
-            else selectAllTasksWithColors()
+            return this.selectedTasksWithColor = this.getFormattedTasksIds()
         },
 
-        selectAllTasksWithColors() {
+        getFormattedTasksIds() {
             this.selectedTasksWithColor = []
             const board = this.$store.getters.board
             const allSelectedTasks = this.$store.getters.selectedTasks
-            const newSelectedTasksWithColors = allSelectedTasks.forEach(taskId => {
-                // const filterTasks = { tasks: { _id: taskId } }
-                // const filtteredBoard = await boardService.multiFilter(filterTasks, 'b101')
-                // const color = filtteredBoard.groups[0].style.color
-            })
+            return this.getSelectedTasksColors(allSelectedTasks, board)
+        },
+
+        getSelectedTasksColors(selectedTasksIds, { groups }) {
+            const idsCopy = [...selectedTasksIds]
+            return groups.reduce((formattedIds, group) => {
+                const temp = group.tasks.reduce((relevantTaskIds, task) => {
+                    const idx = idsCopy.indexOf(task._id)
+                    if (idx !== -1) {
+                        relevantTaskIds.push({
+                            taskId: idsCopy.splice(idx, 1)[0],
+                            color: group.style.color
+                        })
+                    }
+                    return relevantTaskIds
+                }, [])
+                if (temp && temp.length) formattedIds.push(...temp)
+                return formattedIds
+            }, [])
         }
 
     },
