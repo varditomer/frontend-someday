@@ -53,14 +53,12 @@ export default {
     methods: {
         saveTask(task, activity) {
             const taskToSave = { task, bool: false }
-            this.$store.commit({ type: 'saveTask', taskToSave })
-            this.$store.dispatch({ type: 'saveActivity', activity })
+            // this.$store.commit({ type: 'saveTask', taskToSave })
+            // this.$store.dispatch({ type: 'saveActivity', activity })
             this.$store.dispatch({ type: 'saveTask', task })
         },
         saveBoard(board) {
-            console.log(`board`, board)
-            console.log(`this.$store.getters.board`, this.$store.getters.board)
-            this.$store.commit({ type: 'setBoard', boardData:{board} })
+            this.$store.commit({ type: 'setBoard', boardData: { board } })
             this.$store.dispatch({ type: 'saveBoard', board })
         },
         removeTask(task) {
@@ -72,7 +70,14 @@ export default {
             await this.$store.dispatch({ type: 'duplicateTask', task })
         },
         async saveEmptyTask() {
-            await this.$store.dispatch({ type: 'saveEmptyTask' })
+            const task = {
+                groupId: this.board.groups[0]._id,
+                boardId: this.board._id,
+                title: 'Item 1'
+            }
+            const taskToSave = { task, bool: true }
+            // this.$store.commit({ type: 'saveTask', taskToSave })
+            this.$store.dispatch({ type: 'saveTask', task })
         },
         addBoard() {
             this.$store.dispatch({ type: 'addBoard' })
@@ -127,7 +132,6 @@ export default {
                     })
                 })
             })
-            console.log(`tasks:`, tasks)
             await this.$store.dispatch({ type: 'duplicateMultipleTasks', tasks })
         },
         async unselectTasks() {
@@ -221,7 +225,7 @@ export default {
     async created() {
         const { id } = this.$route.params
         try {
-            await this.$store.dispatch({ type: 'queryBoard', filter:{id} })
+            await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
         } catch (err) {
             this.$router.push('/')
         }

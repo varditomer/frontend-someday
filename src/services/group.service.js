@@ -17,7 +17,8 @@ async function query(filterBy = {}) {
     return await httpService.get(GROUP_URL, filterBy)
 }
 
-async function remove(groupId, boardId) {
+async function remove(group) {
+    const { _id: groupId, boardId } = group
     return await httpService.delete(GROUP_URL, { groupId, boardId })
 }
 async function save(group, isFifo = false) {
@@ -29,7 +30,7 @@ async function save(group, isFifo = false) {
         // Later, owner is set by the backend
         // group.owner = userService.getLoggedinUser()
         // await storageService.post(STORAGE_KEY, group)
-        savedGroup = await httpService.post(GROUP_URL, { group, isFifo: false })
+        return await httpService.post(GROUP_URL, { group, isFifo: false })
     }
 }
 
@@ -42,6 +43,7 @@ async function add(boardId, isFifo = false) {
 }
 
 function _getNewGroup(boardId) {
+    const color = colorService.randomColor('group')
     return {
         title: 'New Group',
         boardId,
@@ -50,7 +52,7 @@ function _getNewGroup(boardId) {
             _id: 0,
             fullname: 'Guest'
         },
-        style: colorService.randomColor(),
+        style: { color, light: color + '99' },
         tasks: [
             {
                 _id: utilService.makeId(),

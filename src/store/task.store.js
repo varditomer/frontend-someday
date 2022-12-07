@@ -71,24 +71,12 @@ export const taskStore = {
         async duplicateMultipleTasks({ commit }, { tasks }) {
             try {
                 const duplicatedTasks = await taskService.duplicateMultiple(tasks)
-                duplicatedTasks.forEach(duplicatedTask=> {
+                duplicatedTasks.forEach(duplicatedTask => {
                     const taskToSave = { task: duplicatedTask, bool: true }
                     commit({ type: 'saveTask', taskToSave })
                 })
             } catch (err) {
                 console.log(`Cannot duplicate task: ${err}`)
-            }
-        },
-        async saveEmptyTask({ commit, getters }) {
-            try {
-                const groupId = getters.board.groups[0]._id
-                const boardId = getters.board._id
-                const task = await taskService.newTask(groupId, boardId)
-                const taskToSave = { task, bool: true }
-                commit({ type: 'saveTask', taskToSave })
-                return task
-            } catch (err) {
-                console.log(`Cannot save task: ${err}`)
             }
         },
         async removeTask({ commit }, { task }) {

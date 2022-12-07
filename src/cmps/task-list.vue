@@ -114,7 +114,6 @@ export default {
             boardId: this.group.boardId
         },
             this.editing = false
-            console.log(`this.group:`, this.group)
 
     },
     mounted() {

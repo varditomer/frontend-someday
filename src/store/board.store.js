@@ -49,14 +49,6 @@ export const boardStore = {
     },
     getters: {
         board({ board }) { return board },
-<<<<<<< HEAD
-        boardsTitles({ boardsTitles }) { return boardsTitles.map(board => board.title) },
-        miniBoards({ miniBoards }) { return miniBoards },
-        isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
-        filterBy({ filterBy }) { return filterBy },
-        filterMap({ board }) { return board.dataMap },
-        colors({ colors }) { return colors }
-=======
         kanbanBoard({ kanbanBoard }) { return kanbanBoard },
         boardsTitles({ boardsTitles }) { return boardsTitles },
         miniBoards({ miniBoards }) { return miniBoards },
@@ -65,7 +57,6 @@ export const boardStore = {
         filterMap({ board }) { return boardService.getDataMap(board._id) },
         colors({ colors }) { return colors },
         statuses({ statuses }) { return statuses }
->>>>>>> 37835aa0fb97836e6c115cf0e7194066f23af434
     },
     mutations: {
         setBoard(state, { boardData }) {
@@ -102,7 +93,6 @@ export const boardStore = {
             board.msgs.push(msg)
         },
         saveTask(state, { taskToSave }) {
-            console.log(`taskToSave:`, taskToSave)
             const { task, bool } = taskToSave
             const groupIdx = state.board.groups.findIndex(group => group._id === task.groupId)
             if (groupIdx === -1) return null
@@ -110,7 +100,6 @@ export const boardStore = {
             if (taskIdx === -1) {
                 if (bool) state.board.groups[groupIdx].tasks.unshift(task)
                 else state.board.groups[groupIdx].tasks.push(task)
-                console.log(`task:`, task)
             } else state.board.groups[groupIdx].tasks[taskIdx] = task
         },
         removeTask(state, { task }) {
@@ -150,7 +139,7 @@ export const boardStore = {
             try {
                 console.log(board);
                 board.groups.forEach(group => group.tasks.forEach(task => task.groupId = group._id))
-                commit({ type: 'setBoard', boardData:{board} })
+                commit({ type: 'setBoard', boardData: { board } })
                 board = await boardService.save(board)
                 return board
             } catch (err) {
@@ -163,7 +152,7 @@ export const boardStore = {
                 const board = await boardService.getEmptyBoard()
                 await context.dispatch({ type: 'loadBoard' })
                 // await context.dispatch({ type: 'loadMiniBoards' })
-                context.commit({ type: 'setBoard', boardData:(board) })
+                context.commit({ type: 'setBoard', boardData: (board) })
                 router.push('/board/' + board._id)
             } catch (err) {
                 console.log('boardStore: Error in addBoard', err)
@@ -173,7 +162,7 @@ export const boardStore = {
         async updateBoard({ commit }, { board }) {
             try {
                 board = await boardService.save(board)
-                commit({ type: 'setBoard', boardData:{board} })
+                commit({ type: 'setBoard', boardData: { board } })
                 // commit(getActionUpdateBoard(board))
                 return board
             } catch (err) {
@@ -182,7 +171,7 @@ export const boardStore = {
             }
         },
 
-        async queryBoard({commit}, {filter}) {
+        async queryBoard({ commit }, { filter }) {
             try {
                 commit({ type: 'setFilter', filter })
                 const boardData = await boardService.query(filter)
@@ -212,7 +201,7 @@ export const boardStore = {
         async getFirstBoard({ commit }) {
             try {
                 const board = await boardService.query()
-                commit({ type: 'setBoard', boardData:{board} })
+                commit({ type: 'setBoard', boardData: { board } })
             } catch (err) {
                 console.log('Could not find board');
             }
@@ -221,7 +210,7 @@ export const boardStore = {
         async multiFilteredBoard({ commit }, { multiFilter, boardId }) {
             try {
                 const board = await boardService.query({ id: boardId, ...multiFilter })
-                commit({ type: 'setBoard', boardData:{board} })
+                commit({ type: 'setBoard', boardData: { board } })
             } catch (err) {
                 console.log('Cannot load filtered board')
             }
