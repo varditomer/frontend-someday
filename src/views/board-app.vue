@@ -13,7 +13,7 @@
                 :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
                 @duplicateTask="duplicateTask" @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard"
                 @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" :board="board" :priorities="priorities"
-                :statuses="statuses" />
+                :statuses="statuses" :colors="colors"/>
         </section>
         <router-view />
     </section>
@@ -203,6 +203,9 @@ export default {
         },
         dataMap() {
             return this.$store.getters.filterMap
+        },
+        colors(){
+            return this.$store.getters.colors
         }
 
     },

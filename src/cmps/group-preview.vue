@@ -29,14 +29,14 @@
                 <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
             </div>
             <task-summary v-if="!viewTasks" :isCollapsed="true" :cmpsOrder="cmpsOrder" :tasks="group.tasks"
-                class="task-footer group-collapsed" />
+                :groupColor="group.style.color" class="task-footer group-collapsed" :colors="colors"/>
         </div>
 
         <task-list v-if="viewTasks" @addColumn="addColumn" @toggleSelectAllTasks="toggleSelectAllTasks"
             @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard" :selectedTasks="selectedTasks"
             :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users" :priorities="priorities"
             :statuses="statuses" @addGroup="addGroup" @saveTask="saveTask" @removeTask="removeTask"
-            @duplicateTask="duplicateTask" />
+            @duplicateTask="duplicateTask" :colors="colors" />
 
     </section>
 
@@ -71,6 +71,10 @@ export default {
             type: Array,
             required: false
         },
+        colors: {
+            type: Object,
+            reqiured: true
+        }
     },
     data() {
         return {

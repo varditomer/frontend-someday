@@ -32,7 +32,7 @@
         <section class="dynamic">
             <component v-for="(column, idx) in formattedData" :is="column.cmpName + 'Task'" :content="column.content"
                 :name="column.name" :additionalDb="column.additionalDb" :color="group.style.color" :key="idx"
-                @updateTask="updateTask" @editing="setIsEditing">
+                @updateTask="updateTask" @editing="setIsEditing" :colors="colors">
             </component>
         </section>
     </li>
@@ -68,6 +68,10 @@ export default {
         areAllChecked: {
             type: Boolean,
             // required: true
+        },
+        colors: {
+            type: Object,
+            reqiured: true
         }
     },
     created() {

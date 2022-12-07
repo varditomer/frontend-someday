@@ -40,8 +40,8 @@
                         "boardId": "b101",
                         "groupId": "sc7aw",
                         "title": "Present Our Someday App",
-                        "status": "Unattained",
-                        "priority": "Critical",
+                        "status": "db03v",
+                        "priority": "efv9e",
                         "date": 1669672800000,
                         "numbers": 121212,
                         "text": "Make a plan B",
@@ -144,8 +144,8 @@
                                 ]
                             }
                         ],
-                        "status": "Done",
-                        "priority": "High",
+                        "status": "sdc34",
+                        "priority": "acmksd",
                         "date": 1669413600000,
                         "link": {
                             "url": "https://github.com/varditomer/Someday",
@@ -169,8 +169,8 @@
                         "boardId": "b101",
                         "groupId": "sc7aw",
                         "title": "Make the project ours",
-                        "status": "Working on it",
-                        "priority": "Low",
+                        "status": "dfbyc",
+                        "priority": "gbf0g",
                         "date": 1668981600000,
                         "timeline": {
                             "start": {
@@ -203,8 +203,8 @@
                         "groupId": "sc7aw",
                         "title": "Get familiar with features",
                         "date": 1668808800000,
-                        "priority": "Medium",
-                        "status": "Stuck",
+                        "priority": "asckj",
+                        "status": "34f9e",
                         "person": [
                             {
                                 "_id": "u102",
@@ -229,11 +229,11 @@
                         "groupId": "sc7aw",
                         "boardId": "b101",
                         "title": "Create all base files",
-                        "status": "Done",
+                        "status": "sdc34",
                         "date": 1668463200000,
                         "comments": [],
                         "_id": "DfiYel",
-                        "priority": "High",
+                        "priority": "acmksd",
                         "numbers": 55,
                         "person": [
                             {
@@ -293,8 +293,8 @@
                                 }
                             }
                         ],
-                        "priority": "Low",
-                        "status": "Working on it",
+                        "priority": "gbf0g",
+                        "status": "dfbyc",
                         "date": 1668204000000,
                         "text": "Don't forget sockets",
                         "link": {
@@ -306,7 +306,7 @@
             },
             {
                 "_id": "sd93d",
-                "title": "Working on it",
+                "title": "dfbyc",
                 "boardId": "b101",
                 "style": {
                     "color": "#fdac3d",
@@ -349,9 +349,9 @@
                                 }
                             }
                         ],
-                        "status": "Unattained",
+                        "status": "db03v",
                         "date": 1670709600000,
-                        "priority": "Low",
+                        "priority": "gbf0g",
                         "timeline": {
                             "start": {
                                 "month": 10,
@@ -383,8 +383,8 @@
                                 "year": 2022
                             }
                         },
-                        "priority": "Critical",
-                        "status": "Stuck",
+                        "priority": "efv9e",
+                        "status": "34f9e",
                         "comments": [
                             {
                                 "_id": "ZyPnm",
@@ -453,8 +453,8 @@
                                 "year": 2022
                             }
                         },
-                        "priority": "Default",
-                        "status": "Working on it",
+                        "priority": "qwdlk",
+                        "status": "dfbyc",
                         "person": [
                             {
                                 "_id": "u104",
@@ -490,8 +490,8 @@
                                 }
                             }
                         ],
-                        "priority": "Medium",
-                        "status": "Done",
+                        "priority": "asckj",
+                        "status": "sdc34",
                         "date": 1669932000000
                     },
                     {
@@ -511,8 +511,8 @@
                                 }
                             }
                         ],
-                        "priority": "Critical",
-                        "status": "Working on it",
+                        "priority": "efv9e",
+                        "status": "dfbyc",
                         "date": 1666990800000
                     }
                 ]
@@ -520,7 +520,7 @@
             {
                 "_id": "asj23",
                 "boardId": "b101",
-                "title": "Done",
+                "title": "sdc34",
                 "createdAt": 234850123,
                 "style": {
                     "color": "#ba3254",
@@ -550,8 +550,8 @@
                                 "year": 2022
                             }
                         },
-                        "priority": "Medium",
-                        "status": "Done",
+                        "priority": "asckj",
+                        "status": "sdc34",
                         "person": [
                             {
                                 "_id": "u103",
@@ -604,8 +604,8 @@
                                 }
                             }
                         ],
-                        "priority": "Low",
-                        "status": "Done",
+                        "priority": "gbf0g",
+                        "status": "sdc34",
                         "date": 1666472400000
                     },
                     {
@@ -625,8 +625,8 @@
                                 }
                             }
                         ],
-                        "priority": "High",
-                        "status": "Done",
+                        "priority": "acmksd",
+                        "status": "sdc34",
                         "date": 1666386000000
                     },
                     {
@@ -646,8 +646,8 @@
                                 }
                             }
                         ],
-                        "status": "Done",
-                        "priority": "Critical",
+                        "status": "sdc34",
+                        "priority": "efv9e",
                         "date": 1666126800000,
                         "text": "Files uploaded"
                     }
@@ -680,8 +680,8 @@
                                 "year": 2022
                             }
                         },
-                        "status": "Done",
-                        "priority": "High",
+                        "status": "sdc34",
+                        "priority": "acmksd",
                         "person": [
                             {
                                 "_id": "u102",
@@ -708,8 +708,8 @@
                                 "year": 2023
                             }
                         },
-                        "status": "Working on it",
-                        "priority": "Critical",
+                        "status": "dfbyc",
+                        "priority": "efv9e",
                         "person": [
                             {
                                 "_id": "u102",
@@ -750,8 +750,8 @@
                                 "year": 2022
                             }
                         },
-                        "status": "Stuck",
-                        "priority": "Low",
+                        "status": "34f9e",
+                        "priority": "gbf0g",
                         "person": []
                     },
                     {
@@ -789,8 +789,8 @@
                                 }
                             }
                         ],
-                        "priority": "Medium",
-                        "status": "Done",
+                        "priority": "asckj",
+                        "status": "sdc34",
                         "date": 1670796000000
                     },
                     {
@@ -810,8 +810,8 @@
                                 }
                             }
                         ],
-                        "priority": "Critical",
-                        "status": "Working on it"
+                        "priority": "efv9e",
+                        "status": "dfbyc"
                     }
                 ]
             },
@@ -848,8 +848,8 @@
                                 "year": 2022
                             }
                         },
-                        "status": "Done",
-                        "priority": "Critical",
+                        "status": "sdc34",
+                        "priority": "efv9e",
                         "person": [
                             {
                                 "_id": "u102",
@@ -890,8 +890,8 @@
                                 "year": 2022
                             }
                         },
-                        "status": "Working on it",
-                        "priority": "Medium",
+                        "status": "dfbyc",
+                        "priority": "asckj",
                         "person": [
                             {
                                 "_id": "u103",
@@ -935,8 +935,8 @@
                                 }
                             }
                         ],
-                        "priority": "High",
-                        "status": "Stuck",
+                        "priority": "acmksd",
+                        "status": "34f9e",
                         "date": 1670796000000
                     },
                     {
@@ -965,8 +965,8 @@
                                 }
                             }
                         ],
-                        "priority": "Low",
-                        "status": "Unattained",
+                        "priority": "gbf0g",
+                        "status": "db03v",
                         "date": 1670882400000
                     }
                 ]
@@ -991,13 +991,13 @@
             }
         ],
         "cmpsOrder": [
-            "person",
-            "priority",
             "status",
+            "priority",
             "date",
+            "person",
+            "timeline",
             "text",
             "numbers",
-            "timeline",
             "link"
         ]
     },
@@ -1034,8 +1034,8 @@
                         "boardId": "b102",
                         "groupId": "g101",
                         "title": "Make some noise",
-                        "status": "Done",
-                        "priority": "Critical",
+                        "status": "sdc34",
+                        "priority": "efv9e",
                         "person": [
                             {
                                 "_id": "u102",
@@ -1059,8 +1059,8 @@
                         "boardId": "b102",
                         "groupId": "g101",
                         "title": "Get rich",
-                        "status": "Working on it",
-                        "priority": "High",
+                        "status": "dfbyc",
+                        "priority": "acmksd",
                         "person": [
                             {
                                 "_id": "u103",
@@ -1079,8 +1079,8 @@
                         "boardId": "b102",
                         "title": "Meet baba",
                         "_id": "wSM4Lh",
-                        "priority": "Medium",
-                        "status": "Stuck"
+                        "priority": "asckj",
+                        "status": "34f9e"
                     }
                 ]
             },
@@ -1100,8 +1100,8 @@
                         "boardId": "b102",
                         "groupId": "g102",
                         "title": "Do that",
-                        "status": "Unattained",
-                        "priority": "Medium",
+                        "status": "db03v",
+                        "priority": "asckj",
                         "date": 1589983468418,
                         "person": [
                             {
@@ -1121,8 +1121,8 @@
                         "boardId": "b102",
                         "groupId": "g102",
                         "title": "Help me",
-                        "status": "Working on it",
-                        "priority": "Low",
+                        "status": "dfbyc",
+                        "priority": "gbf0g",
                         "description": "description",
                         "comments": [
                             {
@@ -1145,7 +1145,7 @@
                                     {
                                         "_id": "212jX",
                                         "title": "To Do 1",
-                                        "isDone": false
+                                        "issdc34": false
                                     }
                                 ]
                             }
