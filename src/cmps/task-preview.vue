@@ -1,15 +1,13 @@
 <template>
-    <li class="task-preview" ref="line" :class="{ beingEdit: areAllChecked || editing || isChecked }"
-        v-click-outside="closeModal">
+    <li class="task-preview" ref="line" :class="{ 'being-edit': areAllChecked || editing || isChecked }" v-click-outside="(unSelectLine)">
         <regular-modal v-if="showModal" :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
-            @closeModal="(showModal = false)" :showModal="showModal" @taskTitleToClipboard="copyToClipboard(task.title)"
-            v-click-outside="(unSelectLine)" @linkToClipboard="copyToClipboard(task.link.url)"
+            @closeModal="closeModal" :showModal="showModal" @taskTitleToClipboard="copyToClipboard(task.title)" @linkToClipboard="copyToClipboard(task.link.url)"
             @duplicateTask="duplicateTask" />
 
         <section class="static">
 
             <div class="options flex center">
-                <span class="hidden" @click="lineOptions" v-svg-icon="'fatMore'"></span>
+                <span class="hidden" @click="openLineOptionModal" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="task-select" :style="{ 'border-left-color': group.style.color }"
                 :class="{ beingEdit: areAllChecked || editing || isChecked }">
@@ -138,7 +136,7 @@ export default {
             }
             this.$emit('updateTask', task, activity)
         },
-        lineOptions() {
+        openLineOptionModal() {
             this.showModal = true
         },
         openTask() {

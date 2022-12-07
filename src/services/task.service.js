@@ -13,6 +13,7 @@ export const taskService = {
     saveEmptyTask,
     remove,
     duplicate,
+    duplicateMultiple
 
 }
 window.bs = taskService
@@ -35,8 +36,12 @@ async function saveEmptyTask(groupId, boardId) {
     task = await save(task, true)
     return task
 }
+async function saveMultiple(tasks, isFifo, isDuplicate) {
+    const savedTasks = tasks.map(task => save(task, isFifo, isDuplicate))
+    return Promise.all(savedTasks)
+}
 
-async function save(task, bool, isDuplicate) {
+async function save(task, isFifo, isDuplicate) {
     const { groupId, boardId } = task
     if (!task || !groupId) return Promise.reject('Cannot save task')
     const group = await groupService.queryBoard(groupId, boardId)
@@ -51,7 +56,7 @@ async function save(task, bool, isDuplicate) {
     } else {
         savedTask = { ...task, _id: utilService.makeId() }
         if (isDuplicate) _replaceTaskEntitiesIds(savedTask)
-        if (!bool) group.tasks.push(savedTask)
+        if (!isFifo) group.tasks.push(savedTask)
         else group.tasks.unshift(savedTask)
     }
     if (!groupService.save(group)) return Promise.reject('Task not saved because group cannot be saved')
@@ -73,15 +78,26 @@ async function remove(task) {
 function duplicate(task) {
     const taskToDuplicate = JSON.parse(JSON.stringify(task))
     taskToDuplicate._id = null
-    return save(taskToDuplicate, false, true)
+    return save(taskToDuplicate, true, true)
+}
+function duplicateMultiple(tasks) {
+    const tasksToDuplicate = tasks.map(task => {
+        const clonedTask = JSON.parse(JSON.stringify(task))
+        clonedTask._id = null
+        return clonedTask
+    })
+    
+    return saveMultiple(tasksToDuplicate, true, true)
 }
 
 function _replaceTaskEntitiesIds(taskToDuplicate) {
-    const { taskId: _id } = taskToDuplicate
-    taskToDuplicate.comments?.ForEach(comment => {
+    const { _id: taskId } = taskToDuplicate
+    console.log(`taskToDuplicate:`, taskToDuplicate)
+    console.log(`taskId:`, taskId)
+    taskToDuplicate.comments?.forEach(comment => {
         comment._id = utilService.makeId()
-        comment.taskId = taskId
-        return
+        console.log(`comment:`, comment)
+        return comment.taskId = taskId
     })
     return taskToDuplicate
 }
