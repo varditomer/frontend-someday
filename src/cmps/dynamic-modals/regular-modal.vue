@@ -68,6 +68,7 @@ export default {
     },
     methods: {
         closeModal() {
+            console.log(`outside:`, )
             this.$emit('closeModal')
         },
         openTask() {
