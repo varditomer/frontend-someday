@@ -28,7 +28,7 @@
             </section>
 
         </li>
-        <draggable ghost-class="ghost" animation="200" @start="beingDragged = true"
+        <draggable v-model="group.tasks" ghost-class="ghost" animation="200" @start="beingDragged = true"
             :class="{ taskDragged: beingDragged }" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
@@ -114,6 +114,8 @@ export default {
             boardId: this.group.boardId
         },
             this.editing = false
+            console.log(`this.group:`, this.group)
+
     },
     mounted() {
         eventBus.on('unselectTasks', () => this.areAllChecked = false)
