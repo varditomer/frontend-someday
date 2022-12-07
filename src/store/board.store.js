@@ -81,6 +81,7 @@ export const boardStore = {
             board.msgs.push(msg)
         },
         saveTask(state, { taskToSave }) {
+            console.log(`taskToSave:`, taskToSave)
             const { task, bool } = taskToSave
             const groupIdx = state.board.groups.findIndex(group => group._id === task.groupId)
             if (groupIdx === -1) return null
@@ -88,6 +89,7 @@ export const boardStore = {
             if (taskIdx === -1) {
                 if (bool) state.board.groups[groupIdx].tasks.unshift(task)
                 else state.board.groups[groupIdx].tasks.push(task)
+                console.log(`task:`, task)
             } else state.board.groups[groupIdx].tasks[taskIdx] = task
         },
         removeTask(state, { task }) {

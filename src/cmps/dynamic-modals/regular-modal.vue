@@ -4,7 +4,7 @@
             :selectedTasks="selectedTasks" :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask"
             :users="users" @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :groupId="groupId"
             @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu"
-            @deleteMultiple="deleteSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard"
+            @deleteMultiple="deleteSelectedTasks" @duplicateMultiple="duplicateSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard"
             @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask"
             :target="target" />
     </section>
@@ -22,7 +22,7 @@ import colorPickerModal from '../regular-modal-cmps/color-picker-modal.vue'
 export default {
 
     name: 'regular-modal',
-    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu', 'deleteSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup', 'duplicateTask', 'addColumn'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu', 'deleteSelectedTasks', 'duplicateSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup', 'duplicateTask', 'addColumn'], //emit all types of dynamic cmps events
     props: {
         showModal: {
             type: Boolean,
@@ -68,7 +68,6 @@ export default {
     },
     methods: {
         closeModal() {
-            console.log(`outside:`, )
             this.$emit('closeModal')
         },
         openTask() {
@@ -100,6 +99,9 @@ export default {
         },
         deleteSelectedTasks() {
             this.$emit('deleteSelectedTasks')
+        },
+        duplicateSelectedTasks() {
+            this.$emit('duplicateSelectedTasks')
         },
         taskTitleToClipboard() {
             this.$emit('taskTitleToClipboard')

@@ -4,9 +4,8 @@
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
         <section class='board-app-container' :class="{ 'folded': isViewingTask }">
-            <!-- :selectedTasks="selectedTasks" -->
             <regular-modal :selectedTasks="selectedTasksWithColor" @deleteSelectedTasks="deleteSelectedTasks"
-                :showModal="showModal" :cmp="'task-select-modal'" />
+                @duplicateSelectedTasks="duplicateSelectedTasks" :showModal="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
@@ -65,8 +64,8 @@ export default {
             const idx = this.selectedTasksWithColor?.findIndex(taskWithColor => taskWithColor.taskId === task._id)
             if (idx !== -1) this.selectedTasksWithColor.splice(idx, 1)
         },
-        duplicateTask(task) {
-            this.$store.dispatch({ type: 'duplicateTask', task })
+        async duplicateTask(task) {
+            await this.$store.dispatch({ type: 'duplicateTask', task })
         },
         async saveEmptyTask() {
             await this.$store.dispatch({ type: 'saveEmptyTask' })
@@ -99,12 +98,11 @@ export default {
             await this.$store.commit({ type: 'saveSelectedTasks', taskId })
             const idx = this.selectedTasksWithColor.findIndex(anyTask => anyTask.taskId === taskId)
             if (idx === -1) {
-                const formattedTaskId = this.getFormattedTasksIds([taskId])
+                const formattedTaskId = this.getSelectedTasksColors([taskId])
                 this.selectedTasksWithColor.push(formattedTaskId[0])
             } else this.selectedTasksWithColor.splice(idx, 1)
         },
         async deleteSelectedTasks() {
-            console.log(`1:`,)
             try {
                 await this.$store.dispatch({ type: 'removeTasks' })
                 this.unselectTasks()
@@ -112,13 +110,25 @@ export default {
                 console.log(`Cannot delete selected tasks`, err)
             }
         },
+        async duplicateSelectedTasks() {
+            const allSelectedTasksIds = this.$store.getters.selectedTasks
+            const tasks = []
+            allSelectedTasksIds.forEach((selectedTaskId, idx) => {
+                this.board.groups.forEach(group => {
+                    group.tasks.forEach(task => {
+                        if (task._id === selectedTaskId) return tasks.push(task)
+                    })
+                })
+            })
+            console.log(`tasks:`, tasks)
+            await this.$store.dispatch({ type: 'duplicateMultipleTasks', tasks })
+        },
         async unselectTasks() {
             await this.$store.commit({ type: 'unselectTasks' })
             const allSelectedTasksIds = this.$store.getters.selectedTasks
-            console.log(`allSelectedTasksIds:`, allSelectedTasksIds)
             if (allSelectedTasksIds) {
                 if (allSelectedTasksIds.length > 1) this.selectedTasksWithColor = this.getSelectedTasksColors(allSelectedTasksIds)
-                else this.selectedTasksWithColor = this.getFormattedTasksIds([allSelectedTasksIds])
+                else this.selectedTasksWithColor = this.getSelectedTasksColors([allSelectedTasksIds])
             } else return
         },
         async saveBoardTitle(title) {
@@ -132,18 +142,12 @@ export default {
             this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })
             this.selectedTasksWithColor = []
             const allSelectedTasksIds = this.$store.getters.selectedTasks
-            return this.selectedTasksWithColor = this.getFormattedTasksIds(allSelectedTasksIds)
+            return this.selectedTasksWithColor = this.getSelectedTasksColors(allSelectedTasksIds)
         },
 
-        getFormattedTasksIds(selectedTasksIds) {
-            const board = this.$store.getters.board
-            return this.getSelectedTasksColors(selectedTasksIds, board)
-        },
-
-        getSelectedTasksColors(selectedTasksIds, { groups }) {
-            console.log(`selectedTasksIds:`, selectedTasksIds)
+        getSelectedTasksColors(selectedTasksIds) {
+            const { groups } = this.board
             const idsCopy = [...selectedTasksIds]
-            console.log(`idsCopy:`, idsCopy)
             const formattedTaskId = groups.reduce((formattedIds, group) => {
                 const temp = group.tasks.reduce((relevantTaskIds, task) => {
                     const idx = idsCopy.indexOf(task._id)
@@ -158,8 +162,6 @@ export default {
                 if (temp && temp.length) formattedIds.push(...temp)
                 return formattedIds
             }, [])
-
-            console.log(`formattedTaskId-getSelectedColor..:`, formattedTaskId)
             return formattedTaskId
         }
 
