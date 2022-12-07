@@ -3,7 +3,7 @@
     <section class='triangle-modal' @keydown.escape="hide" v-click-outside="hide">
         <span class="top-bot"></span>
         <component :is="cmp" :content="content" :name="name" :additionalDb="additionalDb" @updateTask="updateTask"
-            @hideModal="hide" @login="login">
+            @hideModal="hide" @login="login" :colors="colors">
         </component>
     </section>
 
@@ -27,6 +27,10 @@ export default {
         },
         content: {
             type: [Object, Array, String, Number],
+            required: false
+        },
+        colors: {
+            type: Object,
             required: false
         },
         name: String

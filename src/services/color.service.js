@@ -42,7 +42,7 @@ function query() {
                 },
                 {
                     _id: 'evdf9',
-                    title: 'Defualt',
+                    title: 'Default',
                     value: '#c4c4c4'
                 },
             ],
@@ -223,8 +223,8 @@ async function remove(type, id) {
     return label
 }
 
-async function randomColor(type) {
-    const colors = await query()
+function randomColor(type) {
+    const colors =  query()
     const colorNames = Object.keys(colors[type])
     const idx = utilService.getRandomInt(0, colorNames.length)
     return colors[type][colorNames[idx]]

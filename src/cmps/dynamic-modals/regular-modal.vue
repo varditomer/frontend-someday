@@ -6,7 +6,7 @@
             @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu"
             @deleteMultiple="deleteSelectedTasks" @duplicateMultiple="duplicateSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard"
             @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask"
-            :target="target" />
+            :target="target" :colors="colors" :name="name"/>
     </section>
 </template>
 
@@ -52,6 +52,10 @@ export default {
             type: String,
             reduired: false,
         },
+        colors:{
+            type: Object,
+            required: false
+        },
         target: {
             type: String,
             required: false
@@ -62,6 +66,10 @@ export default {
         },
         cmpsOrder: {
             type: Array,
+            required: false
+        },
+        name: {
+            type: String,
             required: false
         }
 

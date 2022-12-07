@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import {colorService} from '../services/color.service.js'
 export default {
     name: 'activity',
     props: {
@@ -32,12 +33,6 @@ export default {
         }
     },
     computed: {
-        statuses() {
-            return this.$store.getters.statuses
-        },
-        priorities() {
-            return this.$store.getters.priorities
-        },
         isColored() {
             return (this.activity.type !== 'status' && this.activity.type !== 'priority')
         },

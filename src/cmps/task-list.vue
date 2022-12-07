@@ -73,14 +73,6 @@ export default {
         cmpsOrder: Array,
         users: Array,
         group: Object,
-        priorities: {
-            type: Array,
-            required: true
-        },
-        statuses: {
-            type: Array,
-            required: true
-        },
         selectedTasks: {
             type: Array,
             required: false
@@ -114,7 +106,6 @@ export default {
             boardId: this.group.boardId
         },
             this.editing = false
-            console.log(`this.group:`, this.group)
 
     },
     mounted() {
@@ -171,8 +162,6 @@ export default {
 
         additionalDb() {
             return {
-                priority: this.priorities,
-                status: this.statuses,
                 users: this.users
             }
         },

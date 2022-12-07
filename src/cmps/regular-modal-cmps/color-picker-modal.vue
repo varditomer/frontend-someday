@@ -1,6 +1,6 @@
 <template>
     <section class="color-picker">
-        <span v-for="color in colors" class="color-box" :style="{  backgroundColor: color  }" @click="select(color)">
+        <span v-for="color in formattedColors" class="color-box" :style="color.style" @click="select(color.title)" :title="color.title">
         </span>
     </section>
 </template>
@@ -19,6 +19,14 @@ export default {
         target: {
             type: String,
             required: true
+        },
+        colors: {
+            tpye: Object,
+            reqiored: true
+        },
+        name:{
+            type: String,
+            required: false
         }
     },
     data() {
@@ -34,10 +42,13 @@ export default {
         }
     },
     computed: {
-        colors() {
-            return this.target === 'group'
-                ? groupColors
-                : labelColors
+        formattedColors() {
+            console.log(`this.colors[this.name]`, this.colors[this.name])
+            const titles = Object.keys(this.colors)
+            return this.colors[this.name].map((color, idx) => ({
+                style: {backgroundColor: color.value},
+                title: titles[idx]
+            }))
         }
     },
     components: {

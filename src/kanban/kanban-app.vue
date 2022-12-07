@@ -111,12 +111,6 @@ export default {
         board() {
             return this.$store.getters.board
         },
-        priorities() {
-            return this.$store.getters.priorities
-        },
-        statuses() {
-            return this.$store.getters.statuses
-        },
         isWorkspaceCollapsed() {
             return this.$store.getters.isWorkspaceCollapsed
         },
