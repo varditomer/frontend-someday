@@ -1,8 +1,8 @@
 <template>
     <section class="labels" @click="clickToEdit">
-        <span class="label-name" :style="getStyle">{{ content === 'Default' ? '' : content }}</span>
-        <triangle-modal :content="content" :name="name" :additionalDb="additionalDb" @updateTask="updateTask"
-            @hideModal="(show=false)" :cmp="'task-label-modal'" v-if="show" />
+        <span class="label-name" :style="getLabel.style">{{ getLabel.title === 'Default' ? '' : getLabel.title }}</span>
+        <triangle-modal v-if="getLabel && show" :content="getLabel.title" :name="name" :additionalDb="additionalDb"
+            @updateTask="updateTask" @hideModal="(show=false)" :cmp="'task-label-modal'" />
     </section>
 </template>
 
@@ -19,6 +19,10 @@ export default {
         additionalDb: {
             type: Array,
             required: true
+        },
+        colors: {
+            type: Object,
+            reqiured: true
         }
     },
     data() {
@@ -38,11 +42,23 @@ export default {
         }
     },
     computed: {
-        getStyle() {
-            if (!this.content || !this.content === 'default') return { 'background-color': labelColors['$clr-explosive'] }
+        getLabel() {
+            if (!this.colors[this.name]) return {
+                style: {
+                    'backgrond-colorr': 'white',
+                    color: 'white'
+                },
+                title: ''
+            }
+            const label = this.colors[this.name].find(label => label._id === this.content)
             return {
-                'background-color': labelColors[labelTitles[this.content]],
-                color: 'white'
+                style: {
+
+                    'background-color': label?.value || '#c4c4c4',
+                    color: 'white'
+                },
+                title: label?.title || '',
+
             }
         }
     },

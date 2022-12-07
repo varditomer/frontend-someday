@@ -8,7 +8,8 @@
                     :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
                     :key="element._id" :priorities="priorities" @toggleSelectAllTasks="toggleSelectAllTasks"
                     :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
-                    @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" />
+                    @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup"
+                    @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :colors="colors"/>
             </template>
         </draggable>
 
@@ -45,6 +46,10 @@ export default {
             type: Array,
             required: false
         },
+        colors: {
+            type: Object,
+            reqiured: true
+        }
     },
     data() {
         return {
@@ -59,7 +64,7 @@ export default {
     methods: {
         saveBoard(cmpsOrder) {
             this.beingDragged = false
-            this.$emit('saveBoard', {...this.boardToShow, cmpsOrder})
+            this.$emit('saveBoard', { ...this.boardToShow, cmpsOrder })
         },
         saveTask(task, activity) {
             this.boardToShow.groups.forEach(group => {

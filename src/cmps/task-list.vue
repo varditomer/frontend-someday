@@ -28,7 +28,7 @@
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     :isSelected="selectedTasks.includes(element._id)" @update-task="updateTask" :sort="true"
-                    :task="element" :cmpsOrder="cmpsOrder" :users="users" :group="group" :additionalDb="additionalDb"
+                    :task="element" :cmpsOrder="cmpsOrder" :users="users" :group="group" :additionalDb="additionalDb" :colors="colors"
                     @removeTask="removeTask" @duplicateTask="duplicateTask" @editing="(editing = true)" @editDone="(editing = false)" :areAllChecked="allCheckedClicked" />
             </template>
         </draggable>
@@ -47,7 +47,7 @@
                 <span v-for="cmp in cmpsOrder" class="empty-fill-span"></span>
             </section>
         </li>
-        <task-summary :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer" />
+        <task-summary :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer" :groupColor="group.style.color" :colors="colors"/>
     </ul>
 
 
@@ -77,6 +77,10 @@ export default {
             type: Array,
             required: false
         },
+        colors: {
+            type: Object,
+            reqiured: true
+        }
     },
     components: {
         taskPreview,

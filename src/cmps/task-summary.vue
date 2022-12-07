@@ -27,10 +27,19 @@ export default {
         isCollapsed: {
             type: Boolean,
             required: false
+        },
+        groupColor: {
+            type: String,
+            required: false
+        },
+        colors: {
+            type: Object,
+            reqiured: true
         }
     },
     data() {
         return {
+            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         }
     },
     methods: {
@@ -70,9 +79,6 @@ export default {
                             const { start, end } = task.timeline
                             const startTime = (new Date([start.year, start.month+1, start.day])).getTime()
                             const endTime = (new Date([end.year, end.month+1, end.day])).getTime()
-                            console.log(`endTime`, endTime)
-                            console.log(`end`, end)
-                            console.log(`idx`, idx)
                             if (!summary[idx].start || summary[idx].start > startTime) summary[idx].start = startTime
                             if (!summary[idx].end || summary.end > endTime) summary[idx].end = endTime
                             break
@@ -111,7 +117,11 @@ export default {
                         htmlStr = `<div class="label-progress" style="background-color: ">`
                         for (let label in summary[idx]) {
                             const width = 100 * (summary[idx][label] / labelsCount) + '%'
-                            const backgroundColor = groupColors[labelTitles[label]]
+                            console.log(`column`, column)
+                            const labelObj = this.colors[column]
+                                ? this.colors[column].find(anyLabel => anyLabel._id === label)
+                                : null
+                            const backgroundColor = labelObj?.value || 'white'
                             htmlStr += `<div class="label" style="width:${width}; background-color: ${backgroundColor || 'transparent'}"
                                     ></div>`
                         }
@@ -122,16 +132,16 @@ export default {
                         const { start, end } = summary[idx]
                         const totalTimeDiff = end - start
                         const timeElapsed = Date.now() - start
-                        console.log(`end`, end)
                         const width = timeElapsed / totalTimeDiff > 1
                             ? '100 %'
                             : timeElapsed / totalTimeDiff > 0
                                 ? 100 * timeElapsed / totalTimeDiff + '%'
                                 : 0
                         htmlStr = `<div class="timeline">
-                                    <div class="elapsed" style="width:${width} ">
+                                    <div class="elapsed" style="background-color:${this.groupColor}; width:${width}">
                                     </div>
-                                <p></p>
+                                <p>${this.months[(new Date(start)).getMonth()]} ${(new Date(start)).getDate()}, '${(new Date(start)).getYear()%100} - 
+                                    ${this.months[(new Date(end)).getMonth()]} ${(new Date(end)).getDate()}, '${(new Date(end)).getYear()%100}</p>
                             </div>`
                         summary[idx] = htmlStr
                         break

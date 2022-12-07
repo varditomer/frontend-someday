@@ -13,7 +13,7 @@ export default {
     this.$store.commit({ type: 'setWorkspaceState' })
     await this.$store.dispatch({ type: 'getFirstBoard' })
     await this.$store.dispatch({ type: 'loadGroups' })
-
+    await this.$store.dispatch({type: 'loadColors'})
     await this.$store.dispatch({ type: 'loadUsers' })
     let user = userService.getLoggedinUser()
     this.$store.commit({ type: 'setLoggedinUser', user })

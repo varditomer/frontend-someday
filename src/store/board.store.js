@@ -1,4 +1,5 @@
 import { boardService } from '../services/board.service.local'
+import { colorService } from '../services/color.service.js'
 import { router } from '../router.js'
 import { eventBus } from '../services/event-bus.service.js'
 
@@ -41,7 +42,8 @@ export const boardStore = {
             txt: '',
             userId: null
         },
-        dataMap:{}
+        dataMap: {},
+        colors: {}
     },
     getters: {
         board({ board }) { return board },
@@ -50,6 +52,7 @@ export const boardStore = {
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         filterBy({ filterBy }) { return filterBy },
         filterMap({ board }) { return boardService.getDataMap(board._id) },
+        colors({ colors }) { return colors }
     },
     mutations: {
         setBoard(state, { board }) {
@@ -113,6 +116,15 @@ export const boardStore = {
         setWorkspaceState(state) {
             const workspaceState = boardService.loadFromSessionStorage('workspace')
             state.isWorkspaceCollapsed = JSON.parse(workspaceState)
+        },
+        setColors(state, { colors }) { state.colors = colors },
+        updateLabels(state, { type, title, value, id }) {
+            const colors = state.colors
+            if (!type || !colors[type] || !id || (!title && !value)) return
+            const idx = colors[type].findIndex(label => label._id === id)
+            if (idx === -1) return
+            if (title) colors[type][idx].title = title
+            if (value) colors[type][idx].value = value
         }
     },
     actions: {
@@ -207,13 +219,29 @@ export const boardStore = {
                 throw err
             }
         },
-        async getDataMap({commit}, { boardId }) {
+        async getDataMap({ commit }, { boardId }) {
             try {
                 const data = await boardService.getDataMap(boardId)
-                commit({type})
+                commit({ type })
             } catch (err) {
-                
+
             }
+        },
+        loadColors({ commit, getters }, { boardId }) {
+            // const boardId = getters.board?._id
+            // if (!boardId) return
+            const colors = colorService.query()
+            commit({type: 'setColors', colors})
+        },
+        saveLabel({dispatch}, {type, title, value, id}){
+            if (colorService.save(type, title, value, id)) dispatch({type: loadColors})
+            
+        },
+        updateLabel({dispatch}, {type, title, value, id}){
+            if (colorService.update(type, title, value, id)) dispatch({type: loadLabels})
+        },
+        removeLabel({dispatch}, {type, id}){
+            if (colorService.update(type, id)) dispatch({type: loadLabels})
         }
     }
 }
