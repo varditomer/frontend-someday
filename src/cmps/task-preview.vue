@@ -75,6 +75,7 @@ export default {
     created() {
         this.editing = false
         this.isChecked = false
+        console.log(`this.group:`, this.group)
     },
     data() {
         return {
