@@ -13,7 +13,8 @@ export const cmps = ['person', 'priority', 'status', 'date', 'timeline', 'text',
 export const boardService = {
     // getMiniBoards,
     queryBoard,
-    getFirstBoard,
+    // getFirstBoard,
+    queryKanbanBoard,
     getBoardsTitles,
     add,
     save,
@@ -48,6 +49,35 @@ async function getDataMap(boardId) {
         groupTitle,
         tasks: { ...taskFilter, person: personFilter }
     }
+}
+
+async function queryKanbanBoard(boardId, filterBy = {}) {
+    var board = await storageService.get(BOARD_STORAGE_KEY, boardId)
+    var boardToShow = _filterByTxt(board, filterBy.txt)
+    boardToShow = _filterByUser(boardToShow, filterBy.userId)
+
+    const kanbanBoard = boardToShow.groups.reduce((status, group) => {
+        const map = group.tasks.reduce((innerStatus, task) => {
+            if (task.status) {
+                if (innerStatus[task.status]) innerStatus[task.status].push(task)
+                else innerStatus[task.status] = [task]
+            }
+            return innerStatus
+        }, {})
+        for (let prop in map) {
+            if (status[prop]) status[prop].push(...map[prop])
+            else status[prop] = map[prop]
+        }
+        return status
+    }, {})
+    // let kanbanBoardToShow = []
+    // for (let status in kanbanBoard) {
+    //     const group = {}
+    //     group._id = status
+    //     group.tasks = kanbanBoard[status]
+    //     kanbanBoardToShow.push(group)
+    // }
+    return kanbanBoard
 }
 
 async function w() {
