@@ -11,7 +11,7 @@ export const activityService = {
 }
 
 
-async function query() {
+async function query(taskId) {
     return await storageService.query(ACTIVITY_STORAGE_KEY)
 }
 
