@@ -45,17 +45,6 @@
                     <div v-if="comment.likes?.length" class="likes">
                         <div class="liked-users" v-for="userId in comment.likes">
                             <img :src="getUserImg(userId)" alt="">
-
-                            <!-- TODO: Make array of likes containing users -->
-                            <!-- <img src="src/assets/imgs/refael-avatar.png" alt="">
-                            <img src="src/assets/imgs/tomer-avatar.png" alt="">
-                            <img src="src/assets/imgs/default-avatar.svg" alt="">
-                            {{ loggedinUser }}
-                            <img v-for="user in users" :src="user.imgUrl" alt=""> -->
-
-                            <!-- TODO: Put likes array in model -->
-                            <!-- {{ taskToEdit.comments[0].likes.userId }} -->
-
                         </div>
                         <p>Liked</p>
                     </div>
@@ -82,17 +71,23 @@
 
         </section>
 
-        <section v-if="(showComp === 'files')" class="upload-files flex column align-center">
-            <div class="sub-header">
+        <section v-if="(showComp === 'files')" class="upload-files flex column">
 
+            <div class="gallery-header">
+                <button class="add-img-btn flex center">
+                    <input type="file" @change="handleFile" />
+                    <span v-svg-icon="'outlinePlus'"></span>
+                    Add file
+                </button>
             </div>
+
             <section class="img-upload flex column center" :class="{ 'drag-zone': isDragover }"
                 @drop.prevent="handleFile" @dragover.prevent="isDragover = true" @dragleave="isDragover = false">
+
 
                 <div v-if="(!isLoading && !imgUrls.length)" :class="{ drag: isDragover }"
                     class="cta-container flex column center">
                     <div class="files-gallery-cmp flex column center">
-
 
                         <img class="empty-state-image"
                             src="https://cdn.monday.com/images/files-gallery/empty-state.png" />
@@ -103,21 +98,19 @@
                             collaborate in context
                         </div>
                         <button class="add-file-btn flex center">
-                            <span v-svg-icon="'add'"></span>
+                            <input type="file" @change="handleFile" />
+                            <span v-svg-icon="'outlinePlus'"></span>
                             <div>Add file</div>
                         </button>
 
-                        <!-- <upload-icon :class="{ drag: isDragover }" /> -->
-                        <input type="file" @change="handleFile" hidden />
                     </div>
                 </div>
-                <img v-else src="../assets/loader.gif" alt="" />
 
+                <img v-else-if="isLoading" src="../assets/imgs/loader.gif" alt="" />
 
-
-                <img-list v-if="imgUrls.length" :imgUrls="imgUrls" @setImg="setImg" />
-
-
+                <section v-if="imgUrls.length" class="img-gallery">
+                    <img-preview :imgUrls="imgUrls" @removeImg="removeImg" />
+                </section>
 
             </section>
 
@@ -145,9 +138,9 @@
 <script>
 import { uploadImg } from '../services/img-upload.service'
 import activityCmp from '../cmps/activity-cmp.vue'
-import { imgService } from '../services/img-service'
 import imgList from '../cmps/img-list.cmp.vue'
 import { utilService } from '../services/util.service'
+import imgPreview from '../cmps/img-preview.vue'
 
 export default {
     name: 'task-details',
@@ -169,7 +162,6 @@ export default {
     },
     async created() {
         this.showUpdates = true
-        this.imgUrls = imgService.getImgs()
         const { taskId } = this.$route.params
         const { id } = this.$route.params
         if (Object.keys(this.board).length === 0) {
@@ -179,7 +171,8 @@ export default {
             if (task._id === taskId) this.taskToEdit = JSON.parse(JSON.stringify(task))
         }))
         await this.$store.dispatch({ type: 'loadActivities' })
-
+        if(this.taskToEdit.imgUrls) this.imgUrls = this.taskToEdit.imgUrls
+        else this.imgUrls = []
     },
     computed: {
         board() {
@@ -213,28 +206,6 @@ export default {
                     break
             }
         },
-        handleFile(ev) {
-            console.log('ev', ev)
-            let file
-            if (ev.type === 'change') file = ev.target.files[0]
-            else if (ev.type === 'drop') file = ev.dataTransfer.files[0]
-            this.onUploadFile(file)
-        },
-        async onUploadFile(file) {
-            this.isLoading = true
-            this.isDragover = false
-            const res = await uploadImg(file)
-            this.saveImg(res.url)
-            this.isLoading = false
-            console.log('res:', res)
-        },
-        saveImg(url) {
-            this.imgUrls.push(url)
-            imgService.saveImg(url)
-        },
-        setImg(url) {
-            this.imgToShow = url
-        },
         close() {
             this.$router.push('/board/' + this.board._id)
         },
@@ -258,7 +229,6 @@ export default {
             this.commentToAdd = ''
         },
         getUserImg(userId) {
-
             return this.users.find(user => user._id === userId).imgUrl
         },
         likeComment(commentIdx) {
@@ -276,10 +246,45 @@ export default {
             this.taskToEdit = task
             this.$store.dispatch({ type: 'saveTask', task })
         },
+
+        handleFile(ev) {
+            console.log('ev', ev)
+            let file
+            if (ev.type === 'change') file = ev.target.files[0]
+            else if (ev.type === 'drop') file = ev.dataTransfer.files[0]
+            this.onUploadFile(file)
+        },
+        async onUploadFile(file) {
+            this.isLoading = true
+            this.isDragover = false
+            const res = await uploadImg(file)
+            this.saveImg(res.url)
+            this.isLoading = false
+            console.log('res:', res)
+        },
+
+        saveImg(imgUrl) {
+            this.imgUrls.push(imgUrl)
+            if(!this.taskToEdit.imgUrls) this.taskToEdit.imgUrls = []
+            this.taskToEdit.imgUrls.unshift(imgUrl)
+            const task = JSON.parse(JSON.stringify(this.taskToEdit))
+            this.$store.dispatch({ type: 'saveTask', task })
+        },
+
+        removeImg(imgIdx) {
+            console.log(`imgIdx:`, imgIdx)
+            this.imgUrls.splice(imgIdx, 1)
+            this.taskToEdit.imgUrls.splice(imgIdx, 1)
+            const task = JSON.parse(JSON.stringify(this.taskToEdit))
+            this.$store.dispatch({ type: 'saveTask', task })
+        },
+
+
     },
     components: {
         imgList,
-        activityCmp
+        activityCmp,
+        imgPreview
     },
 
 }

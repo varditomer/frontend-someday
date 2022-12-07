@@ -16,7 +16,7 @@
             <span v-svg-icon="'account'"></span>
             <button>Person</button>
         </div>
-        <div class="filter" @click="openModal('multiFilter')">
+        <div class="filter" @click="openModal('multiFilterModal')">
             <span v-svg-icon="'filter'"></span>
             <button>Filter</button>
         </div>
@@ -59,6 +59,7 @@ export default {
             this.$emit('addGroup')
         },
         openModal(modalName) {
+            console.log(`modalName:`, modalName)
             this.showTitleModal = false
             this.modalName = modalName
             this.showModal = true

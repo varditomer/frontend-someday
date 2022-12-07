@@ -70,10 +70,8 @@ export const taskStore = {
         },
         async duplicateTask({ commit }, { task }) {
             try {
-                console.log(`task:`, task)
                 const duplicatedTask = await taskService.duplicate(task)
                 const taskToSave = { task: duplicatedTask, bool: true }
-                console.log(`taskToSave:`, taskToSave)
                 commit({ type: 'saveTask', taskToSave })
             } catch (err) {
                 console.log(`Cannot duplicate task: ${err}`)
@@ -81,9 +79,7 @@ export const taskStore = {
         },
         async duplicateMultipleTasks({ commit }, { tasks }) {
             try {
-                console.log(`tasks-store:`, tasks)
                 const duplicatedTasks = await taskService.duplicateMultiple(tasks)
-                console.log(`duplicatedTasks:`, duplicatedTasks)
                 duplicatedTasks.forEach(duplicatedTask=> {
                     const taskToSave = { task: duplicatedTask, bool: true }
                     commit({ type: 'saveTask', taskToSave })

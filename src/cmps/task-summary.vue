@@ -118,7 +118,6 @@ export default {
                         htmlStr = `<div class="label-progress" style="background-color: ">`
                         for (let label in summary[idx]) {
                             const width = 100 * (summary[idx][label] / labelsCount) + '%'
-                            console.log(`column`, column)
                             const labelObj = this.colors[column]
                                 ? this.colors[column].find(anyLabel => anyLabel._id === label)
                                 : null
