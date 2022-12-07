@@ -224,7 +224,7 @@ async function remove(type, id) {
 }
 
 function randomColor(type) {
-    const colors =  query()
+    const colors = query()
     const colorNames = Object.keys(colors[type])
     const idx = utilService.getRandomInt(0, colorNames.length)
     return colors[type][colorNames[idx]]
