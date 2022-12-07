@@ -44,6 +44,16 @@
             display: flex;
             align-items: center;
 
+
+            .add-columns {
+
+                .close-column-btn {
+                    svg {
+                        background-color: $brdr-clr;
+                    }
+                }
+            }
+
             span {
                 display: flex;
                 align-items: center;
@@ -65,6 +75,7 @@
 
             div {
                 display: flex;
+                align-items: center;
                 height: 100%;
 
                 .titles {
@@ -152,6 +163,8 @@
             background-color: white;
             left: 0px;
             position: sticky;
+            height: 100%;
+            z-index: 500;
 
             .static-overlay {
                 width: 14px;
@@ -182,6 +195,10 @@
             >* {
                 width: 150px;
                 border-right: 1px solid $brdr-clr;
+            }
+
+            .footer-section {
+                height: 36px;
             }
 
         }

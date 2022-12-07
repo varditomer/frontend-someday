@@ -19,7 +19,12 @@
                         </div>
                     </template>
                 </draggable>
-                <span v-svg-icon="'add'" class="add-column-btn"></span>
+                <div class="add-columns">
+                    <span v-if="!showModal" @click="show" v-svg-icon="'add'" class="add-column-btn"></span>
+                    <span v-else @click="(showModal = false)" v-svg-icon="'smallExit'" class="close-column-btn"></span>
+                    <regular-modal @addColumn="addColumn" :cmpsOrder="cmpsOrder" @closeModal="(showModal = false)"
+                        :showModal="showModal" :cmp="'add-column-modal'" />
+                </div>
             </section>
 
         </li>
@@ -29,7 +34,8 @@
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     :isSelected="selectedTasks.includes(element._id)" @update-task="updateTask" :sort="true"
                     :task="element" :cmpsOrder="cmpsOrder" :users="users" :group="group" :additionalDb="additionalDb" :colors="colors"
-                    @removeTask="removeTask" @duplicateTask="duplicateTask" @editing="(editing = true)" @editDone="(editing = false)" :areAllChecked="allCheckedClicked" />
+                    @removeTask="removeTask" @duplicateTask="duplicateTask" @editing="(editing = true)"
+                    @editDone="(editing = false)" :areAllChecked="allCheckedClicked" />
             </template>
         </draggable>
         <li class="add-new-task">
@@ -53,13 +59,14 @@
 
 </template>
 <script>
+import regularModal from './dynamic-modals/regular-modal.vue'
 import draggable from 'vuedraggable'
 import taskPreview from './task-preview.vue'
 import taskSummary from './task-summary.vue'
 import { eventBus } from '../services/event-bus.service.js'
 export default {
     name: 'task-list',
-    emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks', 'duplicateTask'],
+    emits: ['saveTask', 'removeTask', 'saveSelectedTasks', 'saveBoard', 'addGroup', 'toggleSelectAllTasks', 'duplicateTask', 'addColumn'],
     props: {
         tasks: Array,
         cmpsOrder: Array,
@@ -85,7 +92,8 @@ export default {
     components: {
         taskPreview,
         draggable,
-        taskSummary
+        taskSummary,
+        regularModal
     },
     data() {
         return {
@@ -95,7 +103,8 @@ export default {
             areAllChecked: false,
             editing: null,
             allChecked: false,
-            allCheckedClicked: false
+            allCheckedClicked: false,
+            showModal: false
         }
     },
     created() {
@@ -147,6 +156,12 @@ export default {
         },
         addGroup() {
             this.$emit('addGroup')
+        },
+        show() {
+            this.showModal = true
+        },
+        addColumn(cmp) {
+            this.$emit('addColumn', cmp)
         }
     },
     computed: {

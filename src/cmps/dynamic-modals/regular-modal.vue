@@ -1,14 +1,17 @@
 <template>
-    <section v-if="showModal"  @keydown.escape="closeModal" class='regular-modal' v-click-outside="closeModal">
-        
-        <component @updateSelection="updateSelection" :idx="idx"
+    <section v-if="showModal" @keydown.escape="closeModal" class='regular-modal' v-click-outside="closeModal">
+        <component @addColumn="addColumn" :cmpsOrder="cmpsOrder" @updateSelection="updateSelection" :idx="idx"
             :selectedTasks="selectedTasks" :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask"
             :users="users" @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :groupId="groupId"
-            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu" @deleteMultiple="deleteSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard" @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :target="target" />
+            @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu"
+            @deleteMultiple="deleteSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard"
+            @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask"
+            :target="target" />
     </section>
 </template>
 
 <script>
+import addColumnModal from './add-column-modal.vue'
 import taskOptModal from '../regular-modal-cmps/task-opt-modal.vue'
 import groupOptModal from '../regular-modal-cmps/group-opt-modal.vue'
 import newItemModal from '../filter-modals-cmps/new-item-modal.vue'
@@ -19,7 +22,7 @@ import colorPickerModal from '../regular-modal-cmps/color-picker-modal.vue'
 export default {
 
     name: 'regular-modal',
-    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu','deleteSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup', 'duplicateTask'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu', 'deleteSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup', 'duplicateTask', 'addColumn'], //emit all types of dynamic cmps events
     props: {
         showModal: {
             type: Boolean,
@@ -56,11 +59,16 @@ export default {
         idx: {
             type: Number,
             required: false
+        },
+        cmpsOrder: {
+            type: Array,
+            required: false
         }
 
     },
     methods: {
         closeModal() {
+            console.log(`outside:`, )
             this.$emit('closeModal')
         },
         openTask() {
@@ -90,7 +98,7 @@ export default {
         propagateMenu() {
             this.$emit('propagateMenu')
         },
-        deleteSelectedTasks(){
+        deleteSelectedTasks() {
             this.$emit('deleteSelectedTasks')
         },
         taskTitleToClipboard() {
@@ -102,9 +110,9 @@ export default {
         duplicateGroup() {
             this.$emit('duplicateGroup')
         },
-
-
-
+        addColumn(cmp) {
+            this.$emit('addColumn', cmp)
+        }
     },
     components: { //specify each dynamic cmps thats created
         newItemModal,
@@ -113,7 +121,8 @@ export default {
         groupOptModal,
         taskSelectModal,
         colorPickerModal,
-        multiFilterModal
+        multiFilterModal,
+        addColumnModal
     }
 }
 </script>

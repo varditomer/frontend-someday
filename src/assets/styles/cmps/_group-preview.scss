@@ -92,7 +92,6 @@
             .task-summary {
                 box-shadow: 1px 0px 0px 1px $brdr-clr;
                 height: 100%;
-                // background-color: black;
 
                 &.group-collapsed {
                     display: grid;
@@ -101,15 +100,15 @@
                     background-color: white;
                 }
 
-                .static{
+                .static {
                     display: none;
                 }
 
-                .dynamic{
+                .dynamic {
                     display: flex;
                     flex-wrap: wrap;
 
-                    .summary-footer-title{
+                    .summary-footer-title {
                         width: 100%;
                         height: 50%;
                     }
@@ -165,13 +164,14 @@
                 padding-left: 5px;
                 cursor: text;
                 height: 65%;
+                border-radius: 0.2em;
 
                 &:hover {
                     outline: 1px solid $brdr-clr;
                 }
 
                 &:focus {
-                    border-radius: 0.2em;
+
                     outline: 1px solid $primary-blue;
                 }
             }

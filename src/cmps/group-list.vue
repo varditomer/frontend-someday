@@ -4,12 +4,12 @@
         <draggable v-model="boardToShow.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
             @end="saveBoard" :class="{ groupDragged: beingDragged }">
             <template #item="{ element }">
-                <group-preview :isHorizontalScrolling="isHorizontalScrolling" @saveSelectedTasks="saveSelectedTasks"
-                    :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
-                    :key="element._id" :priorities="priorities" @toggleSelectAllTasks="toggleSelectAllTasks"
-                    :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
-                    @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup"
-                    @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :colors="colors"/>
+                <group-preview @addColumn="addColumn" :isHorizontalScrolling="isHorizontalScrolling"
+                    @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks" :group="element"
+                    :cmpsOrder="cmpsOrder" :users="users" :key="element._id" :priorities="priorities"
+                    @toggleSelectAllTasks="toggleSelectAllTasks" :statuses="statuses" @saveTask="saveTask"
+                    @removeTask="removeTask" @saveGroup="saveGroup" @saveBoard="saveBoard" @addGroup="addGroup"
+                    @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :colors="colors"/>
             </template>
         </draggable>
 
@@ -99,6 +99,11 @@ export default {
         },
         duplicateGroup(group) {
             this.$emit('duplicateGroup', group)
+        },
+        addColumn(cmp) {
+            const board = JSON.parse(JSON.stringify(this.board))
+            board.cmpsOrder.push(cmp)
+            this.$emit('saveBoard', board)
         }
     },
     computed: {

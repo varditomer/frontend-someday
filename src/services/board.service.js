@@ -7,6 +7,8 @@ import { userService } from './user.service.js'
 
 const STORAGE_KEY = 'task'
 
+export const cmps = ['person', 'priority', 'status', 'date', 'timeline', 'numbers', 'text', 'link',]
+
 export const taskService = {
     query,
     queryBoard,
@@ -46,7 +48,7 @@ async function save(task) {
 }
 
 async function addTaskMsg(taskId, txt) {
-    const savedMsg = await httpService.post(`task/${taskId}/msg`, {txt})
+    const savedMsg = await httpService.post(`task/${taskId}/msg`, { txt })
     return savedMsg
 }
 

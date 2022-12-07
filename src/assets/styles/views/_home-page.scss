@@ -35,13 +35,29 @@
         font-size: rem(18px);
         color: white;
         background-image: linear-gradient(to left, #8a9fff, #5765a3);
+        transition: .4s;
+
+        &:hover {
+            background-image: linear-gradient(to left, #798ce0, #475386);
+        }
+
+
     }
 
     .home-nav-btns {
         gap: 20px;
 
+        a {
+            transition: .4s;
+            border-radius: 2em;
+            &:hover {
+                background-image: linear-gradient(to left, #798ce0, #475386);
+            }
+        }
+
         .login-signup-area {
             position: relative;
+
 
             .triangle-modal {
                 top: 60px;

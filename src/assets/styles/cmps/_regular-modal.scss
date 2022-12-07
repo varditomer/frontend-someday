@@ -295,7 +295,7 @@
 
             }
 
-            .duplicate-txt{
+            .duplicate-txt {
                 position: relative;
                 bottom: 4px;
             }
@@ -306,6 +306,59 @@
                 padding-bottom: 6px;
                 color: $layout-gray;
                 height: 30%;
+            }
+        }
+    }
+
+    .add-column-modal {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        width: 346px;
+        border-radius: .3em;
+        padding: 8px 32px;
+        position: absolute;
+        right: -40px;
+        top: 14px;
+        min-height: 56px;
+
+        span {
+            padding: 0;
+        }
+
+        .add-column-item {
+            flex-basis: 45%;
+            height: 32px !important;
+            margin: 8px 0px;
+            border-radius: .3em;
+            cursor: pointer;
+            padding-left: 6px;
+            padding-right: 6px;
+
+            &:hover{
+                background-color: $brdr-clr;
+            }
+
+            .icon {
+                width: 20px;
+                height: 20px;
+                border-radius: .3em;
+
+
+                span{
+                    font-size: rem(10px);
+                    position: relative;
+                    right: 11px;
+                    color: white;
+                }
+            }
+
+
+
+            p {
+                padding-left: 6px;
+                text-transform: capitalize;
             }
         }
     }
