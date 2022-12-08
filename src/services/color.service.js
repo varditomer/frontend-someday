@@ -14,44 +14,46 @@ window.bs = colorService
 
 
 function update(type, id, title, value) {
+    const formattedColors = colors()
     if (!id) return add(type, title, value)
-    if (!type || !colors[type] || !value) return Promise.reject('Cannot update label')
-    const idx = colors[type].findIndex(label => label._id === id)
+    if (!type || !formattedColors[type] || !value) return Promise.reject('Cannot update label')
+    const idx = formattedColors[type].findIndex(label => label._id === id)
     if (idx === -1) return Promise.reject('Cannot update label')
-    if (title) colors[type][idx].title = title
-    colors[type][idx].value = value 
-    localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(colors))
-    return colors
+    if (title) formattedColors[type][idx].title = title
+    formattedColors[type][idx].value = value 
+    localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(formattedColors))
+    return formattedColors
 }
 
 function add(type, title, value) {
     if (!type || !title || !value) return Promise.reject('Cannot add label')
-    const colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
-    if (!colors[type]) return Promise.reject('Cannot add label')
+    if (!colors()[type]) return Promise.reject('Cannot add label')
     const newLabel = {
         _id: utilService.makeId(),
         title,
         value
     }
-    colors[type].push(newLabel)
+    const formattedColors = colors()
+    formattedColors[type].push(newLabel)
+    localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(formattedColors))
     return newLabel
 }
 
 async function remove(type, id) {
     if (!type || !id) return Promise.reject('Cannot remove label')
-    const colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
-    if (!colors[type]) return Promise.reject('Cannot remove label')
-    const idx = colors[type].findIndex(label => label._id === id)
+    const formattedColors = colors()
+    if (!formattedColors[type]) return Promise.reject('Cannot remove label')
+    const idx = formattedColors[type].findIndex(label => label._id === id)
     if (idx === -1) return Promise.reject('Cannot remove label')
-    const label = colors[type].splice(idx, 1)[0]
-    localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(colors))
+    const label = formattedColors[type].splice(idx, 1)[0]
+    localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(formattedColors))
     return label
 }
 
 function randomColor(type) {
-    const colorNames = Object.keys(colors[type])
+    const colorNames = Object.keys(colors()[type])
     const idx = utilService.getRandomInt(0, colorNames.length)
-    return colors[type][colorNames[idx]]
+    return colors()[type][colorNames[idx]]
 }
 
 ()=>{
@@ -225,4 +227,6 @@ function randomColor(type) {
     localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(colors))
 }
 
-export const colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
+export function colors(){
+    return JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
+}

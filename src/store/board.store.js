@@ -27,7 +27,7 @@ export const boardStore = {
 
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         colors({ colors }) { return colors },
-        statuses({ statuses }) { return statuses }
+        statuses() { return colors.status }
     },
     mutations: {
         setBoard(state, { boardData }) {
@@ -39,7 +39,7 @@ export const boardStore = {
             state.kanbanBoard = board
         },
         setFilter(state, { filter }) {
-            state.filterBy = filter
+            state.filterBy = { ...state.filterBy, ...filter }
         },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
@@ -131,16 +131,11 @@ export const boardStore = {
                 throw new Error()
             }
         },
-        async queryKanbanBoard(context, payload) {
+        async queryKanbanBoard({ commit, getters }, { filter }) {
             try {
-                const { id } = payload
-                const isFilter = payload.hasOwnProperty('filter')
-                if (isFilter) {
-                    var filter = { ...context.state.filterBy, ...payload.filter }
-                    context.commit({ type: 'setFilter', filter })
-                }
-                const board = await boardService.queryKanbanBoard(id, filter)
-                context.commit({ type: 'setKanbanBoard', board })
+                commit({ type: 'setFilter', filter })
+                const board = await boardService.queryKanbanBoard(filter, getters.board)
+                commit({ type: 'setKanbanBoard', board })
             } catch (err) {
                 console.log('Could not find board');
                 throw new Error()
@@ -181,11 +176,6 @@ export const boardStore = {
 
             }
         },
-        loadStatuses({ commit }) {
-            const data = colors
-            const statuses = data.status
-            commit({ type: 'setStatuses', statuses })
-        },
         saveLabel({ dispatch }, { type, title, value, id }) {
             if (colorService.save(type, title, value, id)) dispatch({ type: loadColors })
 
@@ -195,6 +185,9 @@ export const boardStore = {
         },
         removeLabel({ dispatch }, { type, id }) {
             if (colorService.update(type, id)) dispatch({ type: loadLabels })
+        },
+        loadColors({commit}){
+            commit({type:'setColors', colors: colors()})
         }
     }
 }
