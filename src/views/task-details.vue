@@ -266,7 +266,8 @@ export default {
             if (!this.taskToEdit.imgUrls) this.taskToEdit.imgUrls = []
             this.taskToEdit.imgUrls.unshift(imgUrl)
             const task = JSON.parse(JSON.stringify(this.taskToEdit))
-            this.$store.dispatch({ type: 'saveTask', task })
+            const taskToSave = {task}
+            this.$store.dispatch({ type: 'saveTask', taskToSave })
         },
 
         removeImg(imgIdx) {
