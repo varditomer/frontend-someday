@@ -243,16 +243,14 @@
                 span {
                     visibility: inherit;
                     height: 100%;
-                    padding: 2px    ;
                 }
 
                 .more {
                     &:hover {
                         color: #000;
-
                         background-color: $brdr-clr;
+                        border-radius: 4px;
                         // padding-left: 8px;
-                        border-radius: .2em;
                         cursor: pointer;
                     }
                 }
