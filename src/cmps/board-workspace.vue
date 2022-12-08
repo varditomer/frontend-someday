@@ -18,26 +18,24 @@
                     </div>
                     <div class="workspace-title">Main workspace</div>
                 </div>
-                <span v-svg-icon="'fatMore'" class="more"></span>
             </div>
 
             <div class="workspace-sub-header flex align-center">
-                <div @click="(searchClicked = true)" :class="{ 'input-open': isSearchClicked }"
+                <div @click="(isSearchClicked = true)" :class="{ 'input-open': isSearchClicked }"
                     class="search-container flex align-center">
                     <span v-svg-icon="'search'"></span>
-                    <input @blur="(searchClicked = false)" type="text" @input="setFilter" placeholder="Search" />
+                    <input @blur="(isSearchClicked = false)" type="text" @input="setFilter" placeholder="Search" />
                 </div>
                 <button @click="addBoard" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
                     class="add-board-btn flex center">
-                    <!-- <title-modal :class="{ 'show': showTitle }" :content="'Add board to Workspace'" /> -->
                     <span v-svg-icon="'outlinePlus'"></span>
                 </button>
             </div>
         </div>
 
         <section class="boards-titles-container">
-            <div class="boards-titles flex" v-if="miniBoards" v-for="miniBoard in miniBoardsToShow"
-                :key="miniBoard._id">
+            <div class="boards-titles" v-if="miniBoards" v-for="miniBoard in miniBoardsToShow" :key="miniBoard._id"
+                :class="{ 'selected-board': (miniBoard._id===$route.params.id)}">
                 <router-link :to="('/board/' + miniBoard._id)">
                     <span v-svg-icon="'board'"></span>
                     <p class="board-title">{{ miniBoard.title }}</p>
@@ -62,7 +60,7 @@ export default {
         return {
             showTitle: false,
             isSearchClicked: false,
-            filter: ''
+            filter: '',
         }
     },
     computed: {
@@ -85,10 +83,21 @@ export default {
         },
         toggleWorkspace() {
             this.$emit('toggleWorkspace')
-        }
+        },
+        // isCurrBoard(miniBoardIdx) {
+        //     return miniBoardIdx === this.$route.params.id
+        // }
     },
     components: {
         titleModal
+    },
+    created() {
+
+
+
+    },
+    updated() {
+
     }
 
 }
