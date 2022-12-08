@@ -64,6 +64,8 @@ export default {
         updateLabels(type, id, title = 'New Label', val) {
             colorService.update(type, id, title, val)
             this.$store.dispatch({type: 'loadColors'})
+            this.showColorPicker = false
+
         },
         renderModal(id) {
             this.id = id
