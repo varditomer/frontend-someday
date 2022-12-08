@@ -6,7 +6,7 @@
 
         <section class='board-app-container' :class="{ 'folded': isViewingTask }">
             <regular-modal :selectedTasks="selectedTasksWithColor" @deleteSelectedTasks="deleteSelectedTasks"
-                @duplicateSelectedTasks="duplicateSelectedTasks" :showModal="showModal" :cmp="'task-select-modal'" />
+                @duplicateSelectedTasks="duplicateSelectedTasks" v-if="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"

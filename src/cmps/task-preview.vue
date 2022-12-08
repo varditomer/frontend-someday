@@ -1,7 +1,7 @@
 <template>
     <li class="task-preview" ref="line" :class="{ 'being-edit': areAllChecked || editing || isChecked }" v-click-outside="(unSelectLine)">
         <regular-modal v-if="showModal" :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
-            @closeModal="closeModal" :showModal="showModal" @taskTitleToClipboard="copyToClipboard(task.title)" @linkToClipboard="copyToClipboard(task.link.url)"
+            @closeModal="closeModal" @taskTitleToClipboard="copyToClipboard(task.title)" @linkToClipboard="copyToClipboard(task.link.url)"
             @duplicateTask="duplicateTask" />
 
         <section class="static">

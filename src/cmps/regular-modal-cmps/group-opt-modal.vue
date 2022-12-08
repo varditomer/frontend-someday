@@ -64,11 +64,13 @@ export default {
     props: {
         groupId: String,
         selectedColor: String,
+        name: String,
     },
     data() {
         return {}
     },
-    created() { },
+    created() {
+     },
     computed: {},
     methods: {
         addGroup() {

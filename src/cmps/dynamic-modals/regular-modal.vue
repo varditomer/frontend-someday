@@ -1,12 +1,12 @@
 <template>
-    <section v-if="showModal" @keydown.escape="closeModal" class='regular-modal' v-click-outside="closeModal">
+    <section @keydown.escape="closeModal" class='regular-modal' v-click-outside="closeModal">
         <component @addColumn="addColumn" :cmpsOrder="cmpsOrder" @updateSelection="updateSelection" :idx="idx"
             :selectedTasks="selectedTasks" :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask"
-            :users="users" @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :groupId="groupId"
+            :users="users" @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :id="id"
             @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu"
-            @deleteMultiple="deleteSelectedTasks" @duplicateMultiple="duplicateSelectedTasks" @taskTitleToClipboard="taskTitleToClipboard"
-            @linkToClipboard="linkToClipboard" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask"
-            :target="target" :colors="colors" :name="name"/>
+            @deleteMultiple="deleteSelectedTasks" @duplicateMultiple="duplicateSelectedTasks"
+            @taskTitleToClipboard="taskTitleToClipboard" @linkToClipboard="linkToClipboard"
+            @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :colors="colors" :name="name" />
     </section>
 </template>
 
@@ -24,24 +24,20 @@ export default {
     name: 'regular-modal',
     emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu', 'deleteSelectedTasks', 'duplicateSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup', 'duplicateTask', 'addColumn'], //emit all types of dynamic cmps events
     props: {
-        showModal: {
-            type: Boolean,
-            required: true,
-        },
         cmp: {
-            String,
+            type: String,
             reduired: true,
         },
         users: {
-            Array,
+            type: Array,
             reduired: true,
         },
         filterBy: {
             type: Object,
             required: false
         },
-        groupId: {
-            String,
+        id: {
+            type: String,
             reduired: true,
         },
         selectedTasks: {
@@ -52,12 +48,8 @@ export default {
             type: String,
             reduired: false,
         },
-        colors:{
+        colors: {
             type: Object,
-            required: false
-        },
-        target: {
-            type: String,
             required: false
         },
         idx: {
@@ -74,9 +66,7 @@ export default {
         }
 
     },
-    mounted(){
-        console.log(`this.colors`, this.colors)
-        console.log(`this.name`, this.name)
+    created() {
     },
     methods: {
         closeModal() {
@@ -103,8 +93,9 @@ export default {
         editGroupTitle() {
             this.$emit('editGroupTitle')
         },
-        updateSelection(idx, key, val) {
-            this.$emit('updateSelection', idx, key, val)
+        updateSelection(type, id, title='', value) {
+
+            this.$emit('updateSelection', type, id, title, value)
         },
         propagateMenu() {
             this.$emit('propagateMenu')

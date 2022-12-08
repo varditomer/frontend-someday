@@ -5,13 +5,13 @@
                 <span v-if="isBeingEditted" v-svg-icon="'changeColor'" class="change-color"></span>
             </span>
             <span class="name" :class="{ 'on-edit': isBeingEditted }" :contenteditable="isBeingEditted"
-                @blur="updateLabels(idx, 'title', $event.target.innerText)"
+                @blur="updateLabels(name, label.id, $event.target.innerText, label.value )"
                 @click="updateTask($event.target.innerText)">
                 {{ label.title !== 'Default' ? label.title : isBeingEditted ? 'Default' : '' }}
             </span>
             <!-- <regular-modal :cmp="'color-picker-modal'"  :idx="selectedIdx" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateProperty" /> -->
-            <regular-modal :name="'label'" :cmp="'color-picker-modal'" :idx="selectedIdx"
-                :showModal="(showColorPicker && idx === selectedIdx)" :colors="colors" :selected="''" @updateSelection="updateLabels" />
+            <regular-modal v-if="(showColorPicker && idx === selectedIdx)" :name="name" :cmp="'color-picker-modal'" :idx="selectedIdx"
+                :id="content" :colors="colors" :selected="''" @updateSelection="updateLabels" />
         </div>
         <span class="label-btn flex helper">
             <div class="flex center" @click="toggleEdit">
@@ -24,11 +24,11 @@
 
 <script>
 import regularModal from '../dynamic-modals/regular-modal.vue'
+import {colorService} from '../../services/color.service.js'
 export default {
     name: 'label-picker-modal',
     props: {
         content: String,
-        name: String,
         colors: {
             type: Object,
             required: false
@@ -49,9 +49,6 @@ export default {
             labelTitle: ''
         }
     },
-    mounted(){
-        console.log(`this.name`, this.name)
-    },
     methods: {
         updateTask(val) {
             if (this.isBeingEditted) return
@@ -63,13 +60,10 @@ export default {
             this.isBeingEditted = !this.isBeingEditted
             if (!this.isBeingEditted) this.updateTask(this.labelTitle)
         },
-        updateLabels(labelIdx, key, val) {
-            console.log(`labelIdx`, labelIdx)
-            console.log(`key`, key)
-            console.log(`val`, val)
+        updateLabels(type, id, title = 'New Label', val) {
+            colorService.update(type, id, title, val)
         },
         renderModal(idx) {
-            console.log(`idx`, idx)
             this.showColorPicker = true;
             this.selectedIdx = idx
             this.showColorPicker = true;
@@ -79,10 +73,11 @@ export default {
     computed: {
         getFormattedLabels() {
             return this.colors[this.name].map(label => {
+                
+                const {value, title, _id:id} = label
                 const className = `label ${this.isBeingEditted ? 'on-edit' : ''}`
-                const style = {backgroundColor: label.value}
-                const {title} = label
-                return {className, style, title}
+                const style = {backgroundColor: value}
+                return {className, style, title, id, value}
             })
         },
     },

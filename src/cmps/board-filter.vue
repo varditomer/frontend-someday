@@ -26,7 +26,7 @@
         </div>
 
         <regular-modal :filterBy="filterBy" @filter="setFilter" :users="users" @closeModal="(showModal = false)"
-            :showModal="showModal" :cmp="modalName" @addGroup="addGroup" />
+            v-if="showModal" :cmp="modalName" @addGroup="addGroup" />
 
     </section>
 </template>

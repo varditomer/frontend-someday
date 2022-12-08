@@ -1,12 +1,12 @@
 <template>
     <section class="color-picker">
-        <span v-for="color in formattedColors" class="color-box" :style="color.style" @click="select(color.title)" :title="color.title">
+        <span v-for="color in formattedColors" class="color-box" :style="color.style" @click="select(color.title)"
+            :title="color.title">
         </span>
     </section>
 </template>
 
 <script>
-import { colors } from '../../data/color-picker.js'
 export default {
     name: '',
     emits: ['updateSelection'],
@@ -15,12 +15,16 @@ export default {
             type: String,
             required: false,
         },
-        idx :Number,
+        idx: Number,
         colors: {
             tpye: Object,
             reqiored: true
         },
-        name:{
+        name: {
+            type: String,
+            required: false
+        },
+        id: {
             type: String,
             required: false
         }
@@ -29,27 +33,26 @@ export default {
         return {
         }
     },
-    mounted(){
-        console.log(`colors`, colors)
-        console.log(`this.name`, this.name)
+    created() {
     },
     methods: {
-        select(value){
-            const colors= Object.keys(colors)
-            const colorName = colors.find(key => colors[key] === value)
-            this.$emit('updateSelection', this.idx, 'color', value)
-            this.$emit('updateSelection', this.idx, 'colorName', colorName)
+        select(value) {
+            const color = this.colors.color[value]
+            if (this.name === 'group') return this.$emit('updateSelection', 'style', {color, light: color + '99'}, this.idx)
+            const label =  this.colors[this.name].find(label=>label._id===this.id)
+            this.$emit('updateSelection', this.name, label._id, label.title, color)
         }
     },
     computed: {
         formattedColors() {
-            // if (!this.name || colors) return
-            console.log(`colors[this.name]`, colors)
-            console.log(`this.name`, this.name)
-            const titles = Object.keys(colors)
-            return colors[this.name].map((color, idx) => ({
-                style: {backgroundColor: color.value},
-                title: titles[idx]
+            if (!this.name) return
+            const type = this.name === 'group'
+                ? 'group'
+                : 'label'
+            const titles = Object.keys(this.colors[type])
+            return titles.map(title => ({
+                style: { backgroundColor: this.colors[type][title] },
+                title
             }))
         }
     },

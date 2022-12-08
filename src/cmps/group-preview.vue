@@ -3,10 +3,11 @@
     <section class='group-preview' @keydown.escape="(showModal = false)">
 
 
-        <regular-modal v-if="showModal" :groupId="group._id" :colors="colors" :name="'group'" :selectedColor="group.style.color" :showModal="showModal"
-            @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
+        <regular-modal v-if="showModal" :id="group._id" :colors="colors" 
+            :selectedColor="group.style.color" @closeModal="(showModal = false)"
+            @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
             @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
-            @propagateMenu="showColorPicker = true" @duplicateGroup="duplicateGroup" />
+            @propagateMenu="showColorPicker = true" @duplicateGroup="duplicateGroup" :cmpsOrder="cmpsOrder"/>
 
 
         <section class="group-preview-title">
@@ -32,9 +33,8 @@
                         <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
 
                     </div>
-                    <regular-modal v-if="showModal" class="group-color-picker" :cmp="'color-picker-modal'"
-                        :selectedColor="group.style.color" :showModal="showColorPicker" @updateSelection="saveGroup"
-                        @closeModal="showColorPicker = false" />
+                    <regular-modal v-if="showColorPicker" class="group-color-picker" :cmp="'color-picker-modal'" :colors="colors"
+                        @updateSelection="saveGroup" @closeModal="showColorPicker = false" :name="'group'" />
 
                 </div>
 
@@ -61,9 +61,8 @@
 
         <task-list v-if="viewTasks" @addColumn="addColumn" @toggleSelectAllTasks="toggleSelectAllTasks"
             @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard" :selectedTasks="selectedTasks"
-            :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users"
-             @addGroup="addGroup" @saveTask="saveTask" @removeTask="removeTask"
-            @duplicateTask="duplicateTask" :colors="colors" />
+            :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users" @addGroup="addGroup"
+            @saveTask="saveTask" @removeTask="removeTask" @duplicateTask="duplicateTask" :colors="colors" />
     </section>
 
 </template>
@@ -106,10 +105,7 @@ export default {
         eventBus.on('collapse-single-group', ({ _id, collapseGroup }) => {
             // this.viewTasks = !collapseGroup
             if (this.group._id === _id) this.viewTasks = !collapseGroup
-        }),
-        console.log(`this.colors`, this.colors)
-        console.log(`this.name`, this.name)
-
+        })
     },
     methods: {
         saveBoard(cmpsOrder) {

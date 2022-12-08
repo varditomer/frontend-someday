@@ -5,7 +5,7 @@
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
 
         <section class='board-app-container' :class="{ 'folded': isViewingTask }">
-            <regular-modal :showModal="showModal" :cmp="'task-select-modal'" />
+            <regular-modal v-if="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
             <kanban-group-list />

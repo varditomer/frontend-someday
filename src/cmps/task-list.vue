@@ -23,7 +23,7 @@
                     <span v-if="!showModal" @click="show" v-svg-icon="'add'" class="add-column-btn"></span>
                     <span v-else @click="(showModal = false)" v-svg-icon="'smallExit'" class="close-column-btn"></span>
                     <regular-modal @addColumn="addColumn" :cmpsOrder="cmpsOrder" @closeModal="(showModal = false)"
-                        :showModal="showModal" :cmp="'add-column-modal'" />
+                        v-if="showModal" :cmp="'add-column-modal'" />
                 </div>
             </section>
 

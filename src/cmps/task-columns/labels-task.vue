@@ -1,14 +1,12 @@
 <template>
     <section class="labels" @click="clickToEdit">
         <span class="label-name" :style="getLabel.style">{{ getLabel.title === 'Default' ? '' : getLabel.title }}</span>
-        <triangle-modal v-if="getLabel && show" :content="getLabel.title" :name="name" :additionalDb="additionalDb"
+        <triangle-modal v-if="getLabel && show" :content="content" :name="name"
             @updateTask="updateTask" @hideModal="(show=false)" :cmp="'task-label-modal'" :colors="colors" />
     </section>
 </template>
 
 <script>
-import { labelColors } from '../../data/color-picker.js'
-import { labelTitles } from '../../data/_labelsDB.js'
 import triangleModal from '../dynamic-modals/triangle-modal.vue'
 export default {
     name: 'labels',
@@ -16,10 +14,6 @@ export default {
     props: {
         content: String,
         name: String,
-        additionalDb: {
-            type: Array,
-            required: true
-        },
         colors: {
             type: Object,
             reqiured: true

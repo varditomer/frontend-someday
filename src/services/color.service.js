@@ -13,14 +13,13 @@ export const colorService = {
 window.bs = colorService
 
 
-function update(type, title, value, id) {
+function update(type, id, title, value) {
     if (!id) return add(type, title, value)
-    const colors = query()
-    if (!type || !colors[type] || (!title && !value)) return Promise.reject('Cannot update label')
-    const idx = colors[type].find(label => label._id === id)
+    if (!type || !colors[type] || !value) return Promise.reject('Cannot update label')
+    const idx = colors[type].findIndex(label => label._id === id)
     if (idx === -1) return Promise.reject('Cannot update label')
     if (title) colors[type][idx].title = title
-    if (value) colors[type][idx].value = value
+    colors[type][idx].value = value 
     localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(colors))
     return colors
 }
@@ -50,7 +49,6 @@ async function remove(type, id) {
 }
 
 function randomColor(type) {
-    const colors = query()
     const colorNames = Object.keys(colors[type])
     const idx = utilService.getRandomInt(0, colorNames.length)
     return colors[type][colorNames[idx]]
