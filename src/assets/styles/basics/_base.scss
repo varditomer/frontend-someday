@@ -73,21 +73,21 @@ input[type=checkbox] {
 
 input[type=checkbox]:checked {
     background-color: $primary-blue;
+    &:before {
+        content: '';
+        position: absolute;
+        right: 50%;
+        top: 50%;
+        width: 2px;
+        height: 6px;
+        border: solid #FFF;
+        border-width: 0 2px 2px 0;
+        margin: -1px -1px 0 -1px;
+        transform: rotate(45deg) translate(-50%, -50%);
+        z-index: 2;
+    }
 }
 
-input[type=checkbox]:before {
-    content: '';
-    position: absolute;
-    right: 50%;
-    top: 50%;
-    width: 2px;
-    height: 6px;
-    border: solid #FFF;
-    border-width: 0 2px 2px 0;
-    margin: -1px -1px 0 -1px;
-    transform: rotate(45deg) translate(-50%, -50%);
-    z-index: 2;
-}
 
 // input[type='checkbox'] {
 //     // background:#ff0000;
