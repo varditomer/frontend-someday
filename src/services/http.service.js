@@ -15,12 +15,15 @@ export const httpService = {
         return ajax(endpoint, 'GET', data)
     },
     post(endpoint, data) {
+        console.log(`endpoint:`, endpoint)
+
         return ajax(endpoint, 'POST', data)
     },
     put(endpoint, data) {
         return ajax(endpoint, 'PUT', data)
     },
     delete(endpoint, data) {
+
         return ajax(endpoint, 'DELETE', data)
     }
 }

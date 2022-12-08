@@ -24,14 +24,16 @@
 
     &.ghost,
     .ghost {
-        opacity: 0.2;
+        opacity: 0;
     }
 
-    &.task-dragged,
-    .group-dragged {
-        box-shadow: 0 0 30px 2px black;
+
+    &.sortable-chosen {
         background-color: $clr-white;
-        opacity: 0.9;
+        // transform: rotate(3deg);
+        cursor: grabbing !important;
+
+        &.ghost {}
     }
 
     position: relative;

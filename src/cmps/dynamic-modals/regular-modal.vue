@@ -66,8 +66,6 @@ export default {
         }
 
     },
-    created() {
-    },
     methods: {
         closeModal() {
             this.$emit('closeModal')

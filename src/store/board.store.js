@@ -1,5 +1,5 @@
 import { boardService } from '../services/board.service'
-import { colorService , colors} from '../services/color.service.js'
+import { colorService, colors } from '../services/color.service.js'
 import { router } from '../router.js'
 import { eventBus } from '../services/event-bus.service.js'
 
@@ -75,9 +75,6 @@ export const boardStore = {
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
         },
-        addBoard(state, { board }) {
-            state.boards.push(board)
-        },
         updateBoard(state, { board }) {
             const idx = state.boards.findIndex(c => c.id === board._id)
             state.boards.splice(idx, 1, board)
@@ -88,19 +85,14 @@ export const boardStore = {
         setStatuses(state, { statuses }) {
             state.statuses = statuses
         },
-        addBoardMsg(state, { boardId, msg }) {
-            const board = state.boards.find(board => board._id === boardId)
-            if (!board.msgs) board.msgs = []
-            board.msgs.push(msg)
-        },
-        saveTask(state, { taskToSave }) {
-            const { task, bool } = taskToSave
+        saveTask(state, { savedTask }) {
+            const { task, isFifo } = savedTask
             const groupIdx = state.board.groups.findIndex(group => group._id === task.groupId)
             if (groupIdx === -1) return null
             const taskIdx = state.board.groups[groupIdx].tasks.findIndex(anyTask => anyTask._id === task._id)
             if (taskIdx === -1) {
-                if (bool) state.board.groups[groupIdx].tasks.unshift(task)
-                else state.board.groups[groupIdx].tasks.push(task)
+                if (isFifo) state.board.groups[groupIdx].tasks.push(task)
+                else state.board.groups[groupIdx].tasks.unshift(task)
             } else state.board.groups[groupIdx].tasks[taskIdx] = task
         },
         removeTask(state, { task }) {
@@ -150,10 +142,9 @@ export const boardStore = {
         },
         async addBoard(context) {
             try {
-                const board = await boardService.getEmptyBoard()
-                await context.dispatch({ type: 'loadBoard' })
-                // await context.dispatch({ type: 'loadMiniBoards' })
-                context.commit({ type: 'setBoard', boardData: (board) })
+                const data = await boardService.getEmptyBoard()
+                const { board } = data
+                context.commit({ type: 'setBoard', boardData: data })
                 router.push('/board/' + board._id)
             } catch (err) {
                 console.log('boardStore: Error in addBoard', err)

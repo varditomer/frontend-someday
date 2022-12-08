@@ -1,5 +1,6 @@
 <template>
-    <li class="task-preview" ref="line" :class="{ 'being-edit': areAllChecked || editing || isChecked }" v-click-outside="(unSelectLine)">
+    <li class="task-preview" ref="line" :class="{ 'being-edit': editing || isSelected }"
+        v-click-outside="(unSelectLine)">
         <regular-modal v-if="showModal" :cmp="'task-opt-modal'" @openTask="openTask" @removeTask="removeTask"
             @closeModal="closeModal" @taskTitleToClipboard="copyToClipboard(task.title)" @linkToClipboard="copyToClipboard(task.link.url)"
             @duplicateTask="duplicateTask" />
@@ -9,12 +10,11 @@
                 <span class="hidden" @click="openLineOptionModal" v-svg-icon="'fatMore'"></span>
             </div>
             <span class="task-select" :style="{ 'border-left-color': group.style.color }"
-                :class="{ beingEdit: areAllChecked || editing || isChecked }">
+                :class="{ 'being-edit': editing || isSelected }">
                 <input :checked="isSelected" ref="checkbox" @click="selectTask(task._id)" type="checkbox" />
             </span>
             <router-link class="task-title-container" :to="('/board/' + board._id + '/task/' + task._id)">
-                <div class="task-title-item" :class="{ beingEdit: areAllChecked || editing || isChecked }">
-
+                <div class="task-title-item" :class="{ 'being-edit': editing || isSelected }">
                     <p @blur="updateTask({ key: 'title', val: $event.target.innerText })"
                         @keydown.enter.prevent="updateTask({ key: 'title', val: $event.target.innerText })"
                         @click.prevent="" class="task-title" contenteditable="true" v-html="task.title"></p>
@@ -38,7 +38,6 @@
 import dateTask from './task-columns/date-task.vue'
 import linkTask from './task-columns/link-task.vue'
 import personTask from './task-columns/person-task.vue'
-import shallowTask from './task-columns/shallow-task.vue'
 import labelTask from './task-columns/labels-task.vue'
 import timelineTask from './task-columns/timeline-task.vue'
 import regularModal from './dynamic-modals/regular-modal.vue'
@@ -147,7 +146,6 @@ export default {
         },
         selectTask(taskId) {
             this.$emit('saveSelectedTasks', taskId)
-            this.editing = !this.editing
             this.isChecked = !this.isChecked
         },
         copyToClipboard(data) {
@@ -184,7 +182,6 @@ export default {
         linkTask,
         personTask,
         labelTask,
-        shallowTask,
         timelineTask,
         regularModal,
         numbersTask,
