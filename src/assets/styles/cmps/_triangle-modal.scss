@@ -10,7 +10,7 @@
     top: 36px;
     z-index: 10000;
 
-   
+
 
     .timeline-modal {
 
@@ -38,10 +38,10 @@
             height: 32px;
             margin-top: 8px;
 
-            
-                
-            
-            &:hover .label{
+
+
+
+            &:hover .label {
                 opacity: .9;
             }
 
@@ -68,6 +68,7 @@
                 &:hover {
                     opacity: .9;
                 }
+
                 &.on-edit {
                     width: 24px;
                     height: 24px;
@@ -303,6 +304,7 @@
             height: 60px;
             -webkit-transition: background 0.3s;
             transition: background 0.3s;
+            cursor: pointer;
 
             .icon {
                 display: block;

@@ -82,7 +82,7 @@ function randomColor(type) {
                 },
                 {
                     _id: 'evdf9',
-                    title: 'Default',
+                    title: '',
                     value: '#c4c4c4'
                 },
             ],
@@ -109,7 +109,7 @@ function randomColor(type) {
                 },
                 {
                     _id: 'qwdlk',
-                    title: 'Default',
+                    title: '',
                     value: '#c4c4c4'
                 },
             ],

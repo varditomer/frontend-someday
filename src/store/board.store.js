@@ -1,36 +1,6 @@
 import { boardService } from '../services/board.service'
 import { colorService, colors } from '../services/color.service.js'
 import { router } from '../router.js'
-import { eventBus } from '../services/event-bus.service.js'
-
-export function getActionRemoveBoard(boardId) {
-    return {
-        type: 'removeBoard',
-        boardId
-    }
-}
-
-export function getActionAddBoard(board) {
-    return {
-        type: 'addBoard',
-        board
-    }
-}
-
-export function getActionUpdateBoard(board) {
-    return {
-        type: 'updateBoard',
-        board
-    }
-}
-
-export function getActionAddBoardMsg(boardId) {
-    return {
-        type: 'addBoardMsg',
-        boardId,
-        txt: 'Stam txt'
-    }
-}
 
 export const boardStore = {
     state: {
@@ -70,14 +40,13 @@ export const boardStore = {
         },
         setFilter(state, { filter }) {
             state.filterBy = filter
-
         },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
         },
-        updateBoard(state, { board }) {
-            const idx = state.boards.findIndex(c => c.id === board._id)
-            state.boards.splice(idx, 1, board)
+        updateMiniBoard(state, { board }) {
+            const idx = state.miniBoards.findIndex(mini => mini._id === board._id)
+            state.miniBoards[idx].title = board.title
         },
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
@@ -132,6 +101,7 @@ export const boardStore = {
             try {
                 board.groups.forEach(group => group.tasks.forEach(task => task.groupId = group._id))
                 commit({ type: 'setBoard', boardData: { board } })
+                commit({ type: 'updateMiniBoard', board })
                 board = await boardService.save(board)
                 return board
             } catch (err) {
@@ -139,29 +109,18 @@ export const boardStore = {
                 throw err
             }
         },
-        async addBoard(context) {
+        async addBoard({ commit }) {
             try {
                 const data = await boardService.getEmptyBoard()
                 const { board } = data
-                context.commit({ type: 'setBoard', boardData: data })
+                commit({ type: 'setBoard', boardData: data })
+
                 router.push('/board/' + board._id)
             } catch (err) {
                 console.log('boardStore: Error in addBoard', err)
                 throw err
             }
         },
-        async updateBoard({ commit }, { board }) {
-            try {
-                board = await boardService.save(board)
-                commit({ type: 'setBoard', boardData: { board } })
-                // commit(getActionUpdateBoard(board))
-                return board
-            } catch (err) {
-                console.log('boardStore: Error in updateBoard', err)
-                throw err
-            }
-        },
-
         async queryBoard({ commit }, { filter }) {
             try {
                 commit({ type: 'setFilter', filter })
@@ -171,7 +130,6 @@ export const boardStore = {
                 console.log('Could not find board');
                 throw new Error()
             }
-
         },
         async queryKanbanBoard(context, payload) {
             try {
@@ -215,16 +173,6 @@ export const boardStore = {
                 throw err
             }
         },
-        async addBoardMsg({ commit }, { boardId, txt }) {
-            try {
-                const msg = await boardService.addBoardMsg(boardId, txt)
-                commit({ type: 'addBoardMsg', boardId, msg })
-            } catch (err) {
-                console.log('boardStore: Error in addBoardMsg', err)
-                throw err
-            }
-        },
-        // loadColw
         async getDataMap({ commit }, { boardId }) {
             try {
                 const data = await boardService.getDataMap(boardId)
