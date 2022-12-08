@@ -74,6 +74,10 @@ export default {
         }
 
     },
+    mounted(){
+        console.log(`this.colors`, this.colors)
+        console.log(`this.name`, this.name)
+    },
     methods: {
         closeModal() {
             this.$emit('closeModal')

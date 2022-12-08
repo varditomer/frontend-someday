@@ -3,7 +3,7 @@
     <section class='group-preview' @keydown.escape="(showModal = false)">
 
 
-        <regular-modal v-if="showModal" :groupId="group._id" :selectedColor="group.style.color" :showModal="showModal"
+        <regular-modal v-if="showModal" :groupId="group._id" :colors="colors" :name="'group'" :selectedColor="group.style.color" :showModal="showModal"
             @closeModal="(showModal = false)" @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
             @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
             @propagateMenu="showColorPicker = true" @duplicateGroup="duplicateGroup" />
@@ -106,7 +106,10 @@ export default {
         eventBus.on('collapse-single-group', ({ _id, collapseGroup }) => {
             // this.viewTasks = !collapseGroup
             if (this.group._id === _id) this.viewTasks = !collapseGroup
-        })
+        }),
+        console.log(`this.colors`, this.colors)
+        console.log(`this.name`, this.name)
+
     },
     methods: {
         saveBoard(cmpsOrder) {

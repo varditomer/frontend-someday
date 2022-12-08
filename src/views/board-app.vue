@@ -25,7 +25,7 @@ import groupList from '../cmps/group-list.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
 import { eventBus } from '../services/event-bus.service.js'
-import {colorService} from '../services/color.service.js'
+import {colors} from '../services/color.service.js'
 // import { boardService } from '../services/board.service.local.js'
 
 export default {
@@ -212,7 +212,7 @@ export default {
             return this.$store.getters.filterMap
         },
         colors() {
-            return colorService.query()
+            return colors
         }
 
     },

@@ -7,7 +7,7 @@
                 <group-preview @addColumn="addColumn" @saveSelectedTasks="saveSelectedTasks"
                     :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
                     :key="element._id" @toggleSelectAllTasks="toggleSelectAllTasks"
-                     @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
+                    @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
                     @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup"
                     @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :colors="colors" />
             </template>

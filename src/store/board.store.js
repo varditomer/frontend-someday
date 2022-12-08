@@ -1,5 +1,5 @@
 import { boardService } from '../services/board.service'
-import { colorService } from '../services/color.service.js'
+import { colorService , colors} from '../services/color.service.js'
 import { router } from '../router.js'
 import { eventBus } from '../services/event-bus.service.js'
 
@@ -243,8 +243,8 @@ export const boardStore = {
 
             }
         },
-        async loadStatuses({ commit }) {
-            const data = await colorService.query()
+        loadStatuses({ commit }) {
+            const data = colors
             const statuses = data.status
             commit({ type: 'setStatuses', statuses })
         },

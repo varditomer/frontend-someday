@@ -1,7 +1,7 @@
 <template>
     <section class="task-label-modal">
         <div v-for="(label, idx) in getFormattedLabels" class="color-box" :class="{ 'on-edit': isBeingEditted }">
-            <span :class="label.className" :style="label.style" @click="(renderModal(idx))">
+            <span :class="label.className" :style="label.style" @click="(renderModal(idx, label.title))">
                 <span v-if="isBeingEditted" v-svg-icon="'changeColor'" class="change-color"></span>
             </span>
             <span class="name" :class="{ 'on-edit': isBeingEditted }" :contenteditable="isBeingEditted"
@@ -10,8 +10,8 @@
                 {{ label.title !== 'Default' ? label.title : isBeingEditted ? 'Default' : '' }}
             </span>
             <!-- <regular-modal :cmp="'color-picker-modal'"  :idx="selectedIdx" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateProperty" /> -->
-            <regular-modal :target="'label'" :cmp="'color-picker-modal'" :idx="selectedIdx"
-                :showModal="(showColorPicker && idx === selectedIdx)" :name="name" :colors="colors" :color="''" @updateSelection="updateLabels" />
+            <regular-modal :name="'label'" :cmp="'color-picker-modal'" :idx="selectedIdx"
+                :showModal="(showColorPicker && idx === selectedIdx)" :colors="colors" :selected="''" @updateSelection="updateLabels" />
         </div>
         <span class="label-btn flex helper">
             <div class="flex center" @click="toggleEdit">
@@ -32,6 +32,10 @@ export default {
         colors: {
             type: Object,
             required: false
+        },
+        name: {
+            type: String,
+            required: false
         }
     },
     emits: ['updateTask'],
@@ -41,9 +45,12 @@ export default {
             isBeingEditted: false,
             updatedDb: [],
             selectedIdx: -1,
-            color: '',
+            colorTitle: '',
             labelTitle: ''
         }
+    },
+    mounted(){
+        console.log(`this.name`, this.name)
     },
     methods: {
         updateTask(val) {
@@ -62,9 +69,11 @@ export default {
             console.log(`val`, val)
         },
         renderModal(idx) {
+            console.log(`idx`, idx)
             this.showColorPicker = true;
             this.selectedIdx = idx
             this.showColorPicker = true;
+            this.colorTitle
         }
     },
     computed: {

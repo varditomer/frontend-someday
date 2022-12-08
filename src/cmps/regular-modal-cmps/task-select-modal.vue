@@ -27,12 +27,12 @@
 <script>
 import { eventBus } from '../../services/event-bus.service.js'
 export default {
+    name: 'task-select-modal',
     emits: ['deleteMultiple', 'duplicateMultiple'],
     props: {
         selectedTasks: Array,
-        required: false
+        required: false,
     },
-    name: 'task-select-modal',
     methods: {
         unselectTasks() {
             eventBus.emit('unselectTasks')
