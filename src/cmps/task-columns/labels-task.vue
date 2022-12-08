@@ -1,8 +1,10 @@
 <template>
     <section class="labels" @click="clickToEdit">
-        <span class="label-name" :style="getLabel.style">{{ getLabel.title === 'Default' ? '' : getLabel.title }}</span>
-        <triangle-modal v-if="getLabel && show" :content="content" :name="name"
-            @updateTask="updateTask" @hideModal="(show=false)" :cmp="'task-label-modal'" :colors="colors" />
+        <span class="label-name" :style="getLabel.style">{{ getLabel.title === 'Default' ? '' : getLabel.title }}
+            <span class="fold"></span>
+        </span>
+        <triangle-modal v-if="getLabel && show" :content="content" :name="name" @updateTask="updateTask"
+            @hideModal="(show=false)" :cmp="'task-label-modal'" :colors="colors" />
     </section>
 </template>
 

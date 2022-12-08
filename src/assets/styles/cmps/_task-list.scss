@@ -33,6 +33,7 @@
             .header-task-select {
                 border-top: 1px solid #d0d5e4;
                 border-bottom: 1px solid $brdr-clr;
+                border-top-left-radius: .2em;
 
             }
         }
@@ -109,20 +110,39 @@
             display: flex;
             position: sticky;
             left: 0px;
-            border-bottom: 1px solid $brdr-clr;
+
 
             .task-select {
-                border-bottom: none;
+                border-bottom-left-radius: .2em;
+                border-bottom: 1px solid $brdr-clr;
+                width: 36px;
             }
 
-            .add-task-icon {
+
+            .add-task-sec {
+                display: flex;
                 position: relative;
-                left: 15px;
-            }
+                align-items: center;
+                width: 364px;
+                border-bottom: 1px solid $brdr-clr;
 
-            .add-new-task-inline {
-                text-align: left;
-                padding-left: 15px;
+                .add-task-icon {
+                    position: absolute;
+                    left: 0px;
+                }
+
+                .add-new-task-inline {
+                    text-align: left;
+                    padding-left: 6px;
+                    margin-left: 27px;
+                    border-radius: .2em;
+                    height: 60%;
+
+                    &:focus {
+                        outline: 1px solid $primary-blue;
+                    }
+                }
+
             }
 
             .empty-span {

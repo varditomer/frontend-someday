@@ -5,9 +5,10 @@
         background-color: $fltr-bgc !important;
 
 
-        &:hover{
-            background-color: darken($fltr-bgc,3%) !important;
+        &:hover {
+            background-color: darken($fltr-bgc, 3%) !important;
         }
+
         .content-li:hover {
             background-color: unset;
         }
@@ -19,8 +20,8 @@
             .task-select {
                 background-color: $fltr-bgc !important;
 
-                &:hover{
-                    background-color: darken($fltr-bgc,3%) !important;
+                &:hover {
+                    background-color: darken($fltr-bgc, 3%) !important;
                 }
             }
         }
@@ -303,11 +304,6 @@
             border-top-left-radius: 0.3em;
         }
 
-        .add-task-select {
-            border-bottom-left-radius: 0.3em;
-            border-left: 5px solid lighten($layout-gray, 30%);
-        }
-
         .link {
             @include cellBorderHover;
 
@@ -385,8 +381,33 @@
                 height: 100%;
                 cursor: pointer;
 
+                .fold {
+                    width: 0px;
+                    height: 0px;
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    border-width: 0;
+                    border-style: solid;
+                    background: rgba(0,0,0,.2);
+                    display: block;
+                    /*border-radius:3px 0 0 0;*/
+                    border-color: transparent #fff transparent #fff;
+
+                    -webkit-transition: border-width 0.2s ease-out;
+                    -moz-transition: border-width 0.2s ease-out;
+                    -ms-transition: border-width 0.2s ease-out;
+                    -o-transition: border-width 0.2s ease-out;
+                    transition: border-width 0.2s ease-out;
+                }
+
+
                 &:hover {
                     opacity: 0.9;
+
+                    .fold {
+                        border-width: 0px 10px 10px 0px
+                    }
                 }
             }
         }

@@ -96,11 +96,12 @@
                             outline: 1px solid $primary-blue;
                         }
                     }
+
+                    .options {
+                        height: 36px;
+                    }
                 }
 
-                .options {
-                    height: 36px;
-                }
             }
 
             .dynamic {
@@ -224,6 +225,7 @@
             height: 100%;
             transition: 0.4;
             background-color: white;
+            padding-left: 2px;
 
             svg {
                 color: inherit;
@@ -241,6 +243,7 @@
                 span {
                     visibility: inherit;
                     height: 100%;
+                    padding: 2px    ;
                 }
 
                 .more {
@@ -249,7 +252,7 @@
 
                         background-color: $brdr-clr;
                         // padding-left: 8px;
-                        border-radius: 7px;
+                        border-radius: .2em;
                         cursor: pointer;
                     }
                 }

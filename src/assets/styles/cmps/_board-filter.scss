@@ -115,22 +115,33 @@
         position: relative;
         margin-right: 14px;
 
-        .title-modal{
+        .title-modal {
             width: 135px;
         }
 
+        button {
+            padding-left: 4px;
+
+        }
+
         cursor: pointer;
+
         svg {
             margin-left: 5px;
         }
     }
- 
-    .filter{
+
+    .filter {
         cursor: pointer;
         margin-right: 16px;
+
+        button {
+            padding-left: 2px;
+
+        }
     }
 
-    .sort{
+    .sort {
         cursor: pointer;
     }
 

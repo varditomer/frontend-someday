@@ -7,6 +7,7 @@
                 <span @click="removePerson(person._id)" v-svg-icon="'smallExit'" class="remove-person-btn"></span>
             </div>
         </div>
+        <input v-model="txt" v-focus type="text" class="search-filter-persons" placeholder="Search names">
         <p v-if="personsToAdd.length" class="suggested-persons">Suggested people</p>
         <div class="not-active-persons">
             <div @click="addPerson(person._id)" v-for="person in personsToAdd" class="not-active-person">
@@ -32,14 +33,20 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            usersToAdd: [],
+            txt: ''
+        }
+    },
     computed: {
         personsToAdd() {
             if (!this.content.length) return this.additionalDb
             if (this.additionalDb.length === this.content.length) return []
-            return this.additionalDb.filter(user => {
-                if (this.content.find(p => p._id === user._id)) return false
-                return true
-            })
+            const users = this.additionalDb.filter(user => this.content.find(p => p._id !== user._id))
+            if (!this.txt) return users
+            const regex = new RegExp(this.txt, 'i')
+            return users.filter(user => regex.test(user.fullname))
         }
     },
     methods: {
@@ -58,11 +65,19 @@ export default {
             if (idx === -1) return
             persons.splice(idx, 1)
             this.updateTask(persons)
-            
+
         },
         updateTask(persons) {
             this.$emit('updateTask', { key: 'person', val: persons })
+        },
+        filterPersons() {
+
         }
-    }
+
+
+    },
+    created() {
+
+    },
 }
 </script>
