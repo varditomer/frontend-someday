@@ -31,7 +31,6 @@ function saveToSessionStorage(key, state) {
 }
 
 async function query(filterBy = {}) {
-    console.log(`filterBy:`, filterBy)
     return await httpService.get(BOARD_URL, filterBy)
 }
 
@@ -49,7 +48,6 @@ async function save(board) {
     if (board._id) {
 
         // savedBoard = await storageService.put(STORAGE_KEY, board)
-        console.log(`board`, board)
         savedBoard = await httpService.put(BOARD_URL + board._id, board)
 
     } else {
@@ -68,7 +66,6 @@ async function save(board) {
 
 async function queryKanbanBoard(filterBy = {}) {
     let board = (await query(filterBy)).board
-    // console.log(`board`, board)
     return board.groups.reduce((status, group) => {
         const map = group.tasks.reduce((innerStatus, task) => {
             if (task.status) {

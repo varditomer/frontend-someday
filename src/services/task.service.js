@@ -13,7 +13,6 @@ export const taskService = {
 }
 
 async function save(task, isFifo = true, isDuplicate = false) {
-    console.log(`task:`, task)
     let savedTask
     if (task._id) {
         // savedTask = await storageService.put(STORAGE_KEY, group)

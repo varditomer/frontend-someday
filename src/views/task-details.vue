@@ -246,7 +246,6 @@ export default {
         },
 
         handleFile(ev) {
-            console.log('ev', ev)
             let file
             if (ev.type === 'change') file = ev.target.files[0]
             else if (ev.type === 'drop') file = ev.dataTransfer.files[0]
@@ -258,7 +257,6 @@ export default {
             const res = await uploadImg(file)
             this.saveImg(res.url)
             this.isLoading = false
-            console.log('res:', res)
         },
 
         saveImg(imgUrl) {
@@ -271,7 +269,6 @@ export default {
         },
 
         removeImg(imgIdx) {
-            console.log(`imgIdx:`, imgIdx)
             this.imgUrls.splice(imgIdx, 1)
             this.taskToEdit.imgUrls.splice(imgIdx, 1)
             const task = JSON.parse(JSON.stringify(this.taskToEdit))

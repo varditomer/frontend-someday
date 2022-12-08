@@ -103,8 +103,6 @@ export default {
             this.viewTasks = !collapseGroups
         })
         eventBus.on('collapse-single-group', ({ _id, collapseGroup }) => {
-            console.log(`_id:`, _id)
-            // this.viewTasks = !collapseGroup
             if (this.group._id === _id) this.viewTasks = !collapseGroup
         })
     },
