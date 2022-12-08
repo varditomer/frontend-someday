@@ -31,14 +31,13 @@ export const groupStore = {
             try {
                 await groupService.save(group)
                 commit({ type: 'saveGroup', group })
-                dispatch({ type: 'queryBoard', id: group.boardId, filter: '' })
+                // dispatch({ type: 'queryBoard', id: group.boardId, filter: '' })
                 console.log(`success`)
             } catch (err) {
                 console.log(`Cannot save group`, err)
             }
         },
         async removeGroup({ commit }, { group }) {
-            console.log(`group removing:`, group)
             try {
                 await groupService.remove(group)
                 commit({ type: 'removeGroup', group })
@@ -52,7 +51,6 @@ export const groupStore = {
                 const { _id } = this.getters.board
                 const group = await groupService.add(_id, isFifo)
                 commit({ type: 'addGroup', group, isFifo })
-                // eventBus.emit('reload', this.getters.board)
                 return group
             } catch (err) {
                 console.log(`Cannot add group at store`, err)
@@ -73,7 +71,7 @@ export const groupStore = {
                 const taskIds = getters.selectedTasks
                 const boardId = this.getters.board._id
                 const board = await groupService.removeManyTasks([...taskIds], boardId)
-                commit({ type: 'setBoard', boardData:{board} })
+                commit({ type: 'setBoard', boardData: { board } })
             } catch (err) {
                 console.log(`Cannot delete many tasks at store`, err)
             }

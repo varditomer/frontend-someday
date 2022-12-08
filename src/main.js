@@ -32,3 +32,4 @@ app.use(store)
 app.use(copyText)
 
 app.mount('#app')
+

@@ -1,12 +1,12 @@
 <template>
     <section class="color-picker">
-        <span v-for="color in colors" class="color-box" :style="{  backgroundColor: color  }" @click="select(color)">
+        <span v-for="color in formattedColors" class="color-box" :style="color.style" @click="select(color.title)" :title="color.title">
         </span>
     </section>
 </template>
 
 <script>
-import { groupColors , labelColors } from '../../data/color-picker.js'
+import { colors } from '../../data/color-picker.js'
 export default {
     name: '',
     emits: ['updateSelection'],
@@ -16,28 +16,41 @@ export default {
             required: false,
         },
         idx :Number,
-        target: {
+        colors: {
+            tpye: Object,
+            reqiored: true
+        },
+        name:{
             type: String,
-            required: true
+            required: false
         }
     },
     data() {
         return {
         }
     },
+    mounted(){
+        console.log(`colors`, colors)
+        console.log(`this.name`, this.name)
+    },
     methods: {
         select(value){
-            const colors= Object.keys(this.colors)
-            const colorName = colors.find(key => this.colors[key] === value)
+            const colors= Object.keys(colors)
+            const colorName = colors.find(key => colors[key] === value)
             this.$emit('updateSelection', this.idx, 'color', value)
             this.$emit('updateSelection', this.idx, 'colorName', colorName)
         }
     },
     computed: {
-        colors() {
-            return this.target === 'group'
-                ? groupColors
-                : labelColors
+        formattedColors() {
+            // if (!this.name || colors) return
+            console.log(`colors[this.name]`, colors)
+            console.log(`this.name`, this.name)
+            const titles = Object.keys(colors)
+            return colors[this.name].map((color, idx) => ({
+                style: {backgroundColor: color.value},
+                title: titles[idx]
+            }))
         }
     },
     components: {

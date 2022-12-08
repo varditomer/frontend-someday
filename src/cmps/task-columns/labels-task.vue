@@ -2,7 +2,7 @@
     <section class="labels" @click="clickToEdit">
         <span class="label-name" :style="getLabel.style">{{ getLabel.title === 'Default' ? '' : getLabel.title }}</span>
         <triangle-modal v-if="getLabel && show" :content="getLabel.title" :name="name" :additionalDb="additionalDb"
-            @updateTask="updateTask" @hideModal="(show=false)" :cmp="'task-label-modal'" />
+            @updateTask="updateTask" @hideModal="(show=false)" :cmp="'task-label-modal'" :colors="colors" />
     </section>
 </template>
 

@@ -5,7 +5,6 @@ import { userService } from './user.service.js'
 const COLOR_STORAGE_KEY = 'color_DB'
 
 export const colorService = {
-    query,
     add,
     update,
     remove,
@@ -14,7 +13,50 @@ export const colorService = {
 window.bs = colorService
 
 
-function query() {
+function update(type, title, value, id) {
+    if (!id) return add(type, title, value)
+    const colors = query()
+    if (!type || !colors[type] || (!title && !value)) return Promise.reject('Cannot update label')
+    const idx = colors[type].find(label => label._id === id)
+    if (idx === -1) return Promise.reject('Cannot update label')
+    if (title) colors[type][idx].title = title
+    if (value) colors[type][idx].value = value
+    localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(colors))
+    return colors
+}
+
+function add(type, title, value) {
+    if (!type || !title || !value) return Promise.reject('Cannot add label')
+    const colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
+    if (!colors[type]) return Promise.reject('Cannot add label')
+    const newLabel = {
+        _id: utilService.makeId(),
+        title,
+        value
+    }
+    colors[type].push(newLabel)
+    return newLabel
+}
+
+async function remove(type, id) {
+    if (!type || !id) return Promise.reject('Cannot remove label')
+    const colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
+    if (!colors[type]) return Promise.reject('Cannot remove label')
+    const idx = colors[type].findIndex(label => label._id === id)
+    if (idx === -1) return Promise.reject('Cannot remove label')
+    const label = colors[type].splice(idx, 1)[0]
+    localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(colors))
+    return label
+}
+
+function randomColor(type) {
+    const colors = query()
+    const colorNames = Object.keys(colors[type])
+    const idx = utilService.getRandomInt(0, colorNames.length)
+    return colors[type][colorNames[idx]]
+}
+
+()=>{
     let colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
     colors = colors && colors.length
         ? colors
@@ -42,7 +84,7 @@ function query() {
                 },
                 {
                     _id: 'evdf9',
-                    title: 'Defualt',
+                    title: 'Default',
                     value: '#c4c4c4'
                 },
             ],
@@ -183,49 +225,6 @@ function query() {
             }
         }
     localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(colors))
-    return colors
 }
 
-
-function update(type, title, value, id) {
-    if (!id) return add(type, title, value)
-    const colors = query()
-    if (!type || !colors[type] || (!title && !value)) return Promise.reject('Cannot update label')
-    const idx = colors[type].find(label => label._id === id)
-    if (idx === -1) return Promise.reject('Cannot update label')
-    if (title) colors[type][idx].title = title
-    if (value) colors[type][idx].value = value
-    localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(colors))
-    return colors
-}
-
-function add(type, title, value) {
-    if (!type || !title || !value) return Promise.reject('Cannot add label')
-    const colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
-    if (!colors[type]) return Promise.reject('Cannot add label')
-    const newLabel = {
-        _id: utilService.makeId(),
-        title,
-        value
-    }
-    colors[type].push(newLabel)
-    return newLabel
-}
-
-async function remove(type, id) {
-    if (!type || !id) return Promise.reject('Cannot remove label')
-    const colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
-    if (!colors[type]) return Promise.reject('Cannot remove label')
-    const idx = colors[type].findIndex(label => label._id === id)
-    if (idx === -1) return Promise.reject('Cannot remove label')
-    const label = colors[type].splice(idx, 1)[0]
-    localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(colors))
-    return label
-}
-
-async function randomColor(type) {
-    const colors = await query()
-    const colorNames = Object.keys(colors[type])
-    const idx = utilService.getRandomInt(0, colorNames.length)
-    return colors[type][colorNames[idx]]
-}
+export const colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))

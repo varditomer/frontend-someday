@@ -5,13 +5,6 @@ export const taskStore = {
         return {
             selectedTasks: [],
             selectedTaskColors: [],
-            priorities: [
-                { title: 'Critical', color: '#333333', colorName: '$clr-blackish' },
-                { title: 'High', color: '#401694', colorName: '$clr-dark-indigo' },
-                { title: 'Medium', color: '#5559df', colorNmae: '$clr-indigo' },
-                { title: 'Low', color: '#579bfc', colorName: '$clr-bright-blue' },
-                { title: 'Default', color: '#c4c4c4', colorName: '$clr-explosive' }
-            ],
         }
     },
     mutations: {
@@ -36,7 +29,6 @@ export const taskStore = {
         }
     },
     getters: {
-        priorities({ priorities }) { return priorities },
         selectedTasks({ selectedTasks }) { return selectedTasks },
     },
     actions: {
@@ -71,24 +63,12 @@ export const taskStore = {
         async duplicateMultipleTasks({ commit }, { tasks }) {
             try {
                 const duplicatedTasks = await taskService.duplicateMultiple(tasks)
-                duplicatedTasks.forEach(duplicatedTask=> {
+                duplicatedTasks.forEach(duplicatedTask => {
                     const taskToSave = { task: duplicatedTask, bool: true }
                     commit({ type: 'saveTask', taskToSave })
                 })
             } catch (err) {
                 console.log(`Cannot duplicate task: ${err}`)
-            }
-        },
-        async saveEmptyTask({ commit, getters }) {
-            try {
-                const groupId = getters.board.groups[0]._id
-                const boardId = getters.board._id
-                const task = await taskService.newTask(groupId, boardId)
-                const taskToSave = { task, bool: true }
-                commit({ type: 'saveTask', taskToSave })
-                return task
-            } catch (err) {
-                console.log(`Cannot save task: ${err}`)
             }
         },
         async removeTask({ commit }, { task }) {

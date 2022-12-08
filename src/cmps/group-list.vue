@@ -6,8 +6,8 @@
             <template #item="{ element }">
                 <group-preview @addColumn="addColumn" @saveSelectedTasks="saveSelectedTasks"
                     :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
-                    :key="element._id" :priorities="priorities" @toggleSelectAllTasks="toggleSelectAllTasks"
-                    :statuses="statuses" @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
+                    :key="element._id" @toggleSelectAllTasks="toggleSelectAllTasks"
+                    @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
                     @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup"
                     @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :colors="colors" />
             </template>
@@ -34,14 +34,6 @@ export default {
     props: {
         users: Array,
         board: Object,
-        priorities: {
-            type: Array,
-            required: true
-        },
-        statuses: {
-            type: Array,
-            required: true
-        },
         selectedTasks: {
             type: Array,
             required: false

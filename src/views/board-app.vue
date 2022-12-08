@@ -12,8 +12,7 @@
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
                 :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
                 @duplicateTask="duplicateTask" @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard"
-                @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" :board="board" :priorities="priorities"
-                :statuses="statuses" :colors="colors" />
+                @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" :board="board" :colors="colors" />
         </section>
 
         <router-view />
@@ -26,6 +25,7 @@ import groupList from '../cmps/group-list.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
 import { eventBus } from '../services/event-bus.service.js'
+import {colors} from '../services/color.service.js'
 // import { boardService } from '../services/board.service.local.js'
 
 export default {
@@ -53,14 +53,12 @@ export default {
     methods: {
         saveTask(task, activity) {
             const taskToSave = { task, bool: false }
-            this.$store.commit({ type: 'saveTask', taskToSave })
-            this.$store.dispatch({ type: 'saveActivity', activity })
+            // this.$store.commit({ type: 'saveTask', taskToSave })
+            // this.$store.dispatch({ type: 'saveActivity', activity })
             this.$store.dispatch({ type: 'saveTask', task })
         },
         saveBoard(board) {
-            console.log(`board`, board)
-            console.log(`this.$store.getters.board`, this.$store.getters.board)
-            this.$store.commit({ type: 'setBoard', boardData:{board} })
+            this.$store.commit({ type: 'setBoard', boardData: { board } })
             this.$store.dispatch({ type: 'saveBoard', board })
         },
         removeTask(task) {
@@ -72,7 +70,14 @@ export default {
             await this.$store.dispatch({ type: 'duplicateTask', task })
         },
         async saveEmptyTask() {
-            await this.$store.dispatch({ type: 'saveEmptyTask' })
+            const task = {
+                groupId: this.board.groups[0]._id,
+                boardId: this.board._id,
+                title: 'Item 1'
+            }
+            const taskToSave = { task, bool: true }
+            // this.$store.commit({ type: 'saveTask', taskToSave })
+            this.$store.dispatch({ type: 'saveTask', task })
         },
         addBoard() {
             this.$store.dispatch({ type: 'addBoard' })
@@ -127,7 +132,6 @@ export default {
                     })
                 })
             })
-            console.log(`tasks:`, tasks)
             await this.$store.dispatch({ type: 'duplicateMultipleTasks', tasks })
         },
         async unselectTasks() {
@@ -184,12 +188,6 @@ export default {
         board() {
             return this.$store.getters.board
         },
-        priorities() {
-            return this.$store.getters.priorities
-        },
-        statuses() {
-            return this.$store.getters.statuses
-        },
         isWorkspaceCollapsed() {
             return this.$store.getters.isWorkspaceCollapsed
         },
@@ -214,14 +212,14 @@ export default {
             return this.$store.getters.filterMap
         },
         colors() {
-            return this.$store.getters.colors
+            return colors
         }
 
     },
     async created() {
         const { id } = this.$route.params
         try {
-            await this.$store.dispatch({ type: 'queryBoard', filter:{id} })
+            await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
         } catch (err) {
             this.$router.push('/')
         }
