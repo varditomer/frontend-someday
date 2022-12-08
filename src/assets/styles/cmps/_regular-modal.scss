@@ -9,34 +9,35 @@
         background: $clr-white;
         box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
     }
-    &.new-item-modal-parent{
-        top:42px;
+    &.new-item-modal-parent {
+        position: fixed;
+        top: 42px;
         left: 75px;
     }
-    &.filter-person-modal-parent{
-        top:42px;
+    &.filter-person-modal-parent {
+        top: 42px;
         left: 44px;
     }
     &.multi-filter-modal-parent {
-        top:42px;
+        top: 42px;
     }
     &.task-select-modal-parent {
         top: 89vh;
         left: calc(50vw - 160px - 300px);
     }
-    &.task-opt-modal-parent , &.group-opt-modal-parent{
+    &.task-opt-modal-parent,
+    &.group-opt-modal-parent {
         left: 11px;
-        top: 36px; 
-    } 
+        top: 36px;
+    }
     &.add-columns-modal-parent {
         right: 2px;
-        top: 32px; 
-    } 
+        top: 32px;
+    }
     &.add-columns-modal-parent {
         right: 2px;
-        top: 32px; 
-    } 
-
+        top: 32px;
+    }
 
     .multi-filter-modal {
         top: 38px;
@@ -284,6 +285,8 @@
     }
 
     .task-opt-modal {
+        position: fixed;
+        left: 330px;
         .upper-group {
             border-bottom: 1px solid $hr-clr;
         }
@@ -295,9 +298,10 @@
     }
 
     .group-opt-modal {
-        top: 40px;
+        position: fixed;
+        left: 330px;
 
-        >* {
+        > * {
             div {
                 p {
                     margin-top: 1px;
@@ -337,7 +341,6 @@
     }
 
     &.group-color-picker {
-
         z-index: 50000;
 
         .color-picker {
@@ -418,7 +421,7 @@
         align-items: center;
         height: 100%;
 
-        >* {
+        > * {
             width: 63px;
             height: 100%;
         }
