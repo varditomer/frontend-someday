@@ -30,12 +30,8 @@
             </section>
 
         </li>
-<<<<<<< HEAD
 
         <draggable v-model="group.tasks" ghost-class="ghost" animation="200" @start="( this.beingDragged = true)" @drag=" this.beingDragged = true"
-=======
-        <draggable v-model="group.tasks" ghost-class="ghost-style" animation="200" @start="beingDragged = true"
->>>>>>> c0f91883e033f6c94bfc2e9472b523b383d0f821
             :class="{ 'task-dragged': beingDragged }" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
