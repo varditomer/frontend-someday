@@ -24,7 +24,7 @@
                 <div class="add-columns">
                     <span v-if="!showModal" @click="show" v-svg-icon="'add'" class="add-column-btn"></span>
                     <span v-else @click="(showModal = false)" v-svg-icon="'smallExit'" class="close-column-btn"></span>
-                    <regular-modal @addColumn="addColumn" :cmpsOrder="cmpsOrder" @closeModal="(showModal = false)"
+                    <regular-modal class="add-columns-modal-parent" @addColumn="addColumn" :cmpsOrder="cmpsOrder" @closeModal="(showModal = false)"
                         v-if="showModal" :cmp="'add-column-modal'" />
                 </div>
             </section>

@@ -6,15 +6,13 @@
             </div>
         </section>
         <section class="dynamic">
-            
+
             <section v-for="html in getHtmlSumData" v-html="(html)" class="footer-section flex center"></section>
         </section>
     </li>
 </template>
 
 <script>
-import { groupColors } from '../data/color-picker.js'
-import { labelTitles } from '../data/_labelsDB.js'
 export default {
     name: '',
     props: {
@@ -122,7 +120,7 @@ export default {
                             const labelObj = this.colors[column]
                                 ? this.colors[column].find(anyLabel => anyLabel._id === label)
                                 : null
-                            const backgroundColor = labelObj?.value || 'white'
+                            const backgroundColor = labelObj?.value || '#c4c4c4'
                             htmlStr += `<div class="label" style="width:${width}; background-color: ${backgroundColor || 'transparent'}"
                                     ></div>`
                         }

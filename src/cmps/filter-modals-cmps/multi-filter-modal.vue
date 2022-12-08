@@ -7,7 +7,7 @@
             </div>
             <div class="right-section">
                 <div class="clear-all">
-                    <span :class="{ 'bold': isFlittered }">clear all</span>
+                    <span @click="" :class="{ 'bold': isFlittered }">Clear all</span>
                 </div>
             </div>
 
@@ -18,147 +18,13 @@
                 <h2>All columns</h2>
             </div>
             <div class="filter-groups">
-                <div class="filter-col">
-                    <div class="title">Group</div>
-                    <div class="content flex column">
-                        <div class="filter-item">Top group</div>
-                        <div class="filter-item">Bugs</div>
-                        <div class="filter-item">Details</div>
-                        <div class="filter-item">Workspace</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                    </div>
-                </div>
-                <div class="filter-col">
-                    <div class="title">Group</div>
-                    <div class="content flex column">
-                        <div class="filter-item">Top group</div>
-                        <div class="filter-item">Bugs</div>
-                        <div class="filter-item">Details</div>
-                        <div class="filter-item">Workspace</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                    </div>
-                </div>
-                <div class="filter-col">
-                    <div class="title">Group</div>
-                    <div class="content flex column">
-                        <div class="filter-item">Top group</div>
-                        <div class="filter-item">Bugs</div>
-                        <div class="filter-item">Details</div>
-                        <div class="filter-item">Workspace</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                    </div>
-                </div>
-                <div class="filter-col">
-                    <div class="title">Group</div>
-                    <div class="content flex column">
-                        <div class="filter-item">Top group</div>
-                        <div class="filter-item">Bugs</div>
-                        <div class="filter-item">Details</div>
-                        <div class="filter-item">Workspace</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                    </div>
-                </div>
-                <div class="filter-col">
-                    <div class="title">Group</div>
-                    <div class="content flex column">
-                        <div class="filter-item">Top group</div>
-                        <div class="filter-item">Bugs</div>
-                        <div class="filter-item">Details</div>
-                        <div class="filter-item">Workspace</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                    </div>
-                </div>
-                <div class="filter-col">
-                    <div class="title">Group</div>
-                    <div class="content flex column">
-                        <div class="filter-item">Top group</div>
-                        <div class="filter-item">Bugs</div>
-                        <div class="filter-item">Details</div>
-                        <div class="filter-item">Workspace</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                    </div>
-                </div>
-                <div class="filter-col">
-                    <div class="title">Group</div>
-                    <div class="content flex column">
-                        <div class="filter-item">Top group</div>
-                        <div class="filter-item">Bugs</div>
-                        <div class="filter-item">Details</div>
-                        <div class="filter-item">Workspace</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                    </div>
-                </div>
-                <div class="filter-col">
-                    <div class="title">Group</div>
-                    <div class="content flex column">
-                        <div class="filter-item">Top group</div>
-                        <div class="filter-item">Bugs</div>
-                        <div class="filter-item">Details</div>
-                        <div class="filter-item">Workspace</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                        <div class="filter-item">Task preview</div>
-                        <div class="filter-item">Modals</div>
-                        <div class="filter-item">For thursday</div>
-                        <div class="filter-item">General</div>
-                    </div>
-                </div>
+                <multi-filter-column v-for="i in 5" />
             </div>
         </section>
     </section>
 </template>
 <script>
+import multiFilterColumn from './multi-filter-column.vue'
 export default {
     name: 'multi-filter-modal',
     props: {},
@@ -173,7 +39,13 @@ export default {
 
     },
     computed: {},
-    methods: {},
-    components: {}
+    methods: {
+        // uncheckAllFilters(
+        //     this.
+        // )
+    },
+    components: {
+        multiFilterColumn
+    }
 }
 </script>

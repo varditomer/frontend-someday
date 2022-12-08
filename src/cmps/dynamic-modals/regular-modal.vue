@@ -68,52 +68,81 @@ export default {
     },
     methods: {
         closeModal() {
+            console.log(`close:`, )
             this.$emit('closeModal')
         },
         openTask() {
             this.$emit('openTask')
+            this.$emit('closeModal')
+
         },
         removeTask() {
             this.$emit('removeTask')
+            this.$emit('closeModal')
+
         },
         duplicateTask() {
             this.$emit('duplicateTask')
+            this.$emit('closeModal')
+
         },
         addGroup() {
             this.$emit('addGroup')
+            this.$emit('closeModal')
+
         },
         removeGroup() {
             this.$emit('removeGroup')
+            this.$emit('closeModal')
+
         },
         filter(filterBy) {
             this.$emit('filter', filterBy)
+            // this.$emit('closeModal')
+
         },
         editGroupTitle() {
             this.$emit('editGroupTitle')
+            this.$emit('closeModal')
+
         },
         updateSelection(type, id, title='', value) {
             this.$emit('updateSelection', type, id, title, value)
         },
         propagateMenu() {
             this.$emit('propagateMenu')
+            this.$emit('closeModal')
+
         },
         deleteSelectedTasks() {
             this.$emit('deleteSelectedTasks')
+            this.$emit('closeModal')
+
         },
         duplicateSelectedTasks() {
             this.$emit('duplicateSelectedTasks')
+            this.$emit('closeModal')
+
         },
         taskTitleToClipboard() {
             this.$emit('taskTitleToClipboard')
+            this.$emit('closeModal')
+
         },
         linkToClipboard() {
             this.$emit('linkToClipboard')
+            this.$emit('closeModal')
+
         },
         duplicateGroup() {
             this.$emit('duplicateGroup')
+            this.$emit('closeModal')
+
         },
         addColumn(cmp) {
             this.$emit('addColumn', cmp)
+            this.$emit('closeModal')
+
         }
     },
     components: { //specify each dynamic cmps thats created

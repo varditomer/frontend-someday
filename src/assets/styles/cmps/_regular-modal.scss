@@ -1,9 +1,45 @@
 .regular-modal {
     z-index: 100000;
-
     position: absolute;
+    height: fit-content;
+    width: fit-content;
+    //need to set position and other prefs. at children cmp
+    > * {
+        z-index: 10000;
+        background: $clr-white;
+        box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
+    }
+    &.new-item-modal-parent {
+        position: fixed;
+        top: 42px;
+        left: 75px;
+    }
+    &.filter-person-modal-parent {
+        top: 42px;
+        left: 44px;
+    }
+    &.multi-filter-modal-parent {
+        top: 42px;
+    }
+    &.task-select-modal-parent {
+        top: 89vh;
+        left: calc(50vw - 160px - 300px);
+    }
+    &.task-opt-modal-parent,
+    &.group-opt-modal-parent {
+        left: 11px;
+        top: 36px;
+    }
+    &.add-columns-modal-parent {
+        right: 2px;
+        top: 32px;
+    }
+    &.add-columns-modal-parent {
+        right: 2px;
+        top: 32px;
+    }
+
     .multi-filter-modal {
-        position: absolute;
         top: 38px;
         left: 0px;
         border-radius: 8px;
@@ -13,24 +49,28 @@
         height: 378px;
         font-size: 14px;
         padding: 0 24px 0;
+
         .multi-filter-header {
             padding: 16px 0;
             align-items: center;
             justify-content: space-between;
             width: 100%;
             height: 64px;
+
             .left-section {
                 .title {
                     font-size: rem(16px);
                     display: inline;
                     font-family: roboto-medium;
                 }
+
                 span {
                     font-size: rem(14px);
                     margin-left: 8px;
                     font-family: roboto-thin;
                 }
             }
+
             .right-section {
                 .clear-all {
                     height: 100%;
@@ -38,9 +78,11 @@
                     padding: 7.5px 0;
                     text-align: center;
                     cursor: pointer;
+
                     &:hover {
                         background-color: $brdr-clr;
                     }
+
                     border-radius: 0.4em;
 
                     span {
@@ -55,10 +97,12 @@
 
         .filter-area {
             padding: 8px 0 24px;
+
             .filter-area-title {
                 display: flex;
                 margin-bottom: 8px;
                 align-items: center;
+
                 h2 {
                     display: flex;
                     align-items: center;
@@ -68,31 +112,37 @@
                     height: 26px;
                 }
             }
+
             .filter-groups {
                 display: grid;
                 grid-auto-columns: 150px;
                 grid-auto-flow: column;
                 overflow: auto;
                 height: 240px;
+
                 &::-webkit-scrollbar {
                     height: 8px;
-                    border-radius: 15px;
                     padding-top: 10px;
                 }
-                &::-webkit-scrollbar-thumb{ border-radius: 15px; }
+                &::-webkit-scrollbar-thumb {
+                    border-radius: 15px;
+                }
 
                 gap: 16px;
+
                 .title {
                     height: 34px;
                     display: flex;
                     align-items: center;
                     margin-bottom: 4px;
                 }
+
                 .content {
                     overflow-y: auto;
                     max-height: 188px;
                     gap: 6px;
                 }
+
                 // .multi-filter-column {
 
                 // }
@@ -105,20 +155,13 @@
                     cursor: pointer;
                     border-radius: 4px;
                     background-color: #f5f6f8;
+
                     &:hover {
                         background-color: #dcdfec;
                     }
                 }
             }
         }
-    }
-
-    //need to set position and other prefs. at children cmp
-    > * {
-        z-index: 10;
-        background: $clr-white;
-        position: absolute;
-        box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
     }
 
     .color-picker {
@@ -128,6 +171,7 @@
         left: 12px;
         top: 300px;
         background-color: white;
+
         .color-box {
             width: 24px;
             height: 24px;
@@ -241,8 +285,8 @@
     }
 
     .task-opt-modal {
-        top: 36px;
-
+        position: fixed;
+        left: 330px;
         .upper-group {
             border-bottom: 1px solid $hr-clr;
         }
@@ -254,7 +298,8 @@
     }
 
     .group-opt-modal {
-        top: 40px;
+        position: fixed;
+        left: 330px;
 
         > * {
             div {
@@ -297,11 +342,15 @@
 
     &.group-color-picker {
         z-index: 50000;
+
         .color-picker {
-            top: 20px;
+            position: absolute;
+            top: 19px;
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 8px;
+            left: 72px;
+            cursor: pointer;
 
             .color-box {
                 @include little-box;
@@ -427,7 +476,6 @@
         width: 346px;
         border-radius: 0.3em;
         padding: 8px 32px;
-        position: absolute;
         right: -40px;
         top: 14px;
         min-height: 56px;

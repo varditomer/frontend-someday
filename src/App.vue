@@ -4,7 +4,6 @@
 </template>
 
 <script>
-import { store } from './store/store'
 import userMsg from './cmps/user-msg.vue'
 import { userService } from './services/user.service'
 
