@@ -130,11 +130,20 @@
             height: 100%;
             width: 184px;
 
+            &.input-open {
+                outline: 1px solid $primary-blue;
+            }
+            &:hover {
+                outline: 1px solid $layout-black;
+
+            }
+
             input {
                 background-color: transparent;
                 height: 100%;
                 padding: 0 0 0 2px;
                 color: $layout-black;
+
             }
 
             svg {

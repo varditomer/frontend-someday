@@ -22,7 +22,7 @@ export const boardStore = {
         boardsTitles({ boardsTitles }) { return boardsTitles.map(board => board.title) },
         miniBoards({ miniBoards }) { return miniBoards },
         filterBy({ filterBy }) { return filterBy },
-        filterMap({ board }) { return board.dataMap },
+        dataMap({ dataMap }) { return dataMap },
         kanbanBoard({ kanbanBoard }) { return kanbanBoard },
 
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
@@ -125,6 +125,7 @@ export const boardStore = {
         },
         async queryBoard({ commit }, { filter }) {
             try {
+                console.log(filter)
                 commit({ type: 'setFilter', filter })
                 const boardData = await boardService.query(filter)
                 commit({ type: 'setBoard', boardData })
