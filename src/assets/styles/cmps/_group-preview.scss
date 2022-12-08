@@ -24,7 +24,30 @@
 
     &.ghost,
     .ghost {
-        opacity: 0;
+        opacity: .3;
+        background-color: transparent;
+        fill: transparent;
+
+        .dynamic {
+            border-top: 1px $layout-black dashed;
+            border-bottom: 1px $layout-black dashed;
+            border-right: 1px $layout-black dashed;
+        }
+
+        .static {
+            .task-select {
+                border-top: 1px $layout-black dashed;
+                border-bottom: 1px $layout-black dashed;
+                border-left: 1px $layout-black dashed;
+            }
+
+            .task-title-container {
+                border-top: 1px $layout-black dashed;
+                border-bottom: 1px $layout-black dashed;
+
+
+            }
+        }
     }
 
 
@@ -33,7 +56,6 @@
         // transform: rotate(3deg);
         cursor: grabbing !important;
 
-        &.ghost {}
     }
 
     position: relative;

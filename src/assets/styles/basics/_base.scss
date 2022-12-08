@@ -73,6 +73,7 @@ input[type=checkbox] {
 
 input[type=checkbox]:checked {
     background-color: $primary-blue;
+
     &:before {
         content: '';
         position: absolute;
@@ -87,28 +88,6 @@ input[type=checkbox]:checked {
         z-index: 2;
     }
 }
-
-
-// input[type='checkbox'] {
-//     // background:#ff0000;
-//     appearance: none;
-//     // background-color: #fafafa;
-//     border: 1px solid #cacece;
-//     padding: 7px;
-//     border-radius: 3px;
-//     display: inline-block;
-//     position: relative;
-
-//     &:checked {
-//         background-color: $primary-blue;
-//         border: 1px solid #adb8c0;
-//         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
-//         color: #99a1a7;
-//         // &::after{
-//         //     content: 'X';
-//         // }
-//     }
-// }
 
 
 input:focus {
