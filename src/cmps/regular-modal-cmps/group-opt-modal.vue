@@ -62,7 +62,7 @@ export default {
     name: 'group-opt-modal',
     emits: ['addGroup', 'editGroupTitle', 'removeGroup','propagateMenu', 'duplicateGroup'],
     props: {
-        groupId: String,
+        id: String,
         selectedColor: String,
         name: String,
     },
@@ -77,12 +77,10 @@ export default {
             this.$emit('addGroup')
         },
         collapseAllGroups() {
-            console.log(`im here:`,)
             eventBus.emit('collapse-groups', true)
         },
         collapseGroup() {
-            console.log(`im here:`,)
-            eventBus.emit('collapse-single-group', { _id: this.groupId, collapseGroup: true })
+            eventBus.emit('collapse-single-group', { _id: this.id, collapseGroup: true })
         },
         editGroupTitle() {
             this.$emit('editGroupTitle')
