@@ -3,14 +3,14 @@
     padding: $layout-padding;
     border-right: 1px solid $brdr-clr;
     position: relative;
-    transition: right .2s;
+    transition: right 0.2s;
     z-index: 10;
-    border-top-left-radius: .3em;
+    border-top-left-radius: 0.3em;
 
     &.collapsed {
         right: 0px;
 
-        >* {
+        > * {
             opacity: 0;
             left: -230px;
             position: absolute;
@@ -21,20 +21,16 @@
             left: 15px;
             z-index: 50;
 
-
             &:hover {
                 background-color: $primary-blue;
 
                 span {
                     svg {
                         padding-left: 8px;
-
                     }
-
                 }
             }
         }
-
     }
 
     .toggle-workspace-div {
@@ -45,9 +41,9 @@
         border-radius: 2em;
         position: absolute;
         right: -15px;
-        top: 20px;
+        top: 23px;
         cursor: pointer;
-        transition: .1s;
+        transition: 0.1s;
         transition-timing-function: ease-out;
 
         z-index: 50;
@@ -68,7 +64,6 @@
                     fill: white;
                 }
             }
-
         }
     }
 
@@ -79,7 +74,7 @@
         .workspace-dropdown-container {
             gap: 8px;
             padding: 6px;
-            border-radius: .4em;
+            border-radius: 0.4em;
             cursor: pointer;
 
             &:hover {
@@ -129,13 +124,13 @@
             border-radius: 4px;
             height: 100%;
             width: 184px;
+            padding-left: 3px;
 
             &.input-open {
                 outline: 1px solid $primary-blue;
             }
             &:hover {
-                outline: 1px solid $layout-black;
-
+                outline: 1px solid $primary-brand;
             }
 
             input {
@@ -143,16 +138,12 @@
                 height: 100%;
                 padding: 0 0 0 2px;
                 color: $layout-black;
-
             }
 
             svg {
-                fill: lighten($layout-black, 20%);
+                fill: lighten($layout-black, 15%);
+                scale: 0.9;
             }
-        }
-
-        .search-container:hover {
-            border: 1px solid $primary-brand;
         }
 
         .add-board-btn {
@@ -176,34 +167,39 @@
                 background-color: (darken($primary-blue, 8%));
             }
         }
-
     }
 
     .boards-titles-container {
         cursor: pointer;
         padding-top: 10px;
+        height: 60%;
+        overflow-y: auto;
 
         .boards-titles {
+            border-radius: 0.2em;
+            height: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            &:hover {
+                background-color: darken($wrkspce-bgc, 8%);
+            }
+            &.selected-board {
+                background-color: $fltr-bgc;
+            }
+
             a {
                 display: flex;
-                border-radius: .2em;
                 width: 100%;
-                height: 32px;
 
-                >* {
+                > * {
                     display: flex;
                     align-items: center;
                     padding: 6px;
                     font-size: rem(14px);
-
-                }
-
-                &:hover {
-                    background-color: darken($wrkspce-bgc, 8%);
                 }
             }
-
         }
-
     }
 }
