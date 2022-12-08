@@ -59,7 +59,9 @@ export default {
     },
     computed: {
         users() { return this.$store.getters.users },
-        kanbanBoard() { return this.$store.getters.kanbanBoard },
+        kanbanBoard() { 
+            console.log(`this.$store.getters.kanbanBoard`, this.$store.getters.kanbanBoard)
+            return this.$store.getters.kanbanBoard },
         statuses() { return this.$store.getters.statuses },
     },
     methods: {

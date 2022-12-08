@@ -27,7 +27,7 @@ export const boardStore = {
 
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         colors({ colors }) { return colors },
-        statuses() { return colors.status }
+        statuses() { return colors().status }
     },
     mutations: {
         setBoard(state, { boardData }) {
