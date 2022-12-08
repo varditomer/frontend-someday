@@ -68,7 +68,6 @@ export default {
     },
     methods: {
         closeModal() {
-            console.log(`close:`, )
             this.$emit('closeModal')
         },
         openTask() {

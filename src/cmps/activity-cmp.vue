@@ -38,7 +38,6 @@ export default {
         },
         getIcon() {
             const type = this.activity.type
-            console.log(type);
             switch (type) {
                 case 'status': return 'board'
                 case 'priority': return 'board'

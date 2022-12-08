@@ -37,7 +37,6 @@ export default {
             this.isEditing = false
         },
         updateTask() {
-            console.log(`this.text:`, this.text)
             this.setNotEditing()
             if (!this.text) return
             this.$emit('updateTask', { key: 'text', val: this.text })
