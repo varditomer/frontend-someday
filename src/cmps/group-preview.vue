@@ -123,7 +123,7 @@ export default {
         duplicateTask(task) {
             this.$emit('duplicateTask', task)
         },
-        saveGroup(val, prop) {
+        saveGroup(prop, val) {
             this.showColorPicker = false;
             this.group[prop] = val
             this.$emit('saveGroup', this.group)

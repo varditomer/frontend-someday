@@ -7,30 +7,33 @@ export const groupStore = {
         }
     },
     mutations: {
-        setGroups(state, { groups }) {
-            state.groups = groups
-        },
-        saveGroup(state, { group }) {
-            if (group._id) var idx = state.groups.findIndex(anyGroup => anyGroup._id === group._id)
-            else return this.groups.unshift(group)
-            if (idx === -1) return
-            state.groups[idx] = group
-        },
+        // setGroups(state, { groups }) {
+        //     state.groups = groups
+        // },
+        // saveGroup(state, { group }) {
+        //     if (group._id) var idx = state.groups.findIndex(anyGroup => anyGroup._id === group._id)
+        //     else return this.groups.unshift(group)
+        //     if (idx === -1) return
+        //     state.groups[idx] = group
+        // },
     },
     actions: {
-        async loadGroups(context) {
-            try {
-                const board = context.getters.board
-                const { groups } = board
-                context.commit({ type: 'setGroups', groups })
-            } catch (err) {
-                console.log(`Cannot load groups in store`, err)
-            }
-        },
+        // async loadGroups(context) {
+        //     try {
+        //         const board = context.getters.board
+        //         const { groups } = board
+        //         context.commit({ type: 'setGroups', groups })
+        //     } catch (err) {
+        //         console.log(`Cannot load groups in store`, err)
+        //     }
+        // },
         async saveGroup({ dispatch, commit }, { group }) {
             try {
+                const board = JSON.parse(JSON.stringify(this.getters.board))
+                const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)
+                board.groups[idx] = group
+                commit({ type: 'setBoard', boardData: { board } })
                 await groupService.save(group)
-                commit({ type: 'saveGroup', group })
                 // dispatch({ type: 'queryBoard', id: group.boardId, filter: '' })
                 console.log(`success`)
             } catch (err) {

@@ -213,7 +213,7 @@ export default {
             return this.$store.getters.filterMap
         },
         colors() {
-            return colors
+            return this.$store.getters.colors
         }
 
     },

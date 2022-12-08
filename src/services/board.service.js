@@ -66,12 +66,10 @@ async function save(board) {
 //     return savedMsg
 // }
 
-async function queryKanbanBoard(boardId, filterBy = {}) {
-    var board = await storageService.get(BOARD_STORAGE_KEY, boardId)
-    var boardToShow = _filterByTxt(board, filterBy.txt)
-    boardToShow = _filterByUser(boardToShow, filterBy.userId)
-
-    const kanbanBoard = boardToShow.groups.reduce((status, group) => {
+async function queryKanbanBoard(filterBy = {}) {
+    let board = (await query(filterBy)).board
+    // console.log(`board`, board)
+    return board.groups.reduce((status, group) => {
         const map = group.tasks.reduce((innerStatus, task) => {
             if (task.status) {
                 if (innerStatus[task.status]) innerStatus[task.status].push(task)
@@ -85,14 +83,28 @@ async function queryKanbanBoard(boardId, filterBy = {}) {
         }
         return status
     }, {})
-    // let kanbanBoardToShow = []
-    // for (let status in kanbanBoard) {
-    //     const group = {}
-    //     group._id = status
-    //     group.tasks = kanbanBoard[status]
-    //     kanbanBoardToShow.push(group)
-    // }
-    return kanbanBoard
+    if (!board.statusOrder) return board
+    const statusesIds = Object.keys(board.groups)
+    const formattedGroups = statusesIds.map((status,idx) => {
+        const oldIdx = statusesIds.indexOf(board.statusOrders[idx]._id)
+        console.log(`oldIdx`, oldIdx)
+        return board.groups[oldIdx]
+    })
+    console.log(`board`, board)
+    return board
+
+
+
+    board.groups = board.groups.reduce((groups, group, idx, original) => {
+        if (!board.statusOrder) groups.push(group)
+        else {
+            groups.push(original.find(anyGroup => group.tasks[0].status === board.statusOrder[idx]._id))
+        }
+        return groups
+    }, [])
+    console.log(`jsdhcbjshdb`)
+    console.log(`board`, board)
+    return board
 }
 
 async function getEmptyBoard() {

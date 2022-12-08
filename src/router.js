@@ -5,8 +5,7 @@ import boardApp from './views/board-app.vue'
 import loginSignup from './views/login-signup.vue'
 import userDetails from './views/user-details.vue'
 import taskDetails from './views/task-details.vue'
-import kanbanApp from './kanban/kanban-app.vue'
-
+import kanbanApp from './views/kanban-app.vue'
 const routes = [
   {
     path: '/',
