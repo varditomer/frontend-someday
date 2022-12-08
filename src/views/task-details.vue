@@ -54,9 +54,9 @@
                     </div>
                 </div>
                 <div class="comment-like" @click="likeComment(idx)"
-                    :class="{ liked: comment?.likes?.includes(`${loggedinUser._id}`) }">
+                    :class="{ liked: comment?.likes?.includes(loggedinUser._id) }">
                     <div>
-                        <span v-if="comment?.likes?.includes(`${loggedinUser._id}`)" v-svg-icon="'filledLike'"></span>
+                        <span v-if="comment?.likes?.includes(loggedinUser._id)" v-svg-icon="'filledLike'"></span>
                         <span v-else v-svg-icon="'like'"></span>
                         <button>Like</button>
                     </div>
@@ -165,13 +165,13 @@ export default {
         const { taskId } = this.$route.params
         const { id } = this.$route.params
         if (Object.keys(this.board).length === 0) {
-            await this.$store.dispatch({ type: 'queryBoard', filter:{id} })
+            await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
         }
         this.board.groups.some(({ tasks }) => tasks.some(task => {
             if (task._id === taskId) this.taskToEdit = JSON.parse(JSON.stringify(task))
         }))
         await this.$store.dispatch({ type: 'loadActivities' })
-        if(this.taskToEdit.imgUrls) this.imgUrls = this.taskToEdit.imgUrls
+        if (this.taskToEdit.imgUrls) this.imgUrls = this.taskToEdit.imgUrls
         else this.imgUrls = []
     },
     computed: {
@@ -214,37 +214,35 @@ export default {
                 txt: this.commentToAdd,
                 taskId: this.taskToEdit._id,
                 createdAt: Date.now(),
-                _id: 'HardCodedIdForNow',
-                byMember: {
-                    _id: 0,
-                    fullname: 'Guest'
-                }
+                _id: utilService.makeId(),
+                byMember: this.loggedinUser
             }
             const task = JSON.parse(JSON.stringify(this.taskToEdit))
             if (!task.comments) task.comments = []
             task.comments.unshift(comment)
             if (!this.taskToEdit.comments) this.taskToEdit.comments = []
             this.taskToEdit.comments.unshift(comment)
-            this.$store.dispatch({ type: 'saveTask', task })
+            const taskToSave = { task }
+            this.$store.dispatch({ type: 'saveTask', taskToSave })
             this.commentToAdd = ''
         },
         getUserImg(userId) {
-            return this.users.find(user => user._id === userId).imgUrl
+            let user = this.users.find(user => user._id === userId)
+            if (!user) user = { _id: 0, fullname: 'Guest', imgUrl: 'src/assets/imgs/default-avatar.svg' }
+            return user.imgUrl
         },
         likeComment(commentIdx) {
             const task = JSON.parse(JSON.stringify(this.taskToEdit))
+            const loggedinUserId = this.loggedinUser._id
             if (!task.comments[commentIdx].likes) {
                 task.comments[commentIdx].likes = []
             }
-            const loggedinUserId = this.loggedinUser._id
-            const idx = task.comments[commentIdx].likes.findIndex(likeId => likeId === `${loggedinUserId}`)
+            const idx = task.comments[commentIdx].likes.findIndex(likeId => likeId === loggedinUserId)
             if (idx !== -1) task.comments[commentIdx].likes.splice(idx, 1)
-            else {
-                task.comments[commentIdx].likes.unshift(`${loggedinUserId}`)
-                this.showLiked
-            }
+            else task.comments[commentIdx].likes.unshift(loggedinUserId)
             this.taskToEdit = task
-            this.$store.dispatch({ type: 'saveTask', task })
+            const taskToSave = { task }
+            this.$store.dispatch({ type: 'saveTask', taskToSave })
         },
 
         handleFile(ev) {
@@ -265,7 +263,7 @@ export default {
 
         saveImg(imgUrl) {
             this.imgUrls.push(imgUrl)
-            if(!this.taskToEdit.imgUrls) this.taskToEdit.imgUrls = []
+            if (!this.taskToEdit.imgUrls) this.taskToEdit.imgUrls = []
             this.taskToEdit.imgUrls.unshift(imgUrl)
             const task = JSON.parse(JSON.stringify(this.taskToEdit))
             this.$store.dispatch({ type: 'saveTask', task })

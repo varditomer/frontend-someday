@@ -23,7 +23,6 @@ async function save(task, isFifo = true, isDuplicate = false) {
         // Later, owner is set by the backend
         // group.owner = userService.getLoggedinUser()
         // savedTask = await storageService.post(STORAGE_KEY, group)
-        console.log({ task, isFifo, isDuplicate });
         savedTask = await httpService.post(TASK_URL, { task, isFifo, isDuplicate })
     }
     return savedTask
@@ -39,7 +38,9 @@ async function newTask(groupId, boardId) {
 }
 
 async function remove(task) {
-    return await httpService.delete(TASK_URL, task)
+    console.log(task);
+    const miniTask = { _id: task._id, groupId: task.groupId, boardId: task.boardId }
+    return await httpService.delete(TASK_URL, miniTask)
 }
 
 function duplicate(task) {

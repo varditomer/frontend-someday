@@ -12,9 +12,11 @@
             </section>
 
             <section class="dynamic">
-                <draggable v-model="cmpsOrder" itemKey="element" dataIdAttrtag="div" @start="isBeingDragged = true">
+                <draggable v-model="cmpsOrder" itemKey="element" dataIdAttrtag="div" @start="isBeingDragged = true"
+                    @end="saveBoard">
                     <template #item="{ element }">
-                        <div group="cmps" ghost-class="ghost" :class="{ columnDragged: isBeingDragged }" class="titles">
+                        <div group="cmps" ghost-class="ghost" :class="{ 'column-dragged': isBeingDragged }"
+                            class="titles">
                             {{ element }}
                         </div>
                     </template>
@@ -29,7 +31,7 @@
 
         </li>
         <draggable v-model="group.tasks" ghost-class="ghost" animation="200" @start="beingDragged = true"
-            :class="{ taskDragged: beingDragged }" @end="saveBoard" itemKey="element._id">
+            :class="{ 'task-dragged': beingDragged }" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     :isSelected="selectedTasks.includes(element._id)" @update-task="updateTask" :sort="true"
@@ -134,7 +136,7 @@ export default {
         updateTask(task, activity) {
             this.$emit('saveTask', task, activity)
         },
-        async saveBoard(ev) {
+        async saveBoard() {
             this.$emit('saveBoard', this.cmpsOrder)
         },
         saveSelectedTasks(taskId) {

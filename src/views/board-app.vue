@@ -25,7 +25,7 @@ import groupList from '../cmps/group-list.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
 import { eventBus } from '../services/event-bus.service.js'
-import {colors} from '../services/color.service.js'
+import { colors } from '../services/color.service.js'
 // import { boardService } from '../services/board.service.local.js'
 
 export default {
@@ -52,10 +52,11 @@ export default {
     },
     methods: {
         saveTask(task, activity) {
-            const taskToSave = { task, bool: false }
+
+            const taskToSave = { task, isFifo: true }
             // this.$store.commit({ type: 'saveTask', taskToSave })
             // this.$store.dispatch({ type: 'saveActivity', activity })
-            this.$store.dispatch({ type: 'saveTask', task })
+            this.$store.dispatch({ type: 'saveTask', taskToSave })
         },
         saveBoard(board) {
             this.$store.commit({ type: 'setBoard', boardData: { board } })
@@ -75,9 +76,9 @@ export default {
                 boardId: this.board._id,
                 title: 'Item 1'
             }
-            const taskToSave = { task, bool: true }
+            const taskToSave = { task, isFifo: false }
             // this.$store.commit({ type: 'saveTask', taskToSave })
-            this.$store.dispatch({ type: 'saveTask', task })
+            this.$store.dispatch({ type: 'saveTask', taskToSave })
         },
         addBoard() {
             this.$store.dispatch({ type: 'addBoard' })
@@ -95,6 +96,7 @@ export default {
             this.$store.dispatch({ type: 'duplicateGroup', group })
         },
         setFilter(filter) {
+            console.log(filter);
             if (filter.userId && this.filterBy?.userId) {
                 if (filter.userId === this.filterBy.userId) filter.userId = null
             }
@@ -147,7 +149,6 @@ export default {
             if (board.title === title) return
             board.title = title
             await this.$store.dispatch({ type: 'saveBoard', board })
-            this.$store.dispatch({ type: 'loadBoard' })
         },
         toggleSelectAllTasks(tasks, groupId, areAllSelected) {
             this.$store.commit({ type: 'toggleSelectAllTasks', tasks, groupId, areAllSelected })

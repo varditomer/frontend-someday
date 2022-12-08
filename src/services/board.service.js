@@ -16,6 +16,7 @@ export const boardService = {
     getEmptyBoard,
     removeManyTasks,
     loadFromSessionStorage,
+    queryKanbanBoard,
     saveToSessionStorage
 }
 
@@ -96,7 +97,7 @@ async function queryKanbanBoard(boardId, filterBy = {}) {
 async function getEmptyBoard() {
     const color1 = await colorService.randomColor('group')
     const color2 = await colorService.randomColor('group')
-    return {
+    const board = {
         title: 'New Board',
         archivedAt: Date.now(),
         createdBy: {
@@ -160,6 +161,7 @@ async function getEmptyBoard() {
         ],
         cmpsOrder: ['status', 'date']
     }
+    return await httpService.post(BOARD_URL, board)
 }
 
 

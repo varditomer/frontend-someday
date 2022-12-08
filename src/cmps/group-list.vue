@@ -2,14 +2,14 @@
 
     <section class='group-list-container' v-if="boardToShow" @scroll="scrolling">
         <draggable v-model="boardToShow.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
-            @end="saveBoard" :class="{ groupDragged: beingDragged }">
+             @end="saveBoard(boardToShow.cmpsOrder)" :class="{ 'group-dragged': beingDragged }">
             <template #item="{ element }">
                 <group-preview @addColumn="addColumn" @saveSelectedTasks="saveSelectedTasks"
                     :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
-                    :key="element._id" @toggleSelectAllTasks="toggleSelectAllTasks"
-                    @saveTask="saveTask" @removeTask="removeTask" @saveGroup="saveGroup"
-                    @saveBoard="saveBoard" @addGroup="addGroup" @removeGroup="removeGroup"
-                    @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask" :colors="colors" />
+                    :key="element._id" @toggleSelectAllTasks="toggleSelectAllTasks" @saveTask="saveTask"
+                    @removeTask="removeTask" @saveGroup="saveGroup" @saveBoard="saveBoard" @addGroup="addGroup"
+                    @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask"
+                    :colors="colors" />
             </template>
         </draggable>
 
@@ -96,13 +96,17 @@ export default {
         }
     },
     computed: {
-        cmpsOrder() {
-            return [...this.board.cmpsOrder]
+        cmpsOrder: {
+            get() {
+                return [...this.board.cmpsOrder]
+            },
+            set(cmpsOrder) {
+                this.saveBoard(cmpsOrder)
+            }
         },
         boardToShow() {
             return JSON.parse(JSON.stringify(this.board))
         }
-
     },
     components: {
         groupPreview,
