@@ -31,6 +31,7 @@ function saveToSessionStorage(key, state) {
 }
 
 async function query(filterBy = {}) {
+    console.log(`filterBy:`, filterBy)
     return await httpService.get(BOARD_URL, filterBy)
 }
 

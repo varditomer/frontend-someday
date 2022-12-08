@@ -1,9 +1,40 @@
 .regular-modal {
     z-index: 100000;
-
     position: absolute;
+    height: fit-content;
+    width: fit-content;
+    //need to set position and other prefs. at children cmp
+    > * {
+        z-index: 10000;
+        background: $clr-white;
+        box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
+    }
+    &.new-item-modal-parent{
+        top:42px;
+        left: 75px;
+    }
+    &.filter-person-modal-parent{
+        top:42px;
+        left: 44px;
+    }
+    &.multi-filter-modal-parent {
+        top:42px;
+    }
+    &.task-select-modal-parent {
+        top: 89vh;
+        left: calc(50vw - 160px - 300px);
+    }
+    &.task-opt-modal-parent , &.group-opt-modal-parent{
+        left: 11px;
+        top: 36px; 
+    } 
+    &.add-columns-modal-parent {
+        right: 2px;
+        top: 32px; 
+    } 
+
+
     .multi-filter-modal {
-        position: absolute;
         top: 38px;
         left: 0px;
         border-radius: 8px;
@@ -79,7 +110,9 @@
                     border-radius: 15px;
                     padding-top: 10px;
                 }
-                &::-webkit-scrollbar-thumb{ border-radius: 15px; }
+                &::-webkit-scrollbar-thumb {
+                    border-radius: 15px;
+                }
 
                 gap: 16px;
                 .title {
@@ -111,14 +144,6 @@
                 }
             }
         }
-    }
-
-    //need to set position and other prefs. at children cmp
-    > * {
-        z-index: 10;
-        background: $clr-white;
-        position: absolute;
-        box-shadow: 0 4px 17px 6px rgb(0 0 0 / 10%);
     }
 
     .color-picker {
@@ -241,8 +266,6 @@
     }
 
     .task-opt-modal {
-        top: 36px;
-
         .upper-group {
             border-bottom: 1px solid $hr-clr;
         }
@@ -427,7 +450,6 @@
         width: 346px;
         border-radius: 0.3em;
         padding: 8px 32px;
-        position: absolute;
         right: -40px;
         top: 14px;
         min-height: 56px;

@@ -2,7 +2,7 @@
     <section class='board-filter'>
         <div class="add-new-btns">
             <button @click="addTask">New Item</button>
-            <span @click="openModal('newItemModal')" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
+            <span @click="openModal('new-item-modal')" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
         </div>
         <div class="search-tasks" :class="{ 'input-open': isSearchClicked, 'filtering': isFiltering }"
             @click="searchClicked">
@@ -11,12 +11,12 @@
                 @blur="(isSearchClicked = false)" v-model="filter.txt" @input="setFilter(false)">
             <span v-svg-icon="'cancel'" class="cancel" :class="{ 'hide': !isFiltering }" @click="clearFilter"></span>
         </div>
-        <div @click="openModal('filterPersonModal')" @mouseover="(showTitleModal = true)"
+        <div @click="openModal('filter-person-modal')" @mouseover="(showTitleModal = true)"
             @mouseout="(showTitleModal = false)" class="person-attach">
             <span v-svg-icon="'account'"></span>
             <button>Person</button>
         </div>
-        <div class="filter" @click="openModal('multiFilterModal')">
+        <div class="filter" @click="openModal('multi-filter-modal')">
             <span v-svg-icon="'filter'"></span>
             <button>Filter</button>
         </div>
@@ -26,7 +26,7 @@
         </div>
 
         <regular-modal :filterBy="filterBy" @filter="setFilter" :users="users" @closeModal="(showModal = false)"
-            v-if="showModal" :cmp="modalName" @addGroup="addGroup" />
+            v-if="showModal" :class="(modalName+'-parent')" :cmp="modalName" @addGroup="addGroup" />
 
     </section>
 </template>

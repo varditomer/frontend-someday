@@ -5,7 +5,7 @@
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
 
         <section class='board-app-container' :class="{ 'folded': isViewingTask }">
-            <regular-modal :selectedTasks="selectedTasksWithColor" @deleteSelectedTasks="deleteSelectedTasks"
+            <regular-modal class="task-select-modal-parent" :selectedTasks="selectedTasksWithColor" @deleteSelectedTasks="deleteSelectedTasks"
                 @duplicateSelectedTasks="duplicateSelectedTasks" v-if="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
