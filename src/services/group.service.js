@@ -9,7 +9,6 @@ export const groupService = {
     query,
     save,
     remove,
-    duplicate,
     add,
 }
 

@@ -7,7 +7,6 @@ const TASK_URL = 'task/'
 export const taskService = {
     save,
     remove,
-    duplicate,
     duplicateMultiple,
     newTask
 }
@@ -42,12 +41,6 @@ async function remove(task) {
     return await httpService.delete(TASK_URL, miniTask)
 }
 
-function duplicate(task) {
-    const taskToDuplicate = JSON.parse(JSON.stringify(task))
-    taskToDuplicate._id = null
-    return save(taskToDuplicate, true, true)
-}
-
 function duplicateMultiple(tasks) {
     const tasksToDuplicate = tasks.map(task => {
         const clonedTask = JSON.parse(JSON.stringify(task))
@@ -60,21 +53,5 @@ function duplicateMultiple(tasks) {
 
 async function _saveMultiple(tasks, tasksCopy) {
     const { boardId } = tasks[0]
-    await httpService.put(TASK_URL + 'many', tasks, tasksCopy, boardId)
+    await httpService.post(TASK_URL + 'many/', { tasks, tasksCopy, boardId })
 }
-
-// async function addTaskMsg(taskId, txt) {
-//     // Later, this is all done by the backend
-//     const task = await queryBoard(taskId)
-//     if (!task.msgs) task.msgs = []
-
-//     const msg = {
-//         id: utilService.makeId(),
-//         by: userService.getLoggedinUser(),
-//         txt
-//     }
-//     task.msgs.push(msg)
-//     await storageService.put(group_STORAGE_KEY, task)
-//     1
-//     return msg
-// }

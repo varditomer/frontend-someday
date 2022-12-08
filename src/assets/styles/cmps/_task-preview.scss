@@ -4,26 +4,30 @@
     &.being-edit {
         background-color: $fltr-bgc !important;
 
-        .task-select,
-        .task-title-container,
-        .task-title-item {
-            background-color: $fltr-bgc !important;
-        }
 
+        &:hover{
+            background-color: darken($fltr-bgc,3%) !important;
+        }
         .content-li:hover {
             background-color: unset;
+        }
+
+        .static {
+
+            .task-title-container,
+            .task-title-item,
+            .task-select {
+                background-color: $fltr-bgc !important;
+
+                &:hover{
+                    background-color: darken($fltr-bgc,3%) !important;
+                }
+            }
         }
     }
 
     &:hover {
-        background-color: $wrkspce-bgc !important;
-
-        .task-select,
-        .task-title-container,
-        .task-title-item {
-            background-color: $wrkspce-bgc !important;
-
-        }
+        background-color: $wrkspce-bgc ;
 
         .static {
             .options {
@@ -235,24 +239,24 @@
                 .not-editing-mode {
                     visibility: inherit;
 
-                    .hovering{
+                    .hovering {
                         display: flex;
                         align-items: center;
                         justify-content: center;
 
-                        span{
-                            svg{
+                        span {
+                            svg {
                                 scale: 1;
                             }
                         }
 
-                        .icon{
+                        .icon {
                             width: fit-content;
                             padding: 0;
                             scale: 1;
                         }
 
-                        pre{
+                        pre {
                             font-size: rem(10px);
                         }
                     }
@@ -311,7 +315,7 @@
                 color: $clr-dark-blue;
             }
 
-            &:hover{
+            &:hover {
                 cursor: text;
             }
         }

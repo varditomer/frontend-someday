@@ -5,8 +5,9 @@
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
 
         <section class='board-app-container' :class="{ 'folded': isViewingTask }">
-            <regular-modal class="task-select-modal-parent" :selectedTasks="selectedTasksWithColor" @deleteSelectedTasks="deleteSelectedTasks"
-                @duplicateSelectedTasks="duplicateSelectedTasks" v-if="showModal" :cmp="'task-select-modal'" />
+            <regular-modal class="task-select-modal-parent" :selectedTasks="selectedTasksWithColor"
+                @deleteSelectedTasks="deleteSelectedTasks" @duplicateSelectedTasks="duplicateSelectedTasks"
+                v-if="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
@@ -119,7 +120,7 @@ export default {
         async deleteSelectedTasks() {
             try {
                 await this.$store.dispatch({ type: 'removeTasks' })
-                this.unselectTasks()
+                // this.unselectTasks()
             } catch (err) {
                 console.log(`Cannot delete selected tasks`, err)
             }

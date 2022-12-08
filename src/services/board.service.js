@@ -39,7 +39,8 @@ async function remove(boardId) {
 }
 
 async function removeManyTasks(taskIds, boardId) {
-    return await httpService.delete(BOARD_URL + boardId, { taskIds })
+    const data = { boardId, taskIds }
+    return await httpService.delete(BOARD_URL, data)
 
 }
 
@@ -82,7 +83,7 @@ async function queryKanbanBoard(filterBy = {}) {
     }, {})
     if (!board.statusOrder) return board
     const statusesIds = Object.keys(board.groups)
-    const formattedGroups = statusesIds.map((status,idx) => {
+    const formattedGroups = statusesIds.map((status, idx) => {
         const oldIdx = statusesIds.indexOf(board.statusOrders[idx]._id)
         console.log(`oldIdx`, oldIdx)
         return board.groups[oldIdx]
