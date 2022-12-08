@@ -5,14 +5,112 @@
     .multi-filter-modal {
         position: absolute;
         top: 38px;
-        left: 308px;
+        left: 0px;
         border-radius: 8px;
-        background-color: black;
+        background-color: white;
         color: $layout-black;
-        box-shadow: 0 6px 20px -2px rgb(0 0 0 / 20%);
         width: 800px;
-        height: 435px;
+        height: 378px;
         font-size: 14px;
+        padding: 0 24px 0;
+        .multi-filter-header {
+            padding: 16px 0;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 64px;
+            .left-section {
+                .title {
+                    font-size: rem(16px);
+                    display: inline;
+                    font-family: roboto-medium;
+                }
+                span {
+                    font-size: rem(14px);
+                    margin-left: 8px;
+                    font-family: roboto-thin;
+                }
+            }
+            .right-section {
+                .clear-all {
+                    height: 100%;
+                    width: 75px;
+                    padding: 7.5px 0;
+                    text-align: center;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: $brdr-clr;
+                    }
+                    border-radius: 0.4em;
+
+                    span {
+                        height: 100%;
+                        width: 100%;
+
+                        font-size: rem(14px);
+                    }
+                }
+            }
+        }
+
+        .filter-area {
+            padding: 8px 0 24px;
+            .filter-area-title {
+                display: flex;
+                margin-bottom: 8px;
+                align-items: center;
+                h2 {
+                    display: flex;
+                    align-items: center;
+                    font-size: rem(14px);
+                    font-family: roboto-medium;
+                    font-weight: 500;
+                    height: 26px;
+                }
+            }
+            .filter-groups {
+                display: grid;
+                grid-auto-columns: 150px;
+                grid-auto-flow: column;
+                overflow: auto;
+                height: 240px;
+                &::-webkit-scrollbar {
+                    height: 8px;
+                    border-radius: 15px;
+                    padding-top: 10px;
+                }
+                &::-webkit-scrollbar-thumb{ border-radius: 15px; }
+
+                gap: 16px;
+                .title {
+                    height: 34px;
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 4px;
+                }
+                .content {
+                    overflow-y: auto;
+                    max-height: 188px;
+                    gap: 6px;
+                }
+                // .multi-filter-column {
+
+                // }
+                .filter-item {
+                    display: flex;
+                    align-items: center;
+                    padding: 0 12px;
+                    margin-right: 4px;
+                    min-height: 32px;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    background-color: #f5f6f8;
+                    &:hover {
+                        background-color: #dcdfec;
+                    }
+                }
+            }
+        }
     }
 
     //need to set position and other prefs. at children cmp
@@ -111,8 +209,6 @@
             }
         }
     }
-
-    
 
     .more-options-modal {
         width: 264px;
