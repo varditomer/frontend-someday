@@ -1,22 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 import home from './views/home.vue'
-import boardHome from './views/board-home.vue'
 import boardApp from './views/board-app.vue'
 import loginSignup from './views/login-signup.vue'
 import userDetails from './views/user-details.vue'
 import taskDetails from './views/task-details.vue'
 import kanbanApp from './kanban/kanban-app.vue'
+
 const routes = [
   {
     path: '/',
     name: 'home',
     component: home
-  },
-  {
-    path: '/board/',
-    name: 'board-home',
-    component: boardHome,
   },
   {
     path: '/board/:id/',
