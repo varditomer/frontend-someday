@@ -7,7 +7,7 @@
             </div>
             <div class="right-section">
                 <div class="clear-all">
-                    <span @click="" :class="{ 'bold': isFlittered }">Clear all</span>
+                    <span @click="" :class="{ 'bold': isFiltered }">Clear all</span>
                 </div>
             </div>
 
@@ -18,7 +18,7 @@
                 <h2>All columns</h2>
             </div>
             <div class="filter-groups">
-                <multi-filter-column v-for="i in 5" />
+                <multi-filter-column v-for="(column, idx) in formattedProps.titles" :column="column" :data="formattedProps.props[idx]" :key="idx" @setSubFilter="setSubFilter" />
             </div>
         </section>
     </section>
@@ -30,16 +30,40 @@ export default {
     props: {},
     data() {
         return {
-            filterItems: null
+            filterItems: null,
+            multiFilter: {},
+            isFiltered: false
         }
     },
     created() {
         this.filterItems = 46
-        this.isFlittered = false
 
     },
-    computed: {},
+    computed: {
+        formattedProps() {
+            const dataMap = this.$store.getters.dataMap
+            const titles = []
+            titles.push(...Object.keys(dataMap.tasks))
+            const props = dataMap?.groupTitle?.length
+                ? [dataMap.groupTitle]
+                : []
+            titles.forEach(title=>props.push(dataMap.tasks[title]))
+            if (dataMap?.groupTitle?.length) titles.unshift('Group')
+            return {props, titles}
+
+        }
+    },
     methods: {
+        setSubFilter(subFilter, type){
+            console.log(`type:`, type)
+            console.log(`subFilter:`, subFilter)
+            if (type === 'Group') this.multiFilter = {...this.multiFilter, groupTitle:subFilter}
+            else this.multiFilter.tasks[type] = subFilter
+            const filter = this.multiFilter
+            console.log(`filter:`, filter)
+            this.$store.dispatch({type:'queryBoard', filter})
+            //emit filter request: queryBoard - {filter}
+        }
         // uncheckAllFilters(
         //     this.
         // )
