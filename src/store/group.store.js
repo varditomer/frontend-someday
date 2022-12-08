@@ -73,6 +73,7 @@ export const groupStore = {
                 const taskIds = getters.selectedTasks
                 const boardId = this.getters.board._id
                 const board = await boardService.removeManyTasks([...taskIds], boardId)
+                console.log(board);
                 commit({ type: 'setBoard', boardData: { board } })
             } catch (err) {
                 console.log(`Cannot delete many tasks at store`, err)

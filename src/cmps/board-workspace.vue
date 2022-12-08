@@ -22,9 +22,10 @@
             </div>
 
             <div class="workspace-sub-header flex align-center">
-                <div class="search-container flex align-center">
+                <div @click="(searchClicked = true)" :class="{ 'input-open': isSearchClicked }"
+                    class="search-container flex align-center">
                     <span v-svg-icon="'search'"></span>
-                    <input type="text" @input="setFilter" placeholder="Search">
+                    <input @blur="(searchClicked = false)" type="text" @input="setFilter" placeholder="Search" />
                 </div>
                 <button @click="addBoard" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
                     class="add-board-btn flex center">
@@ -35,7 +36,8 @@
         </div>
 
         <section class="boards-titles-container">
-            <div class="boards-titles flex" v-if="miniBoards" v-for="miniBoard in miniBoards" :key="miniBoard._id">
+            <div class="boards-titles flex" v-if="miniBoards" v-for="miniBoard in miniBoardsToShow"
+                :key="miniBoard._id">
                 <router-link :to="('/board/' + miniBoard._id)">
                     <span v-svg-icon="'board'"></span>
                     <p class="board-title">{{ miniBoard.title }}</p>
@@ -58,21 +60,24 @@ export default {
     },
     data() {
         return {
-            showTitle: false
+            showTitle: false,
+            isSearchClicked: false,
+            filter: ''
         }
-    },
-    created() {
-        // this.$store.dispatch({ type: 'loadMiniBoards' })
     },
     computed: {
         miniBoards() {
             return this.$store.getters.miniBoards
         },
+        miniBoardsToShow() {
+            if (!this.filter) return this.miniBoards
+            const regex = new RegExp(this.filter, 'i')
+            return this.miniBoards.filter(miniBoard => regex.test(miniBoard.title))
+        }
     },
     methods: {
-        setFilter(event) {
-            const filter = event.target.value
-            // this.$store.dispatch({ type: 'loadMiniBoards', filter })
+        setFilter(ev) {
+            this.filter = ev.target.value
         },
         addBoard() {
             this.showTitle = false

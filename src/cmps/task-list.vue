@@ -24,8 +24,8 @@
                 <div class="add-columns">
                     <span v-if="!showModal" @click="show" v-svg-icon="'add'" class="add-column-btn"></span>
                     <span v-else @click="(showModal = false)" v-svg-icon="'smallExit'" class="close-column-btn"></span>
-                    <regular-modal class="add-columns-modal-parent" @addColumn="addColumn" :cmpsOrder="cmpsOrder" @closeModal="(showModal = false)"
-                        v-if="showModal" :cmp="'add-column-modal'" />
+                    <regular-modal class="add-columns-modal-parent" @addColumn="addColumn" :cmpsOrder="cmpsOrder"
+                        @closeModal="(showModal = false)" v-if="showModal" :cmp="'add-column-modal'" />
                 </div>
             </section>
 
@@ -46,10 +46,10 @@
                 <span class="task-select add-task-select" :style="{ 'border-left-color': `${group.style.light}` }">
                     <input type="checkbox" disabled />
                 </span>
-                <span @click="addTask" v-svg-icon="'add'" class="add-task-icon"></span>
-                <input @blur="addTask" v-model="taskToAdd.title" type="text" placeholder="Add Item"
-                    class="add-new-task-inline">
-                <button style="display:none;"></button>
+                <div class="add-task-sec">
+                    <input @blur="addTask" v-model="taskToAdd.title" type="text" placeholder="+ Add Item"
+                        class="add-new-task-inline">
+                </div>
             </section>
             <section class="dynamic">
                 <span v-for="cmp in cmpsOrder" class="empty-fill-span"></span>

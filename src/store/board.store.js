@@ -86,7 +86,9 @@ export const boardStore = {
             const workspaceState = boardService.loadFromSessionStorage('workspace')
             state.isWorkspaceCollapsed = JSON.parse(workspaceState)
         },
-        setColors(state, { colors }) { state.colors = colors },
+        setColors(state, { colors }) {
+            state.colors = colors
+        },
         updateLabels(state, { type, title, value, id }) {
             const colors = state.colors
             if (!type || !colors[type] || !id || (!title && !value)) return
@@ -187,8 +189,8 @@ export const boardStore = {
         removeLabel({ dispatch }, { type, id }) {
             if (colorService.update(type, id)) dispatch({ type: loadLabels })
         },
-        loadColors({commit}){
-            commit({type:'setColors', colors: colors()})
+        loadColors({ commit }) {
+            commit({ type: 'setColors', colors: colors() })
         }
     }
 }
