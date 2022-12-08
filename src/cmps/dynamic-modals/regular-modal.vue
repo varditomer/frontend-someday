@@ -92,7 +92,6 @@ export default {
             this.$emit('editGroupTitle')
         },
         updateSelection(type, id, title='', value) {
-
             this.$emit('updateSelection', type, id, title, value)
         },
         propagateMenu() {

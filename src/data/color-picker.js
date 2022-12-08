@@ -119,9 +119,9 @@ export const colorMap = {
     '$clr-pecan': '#563E3E',
 }
 
-if (!localStorage.getItem('color')) localStorage.setItem('color', JSON.stringify(colorMap))
+if (!localStorage.getItem('color_DB')) localStorage.setItem('color_DB', JSON.stringify(colorMap))
 
-export const labelColors = JSON.parse(localStorage.getItem('color')) || colorMap
+export const labelColors = JSON.parse(localStorage.getItem('color_DB')) || colorMap
 
 export function randomColor() {
     const colorNames = Object.keys(colors)

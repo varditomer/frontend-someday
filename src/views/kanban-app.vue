@@ -5,7 +5,7 @@
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
 
         <section class='board-app-container' :class="{ 'folded': isViewingTask }">
-            <regular-modal v-if="showModal" :cmp="'task-select-modal'" />
+            <regular-modal v-if="false" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
             <kanban-group-list />
@@ -20,7 +20,7 @@
 <script>
 import regularModal from '../cmps/dynamic-modals/regular-modal.vue'
 import boardHeader from '../cmps/board-header.vue'
-import kanbanGroupList from './cmps/kanban-group-list.vue'
+import kanbanGroupList from '../cmps/kanban-group-list.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
 
@@ -134,7 +134,7 @@ export default {
     async created() {
         const { id } = this.$route.params
         try {
-            await this.$store.dispatch({ type: 'queryBoard', id })
+            await this.$store.dispatch({ type: 'queryKanbanBoard', filter:{id} })
         } catch (err) {
             this.$router.push('/')
         }
