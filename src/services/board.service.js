@@ -31,15 +31,15 @@ function saveToSessionStorage(key, state) {
 }
 
 async function query(filterBy = {}) {
-    return httpService.get(BOARD_URL, filterBy)
+    return await httpService.get(BOARD_URL, filterBy)
 }
 
 async function remove(boardId) {
-    return httpService.delete(BOARD_URL + boardId)
+    return await httpService.delete(BOARD_URL + boardId)
 }
 
 async function removeManyTasks(taskIds, boardId) {
-    return httpService.delete(BOARD_URL + boardId, { taskIds })
+    return await httpService.delete(BOARD_URL + boardId, { taskIds })
 
 }
 
