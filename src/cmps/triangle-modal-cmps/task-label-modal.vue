@@ -1,7 +1,7 @@
 <template>
     <section class="task-label-modal">
         <div v-for="(label, idx) in getFormattedLabels" class="color-box" :class="{ 'on-edit': isBeingEditted }">
-            <span :class="label.className" :style="label.style" @click="(renderModal(idx, label.title))">
+            <span :class="label.className" :style="label.style" @click="(renderModal(label.id))">
                 <span v-if="isBeingEditted" v-svg-icon="'changeColor'" class="change-color"></span>
             </span>
             <span class="name" :class="{ 'on-edit': isBeingEditted }" :contenteditable="isBeingEditted"
@@ -10,8 +10,8 @@
                 {{ label.title !== 'Default' ? label.title : isBeingEditted ? 'Default' : '' }}
             </span>
             <!-- <regular-modal :cmp="'color-picker-modal'"  :idx="selectedIdx" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateProperty" /> -->
-            <regular-modal class="color-picker-modal-parent" v-if="(showColorPicker && idx === selectedIdx)" :name="name" :cmp="'color-picker-modal'" :idx="selectedIdx"
-                :id="content" :colors="colors" :selected="''" @updateSelection="updateLabels" />
+            <regular-modal class="color-picker-modal-parent" v-if="(showColorPicker && label.id === id)" :name="name" :cmp="'color-picker-modal'" :idx="selectedIdx"
+                :id="id" :colors="colors" :selected="''" @updateSelection="updateLabels" />
         </div>
         <span class="label-btn flex helper">
             <div class="flex center" @click="toggleEdit">
@@ -36,7 +36,7 @@ export default {
         name: {
             type: String,
             required: false
-        }
+        },
     },
     emits: ['updateTask'],
     data() {
@@ -46,7 +46,8 @@ export default {
             updatedDb: [],
             selectedIdx: -1,
             colorTitle: '',
-            labelTitle: ''
+            labelTitle: '',
+            id:''
         }
     },
     methods: {
@@ -64,9 +65,10 @@ export default {
             colorService.update(type, id, title, val)
             this.$store.dispatch({type: 'loadColors'})
         },
-        renderModal(idx) {
+        renderModal(id) {
+            this.id = id
             this.showColorPicker = true;
-            this.selectedIdx = idx
+            // this.selectedIdx = idx
             this.showColorPicker = true;
             this.colorTitle
         }
