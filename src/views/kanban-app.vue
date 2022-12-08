@@ -109,6 +109,7 @@ export default {
             return this.$route.params.id
         },
         board() {
+            console.log(`this.$store.getters.board`, this.$store.getters.board)
             return this.$store.getters.board
         },
         isWorkspaceCollapsed() {
