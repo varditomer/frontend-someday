@@ -10,7 +10,7 @@
                 {{ label.title !== 'Default' ? label.title : isBeingEditted ? 'Default' : '' }}
             </span>
             <!-- <regular-modal :cmp="'color-picker-modal'"  :idx="selectedIdx" :showModal="(showColorPicker && idx === selectedIdx)" :color="''" @updateSelection="updateProperty" /> -->
-            <regular-modal v-if="(showColorPicker && idx === selectedIdx)" :name="name" :cmp="'color-picker-modal'" :idx="selectedIdx"
+            <regular-modal class="color-picker-modal-parent" v-if="(showColorPicker && idx === selectedIdx)" :name="name" :cmp="'color-picker-modal'" :idx="selectedIdx"
                 :id="content" :colors="colors" :selected="''" @updateSelection="updateLabels" />
         </div>
         <span class="label-btn flex helper">

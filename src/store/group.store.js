@@ -1,4 +1,4 @@
-import { eventBus } from '../services/event-bus.service.js'
+import { boardService } from '../services/board.service.js'
 import { groupService } from '../services/group.service.js'
 
 export const groupStore = {
@@ -70,10 +70,9 @@ export const groupStore = {
         },
         async removeTasks({ commit, getters }) {
             try {
-                console.log(`getters`, getters)
                 const taskIds = getters.selectedTasks
                 const boardId = this.getters.board._id
-                const board = await groupService.removeManyTasks([...taskIds], boardId)
+                const board = await boardService.removeManyTasks([...taskIds], boardId)
                 commit({ type: 'setBoard', boardData: { board } })
             } catch (err) {
                 console.log(`Cannot delete many tasks at store`, err)
