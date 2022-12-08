@@ -15,7 +15,6 @@ window.bs = colorService
 
 function update(type, title, value, id) {
     if (!id) return add(type, title, value)
-    const colors = query()
     if (!type || !colors[type] || (!title && !value)) return Promise.reject('Cannot update label')
     const idx = colors[type].find(label => label._id === id)
     if (idx === -1) return Promise.reject('Cannot update label')
@@ -50,7 +49,6 @@ async function remove(type, id) {
 }
 
 function randomColor(type) {
-    const colors = query()
     const colorNames = Object.keys(colors[type])
     const idx = utilService.getRandomInt(0, colorNames.length)
     return colors[type][colorNames[idx]]

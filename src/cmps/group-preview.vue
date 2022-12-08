@@ -106,10 +106,7 @@ export default {
         eventBus.on('collapse-single-group', ({ _id, collapseGroup }) => {
             // this.viewTasks = !collapseGroup
             if (this.group._id === _id) this.viewTasks = !collapseGroup
-        }),
-        console.log(`this.colors`, this.colors)
-        console.log(`this.name`, this.name)
-
+        })
     },
     methods: {
         saveBoard(cmpsOrder) {
