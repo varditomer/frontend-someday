@@ -50,7 +50,7 @@ export default {
         getLabel() {
             if (!this.colors[this.name]) return {
                 style: {
-                    'backgrond-colorr': 'white',
+                    'background-color': 'white',
                     color: 'white'
                 },
                 title: ''
