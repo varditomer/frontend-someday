@@ -18,7 +18,7 @@ export const boardStore = {
         statuses: []
     },
     getters: {
-        board({ board }, ) {return board},
+        board({ board },) { return board },
         boardsTitles({ boardsTitles }) { return boardsTitles.map(board => board.title) },
         miniBoards({ miniBoards }) { return miniBoards },
         filterBy({ filterBy }) { return filterBy },
@@ -35,7 +35,7 @@ export const boardStore = {
             if (boardData.dataMap) state.dataMap = boardData.dataMap
             if (boardData.miniBoards) state.miniBoards = boardData.miniBoards
         },
-        queryKanbanBoard( state , { sort }) {
+        queryKanbanBoard(state, { sort }) {
             state.kanbanBoard = boardService.queryKanban(state.board, sort, this.getters.dataMap)
         },
         setFilter(state, { filter }) {
@@ -72,7 +72,11 @@ export const boardStore = {
             state.board.groups[groupIdx].tasks.splice(taskIdx, 1)
         },
         addGroup(state, { group, isFifo }) {
-            isFifo ? state.board.groups.unshift(group) : state.board.groups.push(group)
+            (isFifo) ? state.board.groups.unshift(group) : state.board.groups.push(group)
+        },
+        saveGroup(state, { group }) {
+            const idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)
+            state.board.groups[idx] = group
         },
         removeGroup(state, { group }) {
             var idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)
@@ -116,7 +120,6 @@ export const boardStore = {
                 const data = await boardService.getEmptyBoard()
                 const { board } = data
                 commit({ type: 'setBoard', boardData: data })
-
                 router.push('/board/' + board._id)
             } catch (err) {
                 console.log('boardStore: Error in addBoard', err)
@@ -125,7 +128,6 @@ export const boardStore = {
         },
         async queryBoard({ commit }, { filter }) {
             try {
-                console.log(filter)
                 commit({ type: 'setFilter', filter })
                 const boardData = await boardService.query(filter.id ? filter.id : '')
                 commit({ type: 'setBoard', boardData })

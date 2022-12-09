@@ -188,9 +188,6 @@ export default {
         regularModal,
         titleModal,
         taskSummary
-    },
-    created() {
-        console.log(`this.group`, this.group)
     }
 }
 </script>

@@ -13,6 +13,11 @@
         position: absolute;
         top: 42px;
         left: 75px;
+
+        &:hover{
+            border-radius: 8px;
+            background-color: white;
+        }
     }
     &.color-picker-modal-parent {
         position: absolute;

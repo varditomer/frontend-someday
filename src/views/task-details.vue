@@ -161,18 +161,12 @@ export default {
         }
     },
     async created() {
+        socketService.on('task-saved', (savedTask) => {
+            this.$store.commit({ type: 'saveTask', savedTask })
+            this.loadTask()
+        })
         this.showUpdates = true
-        const { taskId } = this.$route.params
-        const { id } = this.$route.params
-        if (Object.keys(this.board).length === 0) {
-            await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
-        }
-        this.board.groups.some(({ tasks }) => tasks.some(task => {
-            if (task._id === taskId) this.taskToEdit = JSON.parse(JSON.stringify(task))
-        }))
-        await this.$store.dispatch({ type: 'loadActivities' })
-        if (this.taskToEdit.imgUrls) this.imgUrls = this.taskToEdit.imgUrls
-        else this.imgUrls = []
+        this.loadTask()
     },
     computed: {
         board() {
@@ -244,7 +238,6 @@ export default {
             const taskToSave = { task }
             this.$store.dispatch({ type: 'saveTask', taskToSave })
         },
-
         handleFile(ev) {
             let file
             if (ev.type === 'change') file = ev.target.files[0]
@@ -258,24 +251,33 @@ export default {
             this.saveImg(res.url)
             this.isLoading = false
         },
-
         saveImg(imgUrl) {
             this.imgUrls.push(imgUrl)
             if (!this.taskToEdit.imgUrls) this.taskToEdit.imgUrls = []
             this.taskToEdit.imgUrls.unshift(imgUrl)
             const task = JSON.parse(JSON.stringify(this.taskToEdit))
-            const taskToSave = {task}
+            const taskToSave = { task }
             this.$store.dispatch({ type: 'saveTask', taskToSave })
         },
-
         removeImg(imgIdx) {
             this.imgUrls.splice(imgIdx, 1)
             this.taskToEdit.imgUrls.splice(imgIdx, 1)
             const task = JSON.parse(JSON.stringify(this.taskToEdit))
             this.$store.dispatch({ type: 'saveTask', task })
         },
-
-
+        async loadTask() {
+            const { taskId } = this.$route.params
+            const { id } = this.$route.params
+            if (Object.keys(this.board).length === 0) {
+                await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
+            }
+            this.board.groups.some(({ tasks }) => tasks.some(task => {
+                if (task._id === taskId) this.taskToEdit = JSON.parse(JSON.stringify(task))
+            }))
+            await this.$store.dispatch({ type: 'loadActivities' })
+            if (this.taskToEdit.imgUrls) this.imgUrls = this.taskToEdit.imgUrls
+            else this.imgUrls = []
+        }
     },
     components: {
         imgList,

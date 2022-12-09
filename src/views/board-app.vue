@@ -121,7 +121,8 @@ export default {
         async deleteSelectedTasks() {
             try {
                 await this.$store.dispatch({ type: 'removeTasks' })
-                this.unselectTasks()
+                this.$store.commit({ type: 'unselectTasks' })
+                this.selectedTasksWithColor = []
             } catch (err) {
                 console.log(`Cannot delete selected tasks`, err)
             }
@@ -158,9 +159,9 @@ export default {
             const allSelectedTasksIds = this.$store.getters.selectedTasks
             return this.selectedTasksWithColor = this.getSelectedTasksColors(allSelectedTasksIds)
         },
-
         getSelectedTasksColors(selectedTasksIds) {
             const { groups } = this.board
+            console.log(this.board);
             const idsCopy = [...selectedTasksIds]
             const formattedTaskId = groups.reduce((formattedIds, group) => {
                 const temp = group.tasks.reduce((relevantTaskIds, task) => {
@@ -185,13 +186,30 @@ export default {
             socketService.on('task-removed', (removedTask) => {
                 this.$store.commit({ type: 'removeTask', task: removedTask })
             })
+            socketService.on('group-saved', ({ data }) => {
+                const { group, isFifo } = data
+                this.$store.commit({ type: 'addGroup', group, isFifo })
+            })
             socketService.on('tasks-duplicated', (tasksToDuplicate) => {
                 tasksToDuplicate.forEach(duplicatedTask => {
                     const savedTask = { task: duplicatedTask, isFifo: true }
                     this.$store.commit({ type: 'saveTask', savedTask })
                 })
             })
-            
+            socketService.on('group-removed', (group) => {
+                this.$store.commit({ type: 'removeGroup', group })
+            })
+            socketService.on('group-updated', (group) => {
+                this.$store.commit({ type: 'saveGroup', group })
+            })
+            socketService.on('board-saved', (boardData) => {
+                this.$store.commit({ type: 'setBoard', boardData })
+            })
+            socketService.on('board-added', (boardData) => {
+                delete boardData.board
+                delete boardData.dataMap
+                this.$store.commit({ type: 'setBoard', boardData })
+            })
         }
 
     },

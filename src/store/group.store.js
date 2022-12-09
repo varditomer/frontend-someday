@@ -7,15 +7,6 @@ export const groupStore = {
         }
     },
     mutations: {
-        // setGroups(state, { groups }) {
-        //     state.groups = groups
-        // },
-        // saveGroup(state, { group }) {
-        //     if (group._id) var idx = state.groups.findIndex(anyGroup => anyGroup._id === group._id)
-        //     else return this.groups.unshift(group)
-        //     if (idx === -1) return
-        //     state.groups[idx] = group
-        // },
     },
     actions: {
         // async loadGroups(context) {
@@ -29,10 +20,7 @@ export const groupStore = {
         // },
         async saveGroup({ dispatch, commit }, { group }) {
             try {
-                const board = JSON.parse(JSON.stringify(this.getters.board))
-                const idx = board.groups.findIndex(anyGroup => anyGroup._id === group._id)
-                board.groups[idx] = group
-                commit({ type: 'setBoard', boardData: { board } })
+                commit({ type: 'saveGroup', group })
                 await groupService.save(group)
                 // dispatch({ type: 'queryBoard', id: group.boardId, filter: '' })
                 console.log(`success`)
@@ -42,8 +30,8 @@ export const groupStore = {
         },
         async removeGroup({ commit }, { group }) {
             try {
-                await groupService.remove(group)
                 commit({ type: 'removeGroup', group })
+                await groupService.remove(group)
                 console.log(`success`)
             } catch (err) {
                 console.log(`Cannot remove group`, err)
@@ -73,7 +61,6 @@ export const groupStore = {
                 const taskIds = getters.selectedTasks
                 const boardId = this.getters.board._id
                 const board = await boardService.removeManyTasks([...taskIds], boardId)
-                console.log(board);
                 commit({ type: 'setBoard', boardData: { board } })
             } catch (err) {
                 console.log(`Cannot delete many tasks at store`, err)
