@@ -3,11 +3,11 @@
     <section v-if="group?.style?.color" class='group-preview' @keydown.escape="(showModal = false)">
 
 
-        <regular-modal class="group-opt-modal-parent" v-if="showModal" :id="group._id" :colors="colors" 
-            :selectedColor="group.style.color" @closeModal="(showModal = false)"
-            @addGroup="addGroup" @removeGroup="removeGroup" :cmp="'group-opt-modal'"
-            @keydown.escape="(showModal = false)" @editGroupTitle="editGroupTitle"
-            @propagateMenu="showColorPicker = true" @duplicateGroup="duplicateGroup" :cmpsOrder="cmpsOrder"/>
+        <regular-modal class="group-opt-modal-parent" v-if="showModal" :id="group._id" :colors="colors"
+            :selectedColor="group.style.color" @closeModal="(showModal = false)" @addGroup="addGroup"
+            @removeGroup="removeGroup" :cmp="'group-opt-modal'" @keydown.escape="(showModal = false)"
+            @editGroupTitle="editGroupTitle" @propagateMenu="showColorPicker = true" @duplicateGroup="duplicateGroup"
+            :cmpsOrder="cmpsOrder" />
 
 
         <section class="group-preview-title">
@@ -33,8 +33,9 @@
                         <p class="hidden task-count flex center">{{ getFormattedTaskCount }}</p>
 
                     </div>
-                    <regular-modal v-if="showColorPicker" class="group-color-picker" :cmp="'color-picker-modal'" :colors="colors"
-                        @updateSelection="saveGroup" @closeModal="showColorPicker = false" :name="'group'" />
+                    <regular-modal v-if="showColorPicker" class="group-color-picker" :cmp="'color-picker-modal'"
+                        :colors="colors" @updateSelection="saveGroup" @closeModal="showColorPicker = false"
+                        :name="'group'" />
 
                 </div>
 
@@ -188,8 +189,6 @@ export default {
         regularModal,
         titleModal,
         taskSummary
-    },
-    created() {
     }
 }
 </script>

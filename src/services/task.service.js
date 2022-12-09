@@ -1,6 +1,7 @@
 import { httpService } from './http.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
+import { socketService } from './socket.service.js'
 
 const TASK_URL = 'task/'
 
@@ -14,15 +15,12 @@ export const taskService = {
 async function save(task, isFifo = true, isDuplicate = false) {
     let savedTask
     if (task._id) {
-        // savedTask = await storageService.put(STORAGE_KEY, group)
         savedTask = await httpService.put(TASK_URL + task._id, { task, isFifo, isDuplicate })
-
     } else {
-        // Later, owner is set by the backend
-        // group.owner = userService.getLoggedinUser()
-        // savedTask = await storageService.post(STORAGE_KEY, group)
         savedTask = await httpService.post(TASK_URL, { task, isFifo, isDuplicate })
     }
+    savedTask = { task: savedTask, isFifo }
+    socketService.emit('save-task', savedTask)
     return savedTask
 }
 
@@ -36,17 +34,19 @@ async function newTask(groupId, boardId) {
 }
 
 async function remove(task) {
-    console.log(task);
     const miniTask = { _id: task._id, groupId: task.groupId, boardId: task.boardId }
-    return await httpService.delete(TASK_URL, miniTask)
+    const removedTask = await httpService.delete(TASK_URL, miniTask)
+    socketService.emit('remove-task', removedTask)
+    return removedTask
 }
 
-function duplicateMultiple(tasks) {
+async function duplicateMultiple(tasks) {
     const tasksToDuplicate = tasks.map(task => {
         const clonedTask = JSON.parse(JSON.stringify(task))
         clonedTask._id = utilService.makeId()
         return clonedTask
     })
+    socketService.emit('duplicate-tasks', tasksToDuplicate)
     _saveMultiple(tasks, tasksToDuplicate)
     return tasksToDuplicate
 }
