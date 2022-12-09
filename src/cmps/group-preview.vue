@@ -1,6 +1,6 @@
 <template>
 
-    <section class='group-preview' @keydown.escape="(showModal = false)">
+    <section v-if="group?.style?.color" class='group-preview' @keydown.escape="(showModal = false)">
 
 
         <regular-modal class="group-opt-modal-parent" v-if="showModal" :id="group._id" :colors="colors" 
@@ -190,6 +190,7 @@ export default {
         taskSummary
     },
     created() {
+        console.log(`this.group`, this.group)
     }
 }
 </script>

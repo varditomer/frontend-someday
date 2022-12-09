@@ -102,18 +102,18 @@
                     }
                 }
 
-                .status {
+                .label {
                     display: flex;
                     align-items: center;
                     height: 34px;
                     margin-top: 8px;
 
-                    .status-text {
+                    .label-text {
                         font-size: rem(12px);
                         padding-left: 2px;
                     }
 
-                    .status-label {
+                    .label {
                         width: 140px;
                         background-color: rgb(255, 181, 44);
                         margin-left: auto;

@@ -8,7 +8,8 @@ export const colorService = {
     add,
     update,
     remove,
-    randomColor
+    randomColor,
+    getLabelById
 }
 window.bs = colorService
 
@@ -56,6 +57,11 @@ function randomColor(type) {
     return colors()[type][colorNames[idx]]
 }
 
+function getLabelById(label, id) {
+    if (!id || !label || !colors()[label]) return null
+    return colors()[label].find(anyLabel => anyLabel._id === id)
+}
+
 // DONT DELETE!! Arrow function does not implement on Firefox and Edge
 _createColors()
 
@@ -88,7 +94,7 @@ function _createColors() {
                 },
                 {
                     _id: 'evdf9',
-                    title: '',
+                    title: 'Default',
                     value: '#c4c4c4'
                 },
             ],

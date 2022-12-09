@@ -1,5 +1,5 @@
 <template>
-    <section class="link flex center" @click="clickToEdit">
+    <section v-if="!isKanban" class="link flex center" @click="clickToEdit">
         <a @click.stop="" v-if="content?.url" :href="`//${content.url}`" target="_blank">{{ content.title }}</a>
         <triangle-modal :cmp="'linkModal'" :content="content" @hideModal="(show = false)" v-if="show"
             @updateTask="updateTask" />
@@ -14,6 +14,10 @@ export default {
     name: 'link-column',
     props: {
         content: Object,
+        isKanban :{
+            type: Boolean,
+            required: true
+        }
     },
     data() {
         return {

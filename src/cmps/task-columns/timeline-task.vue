@@ -1,5 +1,5 @@
 <template>
-    <section @click="clickToEdit" class="timeline">
+    <section  v-if="!isKanban" @click="clickToEdit" class="timeline">
         <div v-if="content" class="range" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
             <div class="value" :style="style"></div>
             <p v-if="isHovering" class="text">{{ timeDiff }} d</p>
@@ -23,6 +23,10 @@ export default {
         color: {
             type: String,
             required: false
+        },
+        isKanban :{
+            type: Boolean,
+            required: true
         }
     },
     data() {
