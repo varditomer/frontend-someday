@@ -1,6 +1,6 @@
 <template>
 
-    <section class='group-opt-modal more-options-modal'>
+    <section class='group-opt-modal more-options-modal' :class="{'workspace-collapsed-pos': $store.getters.isWorkspaceCollapsed}">
 
         <div class="modal-group upper-group flex column justify-center">
             <div class="modal-item flex align-center" @click="collapseGroup">

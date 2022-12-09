@@ -16,7 +16,9 @@ window.handleCredentialResponse = (response) => {
 
 import { router } from './router.js'
 import { store } from './store/store.js'
-import copyText from "@meforma/vue-copy-to-clipboard";
+import copyText from "@meforma/vue-copy-to-clipboard"
+import { DateTimePickerComponent } from "@syncfusion/ej2-vue-calendars";
+
 
 
 
@@ -44,6 +46,7 @@ app.directive('svg-icon', svgIconDirective)
 app.use(router)
 app.use(store)
 app.use(copyText)
+app.use(DateTimePickerComponent)
 
 app.mount('#app')
 

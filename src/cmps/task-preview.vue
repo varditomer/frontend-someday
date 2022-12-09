@@ -1,9 +1,9 @@
 <template>
     <li class="task-preview" ref="line" :class="{ 'being-edit': editing || isSelected }"
         v-click-outside="(unSelectLine)">
-        <regular-modal v-if="showModal" :cmp="'task-opt-modal'" class="task-opt-modal-parent" @openTask="openTask" @removeTask="removeTask"
-            @closeModal="closeModal" @taskTitleToClipboard="copyToClipboard(task.title)" @linkToClipboard="copyToClipboard(task.link.url)"
-            @duplicateTask="duplicateTask" />
+        <regular-modal v-if="showModal" :cmp="'task-opt-modal'" class="task-opt-modal-parent" @openTask="openTask"
+            @removeTask="removeTask" @closeModal="closeModal" @taskTitleToClipboard="copyToClipboard(task.title)"
+            @linkToClipboard="copyToClipboard(task.link.url)" @duplicateTask="duplicateTask" />
 
         <section class="static">
             <div class="options flex center">
@@ -18,6 +18,7 @@
                     <p @blur="updateTask({ key: 'title', val: $event.target.innerText })"
                         @keydown.enter.prevent="updateTask({ key: 'title', val: $event.target.innerText })"
                         @click.prevent="" class="task-title" contenteditable="true" v-html="task.title"></p>
+                        <div class="hover-marks"><span v-svg-icon="'open'"></span>Open</div>
                 </div>
                 <span v-if="task.comments?.length" class="task-comment-icon count-comment">
                     <span v-svg-icon="'commentCount'"></span>
@@ -27,9 +28,9 @@
             </router-link>
         </section>
         <section class="dynamic">
-            <component v-for="(column, idx) in formattedData" :isKanban="false" :is="column.cmpName + 'Task'" :content="column.content"
-                :name="column.name" :additionalDb="column.additionalDb" :color="group.style.color" :key="idx"
-                @updateTask="updateTask" @editing="setIsEditing" :colors="colors">
+            <component v-for="(column, idx) in formattedData" :isKanban="false" :is="column.cmpName + 'Task'"
+                :content="column.content" :name="column.name" :additionalDb="column.additionalDb"
+                :color="group.style.color" :key="idx" @updateTask="updateTask" @editing="setIsEditing" :colors="colors">
             </component>
         </section>
     </li>

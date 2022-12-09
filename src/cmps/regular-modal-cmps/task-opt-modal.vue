@@ -1,5 +1,5 @@
 <template>
-    <section class='task-opt-modal more-options-modal'>
+    <section class='task-opt-modal more-options-modal' :class="{'workspace-collapsed-pos': $store.getters.isWorkspaceCollapsed}">
 
         <div class="modal-group upper-group">
             <div class="modal-item flex align-center" @click="openTask">
@@ -27,7 +27,6 @@
                     <p>Copy item link</p>
                 </div>
             </div>
-
         </div>
 
         <div class="modal-group middle-group">
