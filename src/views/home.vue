@@ -8,18 +8,29 @@
     </div>
     <div class="g_id_signin" data-type="standard"></div> -->
 
+    <header class="main-header">
+      <img class="logo" src="src/assets/imgs/logo.svg" alt="">
+      <nav class="main-nav">
+
+        <button class="login-btn">Log in</button>
+        <router-link :to="('/board/' + board._id)">
+          <button class="cta-btn">
+            <p>Get started</p>
+          </button>
+        </router-link>
+        <!-- <triangle-modal @login="login" @hideModal="(showModal=false)" v-if="(showModal)" :cmp="`login-signup-modal`" /> -->
+      </nav>
+    </header>
+
 
     <h1 class="hero-title">A platform built for<br>a new way of working</h1>
-    <p class="hero-subtitle">What would you like to manage with someday.com Work OS?</p>
+    <p class="hero-subtitle">Watch what you can manage with someday.com Work OS</p>
     <div class="home-nav-btns flex column center">
       <router-link :to="('/board/' + board._id)">
-        <button class="hero-btn">Start demo now</button>
+        <button class="hero-btn">
+          <p>Get started</p>
+        </button>
       </router-link>
-      <div v-if="!signedIn" class="login-signup-area flex">
-        <button class="login-signup hero-btn" @click="(showModal = true)">Login / Signup</button>
-        <triangle-modal @login="login" @hideModal="(showModal=false)" v-if="(showModal)" :cmp="`login-signup-modal`" />
-      </div>
-
     </div>
   </section>
 
