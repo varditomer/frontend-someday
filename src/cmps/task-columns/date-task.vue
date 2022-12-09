@@ -1,5 +1,5 @@
 <template>
-        <span @click="clickToEdit" class="task-date">
+        <span v-if="!isKanban" @click="clickToEdit" class="task-date">
             <triangle-modal v-if="show" @hideModal="(show = false)" @updateTask="updateTask"
                 :content="(content || Date.now())" :cmp="'date-modal'" />
             {{ formattedDate || ' ' }}
@@ -13,6 +13,10 @@ export default {
     name: 'date-column',
     props: {
         content: Number,
+        isKanban :{
+            type: Boolean,
+            required: true
+        }
     },
     data() {
         return {

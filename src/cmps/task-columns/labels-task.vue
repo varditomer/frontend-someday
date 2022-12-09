@@ -1,8 +1,8 @@
 <template>
-    <section class="labels" @click="clickToEdit">
+    <section v-if="!isKanban" class="labels" @click="clickToEdit">
         <span class="label-name" :style="getLabel.style">{{ getLabel.title === 'Default' ? '' : getLabel.title }}</span>
-        <triangle-modal v-if="getLabel && show" :content="content" :name="name"
-            @updateTask="updateTask" @hideModal="(show=false)" :cmp="'task-label-modal'" :colors="colors" />
+        <triangle-modal v-if="getLabel && show" :content="content" :name="name" @updateTask="updateTask"
+            @hideModal="(show=false)" :cmp="'task-label-modal'" :colors="colors" />
     </section>
 </template>
 
@@ -17,6 +17,10 @@ export default {
         colors: {
             type: Object,
             reqiured: true
+        },
+        isKanban: {
+            type: Boolean,
+            required: true
         }
     },
     data() {

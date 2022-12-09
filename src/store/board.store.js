@@ -4,8 +4,8 @@ import { router } from '../router.js'
 
 export const boardStore = {
     state: {
-        board: [],
-        kanbanBoard: [],
+        board: {},
+        kanbanBoard: {},
         firstBoardId: null,
         miniBoards: null,
         isWorkspaceCollapsed: false,
@@ -18,11 +18,11 @@ export const boardStore = {
         statuses: []
     },
     getters: {
-        board({ board }) { return board },
+        board({ board }, ) {return board},
         boardsTitles({ boardsTitles }) { return boardsTitles.map(board => board.title) },
         miniBoards({ miniBoards }) { return miniBoards },
         filterBy({ filterBy }) { return filterBy },
-        filterMap({ board }) { return board.dataMap },
+        dataMap({ dataMap }) { return dataMap },
         kanbanBoard({ kanbanBoard }) { return kanbanBoard },
 
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
@@ -35,8 +35,8 @@ export const boardStore = {
             if (boardData.dataMap) state.dataMap = boardData.dataMap
             if (boardData.miniBoards) state.miniBoards = boardData.miniBoards
         },
-        setKanbanBoard(state, { board }) {
-            state.kanbanBoard = board
+        queryKanbanBoard( state , { sort }) {
+            state.kanbanBoard = boardService.queryKanban(state.board, sort, this.getters.dataMap)
         },
         setFilter(state, { filter }) {
             state.filterBy = { ...state.filterBy, ...filter }
@@ -124,23 +124,12 @@ export const boardStore = {
         async queryBoard({ commit }, { filter }) {
             try {
                 commit({ type: 'setFilter', filter })
-                const boardData = await boardService.query(filter)
+                const boardData = await boardService.query(filter.id ? filter.id : '')
                 commit({ type: 'setBoard', boardData })
             } catch (err) {
                 console.log('Could not find board');
                 throw new Error()
             }
-        },
-        async queryKanbanBoard({ commit, getters }, { filter }) {
-            try {
-                commit({ type: 'setFilter', filter })
-                const board = await boardService.queryKanbanBoard(filter, getters.board)
-                commit({ type: 'setKanbanBoard', board })
-            } catch (err) {
-                console.log('Could not find board');
-                throw new Error()
-            }
-
         },
         async getFirstBoard({ commit }) {
             try {
@@ -186,8 +175,8 @@ export const boardStore = {
         removeLabel({ dispatch }, { type, id }) {
             if (colorService.update(type, id)) dispatch({ type: loadLabels })
         },
-        loadColors({commit}){
-            commit({type:'setColors', colors: colors()})
+        loadColors({ commit }) {
+            commit({ type: 'setColors', colors: colors() })
         }
     }
 }

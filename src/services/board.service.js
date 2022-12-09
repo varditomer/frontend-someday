@@ -1,7 +1,7 @@
 
 // import { storageService } from './async-storage.service.js'
 import { httpService } from './http.service.js'
-import { colorService } from './color.service.js'
+import { colorService , colors} from './color.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 
@@ -11,12 +11,13 @@ const BOARD_URL = 'board/'
 
 export const boardService = {
     query,
+    filterBoard,
     save,
     remove,
     getEmptyBoard,
     removeManyTasks,
     loadFromSessionStorage,
-    queryKanbanBoard,
+    queryKanban,
     saveToSessionStorage
 }
 
@@ -30,8 +31,8 @@ function saveToSessionStorage(key, state) {
     sessionStorage.setItem(key, state)
 }
 
-async function query(filterBy = {}) {
-    return await httpService.get(BOARD_URL, filterBy)
+async function query(id = '') {
+    return await httpService.get(BOARD_URL + id)
 }
 
 async function remove(boardId) {
@@ -45,6 +46,7 @@ async function removeManyTasks(taskIds, boardId) {
 }
 
 async function save(board) {
+    debugger
     var savedBoard
     if (board._id) {
 
@@ -65,43 +67,30 @@ async function save(board) {
 //     return savedMsg
 // }
 
-async function queryKanbanBoard(filterBy = {}) {
-    let board = (await query(filterBy)).board
-    return board.groups.reduce((status, group) => {
-        const map = group.tasks.reduce((innerStatus, task) => {
-            if (task.status) {
-                if (innerStatus[task.status]) innerStatus[task.status].push(task)
-                else innerStatus[task.status] = [task]
-            }
-            return innerStatus
-        }, {})
-        for (let prop in map) {
-            if (status[prop]) status[prop].push(...map[prop])
-            else status[prop] = map[prop]
-        }
-        return status
-    }, {})
-    if (!board.statusOrder) return board
-    const statusesIds = Object.keys(board.groups)
-    const formattedGroups = statusesIds.map((status, idx) => {
-        const oldIdx = statusesIds.indexOf(board.statusOrders[idx]._id)
-        console.log(`oldIdx`, oldIdx)
-        return board.groups[oldIdx]
-    })
-    console.log(`board`, board)
-    return board
-
-
-
-    board.groups = board.groups.reduce((groups, group, idx, original) => {
-        if (!board.statusOrder) groups.push(group)
-        else {
-            groups.push(original.find(anyGroup => group.tasks[0].status === board.statusOrder[idx]._id))
-        }
+function queryKanban(board, type = 'status', dataMap) {
+    board.kanbanType = type
+    if (type === 'groupTitle') return board
+    if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.tasks))
+    board.groups = board.kanbanOrder[type].reduce((groups, val) => {
+        const tasks = _getTasksByValue(board, type, val)
+        if (!tasks.length) return groups
+        const group = {tasks}
+        group.title = type === 'status' || type === 'priority'
+            ? colorService.getLabelById(type, val).title
+            : val
+        group.color = type === 'status' || type === 'priority'
+            ? colorService.getLabelById(type, val).value
+            : ''
+        groups.push(group)
         return groups
     }, [])
-    console.log(`jsdhcbjshdb`)
-    console.log(`board`, board)
+    return board
+}
+
+function filterBoard(board, filter) {
+    if (filter.groupTitles || filter.tasks) return _multiFilter(filter, board)
+    if (filter.userId) board = _filterByPerson(board, filter.userId)
+    if (filter.txt) board = _filterByTxt(board, filter.txt)
     return board
 }
 
@@ -176,6 +165,74 @@ async function getEmptyBoard() {
 }
 
 
+function _filterByPerson(board, id) {
+    if (!id) return board
+    board.groups = board.groups.filter(group => {
+        if (!group.tasks || !group.tasks.length) return false
+        group.tasks = group.tasks.filter(task => {
+            return task?.person?.some(person => person._id === id)
+        })
+        return (group.tasks && group.tasks.length)
+    })
+    return board
+}
 
+function _filterByTxt(board, txt) {
+    if (!txt) return board
+    const regex = new RegExp(txt, 'ig')
+    board.groups = board.groups.reduce((groupArr, group) => {
+        const isGroupTitleMatch = regex.test(group.title)
+        if (isGroupTitleMatch) {
+            group.title = group.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
+        }
 
+        group.tasks = group.tasks.reduce((taskArr, task) => {
+            if (regex.test(task.title)) {
+                task.title = task.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
+                taskArr.push(task)
+            }
+            return taskArr
+        }, [])
 
+        if (group.tasks?.length || isGroupTitleMatch) groupArr.push(group)
+        return groupArr
+
+    }, [])
+    return board
+}
+
+function _multiFilter(filterBy, board) {
+    board.groups = board.groups.reduce((filteredGroups, group) => {
+        if (filterBy?.groupTitle && filterBy.groupTitle !== group.title) return filteredGroups
+        if (filterBy.tasks) group.tasks = group.tasks.reduce((filteredTasks, task) => {
+            const taskFilter = JSON.parse(JSON.stringify(filterBy.tasks))
+            if (taskFilter.person?.length &&
+                !taskFilter.person.some(id => {
+                    return (task.person && task.person.find(person => person._id === id))
+                })) return filteredTasks
+            delete taskFilter.person
+            for (let prop in taskFilter) {
+                if (task[prop] === taskFilter[prop]) {
+                    filteredTasks.push(task)
+                    return filteredTasks
+                }
+            }
+            return filteredTasks
+        }, [])
+        if (group.tasks.length) filteredGroups.push(group)
+        return filteredGroups
+    }, [])
+    return board
+}
+
+function _getTasksByValue(board, key, value) {
+    if (!board || !key || !value) return null
+    return board.groups.reduce((tasks, group) => {
+        const filteredGroupTasks = group.tasks.filter(task => key === 'person'
+            ? task.person.find(person => person._id === value)
+            : task[key] === value
+        )
+        if (filteredGroupTasks.length) tasks.push(...filteredGroupTasks)
+        return tasks
+    }, [])
+}

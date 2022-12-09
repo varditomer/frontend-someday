@@ -8,7 +8,8 @@ export const colorService = {
     add,
     update,
     remove,
-    randomColor
+    randomColor,
+    getLabelById
 }
 window.bs = colorService
 
@@ -56,6 +57,11 @@ function randomColor(type) {
     return colors()[type][colorNames[idx]]
 }
 
+function getLabelById(label, id){
+    if (!id || !label || !colors()[label]) return null
+    return colors()[label].find(anyLabel => anyLabel._id === id)
+}
+
 ()=>{
     let colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
     colors = colors && colors.length
@@ -84,7 +90,7 @@ function randomColor(type) {
                 },
                 {
                     _id: 'evdf9',
-                    title: '',
+                    title: 'Default',
                     value: '#c4c4c4'
                 },
             ],

@@ -135,7 +135,8 @@ export default {
     async created() {
         const { id } = this.$route.params
         try {
-            await this.$store.dispatch({ type: 'queryKanbanBoard', filter:{id} })
+            await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
+            this.$store.commit({ type: 'queryKanbanBoard', sort: 'status'})
         } catch (err) {
             this.$router.push('/')
         }
