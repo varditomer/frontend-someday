@@ -91,7 +91,7 @@ function queryKanban(board, type = 'status', dataMap) {
 }
 
 function filterBoard(board, filter) {
-    if (filter.groupTitle || filter.tasks) return _multiFilter(filter, board)
+    if (filter.groupTitles || filter.tasks) return _multiFilter(filter, board)
     if (filter.userId) board = _filterByPerson(board, filter.userId)
     if (filter.txt) board = _filterByTxt(board, filter.txt)
     return board

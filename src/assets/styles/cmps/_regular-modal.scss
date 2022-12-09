@@ -153,15 +153,44 @@
                 .filter-item {
                     display: flex;
                     align-items: center;
+                    justify-content: space-between;
                     padding: 0 12px;
                     margin-right: 4px;
                     min-height: 32px;
                     cursor: pointer;
                     border-radius: 4px;
                     background-color: #f5f6f8;
+                    .filter-option {
+                        display: flex;
+                        align-items: center;
+                        width: 87%;
+                        span {
+                            @include ellipsis(14px, 100%);
+                            text-align: left;
+                        }
+
+
+                    }
+                    .filter-counter {
+                        font-size: rem(12px);
+                        padding-left: 3px;
+                        color: #676879;
+                    }
 
                     &:hover {
                         background-color: #dcdfec;
+                    }
+
+                    &.person {
+                        .filter-option {
+                            img {
+                                width: 26px;
+                                height: 26px;
+                            }
+                            span {
+                                margin-left: 8px;
+                            }
+                        }
                     }
                 }
             }

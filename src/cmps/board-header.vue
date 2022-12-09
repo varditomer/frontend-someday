@@ -9,15 +9,22 @@
             </section>
             <section class="add-views">
                 <router-link :to="('/board/' + board._id)">
-                    <button @click="(view = 'table')" class="view-item" :class="{ 'selected': view === 'table' }">
+                    <button @click="changeView('table')" class="view-item" :class="{ 'selected': view === 'table' }">
                         <span v-svg-icon="'outlineHome'"></span>
                         <p class="view-title">Main Table</p>
                     </button>
                 </router-link>
-                <span class="seperator">|</span>
+                <span class="separator">|</span>
                 <router-link :to="('/board/' + board._id + '/kanban/')">
-                    <button @click="(view = 'kanban')" class="view-item" :class="{ 'selected': view === 'kanban' }">
+                    <button @click="changeView('kanban')" class="view-item" :class="{ 'selected': view === 'kanban' }">
                         <p class="view-title">Kanban</p>
+                    </button>
+                </router-link>
+                <span class="separator">|</span>
+                <router-link :to="('/board/' + board._id + '/dashboard/')">
+                    <button @click="changeView('dashboard')" class="view-item"
+                        :class="{ 'selected': view === 'dashboard' }">
+                        <p class="view-title">Dashboard</p>
                     </button>
                 </router-link>
             </section>
@@ -42,6 +49,11 @@ export default {
         }
     },
     methods: {
+        changeView(viewName) {
+            console.log(`viewName:`, viewName)
+            this.view = viewName
+        },
+
         addGroup() {
             this.$emit('addGroup')
         },

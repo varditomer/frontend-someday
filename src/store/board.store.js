@@ -5,6 +5,7 @@ import { router } from '../router.js'
 export const boardStore = {
     state: {
         board: {},
+        filteredBoard: {},
         kanbanBoard: {},
         firstBoardId: null,
         miniBoards: null,
@@ -18,7 +19,8 @@ export const boardStore = {
         statuses: []
     },
     getters: {
-        board({ board }, ) {return board},
+        board({ board },) { return board },
+        filteredBoard({ filteredBoard },) { return filteredBoard },
         boardsTitles({ boardsTitles }) { return boardsTitles.map(board => board.title) },
         miniBoards({ miniBoards }) { return miniBoards },
         filterBy({ filterBy }) { return filterBy },
@@ -32,10 +34,11 @@ export const boardStore = {
     mutations: {
         setBoard(state, { boardData }) {
             if (boardData.board) state.board = boardData.board
+            if (boardData.board) state.filteredBoard = boardData.board
             if (boardData.dataMap) state.dataMap = boardData.dataMap
             if (boardData.miniBoards) state.miniBoards = boardData.miniBoards
         },
-        queryKanbanBoard( state , { sort }) {
+        queryKanbanBoard(state, { sort }) {
             state.kanbanBoard = boardService.queryKanban(state.board, sort, this.getters.dataMap)
         },
         setFilter(state, { filter }) {
@@ -43,6 +46,9 @@ export const boardStore = {
         },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
+        },
+        filterBoard(state, { filter }) {
+            state.filteredBoard = boardService.filterBoard(state.board, filter)
         },
         updateMiniBoard(state, { board }) {
             const idx = state.miniBoards.findIndex(mini => mini._id === board._id)

@@ -190,7 +190,6 @@ export default {
         taskSummary
     },
     created() {
-        console.log(`this.group`, this.group)
     }
 }
 </script>
