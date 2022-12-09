@@ -8,7 +8,7 @@
             <regular-modal v-if="false" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
-            <dashboard />
+            <dashboard-list />
             <router-view />
         </section>
     </section>
@@ -18,7 +18,8 @@ import regularModal from '../cmps/dynamic-modals/regular-modal.vue'
 import boardHeader from '../cmps/board-header.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
-import dashboard from '../cmps/dashboard-cmps/dashboard.vue'
+// import dashboard from '../cmps/dashboard-cmps/dashboard.vue'
+import dashboardList from '../cmps/dashboard-cmps/dashboard-list.vue'
 
 export default {
     name: 'dashboard-app',
@@ -126,7 +127,8 @@ export default {
         boardWorkspace,
         taskNav,
         regularModal,
-        dashboard
+        dashboardList,
+        // dashboard
     },
 }
 </script>
