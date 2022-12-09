@@ -46,7 +46,6 @@ async function removeManyTasks(taskIds, boardId) {
 }
 
 async function save(board) {
-    debugger
     var savedBoard
     if (board._id) {
 

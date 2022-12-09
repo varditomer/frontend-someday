@@ -60,18 +60,21 @@ export default {
             return `border-left: ${label.color} 4px solid;`
         },
         saveGroup(groupId, tasks){
-            const taskOrder = tasks.map(task=>task._id) 
             const board = this.kanbanBoard
+            const taskOrder = tasks.map(task=>task[board.kanbanType]) 
             if (!board.taskOrder) board.taskOrder = {}
-            if (board.taskOrder[board.kanbanType]) board.taskOrder[board.kanbanType] = {}
+            if (!board.taskOrder[board.kanbanType]) board.taskOrder[board.kanbanType] = {}
             board.taskOrder[board.kanbanType][groupId] = taskOrder
             const {kanbanOrder} = board
             this.saveBoard({kanbanOrder, taskOrder})
         },
         saveBoard(updatedProps) {
-            const board = JSON.parse(JSON.stringify(this.$store.getters.board))
+            console.log(`updatedProps`, updatedProps)
+            let board = JSON.parse(JSON.stringify(this.$store.getters.board))
             board = {...board, ...updatedProps}
             this.$store.dispatch({type:'saveBoard', board})
+            console.log(`board`, board)
+            debugger
             // board1.kanbanOrder = this.statuses //.map(status => status._id)
 
             // this.$store.dispatch({ type: 'saveBoard', board: board1 })
