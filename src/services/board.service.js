@@ -78,6 +78,9 @@ function queryKanban(board, type = 'status', dataMap) {
         group.color = type === 'status' || type === 'priority'
             ? colorService.getLabelById(type, val).value
             : ''
+        group._id = type === 'status' || type === 'priority'
+            ? colorService.getLabelById(type, val)._id
+            : utilService.makeId()
         groups.push(group)
         return groups
     }, [])
@@ -85,7 +88,7 @@ function queryKanban(board, type = 'status', dataMap) {
 }
 
 function filterBoard(board, filter) {
-    if (filter.groupTitles || filter.tasks) return _multiFilter(filter, board)
+    if (filter.groupTitle || filter.tasks) return _multiFilter(filter, board)
     if (filter.userId) board = _filterByPerson(board, filter.userId)
     if (filter.txt) board = _filterByTxt(board, filter.txt)
     return board
@@ -202,7 +205,12 @@ function _filterByTxt(board, txt) {
 
 function _multiFilter(filterBy, board) {
     board.groups = board.groups.reduce((filteredGroups, group) => {
-        if (filterBy?.groupTitle && filterBy.groupTitle !== group.title) return filteredGroups
+        if (filterBy?.groupTitle &&
+            !filterBy.groupTitle.find(title => title === group.title)) return filteredGroups
+        if (!filterBy.tasks) {
+            filteredGroups.push(group)
+            return filteredGroups
+        }
         if (filterBy.tasks) group.tasks = group.tasks.reduce((filteredTasks, task) => {
             const taskFilter = JSON.parse(JSON.stringify(filterBy.tasks))
             if (taskFilter.person?.length &&

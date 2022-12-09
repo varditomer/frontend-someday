@@ -8,7 +8,7 @@
                     <div class="group-title" :style="getColor(element)">
                         <h1>{{ element.title }}</h1>
                     </div>
-                        <group-preview :group="element" :tasks="element.tasks"/>
+                        <group-preview :group="element" :tasks="element.tasks" @saveGroup="saveGroup"/>
                 </section>
             </template>
         </draggable>
@@ -59,8 +59,19 @@ export default {
         getBorder(label) {
             return `border-left: ${label.color} 4px solid;`
         },
-        saveBoard() {
-            const board1 = JSON.parse(JSON.stringify(this.$store.getters.board))
+        saveGroup(groupId, tasks){
+            const taskOrder = tasks.map(task=>task._id) 
+            const board = this.kanbanBoard
+            if (!board.taskOrder) board.taskOrder = {}
+            if (board.taskOrder[board.kanbanType]) board.taskOrder[board.kanbanType] = {}
+            board.taskOrder[board.kanbanType][groupId] = taskOrder
+            const {kanbanOrder} = board
+            this.saveBoard({kanbanOrder, taskOrder})
+        },
+        saveBoard(updatedProps) {
+            const board = JSON.parse(JSON.stringify(this.$store.getters.board))
+            board = {...board, ...updatedProps}
+            this.$store.dispatch({type:'saveBoard', board})
             // board1.kanbanOrder = this.statuses //.map(status => status._id)
 
             // this.$store.dispatch({ type: 'saveBoard', board: board1 })

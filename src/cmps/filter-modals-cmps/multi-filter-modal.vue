@@ -18,7 +18,7 @@
                 <h2>All columns</h2>
             </div>
             <div class="filter-groups">
-                <multi-filter-column v-for="(column, idx) in formattedProps.titles" :column="column" :data="formattedProps.props[idx]" :key="idx" @setSubFilter="setSubFilter" />
+                <multi-filter-column v-for="(column, idx) in formattedProps.columns" :column="column" :data="formattedProps.props[idx]" :key="idx" @setSubFilter="setSubFilter" />
             </div>
         </section>
     </section>
@@ -42,26 +42,23 @@ export default {
     computed: {
         formattedProps() {
             const dataMap = this.$store.getters.dataMap
-            const titles = []
-            titles.push(...Object.keys(dataMap.tasks))
+            const columns = []
+            columns.push(...Object.keys(dataMap.tasks))
             const props = dataMap?.groupTitle?.length
                 ? [dataMap.groupTitle]
                 : []
-            titles.forEach(title=>props.push(dataMap.tasks[title]))
-            if (dataMap?.groupTitle?.length) titles.unshift('Group')
-            return {props, titles}
-
+            columns.forEach(title=>props.push(dataMap.tasks[title]))
+            if (dataMap?.groupTitle?.length) columns.unshift('Group')
+            return {props, columns}
         }
     },
     methods: {
-        setSubFilter(subFilter, type){
-            console.log(`type:`, type)
-            console.log(`subFilter:`, subFilter)
-            if (type === 'Group') this.multiFilter = {...this.multiFilter, groupTitle:subFilter}
-            else this.multiFilter.tasks[type] = subFilter
+        setSubFilter(subFilter){
+            this.multiFilter = {...this.multiFilter, ...subFilter}
+            // if (type === 'Group') this.multiFilter = {...this.multiFilter, groupTitle:subFilter}
+            // else this.multiFilter.tasks[type] = subFilter
             const filter = this.multiFilter
-            console.log(`filter:`, filter)
-            this.$store.dispatch({type:'queryBoard', filter})
+            this.$store.commit({type:'filterBoard', filter})
             //emit filter request: queryBoard - {filter}
         }
         // uncheckAllFilters(

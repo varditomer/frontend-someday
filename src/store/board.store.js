@@ -5,6 +5,7 @@ import { router } from '../router.js'
 export const boardStore = {
     state: {
         board: {},
+        filteredBoard: {},
         kanbanBoard: {},
         firstBoardId: null,
         miniBoards: null,
@@ -19,6 +20,7 @@ export const boardStore = {
     },
     getters: {
         board({ board },) { return board },
+        filteredBoard({ filteredBoard },) { return filteredBoard },
         boardsTitles({ boardsTitles }) { return boardsTitles.map(board => board.title) },
         miniBoards({ miniBoards }) { return miniBoards },
         filterBy({ filterBy }) { return filterBy },
@@ -32,6 +34,7 @@ export const boardStore = {
     mutations: {
         setBoard(state, { boardData }) {
             if (boardData.board) state.board = boardData.board
+            if (boardData.board) state.filteredBoard = boardData.board
             if (boardData.dataMap) state.dataMap = boardData.dataMap
             if (boardData.miniBoards) state.miniBoards = boardData.miniBoards
         },
@@ -43,6 +46,9 @@ export const boardStore = {
         },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
+        },
+        filterBoard(state, { filter }) {
+            state.filteredBoard = boardService.filterBoard(state.board, filter)
         },
         updateMiniBoard(state, { board }) {
             const idx = state.miniBoards.findIndex(mini => mini._id === board._id)
@@ -103,10 +109,14 @@ export const boardStore = {
         }
     },
     actions: {
-        async saveBoard({ commit }, { board }) {
+        async saveBoard({ commit, getters }, { board }) {
             try {
                 board.groups.forEach(group => group.tasks.forEach(task => task.groupId = group._id))
-                commit({ type: 'setBoard', boardData: { board } })
+                let fullBoard = {}
+                fullBoard.groups = board.groups
+                delete board.groups
+                fullBoard = { ...getters.board, ...board }
+                commit({ type: 'setBoard', boardData: { board: fullBoard } })
                 commit({ type: 'updateMiniBoard', board })
                 board = await boardService.save(board)
                 return board

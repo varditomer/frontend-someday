@@ -221,7 +221,7 @@ export default {
             return this.$route.params.id
         },
         board() {
-            return this.$store.getters.board
+            return this.$store.getters.filteredBoard
         },
         isWorkspaceCollapsed() {
             return this.$store.getters.isWorkspaceCollapsed
