@@ -1,20 +1,9 @@
 <template>
     <section class='multi-filter-column'>
         <div class="filter-col">
-            <div class="title">Group</div>
+            <div class="title">{{ column }}</div>
             <div class="content flex column">
-                <div class="filter-item">Top group</div>
-                <div class="filter-item">Bugs</div>
-                <div class="filter-item">Details</div>
-                <div class="filter-item">Workspace</div>
-                <div class="filter-item">Task preview</div>
-                <div class="filter-item">Modals</div>
-                <div class="filter-item">For thursday</div>
-                <div class="filter-item">General</div>
-                <div class="filter-item">Task preview</div>
-                <div class="filter-item">Modals</div>
-                <div class="filter-item">For thursday</div>
-                <div class="filter-item">General</div>
+                <div v-for="item in formattedData" class="filter-item" @click="setSubFilter(item)">{{ item }}</div>
             </div>
         </div>
     </section>
@@ -22,13 +11,37 @@
 <script>
 export default {
     name: 'multi-filter-column',
-    props: {},
-    data() {
-        return {}
+    emits: ['setSubFilter'],
+    props: {
+        column: {
+            type: String,
+            required: true
+        },
+        data: {
+            type: Array,
+            required: true
+        }
     },
-    created() { },
-    computed: {},
-    methods: {},
+    data() {
+        return {
+            multiFilter: []
+        }
+    },
+    created() {
+    },
+    computed: {
+        formattedData() {
+            return this.data.filter(item => item)
+        }
+    },
+    methods: {
+        setSubFilter(item) {
+            const idx = this.multiFilter.indexOf('Group')
+            if (idx === -1) this.multiFilter.push(item)
+            else this.multiFilter.splice(idx, 1)
+            this.$emit('setSubFilter', this.multiFilter, this.column)
+        }
+    },
     components: {}
 }
 </script>

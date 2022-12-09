@@ -24,13 +24,14 @@
                 <div class="add-columns">
                     <span v-if="!showModal" @click="show" v-svg-icon="'add'" class="add-column-btn"></span>
                     <span v-else @click="(showModal = false)" v-svg-icon="'smallExit'" class="close-column-btn"></span>
-                    <regular-modal class="add-columns-modal-parent" @addColumn="addColumn" :cmpsOrder="cmpsOrder" @closeModal="(showModal = false)"
-                        v-if="showModal" :cmp="'add-column-modal'" />
+                    <regular-modal class="add-columns-modal-parent" @addColumn="addColumn" :cmpsOrder="cmpsOrder"
+                        @closeModal="(showModal = false)" v-if="showModal" :cmp="'add-column-modal'" />
                 </div>
             </section>
 
         </li>
-        <draggable v-model="group.tasks" ghost-class="ghost" animation="200" @start="beingDragged = true"
+
+        <draggable v-model="group.tasks" ghost-class="ghost" animation="200" @start="( this.beingDragged = true)" @drag=" this.beingDragged = true"
             :class="{ 'task-dragged': beingDragged }" @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
@@ -46,10 +47,10 @@
                 <span class="task-select add-task-select" :style="{ 'border-left-color': `${group.style.light}` }">
                     <input type="checkbox" disabled />
                 </span>
-                <span @click="addTask" v-svg-icon="'add'" class="add-task-icon"></span>
-                <input @blur="addTask" v-model="taskToAdd.title" type="text" placeholder="Add Item"
-                    class="add-new-task-inline">
-                <button style="display:none;"></button>
+                <div class="add-task-sec">
+                    <input @blur="addTask" v-model="taskToAdd.title" type="text" placeholder="+ Add Item"
+                        class="add-new-task-inline">
+                </div>
             </section>
             <section class="dynamic">
                 <span v-for="cmp in cmpsOrder" class="empty-fill-span"></span>
@@ -81,7 +82,7 @@ export default {
         },
         colors: {
             type: Object,
-            reqiured: true
+            required: true
         }
     },
     components: {
@@ -99,7 +100,7 @@ export default {
             editing: null,
             allChecked: false,
             allCheckedClicked: false,
-            showModal: false
+            showModal: false,
         }
     },
     created() {

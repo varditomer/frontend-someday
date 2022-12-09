@@ -5,9 +5,10 @@
         background-color: $fltr-bgc !important;
 
 
-        &:hover{
-            background-color: darken($fltr-bgc,3%) !important;
+        &:hover {
+            background-color: darken($fltr-bgc, 3%) !important;
         }
+
         .content-li:hover {
             background-color: unset;
         }
@@ -19,8 +20,8 @@
             .task-select {
                 background-color: $fltr-bgc !important;
 
-                &:hover{
-                    background-color: darken($fltr-bgc,3%) !important;
+                &:hover {
+                    background-color: darken($fltr-bgc, 3%) !important;
                 }
             }
         }
@@ -303,11 +304,6 @@
             border-top-left-radius: 0.3em;
         }
 
-        .add-task-select {
-            border-bottom-left-radius: 0.3em;
-            border-left: 5px solid lighten($layout-gray, 30%);
-        }
-
         .link {
             @include cellBorderHover;
 
@@ -380,13 +376,81 @@
             .label-name {
                 display: flex;
                 align-items: center;
+                position: relative;
                 justify-content: center;
                 width: 100%;
                 height: 100%;
                 cursor: pointer;
 
+                .container {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+
+                    i {
+                        position: absolute;
+                        display: block;
+                        left: 50%;
+                        top: 10px;
+                        width: 2px;
+                        height: 4px;
+                        background: red;
+                        opacity: 0;
+
+
+                    }
+
+                    &.animate {
+                        @for $i from 1 through 50 {
+                            i:nth-of-type(#{$i}) {
+                                transform: translate3d(random(190) - 100 + px,
+                                        random(200) - 100 + px,
+                                        0) rotate(random(360) + deg);
+                                background: hsla(random(360), 100%, 50%, 1);
+                                animation: bang 700ms ease-out forwards;
+                                opacity: 0;
+                            }
+                        }
+                    }
+
+                    @keyframes bang {
+                        from {
+                            transform: translate3d(0, 0, 0);
+                            opacity: 1;
+                        }
+                    }
+                }
+
+
+
+
+                .fold {
+                    width: 0px;
+                    height: 0px;
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    border-width: 0;
+                    border-style: solid;
+                    background: rgba(0, 0, 0, .2);
+                    display: block;
+                    /*border-radius:3px 0 0 0;*/
+                    border-color: transparent #fff transparent #fff;
+
+                    -webkit-transition: border-width 0.2s ease-out;
+                    -moz-transition: border-width 0.2s ease-out;
+                    -ms-transition: border-width 0.2s ease-out;
+                    -o-transition: border-width 0.2s ease-out;
+                    transition: border-width 0.2s ease-out;
+                }
+
+
                 &:hover {
                     opacity: 0.9;
+
+                    .fold {
+                        border-width: 0px 10px 10px 0px
+                    }
                 }
             }
         }

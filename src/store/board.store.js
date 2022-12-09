@@ -86,7 +86,9 @@ export const boardStore = {
             const workspaceState = boardService.loadFromSessionStorage('workspace')
             state.isWorkspaceCollapsed = JSON.parse(workspaceState)
         },
-        setColors(state, { colors }) { state.colors = colors },
+        setColors(state, { colors }) {
+            state.colors = colors
+        },
         updateLabels(state, { type, title, value, id }) {
             const colors = state.colors
             if (!type || !colors[type] || !id || (!title && !value)) return
@@ -123,6 +125,7 @@ export const boardStore = {
         },
         async queryBoard({ commit }, { filter }) {
             try {
+                console.log(filter)
                 commit({ type: 'setFilter', filter })
                 const boardData = await boardService.query(filter.id ? filter.id : '')
                 commit({ type: 'setBoard', boardData })

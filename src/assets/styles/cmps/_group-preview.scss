@@ -24,7 +24,30 @@
 
     &.ghost,
     .ghost {
-        opacity: 0;
+        opacity: .3;
+        background-color: transparent;
+        fill: transparent;
+
+        .dynamic {
+            border-top: 1px $layout-black dashed;
+            border-bottom: 1px $layout-black dashed;
+            border-right: 1px $layout-black dashed;
+        }
+
+        .static {
+            .task-select {
+                border-top: 1px $layout-black dashed;
+                border-bottom: 1px $layout-black dashed;
+                border-left: 1px $layout-black dashed;
+            }
+
+            .task-title-container {
+                border-top: 1px $layout-black dashed;
+                border-bottom: 1px $layout-black dashed;
+
+
+            }
+        }
     }
 
 
@@ -33,7 +56,6 @@
         // transform: rotate(3deg);
         cursor: grabbing !important;
 
-        &.ghost {}
     }
 
     position: relative;
@@ -96,11 +118,12 @@
                             outline: 1px solid $primary-blue;
                         }
                     }
+
+                    .options {
+                        height: 36px;
+                    }
                 }
 
-                .options {
-                    height: 36px;
-                }
             }
 
             .dynamic {
@@ -224,6 +247,7 @@
             height: 100%;
             transition: 0.4;
             background-color: white;
+            padding-left: 2px;
 
             svg {
                 color: inherit;
@@ -246,10 +270,9 @@
                 .more {
                     &:hover {
                         color: #000;
-
                         background-color: $brdr-clr;
+                        border-radius: 4px;
                         // padding-left: 8px;
-                        border-radius: 7px;
                         cursor: pointer;
                     }
                 }

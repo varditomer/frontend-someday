@@ -21,7 +21,7 @@ function update(type, id, title, value) {
     const idx = formattedColors[type].findIndex(label => label._id === id)
     if (idx === -1) return Promise.reject('Cannot update label')
     if (title) formattedColors[type][idx].title = title
-    formattedColors[type][idx].value = value 
+    formattedColors[type][idx].value = value
     localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(formattedColors))
     return formattedColors
 }
@@ -57,12 +57,16 @@ function randomColor(type) {
     return colors()[type][colorNames[idx]]
 }
 
-function getLabelById(label, id){
+function getLabelById(label, id) {
     if (!id || !label || !colors()[label]) return null
     return colors()[label].find(anyLabel => anyLabel._id === id)
 }
 
-()=>{
+// DONT DELETE!! Arrow function does not implement on Firefox and Edge
+_createColors()
+
+function _createColors() {
+
     let colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
     colors = colors && colors.length
         ? colors
@@ -231,8 +235,9 @@ function getLabelById(label, id){
             }
         }
     localStorage.setItem(COLOR_STORAGE_KEY, JSON.stringify(colors))
+
 }
 
-export function colors(){
+export function colors() {
     return JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
 }

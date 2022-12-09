@@ -1,6 +1,11 @@
 <template>
     <section v-if="!isKanban" class="labels" @click="clickToEdit">
-        <span class="label-name" :style="getLabel.style">{{ getLabel.title === 'Default' ? '' : getLabel.title }}</span>
+        <span class="label-name" :style="getLabel.style">{{ getLabel.title === 'Default' ? '' : getLabel.title }}
+            <div class="container" :class="{ 'animate': isConfetti }">
+                <i v-for="i in 50"></i>
+            </div>
+            <span class="fold"></span>
+        </span>
         <triangle-modal v-if="getLabel && show" :content="content" :name="name" @updateTask="updateTask"
             @hideModal="(show=false)" :cmp="'task-label-modal'" :colors="colors" />
     </section>
@@ -16,7 +21,7 @@ export default {
         name: String,
         colors: {
             type: Object,
-            reqiured: true
+            required: true
         },
         isKanban: {
             type: Boolean,
@@ -25,24 +30,31 @@ export default {
     },
     data() {
         return {
-            show: false
+            show: false,
+            isConfetti: false,
         }
     },
     methods: {
         updateTask(labelObj) {
+            if (labelObj.val === 'sdc34') this.startConfetti()
             this.$emit('updateTask', labelObj)
             setTimeout(() => this.show = false, 1)
         },
         clickToEdit() {
             this.show = true
             this.$emit('editing')
+        },
+        startConfetti() {
+            this.isConfetti = true
+            console.log(this.isConfetti);
+            setTimeout(() => this.isConfetti = false, 2000)
         }
     },
     computed: {
         getLabel() {
             if (!this.colors[this.name]) return {
                 style: {
-                    'backgrond-colorr': 'white',
+                    'background-color': 'white',
                     color: 'white'
                 },
                 title: ''
