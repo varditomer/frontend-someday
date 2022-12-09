@@ -58,8 +58,6 @@ function randomColor(type) {
 }
 
 function getLabelById(label, id) {
-    console.log(`label:`, label)
-    console.log(`id:`, id)
     if (!id || !label || !colors()[label]) return null
     return colors()[label].find(anyLabel => anyLabel._id === id)
 }

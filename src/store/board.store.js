@@ -16,7 +16,7 @@ export const boardStore = {
         },
         dataMap: {},
         colors: {},
-        statuses: []
+        stats: {}
     },
     getters: {
         board({ board },) { return board },
@@ -26,10 +26,10 @@ export const boardStore = {
         filterBy({ filterBy }) { return filterBy },
         dataMap({ dataMap }) { return dataMap },
         kanbanBoard({ kanbanBoard }) { return kanbanBoard },
-
+        stats({stats}) { return stats},
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         colors({ colors }) { return colors },
-        statuses() { return colors().status }
+
     },
     mutations: {
         setBoard(state, { boardData }) {
@@ -37,6 +37,7 @@ export const boardStore = {
             if (boardData.board) state.filteredBoard = boardData.board
             if (boardData.dataMap) state.dataMap = boardData.dataMap
             if (boardData.miniBoards) state.miniBoards = boardData.miniBoards
+            if (boardData.stats) state.stats = boardData.stats
         },
         queryKanbanBoard(state, { sort }) {
             state.kanbanBoard = boardService.queryKanban(state.board, sort, this.getters.dataMap)
@@ -48,7 +49,7 @@ export const boardStore = {
             state.firstBoardId = boardId
         },
         filterBoard(state, { filter }) {
-        console.log(`state.board`, state.board)
+            console.log(`state.board`, state.board)
             state.filteredBoard = boardService.filterBoard(state.board, filter)
         },
         updateMiniBoard(state, { board }) {

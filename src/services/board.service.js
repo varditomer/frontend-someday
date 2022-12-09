@@ -221,7 +221,7 @@ function _multiFilter(filterBy, board) {
                 })) return filteredTasks
             delete taskFilter.person
             for (let prop in taskFilter) {
-                if (task[prop] === taskFilter[prop]) {
+                if (taskFilter[prop].find(val => task[prop] === val)) {
                     filteredTasks.push(task)
                     return filteredTasks
                 }

@@ -10,7 +10,7 @@
                         <span>{{ item.fullname }}</span>
                     </div>
                     <div class="filter-counter">
-                        22
+                        {{stats.valCountData[item] || ''}}
                     </div>
                 </div>
                 <div v-else v-for="item in formattedData" class="filter-item" @click="setSubFilter(item)">
@@ -23,7 +23,7 @@
                         <span v-else>{{ item }}</span>
                     </div>
                     <div class="filter-counter">
-                        <span>4</span>
+                        <span> {{stats.valCountData[item] || ''}}</span>
                     </div>
                 </div>
             </div>
@@ -43,6 +43,10 @@ export default {
         data: {
             type: Array,
             required: true
+        },
+        stats: {
+            type: Object,
+            required: true
         }
     },
     data() {
@@ -52,6 +56,7 @@ export default {
         }
     },
     created() {
+        console.log(`this.valCountMap`, this.stats.valCountMap)
     },
     computed: {
         formattedData() {
@@ -65,8 +70,8 @@ export default {
             else this.multiFilter.splice(idx, 1)
             if (this.column === 'Group') var filter = { groupTitle: this.multiFilter }
             else {
-                filter = {}
-                filter[this.column] = this.multiFilter
+                filter = {tasks:{}}
+                filter.tasks[this.column] = this.multiFilter
             }
             this.$emit('setSubFilter', filter)
         },

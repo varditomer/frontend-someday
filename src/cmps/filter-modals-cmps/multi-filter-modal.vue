@@ -1,9 +1,9 @@
 <template>
-    <section class='multi-filter-modal flex column'>
+    <section v-if="stats.taskCount" class='multi-filter-modal flex column'>
         <div class="multi-filter-header flex">
             <div class="left-section">
                 <div class="title">Quick filters</div>
-                <span>Showing all of {{ filterItems }} items</span>
+                <span>Showing all of {{ stats.taskCount }} items</span>
             </div>
             <div class="right-section">
                 <div class="clear-all">
@@ -18,7 +18,7 @@
                 <h2>All columns</h2>
             </div>
             <div class="filter-groups">
-                <multi-filter-column v-for="(column, idx) in formattedProps.columns" :column="column" :data="formattedProps.props[idx]" :key="idx" @setSubFilter="setSubFilter" />
+                <multi-filter-column v-for="(column, idx) in formattedProps.columns" :column="column" :stats="stats" :data="formattedProps.props[idx]" :key="idx" @setSubFilter="setSubFilter" />
             </div>
         </section>
     </section>
@@ -36,7 +36,6 @@ export default {
         }
     },
     created() {
-        this.filterItems = 46
 
     },
     computed: {
@@ -50,6 +49,10 @@ export default {
             columns.forEach(title=>props.push(dataMap.tasks[title]))
             if (dataMap?.groupTitle?.length) columns.unshift('Group')
             return {props, columns}
+        },
+        stats(){
+            console.log(`valCountMap`, this.$store.getters.stats.valCountMap)
+            return this.$store.getters.stats
         }
     },
     methods: {
