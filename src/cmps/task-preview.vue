@@ -27,7 +27,7 @@
             </router-link>
         </section>
         <section class="dynamic">
-            <component v-for="(column, idx) in formattedData" :is="column.cmpName + 'Task'" :content="column.content"
+            <component v-for="(column, idx) in formattedData" :isKanban="false" :is="column.cmpName + 'Task'" :content="column.content"
                 :name="column.name" :additionalDb="column.additionalDb" :color="group.style.color" :key="idx"
                 @updateTask="updateTask" @editing="setIsEditing" :colors="colors">
             </component>

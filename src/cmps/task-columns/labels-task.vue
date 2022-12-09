@@ -1,5 +1,5 @@
 <template>
-    <section class="labels" @click="clickToEdit">
+    <section v-if="!isKanban" class="labels" @click="clickToEdit">
         <span class="label-name" :style="getLabel.style">{{ getLabel.title === 'Default' ? '' : getLabel.title }}
             <div class="container" :class="{ 'animate': isConfetti }">
                 <i v-for="i in 50"></i>
@@ -21,6 +21,10 @@ export default {
         name: String,
         colors: {
             type: Object,
+            required: true
+        },
+        isKanban: {
+            type: Boolean,
             required: true
         }
     },
@@ -50,7 +54,7 @@ export default {
         getLabel() {
             if (!this.colors[this.name]) return {
                 style: {
-                    'backgrond-colorr': 'white',
+                    'background-color': 'white',
                     color: 'white'
                 },
                 title: ''

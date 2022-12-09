@@ -1,42 +1,14 @@
 <template>
 
     <section class=''>
-        <draggable v-if="kanbanBoard" v-model="statuses" animation="220" itemKey="element._id"
+        <draggable v-if="kanbanBoard?.groups?.length" v-model="kanbanBoard.groups" animation="220" itemKey="element.title"
             :class="{ 'group-dragged': beingDragged }" class="kanban-group-list-container" @end="saveBoard">
             <template #item="{ element }">
-
                 <section class="group-preview" :style="getBorder(element)">
                     <div class="group-title" :style="getColor(element)">
                         <h1>{{ element.title }}</h1>
                     </div>
-                    <section class="task-list">
-
-                        <div v-for="task in formattedTasks(element)" class="task-preview">
-
-                            <div class="top-sec">
-                                <p>{{ task.title }}</p>
-                            </div>
-                            <div class="persons">
-                                <span v-svg-icon="'smallPerson'" class="person-icon"></span>
-                                <p class="person-text">Person</p>
-                                <div class="task-persons">
-                                    <span v-if="task.person.length" v-for="person in task.person" class="task-avatar">
-                                        <img :src="person.imgUrl" alt="">
-                                    </span>
-                                    <span v-else v-svg-icon="'smallPerson'" class="task-avatar default"></span>
-                                </div>
-                            </div>
-                            <div class="status">
-                                <span v-svg-icon="'status'"></span>
-                                <p class="status-text">Status</p>
-                                <div :style="`background-color:${element.value}`" class="status-label">{{ element.title
-                                }}
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </section>
+                        <group-preview :group="element" :tasks="element.tasks"/>
                 </section>
             </template>
         </draggable>
@@ -46,6 +18,9 @@
 </template>
 <script>
 import draggable from 'vuedraggable'
+import taskList from './kanban-task-list.vue'
+import groupPreview from './kanban-group-preview.vue'
+
 // import triangleModal from './dynamic-modals/triangle-modal.vue'
 export default {
     name: 'kanban-group-list',
@@ -59,10 +34,13 @@ export default {
     },
     computed: {
         users() { return this.$store.getters.users },
-        kanbanBoard() { 
-            console.log(`this.$store.getters.kanbanBoard`, this.$store.getters.kanbanBoard)
-            return this.$store.getters.kanbanBoard },
-        statuses() { return this.$store.getters.statuses },
+        kanbanBoard() {
+            const kanbanBoard = this.$store.getters.kanbanBoard
+            return JSON.parse(JSON.stringify(kanbanBoard))
+        },
+        groups(){
+            return JSON.parse(JSON.stringify(this.kanbanBoard))
+        }
     },
     methods: {
         updateTask(personsObj) {
@@ -75,27 +53,25 @@ export default {
             this.show = true
             this.$emit('editing')
         },
-        getColor(status) {
-            return `background-color:${status.value}; `
+        getColor(label) {
+            return `background-color:${label.color}; `
         },
-        getBorder(status) {
-            return `border-left: ${status.value} 4px solid;`
+        getBorder(label) {
+            return `border-left: ${label.color} 4px solid;`
         },
-        formattedTasks(status) {
-            const id = status._id
-            return this.kanbanBoard[id]
-        },
-        saveBoard(board) {
+        saveBoard() {
             const board1 = JSON.parse(JSON.stringify(this.$store.getters.board))
-            board1.statusOrder = this.statuses //.map(status => status._id)
+            // board1.kanbanOrder = this.statuses //.map(status => status._id)
 
-            this.$store.dispatch({ type: 'saveBoard', board: board1 })
-            console.log(this.statuses)
-        }
+            // this.$store.dispatch({ type: 'saveBoard', board: board1 })
+            // console.log(this.labeles)
+        },
     },
     async created() {
     },
     components: {
+        taskList,
+        groupPreview,
         draggable,
         // triangleModal
     }

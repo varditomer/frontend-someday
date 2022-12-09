@@ -1,5 +1,5 @@
 <template>
-    <section class="txt flex center" @click="clickToEdit">
+    <section  v-if="!isKanban" class="txt flex center" @click="clickToEdit">
         <div v-if="isEditing" class="editing-mode" @key.enter="updateTask" v-click-outside="updateTask">
             <input v-focus type="text" class="edit" v-model="text">
         </div>
@@ -20,8 +20,14 @@ export default {
     emits: ['updateTask', 'editing'],
     name: 'txt',
     props: {
-        content: String,
-        required: false
+        content: {
+            type: String,
+            required: false
+        },
+        isKanban :{
+            type: Boolean,
+            required: true
+        }
     },
     created() {
         if (this.content) this.text = this.content

@@ -27,6 +27,7 @@ import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
 import { eventBus } from '../services/event-bus.service.js'
 import { colors } from '../services/color.service.js'
+import { socketService } from '../services/socket.service'
 // import { boardService } from '../services/board.service.local.js'
 
 export default {
@@ -120,7 +121,7 @@ export default {
         async deleteSelectedTasks() {
             try {
                 await this.$store.dispatch({ type: 'removeTasks' })
-                // this.unselectTasks()
+                this.unselectTasks()
             } catch (err) {
                 console.log(`Cannot delete selected tasks`, err)
             }

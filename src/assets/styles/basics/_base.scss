@@ -119,3 +119,15 @@ textarea {
 ::-webkit-scrollbar-thumb {
     background-color: $brdr-clr;
 }
+
+// GOOGLE
+
+.g-signin2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 50px;
+}
