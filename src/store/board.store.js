@@ -105,10 +105,14 @@ export const boardStore = {
         }
     },
     actions: {
-        async saveBoard({ commit }, { board }) {
+        async saveBoard({ commit, getters }, { board }) {
             try {
                 board.groups.forEach(group => group.tasks.forEach(task => task.groupId = group._id))
-                commit({ type: 'setBoard', boardData: { board } })
+                let fullBoard = {}
+                fullBoard.groups = board.groups
+                delete board.groups
+                fullBoard = { ...getters.board, ...board }
+                commit({ type: 'setBoard', boardData: { board: fullBoard } })
                 commit({ type: 'updateMiniBoard', board })
                 board = await boardService.save(board)
                 return board
