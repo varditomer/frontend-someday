@@ -1,17 +1,84 @@
 .home {
+    .main-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 72px;
+        background-color: white;
+
+        .logo {
+            margin-left: 10%;
+            width: 35px;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            margin-right: 10%;
+
+            .cta-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 130px;
+                position: relative;
+                height: 40px;
+                border-radius: 2em;
+                font-family: roboto-light;
+                padding: 2px;
+                font-size: rem(14px);
+                color: white;
+                background-image: linear-gradient(to left, #6161FF, #5858e9);
+                transition: .4s;
+                margin-left: 10px;
+
+                p {
+                    position: absolute;
+                    right: 40px;
+                }
+
+                &:hover {
+                    background-image: linear-gradient(to left, #5858e9, #4f4fd4);
+
+                    &::after {
+                        padding-left: 18px;
+                    }
+                }
+
+                &::after {
+                    transition: .4s;
+                    padding-left: 6px;
+                    left: 35px;
+                    position: relative;
+                    bottom: 1px;
+                    content: "🡢";
+
+
+                }
+            }
+
+            .login-btn {
+                background-color: transparent;
+                font-family: roboto-light;
+                font-size: rem(16px);
+            }
+        }
+    }
+
     .hero {
         position: absolute;
         top: 0;
         left: 0;
         z-index: -50;
-        height: 100vh;
         object-fit: cover;
     }
 
     .hero-title {
-        font-size: rem(64px);
-        padding-top: 60px;
-        font-weight: 100;
+        font-size: rem(72px);
+        padding-top: 120px;
+        line-height: 80px;
+        padding-bottom: 20px;
         color: white;
         font-family: roboto-light;
     }
@@ -21,24 +88,48 @@
         margin: auto;
         max-width: fit-content;
         padding: 20px;
-        font-size: rem(18px);
-        font-family: roboto-medium;
+        font-size: rem(22px);
+        font-family: roboto-light;
         margin-bottom: 10px;
     }
 
     .hero-btn {
-        width: 200px;
-        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 170px;
+        position: relative;
+        height: 50px;
         border-radius: 2em;
-        font-family: roboto-medium;
+        font-family: roboto-light;
         padding: 2px;
         font-size: rem(18px);
         color: white;
-        background-image: linear-gradient(to left, #8a9fff, #5765a3);
+        background-image: linear-gradient(to left, #6161FF, #5858e9);
         transition: .4s;
 
+        p {
+            position: absolute;
+            right: 50px;
+        }
+
         &:hover {
-            background-image: linear-gradient(to left, #798ce0, #475386);
+            background-image: linear-gradient(to left, #5858e9, #4f4fd4);
+
+            &::after {
+                padding-left: 18px;
+            }
+        }
+
+        &::after {
+            transition: .4s;
+            padding-left: 6px;
+            left: 45px;
+            position: relative;
+            bottom: 1px;
+            content: "🡢";
+
+
         }
 
 
