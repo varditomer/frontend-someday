@@ -177,8 +177,22 @@ export default {
                 return formattedIds
             }, [])
             return formattedTaskId
+        },
+        handleSockets() {
+            socketService.on('task-saved', (savedTask) => {
+                this.$store.commit({ type: 'saveTask', savedTask })
+            })
+            socketService.on('task-removed', (removedTask) => {
+                this.$store.commit({ type: 'removeTask', task: removedTask })
+            })
+            socketService.on('tasks-duplicated', (tasksToDuplicate) => {
+                tasksToDuplicate.forEach(duplicatedTask => {
+                    const savedTask = { task: duplicatedTask, isFifo: true }
+                    this.$store.commit({ type: 'saveTask', savedTask })
+                })
+            })
+            
         }
-
 
     },
     computed: {
@@ -220,6 +234,7 @@ export default {
 
     },
     async created() {
+        this.handleSockets()
         const { id } = this.$route.params
         try {
             await this.$store.dispatch({ type: 'queryBoard', filter: { id } })

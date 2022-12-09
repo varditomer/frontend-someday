@@ -45,7 +45,6 @@ export const taskStore = {
             try {
                 const isFifo = taskToSave.isFifo ? taskToSave.isFifo : false
                 const { task } = taskToSave
-                console.log(task);
                 let savedTask = await taskService.save(task, isFifo)
                 savedTask = { task: savedTask, isFifo }
                 commit({ type: 'saveTask', savedTask })
