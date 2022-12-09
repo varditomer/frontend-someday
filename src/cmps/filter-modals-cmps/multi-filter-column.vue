@@ -55,7 +55,6 @@ export default {
     },
     methods: {
         setSubFilter(item) {
-            debugger
             const idx = this.multiFilter.indexOf(item)
             if (idx === -1) this.multiFilter.push(item)
             else this.multiFilter.splice(idx, 1)

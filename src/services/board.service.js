@@ -88,10 +88,12 @@ function queryKanban(board, type = 'status', dataMap) {
 }
 
 function filterBoard(board, filter) {
-    if (filter.groupTitle || filter.tasks) return _multiFilter(filter, board)
-    if (filter.userId) board = _filterByPerson(board, filter.userId)
-    if (filter.txt) board = _filterByTxt(board, filter.txt)
-    return board
+    const boardCopy = JSON.parse(JSON.stringify(board))
+    if (filter.groupTitle || filter.tasks) return _multiFilter(filter, boardCopy)
+    if (filter.userId) boardCopy = _filterByPerson(boardCopy, filter.userId)
+    if (filter.txt) boardCopy = _filterByTxt(boardCopy, filter.txt)
+    console.log(`boardCopy`, boardCopy)
+    return boardCopy
 }
 
 async function getEmptyBoard() {
@@ -205,7 +207,7 @@ function _filterByTxt(board, txt) {
 
 function _multiFilter(filterBy, board) {
     board.groups = board.groups.reduce((filteredGroups, group) => {
-        if (filterBy?.groupTitle &&
+        if (filterBy?.groupTitle?.length &&
             !filterBy.groupTitle.find(title => title === group.title)) return filteredGroups
         if (!filterBy.tasks) {
             filteredGroups.push(group)

@@ -2,7 +2,7 @@
 
     <section class='group-list-container' v-if="boardToShow" @scroll="scrolling">
         <draggable v-model="boardToShow.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
-             @end="saveBoard(boardToShow.cmpsOrder)" :class="{ 'group-dragged': beingDragged }">
+             @end="saveBoard(boardToShow.cmpsOrder)" >
             <template #item="{ element }">
                 <group-preview @addColumn="addColumn" @saveSelectedTasks="saveSelectedTasks"
                     :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"

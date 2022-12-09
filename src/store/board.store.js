@@ -48,6 +48,7 @@ export const boardStore = {
             state.firstBoardId = boardId
         },
         filterBoard(state, { filter }) {
+        console.log(`state.board`, state.board)
             state.filteredBoard = boardService.filterBoard(state.board, filter)
         },
         updateMiniBoard(state, { board }) {
@@ -151,14 +152,6 @@ export const boardStore = {
             }
 
         },
-        async multiFilteredBoard({ commit }, { multiFilter, boardId }) {
-            try {
-                const board = await boardService.query({ id: boardId, ...multiFilter })
-                commit({ type: 'setBoard', boardData: { board } })
-            } catch (err) {
-                console.log('Cannot load filtered board')
-            }
-        },
         async removeBoard({ commit }, { boardId }) {
             try {
                 await boardService.remove(boardId)
@@ -168,17 +161,8 @@ export const boardStore = {
                 throw err
             }
         },
-        async getDataMap({ commit }, { boardId }) {
-            try {
-                const data = await boardService.getDataMap(boardId)
-                commit({ type })
-            } catch (err) {
-
-            }
-        },
         saveLabel({ dispatch }, { type, title, value, id }) {
             if (colorService.save(type, title, value, id)) dispatch({ type: loadColors })
-
         },
         updateLabel({ dispatch }, { type, title, value, id }) {
             if (colorService.update(type, title, value, id)) dispatch({ type: loadLabels })

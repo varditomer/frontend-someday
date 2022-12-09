@@ -112,7 +112,7 @@ function _createColors() {
                 {
                     _id: '34f9e',
                     title: 'Stuck',
-                    value: '#bb3354'
+                    value: '#e2445c'
                 },
                 {
                     _id: 'db03v',
@@ -121,7 +121,7 @@ function _createColors() {
                 },
                 {
                     _id: 'qwdlk',
-                    title: '',
+                    title: 'Default',
                     value: '#c4c4c4'
                 },
             ],
