@@ -146,10 +146,11 @@
                     max-height: 188px;
                     gap: 6px;
                 }
-
-                // .multi-filter-column {
-
-                // }
+                .filter-col {
+                    .title {
+                        text-transform: capitalize;
+                    }
+                }
                 .filter-item {
                     display: flex;
                     align-items: center;
@@ -164,12 +165,18 @@
                         display: flex;
                         align-items: center;
                         width: 87%;
+                        div,
                         span {
                             @include ellipsis(14px, 100%);
                             text-align: left;
                         }
-
-
+                        .label-color {
+                            display: inline-block;
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 50%;
+                            margin-right: 5px;
+                        }
                     }
                     .filter-counter {
                         font-size: rem(12px);

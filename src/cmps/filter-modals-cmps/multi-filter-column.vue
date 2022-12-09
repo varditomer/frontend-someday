@@ -15,9 +15,12 @@
                 </div>
                 <div v-else v-for="item in formattedData" class="filter-item" @click="setSubFilter(item)">
                     <div class="filter-option">
-                        <span>
-                            {{ item }}
-                        </span>
+                        <span v-if="column === 'date'">{{ getFormattedDate(item) }}</span>
+                        <div v-else-if="column === 'status' || column === 'priority'">
+                            <span class="label-color" :style="getFormattedLabelStyle(item)"></span>{{getFormattedLabel(item)}}
+                        </div>
+                        <span v-else-if="column === 'numbers'">{{item.toLocaleString()}}</span>
+                        <span v-else>{{ item }}</span>
                     </div>
                     <div class="filter-counter">
                         <span>4</span>
@@ -28,6 +31,7 @@
     </section>
 </template>
 <script>
+import { colorService } from '../../services/color.service'
 export default {
     name: 'multi-filter-column',
     emits: ['setSubFilter'],
@@ -43,7 +47,8 @@ export default {
     },
     data() {
         return {
-            multiFilter: []
+            multiFilter: [],
+            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         }
     },
     created() {
@@ -51,7 +56,7 @@ export default {
     computed: {
         formattedData() {
             return this.data.filter(item => item)
-        }
+        },
     },
     methods: {
         setSubFilter(item) {
@@ -66,6 +71,20 @@ export default {
             }
             this.$emit('setSubFilter', filter)
         },
+        getFormattedDate(item) {
+            const monthIdx = (new Date(item)).getMonth()
+            return `${this.months[monthIdx]} ${(new Date(item)).getDate()}`
+        },
+        getFormattedNumber(item) {
+            return item.toLocaleString()
+        },
+        getFormattedLabel(item) {
+            return colorService.getLabelById(this.column, item)?.title || ''
+        },
+        getFormattedLabelStyle(item) {
+            const color = colorService.getLabelById(this.column, item)?.value || '#c4c4c4'
+            return `background-color: ${color};`
+        }
     },
     components: {}
 }
