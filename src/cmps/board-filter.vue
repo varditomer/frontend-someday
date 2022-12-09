@@ -25,6 +25,7 @@
             <button>Sort</button>
         </div>
 
+
         <regular-modal :filterBy="filterBy" @filter="setFilter" :users="users" @closeModal="(showModal = false)"
             v-if="showModal" :class="(modalName+'-parent')" :cmp="modalName" @addGroup="addGroup" />
 

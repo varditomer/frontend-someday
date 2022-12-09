@@ -85,7 +85,7 @@
                 @drop.prevent="handleFile" @dragover.prevent="isDragover = true" @dragleave="isDragover = false">
 
 
-                <div v-if="(!isLoading && !imgUrls.length)" :class="{ drag: isDragover }"
+                <div v-if="(!isLoading && !imgUrls.length)" 
                     class="cta-container flex column center">
                     <div class="files-gallery-cmp flex column center">
 
