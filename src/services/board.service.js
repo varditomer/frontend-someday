@@ -4,6 +4,7 @@ import { httpService } from './http.service.js'
 import { colorService, colors } from './color.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
+import { socketService } from './socket.service.js'
 
 export const cmps = ['status', 'priority', 'person', 'date', 'timeline', 'numbers', 'text', 'link',]
 
@@ -41,24 +42,20 @@ async function remove(boardId) {
 
 async function removeManyTasks(taskIds, boardId) {
     const data = { boardId, taskIds }
-    return await httpService.delete(BOARD_URL, data)
+    const board = await httpService.delete(BOARD_URL, data)
+    socketService.emit('save-board', board)
+    return board
 
 }
 
 async function save(board) {
-    debugger
     var savedBoard
     if (board._id) {
-
-        // savedBoard = await storageService.put(STORAGE_KEY, board)
         savedBoard = await httpService.put(BOARD_URL + board._id, board)
-
     } else {
-        // Later, owner is set by the backend
-        // board.owner = userService.getLoggedinUser()
-        // savedBoard = await storageService.post(STORAGE_KEY, board)
         savedBoard = await httpService.post(BOARD_URL, board)
     }
+    socketService.emit('save-board', savedBoard)
     return savedBoard
 }
 
@@ -164,9 +161,11 @@ async function getEmptyBoard() {
         ],
         cmpsOrder: ['status', 'date']
     }
-    return await httpService.post(BOARD_URL, board)
-}
+    const boardData = await httpService.post(BOARD_URL, board)
+    socketService.emit('add-board', boardData)
+    return boardData
 
+}
 
 function _filterByPerson(board, id) {
     if (!id) return board

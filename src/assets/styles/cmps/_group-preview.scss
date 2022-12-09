@@ -205,9 +205,6 @@
                     background-color: white;
                     width: 436px;
                     z-index: 500;
-                    border-top: 1px solid $brdr-clr;
-                    border-bottom: 1px solid $brdr-clr;
-                    border-right: 1px solid $brdr-clr;
 
                     .options {
                         outline: 2px solid white;
@@ -221,6 +218,10 @@
                     .group-title-text {
                         flex-direction: column;
                         align-items: flex-start;
+                        border-top: 1px solid $brdr-clr;
+                        border-bottom: 1px solid $brdr-clr;
+                        width: 100%;
+                        padding-left: 6px;
 
                         .task-count {
                             visibility: visible;
@@ -257,6 +258,10 @@
                 position: sticky;
                 left: 36px;
                 padding-bottom: 18px;
+                border-top: 1px solid $brdr-clr;
+                border-bottom: 1px solid $brdr-clr;
+                border-top-left-radius: .2em;
+                border-bottom-left-radius: .2em;
             }
         }
 

@@ -1,7 +1,7 @@
 import { httpService } from './http.service.js'
 import { colorService } from './color.service.js'
 import { utilService } from './util.service.js'
-import { userService } from './user.service.js'
+import { socketService } from './socket.service.js'
 
 const GROUP_URL = 'group/'
 
@@ -18,17 +18,16 @@ async function query(filterBy = {}) {
 
 async function remove(group) {
     const { _id: groupId, boardId } = group
+    socketService.emit('remove-group', group)
     return await httpService.delete(GROUP_URL, { groupId, boardId })
 }
+
 async function save(group, isFifo = false) {
     if (group._id) {
-        // savedGroup = await storageService.put(STORAGE_KEY, group)
-        await httpService.put(GROUP_URL + group._id, { group, isFifo })
-
+        socketService.emit('update-group', group)
+        const savedGroup = httpService.put(GROUP_URL + group._id, { group, isFifo })
+        return savedGroup
     } else {
-        // Later, owner is set by the backend
-        // group.owner = userService.getLoggedinUser()
-        // await storageService.post(STORAGE_KEY, group)
         return await httpService.post(GROUP_URL, { group, isFifo: false })
     }
 }
@@ -38,7 +37,9 @@ async function duplicate(groupId, boardId) {
 }
 
 async function add(boardId, isFifo = false) {
-    return await save(_getNewGroup(boardId), isFifo)
+    const group = await save(_getNewGroup(boardId), isFifo)
+    socketService.emit('save-group', { group, isFifo })
+    return group
 }
 
 function _getNewGroup(boardId) {
