@@ -98,7 +98,7 @@ export default {
             if (filter.userId && this.filterBy?.userId) {
                 if (filter.userId === this.filterBy.userId) filter.userId = null
             }
-            this.$store.dispatch({ type: 'queryBoard', id: this.board._id, filter })
+            this.$store.dispatch({ type: 'filterBoard', filter })
         },
         toggleWorkspace() {
             this.$store.commit({ type: 'toggleWorkspace' })

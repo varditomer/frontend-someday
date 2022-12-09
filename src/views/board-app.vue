@@ -98,11 +98,11 @@ export default {
             this.$store.dispatch({ type: 'duplicateGroup', group })
         },
         setFilter(filter) {
-            console.log(filter);
             if (filter.userId && this.filterBy?.userId) {
                 if (filter.userId === this.filterBy.userId) filter.userId = null
             }
-            this.$store.dispatch({ type: 'queryBoard', id: this.board._id, filter })
+            filter
+            this.$store.dispatch({ type: 'queryBoard', filter })
         },
         toggleWorkspace() {
             this.$store.commit({ type: 'toggleWorkspace' })

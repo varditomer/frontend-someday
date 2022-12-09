@@ -16,7 +16,8 @@ export const boardStore = {
         },
         dataMap: {},
         colors: {},
-        statuses: []
+        stats: {},
+        multiFilter: {}
     },
     getters: {
         board({ board },) { return board },
@@ -26,10 +27,10 @@ export const boardStore = {
         filterBy({ filterBy }) { return filterBy },
         dataMap({ dataMap }) { return dataMap },
         kanbanBoard({ kanbanBoard }) { return kanbanBoard },
-
+        stats({ stats }) { return stats },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         colors({ colors }) { return colors },
-        statuses() { return colors().status }
+        multiFilter({ multiFilter }) { return multiFilter }
     },
     mutations: {
         setBoard(state, { boardData }) {
@@ -37,6 +38,7 @@ export const boardStore = {
             if (boardData.board) state.filteredBoard = boardData.board
             if (boardData.dataMap) state.dataMap = boardData.dataMap
             if (boardData.miniBoards) state.miniBoards = boardData.miniBoards
+            if (boardData.stats) state.stats = boardData.stats
         },
         queryKanbanBoard(state, { sort }) {
             state.kanbanBoard = boardService.queryKanban(state.board, sort, this.getters.dataMap)
@@ -44,6 +46,9 @@ export const boardStore = {
         setFilter(state, { filter }) {
             state.filterBy = { ...state.filterBy, ...filter }
         },
+        setMultiFilter(state, { multiFilter }) {
+            state.multiFilter = multiFilter
+         },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
         },
@@ -151,14 +156,6 @@ export const boardStore = {
             }
 
         },
-        async multiFilteredBoard({ commit }, { multiFilter, boardId }) {
-            try {
-                const board = await boardService.query({ id: boardId, ...multiFilter })
-                commit({ type: 'setBoard', boardData: { board } })
-            } catch (err) {
-                console.log('Cannot load filtered board')
-            }
-        },
         async removeBoard({ commit }, { boardId }) {
             try {
                 await boardService.remove(boardId)
@@ -168,17 +165,8 @@ export const boardStore = {
                 throw err
             }
         },
-        async getDataMap({ commit }, { boardId }) {
-            try {
-                const data = await boardService.getDataMap(boardId)
-                commit({ type })
-            } catch (err) {
-
-            }
-        },
         saveLabel({ dispatch }, { type, title, value, id }) {
             if (colorService.save(type, title, value, id)) dispatch({ type: loadColors })
-
         },
         updateLabel({ dispatch }, { type, title, value, id }) {
             if (colorService.update(type, title, value, id)) dispatch({ type: loadLabels })

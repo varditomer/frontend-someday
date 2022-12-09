@@ -50,7 +50,6 @@ export default {
     },
     methods: {
         changeView(viewName) {
-            console.log(`viewName:`, viewName)
             this.view = viewName
         },
 

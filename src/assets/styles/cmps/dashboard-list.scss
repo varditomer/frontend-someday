@@ -1,34 +1,173 @@
-.dashboard-list{
-    display: flex;
-    flex-direction: column;
-    .dashboard-cmp {
-        background-color: #000;
-        padding: 10px;
-        border-radius: 10px;
-    }
-    .section {
-        background-color: #fff;
-        .section-title {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            height: 50px;
+.dashboard-container {
+    display: grid;
+    grid-template-areas:
+        'bar box'
+        'status box';
+    grid-template-columns: 700px 1fr;
+    grid-template-rows: 1fr 1fr;
+    padding-left: 36px;
+    padding-right: 12px;
+    height: 700px;
+
+
+
+    .team-dashboard {
+
+        transition: .4s;
+
+        .txt {
+            font-size: rem(16px);
+            color: lighten($layout-gray, 8%);
+            padding-bottom: 20px;
         }
-        .section-card {
-            background-color: blue;
+
+        .team-titles {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            // justify-content: space-around;
-            border-radius: 10px;
-            width: 80px;
-            gap: 15px;
+            padding-bottom: 16px;
 
-            .card-icon {
-
+            span {
+                fill: $layout-black;
             }
 
+            h1 {
+                font-family: roboto-light;
+                letter-spacing: 1;
+                padding-left: 6px;
+            }
         }
+
+        .about {
+            font-size: rem(20px);
+            color: $layout-black;
+
+            font-family: roboto-bold;
+
+            span {
+                color: lighten($layout-gray, 8%);
+                font-size: rem(16px);
+                font-family: roboto-regular;
+            }
+        }
+
+        .team-members {
+            margin-bottom: 12px;
+
+            img {
+
+                border-radius: 2em;
+                width: 40px;
+                height: 40px;
+                border: 2px solid white;
+                margin: 0 -5px;
+            }
+        }
+    }
+
+    .separator {
+        height: 100%;
+        width: 2px;
+        background-color: lighten($brdr-clr, 8%);
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 60px;
+        margin-left: 60px;
+    }
+
+    .statuses-dashboard {
+        grid-area: status;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 1em;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        width: 100%;
+        padding: 18px;
+
+        .statuses-title {
+            display: flex;
+            align-items: center;
+            padding-bottom: 28px;
+
+            span {
+                padding-right: 8px;
+                fill: $layout-black;
+            }
+
+            h1 {
+                font-size: rem(18px);
+                color: $layout-black;
+            }
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+            height: 100%;
+
+            .card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-width: 100px;
+                width: 16%;
+                height: 100%;
+                border-radius: .5em;
+                color: white;
+                padding: 6px;
+
+                &:nth-child(1) {
+                    background-color: $usr-dark-blue;
+                }
+
+                &:nth-child(2) {
+                    background-color: $usr-brigh-orange;
+                }
+
+                &:nth-child(3) {
+                    background-color: $usr-wine;
+                }
+
+                &:nth-child(4) {
+                    background-color: $clr-explosive;
+                }
+
+                &:nth-child(5) {
+                    background-color: $usr-bright-green;
+                }
+
+                .card-title {
+                    padding-top: 20px;
+                    padding-bottom: 42px;
+                    font-size: rem(16px);
+                }
+
+                .card-count {
+                    font-size: rem(42px);
+                }
+            }
+
+
+
+
+        }
+    }
+
+    .bar-chart {
+        grid-area: bar;
+        width: 100%;
+        padding-bottom: 50px;
+    }
+
+    .right-dashboard {
+        grid-area: box;
+        border-radius: 1em;
+        margin-left: auto;
+        width: 90%;
+        height: 100%;
+        background-color: rgb(255, 255, 255);
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        margin-right: 10px;
     }
 
 }

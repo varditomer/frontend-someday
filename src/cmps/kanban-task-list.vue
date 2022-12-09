@@ -41,10 +41,6 @@ export default {
     methods: {
         saveBoard() {
             const board1 = JSON.parse(JSON.stringify(this.$store.getters.board))
-            // board1.kanbanOrder = this.statuses //.map(status => status._id)
-
-            // this.$store.dispatch({ type: 'saveBoard', board: board1 })
-            // console.log(this.labeles)
         },
         updateTask(personsObj) {
             this.$emit('updateTask', personsObj)
@@ -58,7 +54,7 @@ export default {
         },
     },
     created() {
-        console.log(`this.group`, this.group)
+
     },
     computed: {
     },

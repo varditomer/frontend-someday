@@ -1,12 +1,9 @@
 <template>
-    <section class>
-        <HotelDatePicker></HotelDatePicker>
-    </section>
+    <el-date-picker  @blur="handleClose" popper-class="timeline-modal" v-model="value1" type="daterange" range-separator="To"
+        start-placeholder="Start date" end-placeholder="End date" teleported="false"/>
 </template>
 
 <script>
-import HotelDatePicker from 'vue-hotel-datepicker'
-import 'vue-hotel-datepicker/dist/vueHotelDatepicker.css'
 
 export default {
     name: '',
@@ -15,6 +12,8 @@ export default {
     },
     data() {
         return {
+            value1: 0,
+            value2: 0,
         }
     },
     methods: {
@@ -22,7 +21,13 @@ export default {
     computed: {
     },
     components: {
-        HotelDatePicker
     },
 }
 </script>
+
+<style>
+    .timeline-modal{
+        z-index:10000;
+        left: 50%;
+    }
+</style>

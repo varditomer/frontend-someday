@@ -58,8 +58,6 @@ function randomColor(type) {
 }
 
 function getLabelById(label, id) {
-    console.log(`label:`, label)
-    console.log(`id:`, id)
     if (!id || !label || !colors()[label]) return null
     return colors()[label].find(anyLabel => anyLabel._id === id)
 }
@@ -114,7 +112,7 @@ function _createColors() {
                 {
                     _id: '34f9e',
                     title: 'Stuck',
-                    value: '#bb3354'
+                    value: '#e2445c'
                 },
                 {
                     _id: 'db03v',
@@ -123,7 +121,7 @@ function _createColors() {
                 },
                 {
                     _id: 'qwdlk',
-                    title: '',
+                    title: 'Default',
                     value: '#c4c4c4'
                 },
             ],

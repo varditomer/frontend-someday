@@ -32,7 +32,7 @@
         </li>
 
         <draggable v-model="group.tasks" group="tasks" ghost-class="ghost" animation="200" @start="( this.beingDragged = true)" @drag=" this.beingDragged = true"
-            :class="{ 'task-dragged': beingDragged }" @end="saveBoard" itemKey="element._id">
+             @end="saveBoard" itemKey="element._id">
             <template #item="{ element }" :data-id="element.groupId">
                 <task-preview @addGroup="addGroup" @saveSelectedTasks="saveSelectedTasks" :selectedTasks="selectedTasks"
                     :isSelected="selectedTasks.includes(element._id)" @update-task="updateTask" :sort="true"

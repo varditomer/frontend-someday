@@ -88,10 +88,12 @@ function queryKanban(board, type = 'status', dataMap) {
 }
 
 function filterBoard(board, filter) {
-    if (filter.groupTitle || filter.tasks) return _multiFilter(filter, board)
-    if (filter.userId) board = _filterByPerson(board, filter.userId)
-    if (filter.txt) board = _filterByTxt(board, filter.txt)
-    return board
+    const boardCopy = JSON.parse(JSON.stringify(board))
+    if (filter.groupTitle || filter.tasks) return _multiFilter(filter, boardCopy)
+    if (filter.userId) boardCopy = _filterByPerson(boardCopy, filter.userId)
+    if (filter.txt) boardCopy = _filterByTxt(boardCopy, filter.txt)
+    console.log(`boardCopy`, boardCopy)
+    return boardCopy
 }
 
 async function getEmptyBoard() {
@@ -205,13 +207,13 @@ function _filterByTxt(board, txt) {
 
 function _multiFilter(filterBy, board) {
     board.groups = board.groups.reduce((filteredGroups, group) => {
-        if (filterBy?.groupTitle &&
+        if (filterBy?.groupTitle?.length &&
             !filterBy.groupTitle.find(title => title === group.title)) return filteredGroups
         if (!filterBy.tasks) {
             filteredGroups.push(group)
             return filteredGroups
         }
-        if (filterBy.tasks) group.tasks = group.tasks.reduce((filteredTasks, task) => {
+        group.tasks = group.tasks.reduce((filteredTasks, task) => {
             const taskFilter = JSON.parse(JSON.stringify(filterBy.tasks))
             if (taskFilter.person?.length &&
                 !taskFilter.person.some(id => {
@@ -219,7 +221,7 @@ function _multiFilter(filterBy, board) {
                 })) return filteredTasks
             delete taskFilter.person
             for (let prop in taskFilter) {
-                if (task[prop] === taskFilter[prop]) {
+                if (!taskFilter[prop].length || taskFilter[prop].find(val => task[prop] === val)) {
                     filteredTasks.push(task)
                     return filteredTasks
                 }
