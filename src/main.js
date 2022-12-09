@@ -16,6 +16,8 @@ window.handleCredentialResponse = (response) => {
 
 import { router } from './router.js'
 import { store } from './store/store.js'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import copyText from "@meforma/vue-copy-to-clipboard";
 
 
@@ -44,6 +46,7 @@ app.directive('svg-icon', svgIconDirective)
 app.use(router)
 app.use(store)
 app.use(copyText)
+app.use(ElementPlus)
 
 app.mount('#app')
 
