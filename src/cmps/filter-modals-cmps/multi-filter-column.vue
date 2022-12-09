@@ -17,7 +17,7 @@
                     <div class="filter-option">
                         <span>
                             {{ item }}
-                        </span>    
+                        </span>
                     </div>
                     <div class="filter-counter">
                         <span>4</span>
@@ -50,37 +50,21 @@ export default {
     },
     computed: {
         formattedData() {
-            console.log(`this.column:`, this.column)
-
-            // console.log(`this.data.filter(item => item):`, this.data.filter(item => item))
             return this.data.filter(item => item)
         }
     },
     methods: {
         setSubFilter(item) {
-            const idx = this.multiFilter.indexOf('Group')
+            const idx = this.multiFilter.indexOf(item)
             if (idx === -1) this.multiFilter.push(item)
             else this.multiFilter.splice(idx, 1)
-            this.$emit('setSubFilter', this.multiFilter, this.column)
+            if (this.column === 'Group') var filter = { groupTitle: this.multiFilter }
+            else {
+                filter = {}
+                filter[this.column] = this.multiFilter
+            }
+            this.$emit('setSubFilter', filter)
         },
-        formattedPersons() {
-            if (!this.content?.length) return []
-            return this.content.reduce((userArr, person) => {
-                const { _id, fullname } = person
-                const user = this.additionalDb.find(anyUser => anyUser._id === _id)
-                if (!user) return userArr
-                const style = user.imgUrl
-                    ? `background-image: url(${user.imgUrl})`
-                    : `backgroud-color: ${user.color || '#fff'}`
-                const pic = user.imgUrl
-                    ? true
-                    : false
-                const initials = user.fullname.split(' ').map(name => name.charAt(0).toUpperCase()).join('')
-                userArr.push({ _id, style, initials, fullname, pic })
-                return userArr
-
-            }, [])
-        }
     },
     components: {}
 }
