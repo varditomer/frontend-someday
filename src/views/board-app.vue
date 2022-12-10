@@ -225,9 +225,6 @@ export default {
         filteredBoard() {
             return this.$store.getters.filteredBoard
         },
-        // filteredBoard() {
-        //     return this.$store.getters.filteredBoard
-        // },
         isWorkspaceCollapsed() {
             return this.$store.getters.isWorkspaceCollapsed
         },
