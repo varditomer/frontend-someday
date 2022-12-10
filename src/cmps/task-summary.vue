@@ -136,11 +136,14 @@ export default {
                             : timeElapsed / totalTimeDiff > 0
                                 ? 100 * timeElapsed / totalTimeDiff + '%'
                                 : 0
+                        const timelineString = (!start || !end)
+                            ? ''
+                            : `${this.months[(new Date(start)).getMonth()]} ${(new Date(start)).getDate()}, '${(new Date(start)).getYear() % 100} - 
+                                    ${this.months[(new Date(end)).getMonth()]} ${(new Date(end)).getDate()}, '${(new Date(end)).getYear() % 100}`
                         htmlStr = `<div class="timeline">
                                     <div class="elapsed" style="background-color:${this.groupColor}; width:${width}">
                                     </div>
-                                <p>${this.months[(new Date(start)).getMonth()]} ${(new Date(start)).getDate()}, '${(new Date(start)).getYear() % 100} - 
-                                    ${this.months[(new Date(end)).getMonth()]} ${(new Date(end)).getDate()}, '${(new Date(end)).getYear() % 100}</p>
+                                <p>${timelineString}</p>
                             </div>`
                         summary[idx] = htmlStr
                         break

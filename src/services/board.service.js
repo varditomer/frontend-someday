@@ -143,14 +143,14 @@ async function getEmptyBoard() {
                     {
                         _id: utilService.makeId(),
                         title: 'Item 1',
-                        status: 'Working on it',
+                        status: 'dfbyc',
                         date: Date.now() + 24 * 60 * 60 * 1000,
                         comments: []
                     },
                     {
                         _id: utilService.makeId(),
                         title: 'Item 2',
-                        status: 'Done',
+                        status: 'qwdlk',
                         date: Date.now() - 24 * 60 * 60 * 1000,
                         comments: []
                     },
