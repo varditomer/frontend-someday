@@ -19,7 +19,8 @@ export const boardService = {
     removeManyTasks,
     loadFromSessionStorage,
     queryKanban,
-    saveToSessionStorage
+    saveToSessionStorage,
+    getDashboardData
 }
 
 window.cs = boardService
@@ -168,6 +169,61 @@ async function getEmptyBoard() {
     return boardData
 
 }
+
+function getDashboardData(board) {
+    const data = {
+        person: {},
+        group: {},
+        priority: {},
+        status: {}
+    }
+    board.members.forEach(member => {
+        if (!data.person[member._id]) data.person[member._id] = {
+            total:0
+        }
+    })
+    board.groups.forEach(group => {
+        if (!data.group[group._id]) data.group[group._id] = {
+            total:0,
+            status:{},
+            priority:{}
+        }
+    })
+    colors().status.forEach(status => data.status[status._id] = 0)
+    colors().priority.forEach(priority => data.priority[priority._id] = 0)
+    debugger
+    board.groups.forEach(group => {
+        data.group[group._id].total += group.tasks.length
+        group.tasks.forEach(task => {
+            if (task.status) {
+                if (!data.group[group._id].status[task.status]) data.group[group._id].status[task.status] = 0
+                data.status[task.status]++
+                data.group[group._id].status[task.status]++
+            }
+            if (task.priority) {
+                if (!data.group[group._id].priority[task.priority]) data.group[group._id].priority[task.priority] = 0
+                data.priority[task.priority]++
+                data.group[group._id].priority[task.priority]++
+            }
+            task.person?.forEach(person => {
+                data.person[person._id].total++
+                if (task.status) {
+                    if (!data.person[person._id].status) data.person[person._id].status = {}
+                    if (!data.person[person._id].status[task.status]) data.person[person._id].status[task.status] = 0
+                    data.person[person._id].status[task.status]++
+                }               
+                if (task.priority) {
+                    if (!data.person[person._id].priority) data.person[person._id].priority = {}
+                    if (!data.person[person._id].priority[task.priority]) data.person[person._id].priority[task.priority] = 0
+                    data.person[person._id].priority[task.priority]++
+                }               
+            })
+        })
+    })
+    console.log(`data`, data)
+    return data
+}
+
 
 function _filterByPerson(board, id) {
     if (!id) return board

@@ -142,6 +142,7 @@ export const boardStore = {
                 commit({ type: 'setFilter', filter })
                 const boardData = await boardService.query(filter.id ? filter.id : '')
                 commit({ type: 'setBoard', boardData })
+                boardService.getDashboardData(boardData.board)
             } catch (err) {
                 console.log('Could not find board');
                 throw new Error()
