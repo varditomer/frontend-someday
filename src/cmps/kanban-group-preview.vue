@@ -1,7 +1,7 @@
 <template>
     <section class="kanban-task-list-container">
         <draggable v-model="group.tasks" animation="220" itemKey="element._id" :class="{ 'task-dragged': beingDragged }"
-            @end="saveGroup" class="task-list" group="task-list">
+            @end="saveTasks" class="task-list" group="task-list">
             <template #item="{ element }">
                 <task-list :task="element" />
             </template>
@@ -15,7 +15,7 @@ import draggable from 'vuedraggable'
 
 export default {
     name: '',
-    emits:['saveGroup'],
+    emits: ['saveTasks'],
     props: {
         group: {
             type:
@@ -29,9 +29,9 @@ export default {
         }
     },
     methods: {
-        saveGroup() {
+        saveTasks() {
             const tasks = JSON.parse(JSON.stringify(this.group.tasks))
-            this.$emit('saveGroup', this.group_id, tasks)
+            this.$emit('saveTasks', this.group._id, tasks)
         }
     },
     computed: {

@@ -19,7 +19,8 @@
             </div>
             <div class="filter-groups">
                 <multi-filter-column v-for="(column, idx) in formattedProps.columns" :column="column" :stats="stats"
-                    :data="formattedProps.props[idx]" :key="idx" @setSubFilter="setSubFilter" :multiFilter="multiFilter" />
+                    :data="formattedProps.props[idx]" :key="idx" @setSubFilter="setSubFilter"
+                    :multiFilter="this.storeMultiFilter" />
             </div>
         </section>
     </section>
@@ -32,12 +33,11 @@ export default {
     data() {
         return {
             filterItems: null,
-            multiFilter: this.storeMultiFilter || {},
             isFiltered: false
         }
     },
     created() {
-
+        this.multiFulter = this.storeMultiFilter
     },
     computed: {
         formattedProps() {
@@ -59,11 +59,16 @@ export default {
         }
     },
     methods: {
-        setSubFilter(subFilter) {
-            this.multiFilter = { ...this.multiFilter, ...subFilter }
-            // if (type === 'Group') this.multiFilter = {...this.multiFilter, groupTitle:subFilter}
-            // else this.multiFilter.tasks[type] = subFilter
-            const filter = this.multiFilter
+        setSubFilter(subFilter, type) {
+            let filter = this.storeMultiFilter
+            if (type === 'Group') { 
+                if (!filter.groupTitle) filter.groupTitle = []
+                filter.groupTitle = subFilter 
+            }
+            else {
+                if (!filter.tasks) filter.tasks = {}
+                filter.tasks[type] = subFilter
+            }
             this.$store.commit({ type: 'setMultiFilter', multiFilter: filter })
             this.$store.commit({ type: 'filterBoard', filter })
             //emit filter request: queryBoard - {filter}

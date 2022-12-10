@@ -26,11 +26,11 @@ export default {
     props: {
         cmp: {
             type: String,
-            reduired: true,
+            required: false,
         },
         users: {
             type: Array,
-            reduired: true,
+            required: false,
         },
         filterBy: {
             type: Object,
@@ -38,15 +38,15 @@ export default {
         },
         id: {
             type: String,
-            reduired: true,
+            required: false,
         },
         selectedTasks: {
             type: Array,
-            require: false
+            required: false
         },
         selectedColor: {
             type: String,
-            reduired: false,
+            required: false,
         },
         colors: {
             type: Object,
@@ -105,7 +105,7 @@ export default {
             this.$emit('closeModal')
 
         },
-        updateSelection(type, id, title='', value) {
+        updateSelection(type, id, title = '', value) {
             this.$emit('updateSelection', type, id, title, value)
         },
         propagateMenu() {

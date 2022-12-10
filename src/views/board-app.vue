@@ -13,7 +13,7 @@
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
                 :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
                 @duplicateTask="duplicateTask" @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard"
-                @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" :board="board" :colors="colors" />
+                @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" :board="filteredBoard" :colors="colors" />
         </section>
 
         <router-view />
@@ -161,7 +161,6 @@ export default {
         },
         getSelectedTasksColors(selectedTasksIds) {
             const { groups } = this.board
-            console.log(this.board);
             const idsCopy = [...selectedTasksIds]
             const formattedTaskId = groups.reduce((formattedIds, group) => {
                 const temp = group.tasks.reduce((relevantTaskIds, task) => {
@@ -186,7 +185,7 @@ export default {
             socketService.on('task-removed', (removedTask) => {
                 this.$store.commit({ type: 'removeTask', task: removedTask })
             })
-            socketService.on('group-saved', ({ data }) => {
+            socketService.on('group-saved', (data) => {
                 const { group, isFifo } = data
                 this.$store.commit({ type: 'addGroup', group, isFifo })
             })
@@ -221,6 +220,9 @@ export default {
             return this.$route.params.id
         },
         board() {
+            return this.$store.getters.board
+        },
+        filteredBoard() {
             return this.$store.getters.filteredBoard
         },
         isWorkspaceCollapsed() {
@@ -247,18 +249,14 @@ export default {
             return this.$store.getters.filterMap
         },
         colors() {
-            return this.$store.getters.colors
+            return colors()
         }
 
     },
     async created() {
         this.handleSockets()
-        const { id } = this.$route.params
-        try {
-            await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
-        } catch (err) {
-            this.$router.push('/')
-        }
+        const filter = { id: this.$route.params.id }
+        await this.$store.dispatch({ type: 'queryBoard', filter })
     }
 }
 

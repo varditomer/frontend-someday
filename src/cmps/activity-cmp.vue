@@ -5,7 +5,8 @@
     </div>
     <div class="activity-change" v-if="isString">
         <div class="from" :style="`background-color:${formattedData('from')}`">
-            <p :class="{ 'txt': isColored }">{{ formattedText(activity.from) ? formattedText(activity.from) : '━━' }}</p>
+            <p :class="{ 'txt': isColored }">{{ formattedText(activity.from) ? formattedText(activity.from) : '━━' }}
+            </p>
         </div>
         <span v-svg-icon="'arrowRight'"></span>
         <div class="to" :style="`background-color:${formattedData('to')}`">
@@ -23,7 +24,7 @@
 </template>
 
 <script>
-import {colorService} from '../services/color.service.js'
+import { colorService } from '../services/color.service.js'
 export default {
     name: 'activity',
     props: {

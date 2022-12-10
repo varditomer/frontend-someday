@@ -160,14 +160,59 @@
     }
 
     .right-dashboard {
+       
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         grid-area: box;
         border-radius: 1em;
-        margin-left: auto;
-        width: 90%;
+        width: 680px;
         height: 100%;
-        background-color: rgb(255, 255, 255);
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        margin-left: 140px;
         margin-right: 10px;
+
+        .pie-chart {
+            width: 100%;
+            height: 60%;
+        }
+
+
+
+        .total-count {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            height: 180px;
+            border-radius: 1em;
+            margin-top: auto;
+            background-color: $primary-brand;
+            color: white;
+
+            .total-div {
+                width: 200px;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+
+                h1 {
+                    font-size: rem(24px);
+                    margin-bottom: 20px;
+                    line-height: 28px;
+                }
+
+                p {
+                    font-size: rem(62px);
+                }
+            }
+
+            .separator {
+                width: 1px;
+                margin: 0;
+                height: 100%;
+            }
+        }
     }
 
 }

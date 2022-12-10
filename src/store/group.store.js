@@ -9,18 +9,10 @@ export const groupStore = {
     mutations: {
     },
     actions: {
-        // async loadGroups(context) {
-        //     try {
-        //         const board = context.getters.board
-        //         const { groups } = board
-        //         context.commit({ type: 'setGroups', groups })
-        //     } catch (err) {
-        //         console.log(`Cannot load groups in store`, err)
-        //     }
-        // },
         async saveGroup({ dispatch, commit }, { group }) {
             try {
                 commit({ type: 'saveGroup', group })
+                console.log(`group`, group)
                 await groupService.save(group)
                 // dispatch({ type: 'queryBoard', id: group.boardId, filter: '' })
                 console.log(`success`)

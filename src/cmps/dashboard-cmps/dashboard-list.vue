@@ -1,14 +1,33 @@
 <template>
 
-    <section class='dashboard-container'>
+    <section v-if="stats" class='dashboard-container'>
 
 
         <div class="bar-chart">
             <BarChart :chartData="barChartData" :options="barChartOptions" />
         </div>
 
-        <div class="right-dashboard"></div>
-
+        <div class="right-dashboard">
+            <div class="pie-chart">
+                <PieChart :chartData="barChartData" :options="barChartOptions" />
+            </div>
+            <div class="total-count">
+                <div class="total-div">
+                    <h1>Total tasks</h1>
+                    <p>{{ stats.taskCount }}</p>
+                </div>
+                <span class="separator"></span>
+                <div class="total-div">
+                    <h1>Total groups</h1>
+                    <p>{{ stats.taskCount }}</p>
+                </div>
+                <span class="separator"></span>
+                <div class="total-div">
+                    <h1>Total members</h1>
+                    <p>{{ stats.taskCount }}</p>
+                </div>
+            </div>
+        </div>
 
         <div class="statuses-dashboard">
             <div class="statuses-title">
@@ -18,11 +37,11 @@
             <div class="card-container">
                 <div class="card">
                     <h1 class="card-title">Unattained</h1>
-                    <h2 class="card-count">14</h2>
+                    <h2 class="card-count">6</h2>
                 </div>
                 <div class="card">
                     <h1 class="card-title">Working on it</h1>
-                    <h2 class="card-count">8</h2>
+                    <h2 class="card-count">2</h2>
                 </div>
                 <div class="card">
                     <h1 class="card-title">Stuck</h1>
@@ -45,15 +64,17 @@
 </template>
 <script>
 import { BarChart } from 'vue-chart-3'
+import { PieChart } from 'vue-chart-3'
 import { DoughnutChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
+import { boardService } from '../../services/board.service.js'
 
 Chart.register(...registerables)
 
 export default {
     name: 'dashboard-list',
     props: {},
-    components: { BarChart, DoughnutChart },
+    components: { BarChart, PieChart },
     data() {
         return {
             barChartData: {
@@ -107,7 +128,20 @@ export default {
 
         }
     },
-
+    computed: {
+        stats() {
+            return this.$store.getters.stats
+        },
+        board() {
+            return this.$store.getters.board
+        },
+        data() {
+            return boardService.getDashboardData(this.board)
+        }
+    },
+    created() {
+        setTimeout(() => console.log(this.data), 1000)
+    }
 
 }
 </script>

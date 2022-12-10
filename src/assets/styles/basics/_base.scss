@@ -17,6 +17,11 @@ body {
     font-size: rem(18px);
     margin: 0;
     line-height: 1;
+    min-height: 100vh;
+}
+
+#app {
+    min-height: 100vh;
 }
 
 h1,
@@ -110,7 +115,7 @@ textarea {
 }
 
 ::-webkit-scrollbar {
-    height: 22px;
+    height: 16px;
     width: 16px;
 }
 
@@ -130,4 +135,14 @@ textarea {
     height: 50px;
 }
 
-.el-popper{}
+.el-popper {
+    &.is-pure {
+        &.is-light {
+            &.el-picker__popper {
+                &.timeline-modal {
+                    z-index: 6000 !important;
+                }
+            }
+        }
+    }
+}

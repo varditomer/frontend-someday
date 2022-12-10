@@ -26,33 +26,33 @@ export const boardStore = {
         miniBoards({ miniBoards }) { return miniBoards },
         filterBy({ filterBy }) { return filterBy },
         dataMap({ dataMap }) { return dataMap },
-        kanbanBoard({ kanbanBoard }) { return kanbanBoard },
         stats({ stats }) { return stats },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         colors({ colors }) { return colors },
+        stats({ stats }) { return stats },
         multiFilter({ multiFilter }) { return multiFilter }
     },
     mutations: {
         setBoard(state, { boardData }) {
-            if (boardData.board) state.board = boardData.board
-            if (boardData.board) state.filteredBoard = boardData.board
+            if (boardData.board) {
+                state.board = boardData.board
+                state.filteredBoard = boardData.board
+            }
             if (boardData.dataMap) state.dataMap = boardData.dataMap
             if (boardData.miniBoards) state.miniBoards = boardData.miniBoards
             if (boardData.stats) state.stats = boardData.stats
-        },
-        queryKanbanBoard(state, { sort }) {
-            state.kanbanBoard = boardService.queryKanban(state.board, sort, this.getters.dataMap)
         },
         setFilter(state, { filter }) {
             state.filterBy = { ...state.filterBy, ...filter }
         },
         setMultiFilter(state, { multiFilter }) {
             state.multiFilter = multiFilter
-         },
+        },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
         },
-        filterBoard(state, { filter }) {
+        filterBoard(state, payload) {
+            const filter = payload.filter || state.multiFilter
             state.filteredBoard = boardService.filterBoard(state.board, filter)
         },
         updateMiniBoard(state, { board }) {
@@ -74,6 +74,7 @@ export const boardStore = {
                 if (isFifo) state.board.groups[groupIdx].tasks.push(task)
                 else state.board.groups[groupIdx].tasks.unshift(task)
             } else state.board.groups[groupIdx].tasks[taskIdx] = task
+            this.commit({ type: 'filterBoard' })
         },
         removeTask(state, { task }) {
             const groupIdx = state.board.groups.findIndex(anyGroup => anyGroup._id === task.groupId)
@@ -81,17 +82,21 @@ export const boardStore = {
             const taskIdx = state.board.groups[groupIdx].tasks.findIndex(anyTask => anyTask._id === task._id)
             if (taskIdx < 0) return
             state.board.groups[groupIdx].tasks.splice(taskIdx, 1)
+            this.commit({ type: 'filterBoard' })
         },
         addGroup(state, { group, isFifo }) {
             (isFifo) ? state.board.groups.unshift(group) : state.board.groups.push(group)
+            this.commit({ type: 'filterBoard' })
         },
         saveGroup(state, { group }) {
             const idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)
             state.board.groups[idx] = group
+            this.commit({ type: 'filterBoard' })
         },
         removeGroup(state, { group }) {
             var idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)
             state.board.groups.splice(idx, 1)
+            this.commit({ type: 'filterBoard' })
         },
         toggleWorkspace(state) {
             state.isWorkspaceCollapsed = !state.isWorkspaceCollapsed
@@ -137,11 +142,13 @@ export const boardStore = {
                 throw err
             }
         },
-        async queryBoard({ commit }, { filter }) {
+        async queryBoard({ commit, state }, { filter }) {
             try {
                 commit({ type: 'setFilter', filter })
                 const boardData = await boardService.query(filter.id ? filter.id : '')
                 commit({ type: 'setBoard', boardData })
+                commit({ type: 'filterBoard', filter })
+                // boardService.getDashboardData(boardData.board)
             } catch (err) {
                 console.log('Could not find board');
                 throw new Error()

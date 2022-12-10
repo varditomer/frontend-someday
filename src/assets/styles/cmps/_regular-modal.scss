@@ -61,6 +61,8 @@
         font-size: 14px;
         padding: 0 24px 0;
 
+        
+
         .multi-filter-header {
             padding: 16px 0;
             align-items: center;
@@ -205,6 +207,10 @@
                                 margin-left: 8px;
                             }
                         }
+                    }
+
+                    &.selected{
+                        background-color: $fltr-bgc;
                     }
                 }
             }

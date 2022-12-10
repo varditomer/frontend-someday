@@ -49,7 +49,7 @@ function _getNewGroup(boardId) {
         boardId,
         createdAt: Date.now(),
         createdBy: {
-            _id: 0,
+            _id: '0',
             fullname: 'Guest'
         },
         style: { color, light: color + '99' },
@@ -62,7 +62,7 @@ function _getNewGroup(boardId) {
                 status: 'Working on it',
                 createdAt: Date.now(),
                 createdBy: {
-                    _id: 0,
+                    _id: '0',
                     fullname: 'Guest'
                 }
             },
@@ -74,7 +74,7 @@ function _getNewGroup(boardId) {
                 status: 'Stuck',
                 createdAt: Date.now(),
                 createdBy: {
-                    _id: 0,
+                    _id: '0',
                     fullname: 'Guest'
                 }
             },
@@ -86,7 +86,7 @@ function _getNewGroup(boardId) {
                 status: 'Done',
                 createdAt: Date.now(),
                 createdBy: {
-                    _id: 0,
+                    _id: '0',
                     fullname: 'Guest'
                 }
             }
