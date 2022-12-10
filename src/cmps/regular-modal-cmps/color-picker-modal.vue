@@ -17,8 +17,8 @@ export default {
         },
         idx: Number,
         colors: {
-            tpye: Object,
-            reqiored: true
+            type: Object,
+            required: true
         },
         name: {
             type: String,
@@ -37,17 +37,16 @@ export default {
     },
     methods: {
         select(value) {
-            console.log(`value`, value)
             const color = this.colors.color[value]
-            console.log(`name`, this.id)
-            if (this.name === 'group') return this.$emit('updateSelection', 'style', {color, light: color + '99'}, this.idx)
-            const label =  this.colors[this.name].find(label=>label._id===this.id)
+            if (this.name === 'group') return this.$emit('updateSelection', 'style', { color, light: color + '99' }, this.idx)
+            const label = this.colors[this.name].find(label => label._id === this.id)
             this.$emit('updateSelection', this.name, label._id, label.title, color)
         }
     },
     computed: {
         formattedColors() {
             if (!this.name) return
+            console.log(this.colors);
             const type = this.name === 'group'
                 ? 'group'
                 : 'label'

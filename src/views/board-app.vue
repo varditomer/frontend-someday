@@ -246,12 +246,14 @@ export default {
             return this.$store.getters.filterMap
         },
         colors() {
-            return this.$store.getters.colors
+            return colors()
         }
 
     },
     async created() {
         this.handleSockets()
+        const filter = { id: this.$route.params.id }
+        await this.$store.dispatch({ type: 'queryBoard', filter })
     }
 }
 

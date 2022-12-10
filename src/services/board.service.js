@@ -246,7 +246,6 @@ function getDashboardData(board) {
     return data
 }
 
-
 function _filterByPerson(board, id) {
     if (!id) return board
     board.groups = board.groups.filter(group => {
