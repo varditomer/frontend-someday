@@ -64,7 +64,8 @@ async function save(board) {
 //     return savedMsg
 // }
 
-function queryKanban(board, type = 'status', dataMap) {
+function queryKanban(storeBoard, type = 'status', dataMap) {
+    const board = JSON.parse(JSON.stringify(storeBoard))
     board.kanbanType = type
     if (type === 'groupTitle') return board
     if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.tasks))

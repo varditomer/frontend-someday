@@ -13,6 +13,7 @@
         }
 
         .static {
+
             .task-title-container,
             .task-title-item,
             .task-select {
@@ -23,11 +24,9 @@
                 }
             }
 
-            &:hover {
-            }
+            &:hover {}
         }
     }
-
 
     .static {
         display: grid;
@@ -38,7 +37,16 @@
         background-color: white;
 
         .hover-marks {
+            position: absolute;
+            right: 14px;
+            display: flex;
+            align-items: center;
             display: none;
+
+            span {
+                scale: 1.2;
+                margin-right: 8px;
+            }
         }
 
         .task-title-container {
@@ -123,8 +131,19 @@
                         outline: 1px solid $primary-blue;
                     }
                 }
+
+                &:hover {
+                    .hover-marks {
+                        display: flex;
+                    }
+                }
+
+
             }
         }
+
+
+
     }
 
     .dynamic {
@@ -136,7 +155,7 @@
         grid-template-rows: 36px;
         border-bottom: 1px solid $brdr-clr;
 
-        > * {
+        >* {
             border-right: 1px solid $brdr-clr;
         }
 
@@ -387,8 +406,7 @@
                     &.animate {
                         @for $i from 1 through 50 {
                             i:nth-of-type(#{$i}) {
-                                transform: translate3d(random(190) - 100 + px, random(200) - 100 + px, 0)
-                                    rotate(random(360) + deg);
+                                transform: translate3d(random(190) - 100 + px, random(200) - 100 + px, 0) rotate(random(360) + deg);
                                 background: hsla(random(360), 100%, 50%, 1);
                                 animation: bang 700ms ease-out forwards;
                                 opacity: 0;
@@ -434,27 +452,14 @@
             }
         }
     }
-    
+
+
     &:hover {
         background-color: $wrkspce-bgc;
+
         .static {
             background-color: $wrkspce-bgc;
 
-            &:hover {
-                position: relative;
-                background-color: $wrkspce-bgc;
-
-                .hover-marks {
-                    position: absolute;
-                    display: flex;
-                    align-items: center;
-                    right: 14px;
-                    span {
-                        scale: 1.2;
-                        margin-right: 8px;
-                    }
-                }
-            }
             .task-title-container,
             .task-title-item,
             .task-select {
@@ -463,6 +468,7 @@
 
             .options {
                 background-color: #fff;
+
                 span {
                     &:hover {
                         background-color: $brdr-clr;
