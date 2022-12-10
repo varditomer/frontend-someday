@@ -291,21 +291,17 @@ function _multiFilter(filterBy, board) {
             filteredGroups.push(group)
             return filteredGroups
         }
-        group.tasks = group.tasks.reduce((filteredTasks, task) => {
+        group.tasks = group.tasks.filter(task => {
             const taskFilter = JSON.parse(JSON.stringify(filterBy.tasks))
             if (taskFilter.person?.length &&
                 !taskFilter.person.some(id => {
                     return (task.person && task.person.find(person => person._id === id))
-                })) return filteredTasks
+                })) return false
             delete taskFilter.person
             for (let prop in taskFilter) {
-                if (!taskFilter[prop].length || taskFilter[prop].find(val => task[prop] === val)) {
-                    filteredTasks.push(task)
-                    return filteredTasks
-                }
+                if (!taskFilter[prop].length || taskFilter[prop].find(val => task[prop] === val)) return true
             }
-            return filteredTasks
-        }, [])
+        })
         if (group.tasks.length) filteredGroups.push(group)
         return filteredGroups
     }, [])

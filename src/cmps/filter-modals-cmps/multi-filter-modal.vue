@@ -7,7 +7,7 @@
             </div>
             <div class="right-section">
                 <div class="clear-all">
-                    <span @click="" :class="{ 'bold': isFiltered }">Clear all</span>
+                    <span @click="clearFilter" :class="{ 'bold': isFiltered }">Clear all</span>
                 </div>
             </div>
 
@@ -71,11 +71,12 @@ export default {
             }
             this.$store.commit({ type: 'setMultiFilter', multiFilter: filter })
             this.$store.commit({ type: 'filterBoard', filter })
-            //emit filter request: queryBoard - {filter}
+        },
+        clearFilter(){
+            console.log(`skdjcnksdjcn`)
+            this.$store.commit({ type: 'setMultiFilter' ,multiFilter:{}})
+            this.$store.commit({ type: 'filterBoard', filter:{} })
         }
-        // uncheckAllFilters(
-        //     this.
-        // )
     },
     components: {
         multiFilterColumn

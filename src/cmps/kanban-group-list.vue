@@ -65,7 +65,6 @@ export default {
             const type = this.kanbanBoard.kanbanType
             if (!board.taskIdOrder) board.taskIdOrder = {}
             if (!board.taskIdOrder[type]) board.taskIdOrder[type] = {}
-            board.kanbanOrder[type] = this.kanbanBoard.groups.map(group => group._id)
             const updatedGroups = []
             board.taskIdOrder[type] = this.kanbanBoard.groups.reduce((taskIdOrder, group) => {
                 taskIdOrder[group._id] = group.tasks.map(task => task._id)
@@ -75,15 +74,9 @@ export default {
             this.saveBoard(board)
         },
         saveBoard(board) {
-
-            // this.$store.dispatch({type:'saveKanbanBoard'})
-            // let board = JSON.parse(JSON.stringify(this.$store.getters.board))
-            // board = { ...board, ...updatedProps }
+            const type = this.kanbanBoard.kanbanType
+            board.kanbanOrder[type] = this.kanbanBoard.groups.map(group => group._id)
             this.$store.dispatch({ type: 'saveBoard', board })
-            // board1.kanbanOrder = this.statuses //.map(status => status._id)
-
-            // this.$store.dispatch({ type: 'saveBoard', board: board1 })
-            // console.log(this.labeles)
         },
     },
     async created() {

@@ -70,6 +70,7 @@ export default {
             document.querySelector('.search-tasks input').focus()
         },
         setFilter(filter) {
+            this.$store.commit({ type: 'setMultiFilter', multiFilter: filter })
             if (filter) this.$emit('filter', filter)
             else {
                 this.isFiltering = (this.filter) ? true : false

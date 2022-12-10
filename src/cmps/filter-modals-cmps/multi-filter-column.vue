@@ -4,7 +4,7 @@
             <div class="title">{{ column }}</div>
             <div class="content flex column">
                 <div v-if="column === 'person'" v-for="item in formattedData" class="filter-item person"
-                    @click="setSubFilter(item)" :class="{ selected: this.filterBy?.includes(item) }">
+                    @click="setSubFilter(item)" :class="{ selected: this.filterBy?.includes(item._id) }">
                     <div class="filter-option">
                         <img :src="item.imgUrl" alt="">
                         <span>{{ item.fullname }}</span>
@@ -75,11 +75,16 @@ export default {
     },
     methods: {
         setSubFilter(item) {
-            this.filterBy = JSON.parse(JSON.stringify(this.filterBy))
-            const idx = this.filterBy.indexOf(item)
-            if (idx === -1) this.filterBy.push(item)
-            else this.filterBy = this.filterBy.filter((val, valIdx) => idx !== valIdx)
-            this.$emit('setSubFilter', this.filterBy, this.column)
+            let filter = JSON.parse(JSON.stringify(this.filterBy))
+            const idx = filter.findIndex(val => this.column === 'person' 
+                ? val === item._id
+                : val === item)
+            if (idx === -1) filter.push(this.column === 'person' 
+                ? item._id
+                : item)
+            else filter = filter.filter((val, valIdx) => idx !== valIdx)
+            this.filterBy = filter
+            this.$emit('setSubFilter', filter, this.column)
         },
         getFormattedDate(item) {
             const monthIdx = (new Date(item)).getMonth()
