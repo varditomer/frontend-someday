@@ -15,20 +15,29 @@
         </div>
         <div class="label">
             <span v-svg-icon="'status'"></span>
-            <p class="label-text">Status</p>
-            <div :style="`background-color:${task.color}`" class="label">{{ task.title }}
+            <p class="label-text">{{ kanbanType }} </p> 
+            <div :style="{ backgroundColor: getLabel.value }" class="inner-label">{{ getLabel.title }}
             </div>
         </div>
     </section>
 </template>
 
 <script>
+import { colorService } from '../services/color.service.js'
 export default {
 
     name: '',
     props: {
         task: {
             type: Object,
+            required: true
+        },
+        kanbanType: {
+            type: String,
+            required: true
+        },
+        labelId:{
+            type: String,
             required: true
         }
     },
@@ -57,6 +66,9 @@ export default {
 
     },
     computed: {
+        getLabel() {
+            return colorService.getLabelById(this.kanbanType, this.labelId)
+        }
     },
     components: {
     },

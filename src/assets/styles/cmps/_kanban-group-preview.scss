@@ -111,11 +111,11 @@
                     .label-text {
                         font-size: rem(12px);
                         padding-left: 2px;
+                        text-transform: capitalize;
                     }
 
-                    .label {
+                    .inner-label {
                         width: 140px;
-                        background-color: rgb(255, 181, 44);
                         margin-left: auto;
                         height: 100%;
                         display: flex;

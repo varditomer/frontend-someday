@@ -3,13 +3,13 @@
     <section class=''>
         <draggable v-if="kanbanBoard?.groups?.length" v-model="kanbanBoard.groups" animation="220"
             itemKey="element.title" :class="{ 'group-dragged': beingDragged }" class="kanban-group-list-container"
-            @end="saveBoard">
+            @end="saveBoard(JSON.parse(JSON.stringify(this.$store.getters.board)))">
             <template #item="{ element }">
                 <section class="group-preview" :style="getBorder(element)">
                     <div class="group-title" :style="getColor(element)">
                         <h1>{{ element.title }}</h1>
                     </div>
-                    <group-preview :group="element" :tasks="element.tasks" @saveTasks="saveGroup" />
+                    <group-preview :group="element" @saveTasks="saveGroup" :kanbanType="kanbanBoard.kanbanType" />
                 </section>
             </template>
         </draggable>
@@ -59,20 +59,23 @@ export default {
         getBorder(label) {
             return `border-left: ${label.color} 4px solid;`
         },
-        saveGroup(groupId, tasks) {
+        saveGroup() {
+            debugger
             const board = JSON.parse(JSON.stringify(this.$store.getters.board))
-            // const groupIdx = this.kanbanBoard.groups.findIndex(group => group._id === groupId)
-            // board.groups[groupIdx].tasks = tasks
-            console.log(`tasks`, tasks)
-            const taskIdOrder = tasks.map(task => task._id)
+            const type = this.kanbanBoard.kanbanType
             if (!board.taskIdOrder) board.taskIdOrder = {}
-            if (!board.taskIdOrder[board.kanbanType]) board.taskIdOrder[board.kanbanType] = {}
-            board.taskIdOrder[board.kanbanType][groupId] = taskIdOrder
-            // const { kanbanOrder } = board
-            // const boardToSave = JSON.parse(JSON.stringify(this.$store.getters.board))
+            if (!board.taskIdOrder[type]) board.taskIdOrder[type] = {}
+            board.kanbanOrder[type] = this.kanbanBoard.groups.map(group => group._id)
+            const updatedGroups = []
+            board.taskIdOrder[type] = this.kanbanBoard.groups.reduce((taskIdOrder, group) => {
+                taskIdOrder[group._id] = group.tasks.map(task => task._id)
+                group.tasks.forEach(task => task[type] = group._id)
+                return taskIdOrder
+            }, {})
             this.saveBoard(board)
         },
         saveBoard(board) {
+
             // this.$store.dispatch({type:'saveKanbanBoard'})
             // let board = JSON.parse(JSON.stringify(this.$store.getters.board))
             // board = { ...board, ...updatedProps }

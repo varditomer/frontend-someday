@@ -202,12 +202,12 @@ function getDashboardData(board) {
         priority: {},
         status: {}
     }
-    board.members.forEach(member => {
+    if (board.members?.length) board.members.forEach(member => {
         if (!data.person[member._id]) data.person[member._id] = {
             total: 0
         }
     })
-    board.groups.forEach(group => {
+    if (board.groups?.length) board.groups.forEach(group => {
         if (!data.group[group._id]) data.group[group._id] = {
             total: 0,
             status: {},
