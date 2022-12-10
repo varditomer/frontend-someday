@@ -8,10 +8,7 @@
             <regular-modal v-if="false" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
-            <kanban-group-list />
-            <!-- <group-list :users="users" @saveTask="saveTask" @removeTask="removeTask" @duplicateTask="duplicateTask"
-                @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard" @removeGroup="removeGroup"
-                :board="board" :priorities="priorities" :statuses="statuses" :colors="colors" /> -->
+            <kanban-group-list :kanbanBoard="kanbanBoard" />
         </section>
 
         <router-view />
@@ -23,8 +20,9 @@ import boardHeader from '../cmps/board-header.vue'
 import kanbanGroupList from '../cmps/kanban-group-list.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
-
+import { boardService } from '../services/board.service'
 export default {
+
     name: 'kanban-app',
     components: {
         boardHeader,
@@ -36,6 +34,7 @@ export default {
     data() {
         return {
             boardUpdated: 0,
+            kanbanBoardToShow: {}
         }
     },
     methods: {
@@ -82,9 +81,6 @@ export default {
         toggleWorkspace() {
             this.$store.commit({ type: 'toggleWorkspace' })
         },
-        scroll(isScrolling) {
-            this.$store.commit({ type: 'setIsScrolling', isScrolling })
-        },
         async saveSelectedTasks(taskId) {
             await this.$store.commit({ type: 'saveSelectedTasks', taskId })
             const idx = this.selectedTasksWithColor.findIndex(anyTask => anyTask.taskId === taskId)
@@ -109,8 +105,10 @@ export default {
             return this.$route.params.id
         },
         board() {
-            console.log(`this.$store.getters.board`, this.$store.getters.board)
             return this.$store.getters.board
+        },
+        kanbanBoard() {
+            return this.kanbanBoardToShow
         },
         isWorkspaceCollapsed() {
             return this.$store.getters.isWorkspaceCollapsed
@@ -134,11 +132,12 @@ export default {
     },
     async created() {
         const { id } = this.$route.params
+
         try {
             await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
-            this.$store.commit({ type: 'queryKanbanBoard', sort: 'status'})
+            this.kanbanBoardToShow = boardService.queryKanban(this.board, 'status', this.$store.getters.dataMap)
         } catch (err) {
-            this.$router.push('/')
+            // this.$router.push('/')
         }
     }
 }

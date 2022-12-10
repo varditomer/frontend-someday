@@ -26,7 +26,6 @@ export const boardStore = {
         miniBoards({ miniBoards }) { return miniBoards },
         filterBy({ filterBy }) { return filterBy },
         dataMap({ dataMap }) { return dataMap },
-        kanbanBoard({ kanbanBoard }) { return kanbanBoard },
         stats({ stats }) { return stats },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         colors({ colors }) { return colors },
@@ -40,15 +39,12 @@ export const boardStore = {
             if (boardData.miniBoards) state.miniBoards = boardData.miniBoards
             if (boardData.stats) state.stats = boardData.stats
         },
-        queryKanbanBoard(state, { sort }) {
-            state.kanbanBoard = boardService.queryKanban(state.board, sort, this.getters.dataMap)
-        },
         setFilter(state, { filter }) {
             state.filterBy = { ...state.filterBy, ...filter }
         },
         setMultiFilter(state, { multiFilter }) {
             state.multiFilter = multiFilter
-         },
+        },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
         },

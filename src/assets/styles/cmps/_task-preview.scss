@@ -4,7 +4,6 @@
     &.being-edit {
         background-color: $fltr-bgc !important;
 
-
         &:hover {
             background-color: darken($fltr-bgc, 3%) !important;
         }
@@ -24,26 +23,8 @@
                     background-color: darken($fltr-bgc, 3%) !important;
                 }
             }
-        }
-    }
 
-    &:hover {
-        background-color: $wrkspce-bgc ;
-
-        .static {
-            .options {
-                span {
-                    &:hover {
-                        background-color: $brdr-clr;
-                        border-radius: 0.2em;
-                        cursor: pointer;
-                    }
-
-                    &.hidden {
-                        visibility: visible;
-                    }
-                }
-            }
+            &:hover {}
         }
     }
 
@@ -54,6 +35,19 @@
         left: 0;
         z-index: 500;
         background-color: white;
+
+        .hover-marks {
+            position: absolute;
+            right: 14px;
+            display: flex;
+            align-items: center;
+            display: none;
+
+            span {
+                scale: 1.2;
+                margin-right: 8px;
+            }
+        }
 
         .task-title-container {
             border-bottom: 1px solid $brdr-clr;
@@ -137,8 +131,19 @@
                         outline: 1px solid $primary-blue;
                     }
                 }
+
+                &:hover {
+                    .hover-marks {
+                        display: flex;
+                    }
+                }
+
+
             }
         }
+
+
+
     }
 
     .dynamic {
@@ -396,16 +401,12 @@
                         height: 4px;
                         background: red;
                         opacity: 0;
-
-
                     }
 
                     &.animate {
                         @for $i from 1 through 50 {
                             i:nth-of-type(#{$i}) {
-                                transform: translate3d(random(190) - 100 + px,
-                                        random(200) - 100 + px,
-                                        0) rotate(random(360) + deg);
+                                transform: translate3d(random(190) - 100 + px, random(200) - 100 + px, 0) rotate(random(360) + deg);
                                 background: hsla(random(360), 100%, 50%, 1);
                                 animation: bang 700ms ease-out forwards;
                                 opacity: 0;
@@ -421,9 +422,6 @@
                     }
                 }
 
-
-
-
                 .fold {
                     width: 0px;
                     height: 0px;
@@ -432,7 +430,7 @@
                     right: 0px;
                     border-width: 0;
                     border-style: solid;
-                    background: rgba(0, 0, 0, .2);
+                    background: rgba(0, 0, 0, 0.2);
                     display: block;
                     /*border-radius:3px 0 0 0;*/
                     border-color: transparent #fff transparent #fff;
@@ -444,17 +442,45 @@
                     transition: border-width 0.2s ease-out;
                 }
 
-
                 &:hover {
                     opacity: 0.9;
 
                     .fold {
-                        border-width: 0px 10px 10px 0px
+                        border-width: 0px 10px 10px 0px;
                     }
                 }
             }
         }
+    }
 
 
+    &:hover {
+        background-color: $wrkspce-bgc;
+
+        .static {
+            background-color: $wrkspce-bgc;
+
+            .task-title-container,
+            .task-title-item,
+            .task-select {
+                background-color: $wrkspce-bgc;
+            }
+
+            .options {
+                background-color: #fff;
+
+                span {
+                    &:hover {
+                        background-color: $brdr-clr;
+                        border-radius: 0.2em;
+                        cursor: pointer;
+                    }
+
+                    &.hidden {
+                        visibility: visible;
+                    }
+                }
+            }
+        }
     }
 }

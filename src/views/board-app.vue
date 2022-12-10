@@ -161,7 +161,6 @@ export default {
         },
         getSelectedTasksColors(selectedTasksIds) {
             const { groups } = this.board
-            console.log(this.board);
             const idsCopy = [...selectedTasksIds]
             const formattedTaskId = groups.reduce((formattedIds, group) => {
                 const temp = group.tasks.reduce((relevantTaskIds, task) => {
@@ -186,7 +185,7 @@ export default {
             socketService.on('task-removed', (removedTask) => {
                 this.$store.commit({ type: 'removeTask', task: removedTask })
             })
-            socketService.on('group-saved', ({ data }) => {
+            socketService.on('group-saved', (data) => {
                 const { group, isFifo } = data
                 this.$store.commit({ type: 'addGroup', group, isFifo })
             })

@@ -65,7 +65,8 @@ async function save(board) {
 //     return savedMsg
 // }
 
-function queryKanban(board, type = 'status', dataMap) {
+function queryKanban(storeBoard, type = 'status', dataMap) {
+    const board = JSON.parse(JSON.stringify(storeBoard))
     board.kanbanType = type
     if (type === 'groupTitle') return board
     if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.tasks))
@@ -89,7 +90,7 @@ function queryKanban(board, type = 'status', dataMap) {
 }
 
 function filterBoard(board, filter) {
-    const boardCopy = JSON.parse(JSON.stringify(board))
+    var boardCopy = JSON.parse(JSON.stringify(board))
     if (filter.groupTitle || filter.tasks) return _multiFilter(filter, boardCopy)
     if (filter.userId) boardCopy = _filterByPerson(boardCopy, filter.userId)
     if (filter.txt) boardCopy = _filterByTxt(boardCopy, filter.txt)

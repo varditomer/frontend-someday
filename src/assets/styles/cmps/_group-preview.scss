@@ -138,6 +138,7 @@
             }
 
             &.collapse {
+                z-index: 10000;
                 height: 60px;
                 display: flex;
 
@@ -220,8 +221,15 @@
                         align-items: flex-start;
                         border-top: 1px solid $brdr-clr;
                         border-bottom: 1px solid $brdr-clr;
+                        border-right: 1px solid $brdr-clr;
                         width: 100%;
                         padding-left: 6px;
+
+                        h4{
+                            margin-top: 8px;
+                            margin-bottom: 8px;
+                            height: 40%;
+                        }
 
                         .task-count {
                             visibility: visible;
