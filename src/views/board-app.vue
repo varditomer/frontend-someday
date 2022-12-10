@@ -13,7 +13,7 @@
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
                 :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
                 @duplicateTask="duplicateTask" @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard"
-                @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" :board="board" :colors="colors" />
+                @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" :board="filteredBoard" :colors="colors" />
         </section>
 
         <router-view />
@@ -220,6 +220,9 @@ export default {
             return this.$route.params.id
         },
         board() {
+            return this.$store.getters.board
+        },
+        filteredBoard() {
             return this.$store.getters.filteredBoard
         },
         isWorkspaceCollapsed() {
