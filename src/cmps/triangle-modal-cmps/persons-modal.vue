@@ -43,7 +43,8 @@ export default {
         personsToAdd() {
             if (!this.content.length) return this.additionalDb
             if (this.additionalDb.length === this.content.length) return []
-            const users = this.additionalDb.filter(user => this.content.find(p => p._id !== user._id))
+            // const users = this.additionalDb.filter(user => this.content.find(p => p._id !== user._id))
+            const users = this.additionalDb.filter(user => !this.content.find(p => p._id === user._id))
             if (!this.txt) return users
             const regex = new RegExp(this.txt, 'i')
             return users.filter(user => regex.test(user.fullname))

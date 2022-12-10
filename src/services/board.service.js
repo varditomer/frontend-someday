@@ -60,11 +60,6 @@ async function save(board) {
     return savedBoard
 }
 
-// async function addBoardMsg(boardId, txt) {
-//     const savedMsg = await httpService.post(`board/${boardId}/msg`, { txt })
-//     return savedMsg
-// }
-
 function queryKanban(storeBoard, type = 'status', dataMap) {
     const board = JSON.parse(JSON.stringify(storeBoard))
     board.kanbanType = type
@@ -115,7 +110,7 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
 
 function filterBoard(board, filter) {
     var boardCopy = JSON.parse(JSON.stringify(board))
-    if (filter.groupTitle || filter.tasks) return _multiFilter(filter, boardCopy)
+    if (filter.groupTitle || filter.tasks) boardCopy = _multiFilter(filter, boardCopy)
     if (filter.userId) boardCopy = _filterByPerson(boardCopy, filter.userId)
     if (filter.txt) boardCopy = _filterByTxt(boardCopy, filter.txt)
     return boardCopy
@@ -143,14 +138,14 @@ async function getEmptyBoard() {
                     {
                         _id: utilService.makeId(),
                         title: 'Item 1',
-                        status: 'Working on it',
+                        status: 'dfbyc',
                         date: Date.now() + 24 * 60 * 60 * 1000,
                         comments: []
                     },
                     {
                         _id: utilService.makeId(),
                         title: 'Item 2',
-                        status: 'Done',
+                        status: 'qwdlk',
                         date: Date.now() - 24 * 60 * 60 * 1000,
                         comments: []
                     },
@@ -202,12 +197,12 @@ function getDashboardData(board) {
         priority: {},
         status: {}
     }
-    board.members.forEach(member => {
+    if (board.members?.length) board.members.forEach(member => {
         if (!data.person[member._id]) data.person[member._id] = {
             total: 0
         }
     })
-    board.groups.forEach(group => {
+    if (board.groups?.length) board.groups.forEach(group => {
         if (!data.group[group._id]) data.group[group._id] = {
             total: 0,
             status: {},
@@ -295,11 +290,13 @@ function _multiFilter(filterBy, board) {
             const taskFilter = JSON.parse(JSON.stringify(filterBy.tasks))
             if (taskFilter.person?.length &&
                 !taskFilter.person.some(id => {
-                    return (task.person && task.person.find(person => person._id === id))
+                    return (task.person?.find(person => person._id === id))
+                    //     return (task.person && task.person.find(person => person._id === id))
                 })) return filteredTasks
             delete taskFilter.person
             for (let prop in taskFilter) {
-                if (!taskFilter[prop].length || taskFilter[prop].find(val => task[prop] === val)) {
+                if (taskFilter[prop].find(val => task[prop] === val)) {
+                    // if (!taskFilter[prop].length || taskFilter[prop].find(val => task[prop] === val)) {
                     filteredTasks.push(task)
                     return filteredTasks
                 }
@@ -311,6 +308,30 @@ function _multiFilter(filterBy, board) {
     }, [])
     return board
 }
+
+// function _multiFilter(filterBy, board) {
+//     // create a Set for faster lookup of groupTitle and person IDs
+//     const groupTitleSet = new Set(filterBy?.groupTitle || [])
+//     const personIdSet = new Set(filterBy?.tasks?.person || [])
+//     // filter the groups and tasks in-place, to avoid creating new arrays
+//     board.groups = board.groups.filter(group => {
+//         if (!groupTitleSet.has(group.title)) return false
+//         if (!filterBy.tasks) return true
+//         group.tasks = group.tasks.filter(task => {
+//             if (personIdSet.size > 0 && !personIdSet.has(task.person?._id)) return false
+//             const taskFilter = JSON.parse(JSON.stringify(filterBy.tasks))
+//             delete taskFilter.person
+//             for (let prop in taskFilter) {
+//                 if (!taskFilter[prop].length || taskFilter[prop].find(val => task[prop] === val)) {
+//                     return true
+//                 }
+//             }
+//             return false
+//         })
+//         return group.tasks.length > 0
+//     })
+//     return board
+// }
 
 function _getTasksByValue(board, key, value) {
     if (!board || !key || !value) return null

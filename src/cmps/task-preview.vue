@@ -18,7 +18,7 @@
                     <p @blur="updateTask({ key: 'title', val: $event.target.innerText })"
                         @keydown.enter.prevent="updateTask({ key: 'title', val: $event.target.innerText })"
                         @click.prevent="" class="task-title" contenteditable="true" v-html="task.title"></p>
-                        <div class="hover-marks"><span v-svg-icon="'open'"></span>Open</div>
+                    <div class="hover-marks"><span v-svg-icon="'open'"></span>Open</div>
                 </div>
                 <span v-if="task.comments?.length" class="task-comment-icon count-comment">
                     <span v-svg-icon="'commentCount'"></span>
@@ -125,7 +125,7 @@ export default {
     methods: {
         updateTask({ key, val }) {
             const task = this.task
-            const oldVal = task[key]
+            const oldVal = task[key] || ''
             task[key] = val
             const activity = {
                 key,

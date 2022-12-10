@@ -5,8 +5,8 @@
             <p v-if="isHovering" class="text">{{ timeDiff }} d</p>
             <p v-else class="text">{{ dateStr }}</p>
         </div>
-        <triangle-modal v-if="(showModal)" :cmp="'timelineModal'" :content="content" :defaultTime="defaultTime"
-            @closeModal="(showModal = false)" />
+        <triangle-modal v-if="(showModal)" :cmp="'timelineModal'" :content="content" @closeModal="(showModal = false)"
+            @updateTask="updateTask" />
     </section>
 </template>
 
@@ -30,24 +30,11 @@ export default {
             required: true
         }
     },
-    created() {
-        // this.startTimeStamp = this.getTimeStampFromDates(this.content?.start)
-        // this.endTimeStamp = this.getTimeStampFromDates(this.content?.end)
-        this.startTime = this.getTimeFromDates(this.content?.start)
-        this.endTime = this.getTimeFromDates(this.content?.end)
-        this.defaultTime = [this.startTime, this.endTime]
-        // console.log(`defaultTime-task:`, this.defaultTime)
-    },
     data() {
         return {
             months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             showModal: false,
             isHovering: false,
-            startTime: -1,
-            endTime: -1,
-            // startTimeStamp: -1,
-            // endTimeStamp: -1,
-            defaultTime: []
         }
     },
     computed: {
@@ -98,6 +85,10 @@ export default {
             // const dateString = `${dates.year}` + '-' + `${dates.month}` + '-' + `${dates.day}`
             return new Date(dates.year, dates.month, dates.day)
             // return new Date(dateString).getTime()
+        },
+        updateTask(timeline) {
+            console.log(timeline);
+            this.$emit('updateTask', { key: 'timeline', val: timeline })
         }
     },
     components: {

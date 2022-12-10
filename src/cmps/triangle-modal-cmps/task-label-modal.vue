@@ -24,7 +24,7 @@
 
 <script>
 import regularModal from '../dynamic-modals/regular-modal.vue'
-import {colorService} from '../../services/color.service.js'
+import {colorService, colors} from '../../services/color.service.js'
 export default {
     name: 'label-picker-modal',
     props: {
@@ -62,6 +62,7 @@ export default {
             if (!this.isBeingEditted) this.updateTask(this.labelTitle)
         },
         updateLabels(type, id, title = 'New Label', val) {
+            debugger
             colorService.update(type, id, title, val)
             this.$store.dispatch({type: 'loadColors'})
             this.showColorPicker = false

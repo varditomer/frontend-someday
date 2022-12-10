@@ -3,7 +3,7 @@
     <section class='triangle-modal' @keydown.escape="hide" v-click-outside="hide">
         <span class="top-bot"></span>
         <component :is="cmp" :content="content" :name="name" :additionalDb="additionalDb" @updateTask="updateTask"
-            @hideModal="hide" @loginSignup="loginSignup" :colors="colors" :defaultTime="defaultTime" @closeModal="$emit('closeModal')">
+            @hideModal="hide" @loginSignup="loginSignup" :colors="colors" @closeModal="$emit('closeModal')">
         </component>
     </section>
 </template>
@@ -24,10 +24,6 @@ export default {
             type: Array,
             required: false
         },
-        defaultTime: {
-            type: Array,
-            required: true
-        },
         content: {
             type: [Object, Array, String, Number],
             required: false
@@ -38,7 +34,6 @@ export default {
         },
         name: String
     },
-    created() {console.log(`this.defaultTime:`, this.defaultTime) },
 
     methods: {
         hide() {
