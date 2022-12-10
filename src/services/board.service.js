@@ -195,6 +195,7 @@ async function getEmptyBoard() {
 }
 
 function getDashboardData(board) {
+    if (!board._id) return {}
     const data = {
         person: {},
         group: {},

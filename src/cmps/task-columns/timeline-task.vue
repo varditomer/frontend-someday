@@ -1,11 +1,12 @@
 <template>
-    <section  v-if="!isKanban" @click="clickToEdit" class="timeline">
+    <section v-if="!isKanban" @click="clickToEdit" class="timeline">
         <div v-if="content" class="range" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
             <div class="value" :style="style"></div>
             <p v-if="isHovering" class="text">{{ timeDiff }} d</p>
             <p v-else class="text">{{ dateStr }}</p>
         </div>
-        <triangle-modal v-if="show" :cmp="'timelineModal'" :content="content" @hideModal="(show=false)"/>
+        <triangle-modal v-if="(showModal)" :cmp="'timelineModal'" :content="content" :defaultTime="defaultTime"
+            @closeModal="(showModal = false)" />
     </section>
 </template>
 
@@ -24,16 +25,29 @@ export default {
             type: String,
             required: false
         },
-        isKanban :{
+        isKanban: {
             type: Boolean,
             required: true
         }
     },
+    created() {
+        // this.startTimeStamp = this.getTimeStampFromDates(this.content?.start)
+        // this.endTimeStamp = this.getTimeStampFromDates(this.content?.end)
+        this.startTime = this.getTimeFromDates(this.content?.start)
+        this.endTime = this.getTimeFromDates(this.content?.end)
+        this.defaultTime = [this.startTime, this.endTime]
+        // console.log(`defaultTime-task:`, this.defaultTime)
+    },
     data() {
         return {
             months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            show: false,
-            isHovering: false
+            showModal: false,
+            isHovering: false,
+            startTime: -1,
+            endTime: -1,
+            // startTimeStamp: -1,
+            // endTimeStamp: -1,
+            defaultTime: []
         }
     },
     computed: {
@@ -71,8 +85,19 @@ export default {
     },
     methods: {
         clickToEdit() {
-            this.show = true
+            // const startDateString = `${this.content.start.year}` + '-' + `${this.content.start.month}` + '-' + `${this.content.start.day}`
+            // const endDateString = `${this.content.end.year}` + '-' + `${this.content.end.month}` + '-' + `${this.content.end.day}`
+            // const startTimeStamp = new Date(startDateString).getTime()
+            // const endTimeStamp = new Date(endDateString).getTime()
+            this.showModal = true
             this.$emit('editing')
+        },
+        // getTimeStampFromDates(dates) {
+        getTimeFromDates(dates) {
+            if (!dates) return ''
+            // const dateString = `${dates.year}` + '-' + `${dates.month}` + '-' + `${dates.day}`
+            return new Date(dates.year, dates.month, dates.day)
+            // return new Date(dateString).getTime()
         }
     },
     components: {

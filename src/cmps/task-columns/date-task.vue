@@ -25,6 +25,7 @@ export default {
         }
     },
     created() {
+        // console.log(`content:`, this.content)
     },
     computed: {
         formattedDate() {
