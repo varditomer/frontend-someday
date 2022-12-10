@@ -221,12 +221,9 @@ export default {
         },
         board() {
             return this.$store.getters.board
-<<<<<<< HEAD
-=======
         },
         filteredBoard() {
             return this.$store.getters.filteredBoard
->>>>>>> 48e710d31db9d4dc70b0f96b7c05be8987c6fe48
         },
         // filteredBoard() {
         //     return this.$store.getters.filteredBoard
