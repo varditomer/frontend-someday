@@ -9,7 +9,7 @@
                     :key="element._id" @toggleSelectAllTasks="toggleSelectAllTasks" @saveTask="saveTask"
                     @removeTask="removeTask" @saveGroup="saveGroup" @saveBoard="saveBoard" @addGroup="addGroup"
                     @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask"
-                    :colors="colors" />
+                    :colors="colors" @removeColumn="removeColumn"/>
             </template>
         </draggable>
 
@@ -92,6 +92,13 @@ export default {
         addColumn(cmp) {
             const board = JSON.parse(JSON.stringify(this.board))
             board.cmpsOrder.push(cmp)
+            this.$emit('saveBoard', board)
+        },
+        removeColumn(column){
+            const board = JSON.parse(JSON.stringify(this.board))
+            const idx = board.cmpsOrder.indexOf(column)
+            if (idx === -1) return
+            board.cmpsOrder.splice(idx,1)
             this.$emit('saveBoard', board)
         }
     },
