@@ -60,22 +60,23 @@ export default {
             return `border-left: ${label.color} 4px solid;`
         },
         saveGroup(groupId, tasks) {
-            const board = JSON.parse(JSON.stringify(this.kanbanBoard))
-            const groupIdx = this.kanbanBoard.groups.findIndex(group => group._id === groupId)
-            board.groups[groupIdx].tasks = tasks
-            // this.saveBoard(board)
-            // const taskIdOrder = tasks.map(task => task._id)
-            // if (!board.taskIdOrder) board.taskIdOrder = {}
-            // if (!board.taskIdOrder[board.kanbanType]) board.taskIdOrder[board.kanbanType] = {}
-            // board.taskIdOrder[board.kanbanType][groupId] = taskIdOrder
+            const board = JSON.parse(JSON.stringify(this.$store.getters.board))
+            // const groupIdx = this.kanbanBoard.groups.findIndex(group => group._id === groupId)
+            // board.groups[groupIdx].tasks = tasks
+            console.log(`tasks`, tasks)
+            const taskIdOrder = tasks.map(task => task._id)
+            if (!board.taskIdOrder) board.taskIdOrder = {}
+            if (!board.taskIdOrder[board.kanbanType]) board.taskIdOrder[board.kanbanType] = {}
+            board.taskIdOrder[board.kanbanType][groupId] = taskIdOrder
             // const { kanbanOrder } = board
-            // this.saveBoard({ kanbanOrder, taskIdOrder })
+            // const boardToSave = JSON.parse(JSON.stringify(this.$store.getters.board))
+            this.saveBoard(board)
         },
         saveBoard(board) {
             // this.$store.dispatch({type:'saveKanbanBoard'})
             // let board = JSON.parse(JSON.stringify(this.$store.getters.board))
             // board = { ...board, ...updatedProps }
-            // this.$store.dispatch({ type: 'saveBoard', board })
+            this.$store.dispatch({ type: 'saveBoard', board })
             // board1.kanbanOrder = this.statuses //.map(status => status._id)
 
             // this.$store.dispatch({ type: 'saveBoard', board: board1 })
