@@ -136,13 +136,13 @@ export const boardStore = {
                 throw err
             }
         },
-        async queryBoard({ commit }, { filter }) {
+        async queryBoard({ commit,state }, { filter }) {
             try {
                 commit({ type: 'setFilter', filter })
                 const boardData = await boardService.query(filter.id ? filter.id : '')
                 commit({ type: 'setBoard', boardData })
-                commit({ type: 'filterBoard', filter })
-                boardService.getDashboardData(boardData.board)
+                // boardService.getDashboardData(boardData.board)
+                // commit({type:'filterBoard', filter})
             } catch (err) {
                 console.log('Could not find board');
                 throw new Error()
