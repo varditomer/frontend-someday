@@ -12,15 +12,21 @@
       <img class="logo" src="src/assets/imgs/logo.svg" alt="">
       <nav class="main-nav">
 
-        <button class="login-btn">Log in</button>
+        <div class="login-signup-container">
+          <button class="login-btn" @click="(showModal = true)">Log in</button>
+          <triangle-modal @loginSignup="loginSignup" @hideModal="(showModal = false)" v-if="(showModal)"
+            :cmp="`login-signup-modal`" />
+        </div>
+
         <router-link :to="('/board/' + board._id)">
           <button class="cta-btn">
             <p>Get started</p>
           </button>
         </router-link>
-        <!-- <triangle-modal @login="login" @hideModal="(showModal=false)" v-if="(showModal)" :cmp="`login-signup-modal`" /> -->
       </nav>
     </header>
+    <GoogleLogin :callback="callback" />
+
 
 
     <h1 class="hero-title">A platform built for<br>a new way of working</h1>
@@ -39,6 +45,8 @@
 
 <script>
 import triangleModal from '../cmps/dynamic-modals/triangle-modal.vue';
+import { decodeCredential } from 'vue3-google-login'
+
 export default {
   name: 'home',
   computed: {
@@ -50,16 +58,26 @@ export default {
     return {
       signedIn: false,
       showModal: false,
-      profile: null
+      profile: null,
+      login: null
     }
   },
   methods: {
     closeLoginSignupModal() {
       this.openLoginSignupModal = false
     },
-    async login(userCreds) {
+    callback(response) {
+      // This callback will be triggered when the user selects or login to
+      // his Google account from the popup
+      console.log("Handle the response", response)
+      const userData = decodeCredential(response.credential)
+      console.log("Handle the userData", userData)
+    },
+    async loginSignup(userCreds) {
+
       if (!userCreds.email) {
         try {
+          console.log(`userCreds:`, userCreds)
           await this.$store.dispatch({ type: 'login', userCreds })
           this.$router.push('/board/' + this.board._id)
         }
@@ -70,7 +88,7 @@ export default {
       else {
         try {
           await this.$store.dispatch({ type: 'signup', userCreds })
-          this.$router.push('/board/' + this.board._id)
+          // this.$router.push('/board/' + this.board._id)
         }
         catch (err) {
           console.log('Could not sign up', err);
@@ -81,6 +99,9 @@ export default {
       console.log('bab');
       gapi.auth2.GoogleAuth.then(res => console.log(res))
     }
+  },
+  signup() {
+
   },
   components: {
     triangleModal

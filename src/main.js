@@ -18,7 +18,9 @@ import { router } from './router.js'
 import { store } from './store/store.js'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import copyText from "@meforma/vue-copy-to-clipboard";
+import copyText from "@meforma/vue-copy-to-clipboard"
+import vue3GoogleLogin from 'vue3-google-login'
+
 
 
 
@@ -47,6 +49,9 @@ app.use(router)
 app.use(store)
 app.use(copyText)
 app.use(ElementPlus)
+app.use(vue3GoogleLogin, {
+    clientId: '236832301303-lau68i5f07t385fes3sjjrk531fu71gi.apps.googleusercontent.com'
+})
 
 app.mount('#app')
 
