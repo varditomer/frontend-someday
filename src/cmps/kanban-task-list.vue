@@ -15,7 +15,7 @@
         </div>
         <div class="label">
             <span v-svg-icon="'status'"></span>
-            <p class="label-text">{{ kanbanType }} </p> 
+            <p class="label-text">{{ kanbanType }} </p>
             <div :style="{ backgroundColor: getLabel.value }" class="inner-label">{{ getLabel.title }}
             </div>
         </div>
@@ -36,7 +36,7 @@ export default {
             type: String,
             required: true
         },
-        labelId:{
+        labelId: {
             type: String,
             required: true
         }

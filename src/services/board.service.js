@@ -44,7 +44,8 @@ async function remove(boardId) {
 async function removeManyTasks(taskIds, boardId) {
     const data = { boardId, taskIds }
     const board = await httpService.delete(BOARD_URL, data)
-    socketService.emit('save-board', board)
+    const loggedinUser = userService.getLoggedinUser()
+    socketService.emit('save-board', { board, loggedinUser })
     return board
 
 }
@@ -56,7 +57,8 @@ async function save(board) {
     } else {
         savedBoard = await httpService.post(BOARD_URL, board)
     }
-    socketService.emit('save-board', savedBoard)
+    const loggedinUser = userService.getLoggedinUser()
+    socketService.emit('save-board', { savedBoard, loggedinUser })
     return savedBoard
 }
 
