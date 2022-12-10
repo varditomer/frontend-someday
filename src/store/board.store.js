@@ -36,7 +36,7 @@ export const boardStore = {
         setBoard(state, { boardData }) {
             if (boardData.board) {
                 state.board = boardData.board
-                // state.filteredBoard = boardData.board
+                state.filteredBoard = boardData.board
             }
             if (boardData.dataMap) state.dataMap = boardData.dataMap
             if (boardData.miniBoards) state.miniBoards = boardData.miniBoards

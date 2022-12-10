@@ -29,7 +29,6 @@
             </div>
         </div>
 
-
         <div class="statuses-dashboard">
             <div class="statuses-title">
                 <span v-svg-icon="'project'"></span>
@@ -68,6 +67,7 @@ import { BarChart } from 'vue-chart-3'
 import { PieChart } from 'vue-chart-3'
 import { DoughnutChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
+import { boardService } from '../../services/board.service.js'
 
 Chart.register(...registerables)
 
@@ -131,12 +131,17 @@ export default {
     computed: {
         stats() {
             return this.$store.getters.stats
+        },
+        board() {
+            return this.$store.getters.board
+        },
+        data() {
+            return boardService.getDashboardData(this.board)
         }
     },
     created() {
-        setTimeout(() => console.log(this.stats), 1000)
+        setTimeout(() => console.log(this.data), 1000)
     }
-
 
 }
 </script>
