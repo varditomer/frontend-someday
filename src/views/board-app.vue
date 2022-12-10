@@ -252,12 +252,6 @@ export default {
     },
     async created() {
         this.handleSockets()
-        const { id } = this.$route.params
-        try {
-            await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
-        } catch (err) {
-            this.$router.push('/')
-        }
     }
 }
 

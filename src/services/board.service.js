@@ -94,7 +94,6 @@ function filterBoard(board, filter) {
     if (filter.groupTitle || filter.tasks) return _multiFilter(filter, boardCopy)
     if (filter.userId) boardCopy = _filterByPerson(boardCopy, filter.userId)
     if (filter.txt) boardCopy = _filterByTxt(boardCopy, filter.txt)
-    console.log(`boardCopy`, boardCopy)
     return boardCopy
 }
 
@@ -105,7 +104,7 @@ async function getEmptyBoard() {
         title: 'New Board',
         archivedAt: Date.now(),
         createdBy: {
-            _id: 0,
+            _id: '0',
             fullname: 'Guest'
         },
         groups: [
@@ -180,19 +179,18 @@ function getDashboardData(board) {
     }
     board.members.forEach(member => {
         if (!data.person[member._id]) data.person[member._id] = {
-            total:0
+            total: 0
         }
     })
     board.groups.forEach(group => {
         if (!data.group[group._id]) data.group[group._id] = {
-            total:0,
-            status:{},
-            priority:{}
+            total: 0,
+            status: {},
+            priority: {}
         }
     })
     colors().status.forEach(status => data.status[status._id] = 0)
     colors().priority.forEach(priority => data.priority[priority._id] = 0)
-    debugger
     board.groups.forEach(group => {
         data.group[group._id].total += group.tasks.length
         group.tasks.forEach(task => {
@@ -212,16 +210,15 @@ function getDashboardData(board) {
                     if (!data.person[person._id].status) data.person[person._id].status = {}
                     if (!data.person[person._id].status[task.status]) data.person[person._id].status[task.status] = 0
                     data.person[person._id].status[task.status]++
-                }               
+                }
                 if (task.priority) {
                     if (!data.person[person._id].priority) data.person[person._id].priority = {}
                     if (!data.person[person._id].priority[task.priority]) data.person[person._id].priority[task.priority] = 0
                     data.person[person._id].priority[task.priority]++
-                }               
+                }
             })
         })
     })
-    console.log(`data`, data)
     return data
 }
 

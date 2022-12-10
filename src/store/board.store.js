@@ -29,12 +29,15 @@ export const boardStore = {
         stats({ stats }) { return stats },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         colors({ colors }) { return colors },
+        stats({ stats }) { return stats },
         multiFilter({ multiFilter }) { return multiFilter }
     },
     mutations: {
         setBoard(state, { boardData }) {
-            if (boardData.board) state.board = boardData.board
-            if (boardData.board) state.filteredBoard = boardData.board
+            if (boardData.board) {
+                state.board = boardData.board
+                state.filteredBoard = boardData.board
+            }
             if (boardData.dataMap) state.dataMap = boardData.dataMap
             if (boardData.miniBoards) state.miniBoards = boardData.miniBoards
             if (boardData.stats) state.stats = boardData.stats

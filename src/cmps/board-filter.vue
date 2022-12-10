@@ -27,7 +27,7 @@
 
 
         <regular-modal :filterBy="filterBy" @filter="setFilter" :users="users" @closeModal="(showModal = false)"
-            v-if="showModal" :class="(modalName+'-parent')" :cmp="modalName" @addGroup="addGroup" />
+            v-if="showModal" :class="(modalName + '-parent')" :cmp="modalName" @addGroup="addGroup" />
 
     </section>
 </template>
