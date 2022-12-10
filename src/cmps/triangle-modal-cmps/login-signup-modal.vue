@@ -7,7 +7,7 @@
         </div>
 
         <section class="signup login">
-            <form class="signup-form flex column" @submit.prevent="login">
+            <form class="signup-form flex column" @submit.prevent="loginSignup">
                 <label>
                     <p>Username</p>
                     <input required type="text" v-model="creds.username" placeholder="Username">
@@ -22,13 +22,11 @@
                 </label>
                 <label v-if="!isLogin">
                     <p>Email</p>
-                    <input required type="mail" v-model="creds.email" placeholder="Mail">
+                    <input required type="email" v-model="creds.email" placeholder="Email">
                 </label>
                 <button v-if="!isLogin" type="submit">Sign up</button>
                 <button v-if="isLogin" type="submit">Login</button>
             </form>
-
-
         </section>
 
 
@@ -40,7 +38,7 @@
 import { userService } from '../../services/user.service';
 export default {
     name: 'signup-modal',
-    emits: ['hideModal', 'login'],
+    emits: ['hideModal', 'loginSignup'],
     props: {
     },
     data() {
@@ -50,11 +48,12 @@ export default {
         }
     },
     methods: {
-        login() {
+        loginSignup() {
             const userCreds = this.creds
-            this.$emit('login', userCreds)
+            this.$emit('loginSignup', userCreds)
+            this.$emit('hideModal')
             this.creds = {}
-        }
+        },
     },
     created() {
         this.users = userService.getUsers()

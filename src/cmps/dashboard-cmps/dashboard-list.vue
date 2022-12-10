@@ -1,30 +1,41 @@
 <template>
 
-    <section v-if="stats" class='dashboard-container'>
+    <section v-if="Object.keys(data).length" class='dashboard-container'>
 
 
         <div class="bar-chart">
+            <div class="bar-chart-title">
+                <span v-svg-icon="'priorities'"></span>
+                <h1>Priorities</h1>
+            </div>
             <BarChart :chartData="barChartData" :options="barChartOptions" />
         </div>
 
         <div class="right-dashboard">
             <div class="pie-chart">
-                <PieChart :chartData="barChartData" :options="barChartOptions" />
+                <div class="pie-chart-title">
+                    <span v-svg-icon="'tasks'"></span>
+                    <h1>Tasks per member</h1>
+                </div>
+                <PieChart :chartData="pieChartData" :options="pieChartOptions" />
             </div>
             <div class="total-count">
                 <div class="total-div">
+                    <span v-svg-icon="'quest'"></span>
                     <h1>Total tasks</h1>
-                    <p>{{ stats.taskCount }}</p>
+                    <p>{{ totalTasksCount }}</p>
                 </div>
                 <span class="separator"></span>
                 <div class="total-div">
+                    <span v-svg-icon="'workspace'"></span>
                     <h1>Total groups</h1>
-                    <p>{{ stats.taskCount }}</p>
+                    <p>{{ Object.keys(data.group).length }}</p>
                 </div>
                 <span class="separator"></span>
                 <div class="total-div">
+                    <span v-svg-icon="'largePerson'"></span>
                     <h1>Total members</h1>
-                    <p>{{ stats.taskCount }}</p>
+                    <p>{{ Object.keys(data.person).length }}</p>
                 </div>
             </div>
         </div>
@@ -34,26 +45,10 @@
                 <span v-svg-icon="'project'"></span>
                 <h1>Project estimate</h1>
             </div>
-            <div class="card-container">
-                <div class="card">
-                    <h1 class="card-title">Unattained</h1>
-                    <h2 class="card-count">6</h2>
-                </div>
-                <div class="card">
-                    <h1 class="card-title">Working on it</h1>
-                    <h2 class="card-count">2</h2>
-                </div>
-                <div class="card">
-                    <h1 class="card-title">Stuck</h1>
-                    <h2 class="card-count">4</h2>
-                </div>
-                <div class="card">
-                    <h1 class="card-title">Default</h1>
-                    <h2 class="card-count">7</h2>
-                </div>
-                <div class="card">
-                    <h1 class="card-title">Done</h1>
-                    <h2 class="card-count">25</h2>
+            <div class="card-container" v-if="statuses">
+                <div class="card" v-for="status in statuses" :style="`background-color:${status.value}`">
+                    <h1 class="card-title">{{ status.title }}</h1>
+                    <h2 class="card-count">{{ status.count }}</h2>
                 </div>
             </div>
         </div>
@@ -65,9 +60,10 @@
 <script>
 import { BarChart } from 'vue-chart-3'
 import { PieChart } from 'vue-chart-3'
-import { DoughnutChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 import { boardService } from '../../services/board.service.js'
+import { colorService } from '../../services/color.service.js'
+import { userService } from '../../services/user.service.js'
 
 Chart.register(...registerables)
 
@@ -78,19 +74,12 @@ export default {
     data() {
         return {
             barChartData: {
-                labels: ['Paris', 'Nîmes', 'Toulon', 'Perpignan', 'Autre'],
+                labels: [],
                 datasets: [
                     {
                         barThickness: 60,
-                        data: [30, 40, 60, 70, 5],
-                        backgroundColor: [
-                            'red',
-                            '#77CEFF',
-                            '#0079AF',
-                            '#123E6B',
-                            '#97B0C4',
-                            '#A5C8ED',
-                        ],
+                        data: [],
+                        backgroundColor: [],
                     },
                 ],
             },
@@ -101,14 +90,13 @@ export default {
                     },
                 },
             },
-            doughnutChartData: {
-                labels: ['Paris', 'Nîmes', 'Toulon', 'Perpignan', 'Autre'],
+            pieChartData: {
+                labels: [],
                 datasets: [
                     {
                         barThickness: 60,
-                        data: [30, 40, 60, 70, 5],
+                        data: [],
                         backgroundColor: [
-                            'red',
                             '#77CEFF',
                             '#0079AF',
                             '#123E6B',
@@ -118,13 +106,15 @@ export default {
                     },
                 ],
             },
-            doughnutChartOptions: {
+            pieChartOptions: {
                 plugins: {
                     legend: {
                         display: false,
                     },
                 },
             },
+            statuses: '',
+            totalTasksCount: 0
 
         }
     },
@@ -137,10 +127,56 @@ export default {
         },
         data() {
             return boardService.getDashboardData(this.board)
+        },
+
+    },
+    methods: {
+        setLabels() {
+            const data = this.data
+            const labels = []
+            for (let statusId in data.status) {
+                const label = colorService.getLabelById('status', statusId)
+                label.count = data.status[statusId]
+                labels.push(label)
+            }
+            this.statuses = labels
+        },
+        setPriorities() {
+            const data = this.data
+            for (let priorityId in data.priority) {
+                const priority = colorService.getLabelById('priority', priorityId)
+                const { title, value } = priority
+                const count = data.priority[priorityId]
+                this.barChartData.labels.unshift(title)
+                this.barChartData.datasets[0].backgroundColor.unshift(value)
+                this.barChartData.datasets[0].data.unshift(count)
+            }
+        },
+        setTasksPerMember() {
+            const users = userService.getUsers()
+            const data = this.data
+            for (let personId in data.person) {
+                const { fullname } = users.find(u => u._id === personId)
+                this.pieChartData.labels.unshift(fullname)
+                this.pieChartData.datasets[0].data.unshift(data.person[personId].total)
+
+            }
+        },
+        getTotalTasks() {
+            let sum = 0
+            for (let g in this.data.group) {
+                sum += this.data.group[g].total
+            }
+            this.totalTasksCount = sum
         }
     },
     created() {
-        setTimeout(() => console.log(this.data), 1000)
+        setTimeout(() => {
+            this.setLabels()
+            this.setPriorities()
+            this.getTotalTasks()
+            this.setTasksPerMember()
+        }, 100)
     }
 
 }

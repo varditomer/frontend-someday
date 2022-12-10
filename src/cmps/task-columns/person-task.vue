@@ -1,5 +1,5 @@
 <template>
-    <section v-if="!isKanban"  @click="clickToEdit" class="task-members flex center">
+    <section v-if="!isKanban" @click="clickToEdit" class="task-members flex center">
         <div class="add-person-icon" v-svg-icon="'addPerson'"></div>
         <span v-if="formattedPersons.length" class="task-avatar" v-for="person in formattedPersons"
             :style="person.style" :class="{ cover: person.pic }" :title="person.fullname">
@@ -19,7 +19,7 @@ export default {
     props: {
         content: Array,
         additionalDb: Array,
-        isKanban :{
+        isKanban: {
             type: Boolean,
             required: true
         }

@@ -9,7 +9,7 @@
             </router-link>
         </section>
         <section class="bottom-nav">
-            <div class="profile">G</div>
+            <img :src="getLoggedinUserImg" alt="">
         </section>
     </nav>
 </template>
@@ -20,6 +20,10 @@ export default {
     computed: {
         board() {
             return this.$store.getters.board
+        },
+        getLoggedinUserImg() {
+            return this.$store.getters.loggedinUser.imgUrl
+            
         }
     },
     created() {

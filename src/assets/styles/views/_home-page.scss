@@ -58,12 +58,16 @@
 
                 }
             }
+            .login-signup-container{
+                position: relative;
+                .login-btn {
+                    background-color: transparent;
+                    font-family: roboto-light;
+                    font-size: rem(16px);
+                }
 
-            .login-btn {
-                background-color: transparent;
-                font-family: roboto-light;
-                font-size: rem(16px);
             }
+
         }
     }
 
@@ -155,7 +159,7 @@
 
 
             .triangle-modal {
-                top: 60px;
+                // top: 60px;
                 width: 300px;
                 padding-bottom: 10px;
 
@@ -163,6 +167,7 @@
                     padding: 8px;
                     height: 100%;
                     width: 100%;
+                    // left: 100px;
                     border-radius: .3em;
                     justify-content: space-between;
 

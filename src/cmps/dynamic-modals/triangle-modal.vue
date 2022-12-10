@@ -3,7 +3,7 @@
     <section class='triangle-modal' @keydown.escape="hide" v-click-outside="hide">
         <span class="top-bot"></span>
         <component :is="cmp" :content="content" :name="name" :additionalDb="additionalDb" @updateTask="updateTask"
-            @hideModal="hide" @login="login" :colors="colors" :defaultTime="defaultTime" @closeModal="$emit('closeModal')">
+            @hideModal="hide" @loginSignup="loginSignup" :colors="colors" @closeModal="$emit('closeModal')">
         </component>
     </section>
 </template>
@@ -17,16 +17,12 @@ import linkModal from '../triangle-modal-cmps/link-modal.vue'
 import loginSignupModal from '../triangle-modal-cmps/login-signup-modal.vue'
 export default {
     name: 'triangle-modal',
-    emits: ['updateTask', 'hideModal', 'login'],
+    emits: ['updateTask', 'hideModal', 'loginSignup'],
     props: {
         cmp: String,
         additionalDb: {
             type: Array,
             required: false
-        },
-        defaultTime: {
-            type: Array,
-            required: true
         },
         content: {
             type: [Object, Array, String, Number],
@@ -38,7 +34,6 @@ export default {
         },
         name: String
     },
-    created() {console.log(`this.defaultTime:`, this.defaultTime) },
 
     methods: {
         hide() {
@@ -47,8 +42,8 @@ export default {
         updateTask(field) {
             this.$emit('updateTask', field)
         },
-        login(userCreds) {
-            this.$emit('login', userCreds)
+        loginSignup(userCreds) {
+            this.$emit('loginSignup', userCreds)
         }
     },
     components: {

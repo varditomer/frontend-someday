@@ -21,6 +21,7 @@
     "vue-chart-3": "^3.1.8",
     "vue-hotel-datepicker": "^4.5.1",
     "vue-router": "^4.1.2",
+    "vue3-google-login": "^2.0.12",
     "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2"
   },

@@ -54,7 +54,6 @@ export default {
     },
     methods: {
         saveTask(task, activity) {
-
             const taskToSave = { task, isFifo: true }
             // this.$store.commit({ type: 'saveTask', taskToSave })
             // this.$store.dispatch({ type: 'saveActivity', activity })
