@@ -68,7 +68,7 @@ _createColors()
 function _createColors() {
 
     let colors = JSON.parse(localStorage.getItem(COLOR_STORAGE_KEY))
-    colors = colors && colors.length
+    if (!colors) colors = colors && colors.length
         ? colors
         : {
             priority: [
@@ -177,7 +177,7 @@ function _createColors() {
             },
             group: {
                 'Grass Green': '#037f4c',
-                'Green haze': '#00a359',
+                'Green Haze': '#00a359',
                 'Jade': '#03c875',
                 'Saladish': '#cab641',
                 'Egg Yolk': '#ffcb00',

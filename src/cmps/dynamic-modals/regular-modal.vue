@@ -26,11 +26,11 @@ export default {
     props: {
         cmp: {
             type: String,
-            required: true,
+            required: false,
         },
         users: {
             type: Array,
-            required: true,
+            required: false,
         },
         filterBy: {
             type: Object,
@@ -38,7 +38,7 @@ export default {
         },
         id: {
             type: String,
-            required: true,
+            required: false,
         },
         selectedTasks: {
             type: Array,
