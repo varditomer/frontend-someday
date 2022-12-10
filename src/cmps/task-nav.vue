@@ -9,7 +9,7 @@
             </router-link>
         </section>
         <section class="bottom-nav">
-            <img :src="getLoggedinUserImg" alt="">
+            <img class="profile" v-if="loggedinUser" :src="loggedinUser.imgUrl" alt="">
         </section>
     </nav>
 </template>
@@ -21,9 +21,8 @@ export default {
         board() {
             return this.$store.getters.board
         },
-        getLoggedinUserImg() {
-            return this.$store.getters.loggedinUser.imgUrl
-            
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
         }
     },
     created() {

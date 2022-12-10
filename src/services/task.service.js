@@ -20,7 +20,8 @@ async function save(task, isFifo = true, isDuplicate = false) {
         savedTask = await httpService.post(TASK_URL, { task, isFifo, isDuplicate })
     }
     savedTask = { task: savedTask, isFifo }
-    socketService.emit('save-task', savedTask)
+    const loggedinUser = userService.getLoggedinUser()
+    socketService.emit('save-task', { savedTask, loggedinUser })
     return savedTask
 }
 

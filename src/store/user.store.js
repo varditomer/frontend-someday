@@ -38,6 +38,7 @@ export const userStore = {
             console.log(`userCreds:`, userCreds)
             try {
                 const user = await userService.login(userCreds)
+                console.log(`user:`, user)
                 commit({ type: 'setLoggedinUser', user })
                 console.log(`user:`, user)
                 return user

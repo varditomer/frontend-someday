@@ -66,6 +66,7 @@ export const boardStore = {
             state.statuses = statuses
         },
         saveTask(state, { savedTask }) {
+            console.log(`savedTask:`, savedTask)
             const { task, isFifo } = savedTask
             const groupIdx = state.board.groups.findIndex(group => group._id === task.groupId)
             if (groupIdx === -1) return null

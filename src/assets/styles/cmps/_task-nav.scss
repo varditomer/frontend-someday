@@ -77,7 +77,7 @@
             @include profile;
             width: 45px;
             height: 45px;
-            border: 2px solid white;
+            border: 2px solid $wrkspce-bgc;
             font-size: rem(20px);
             font-family: roboto-medium;
             // cursor: default;

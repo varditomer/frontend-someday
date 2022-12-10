@@ -88,7 +88,7 @@ export default {
       else {
         try {
           await this.$store.dispatch({ type: 'signup', userCreds })
-          // this.$router.push('/board/' + this.board._id)
+          this.$router.push('/board/' + this.board._id)
         }
         catch (err) {
           console.log('Could not sign up', err);

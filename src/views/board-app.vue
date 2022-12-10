@@ -179,6 +179,7 @@ export default {
         },
         handleSockets() {
             socketService.on('task-saved', (savedTask) => {
+                console.log(`savedTask:`, savedTask)
                 this.$store.commit({ type: 'saveTask', savedTask })
             })
             socketService.on('task-removed', (removedTask) => {
