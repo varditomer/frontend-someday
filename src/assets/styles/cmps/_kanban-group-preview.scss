@@ -24,6 +24,7 @@
             color: white;
             font-family: roboto-light;
             letter-spacing: 1px;
+            cursor: move;
         }
 
         .task-list {
@@ -47,6 +48,7 @@
                 border-radius: .3em;
                 margin-bottom: 8px;
                 box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                cursor: pointer;
 
                 .top-sec {
                     display: flex;

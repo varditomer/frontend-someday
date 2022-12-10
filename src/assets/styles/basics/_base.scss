@@ -139,6 +139,7 @@ textarea {
     &.is-pure {
         &.is-light {
             &.el-picker__popper {
+                z-index: 6000 !important;
                 &.timeline-modal {
                     z-index: 6000 !important;
                 }
