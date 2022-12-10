@@ -86,6 +86,30 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
         groups.push(group)
         return groups
     }, [])
+
+    const taskOrder = board.taskIdOrder
+        ? board.taskIdOrder[type]
+            ? board.taskIdOrder[type]
+            : {}
+        : {}
+    board.groups.forEach(group => {
+        if (taskOrder[group._id]?.length) {
+            const tasks = []
+            taskOrder[group._id].forEach(id => {
+                const idx = group.tasks.findIndex(task => task._id === id)
+                if (idx !== -1) tasks.push(group.tasks[idx])
+            })
+            group.tasks = tasks
+        } else {
+            taskOrder[group._id] = group.tasks.map(task => task._id)
+        }
+    })
+
+    if (!board.taskIdOrder) board.taskIdOrder = { [type]: taskOrder }
+    const boardToSave = JSON.parse(JSON.stringify(storeBoard))
+    boardToSave.kanbanOrder = board.kanbanOrder
+    boardToSave.taskIdOrder = board.taskIdOrder
+    save(boardToSave)
     return board
 }
 
