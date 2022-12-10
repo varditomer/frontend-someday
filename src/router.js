@@ -6,8 +6,7 @@ import loginSignup from './views/login-signup.vue'
 import userDetails from './views/user-details.vue'
 import taskDetails from './views/task-details.vue'
 import kanbanApp from './views/kanban-app.vue'
-// import dashboardApp from './views/dashboard-app.vue'
-import dashboard from './cmps/dashboard-cmps/dashboard.vue'
+import dashboardApp from './views/dashboard-app.vue'
 const routes = [
   {
     path: '/',
@@ -33,7 +32,7 @@ const routes = [
   {
     path: '/board/:id/dashboard',
     name: 'board-dashboard',
-    component: dashboard
+    component: dashboardApp
   },
   {
     path: '/login',

@@ -77,9 +77,10 @@ export default {
         board() { return this.$store.getters.board }
     },
     created() {
-        const route = this.$route
-        this.view = 'table'
-        this.view = (route.name === 'board-kanban') ? 'kanban' : 'table'
+        const routeName = this.$route.name
+        const viewName = routeName.slice(routeName.indexOf('-') + 1, routeName.length)
+        console.log(`viewName:`, viewName)
+        this.view = (viewName === 'app')? 'table' : viewName
     }
 
 }

@@ -18,7 +18,6 @@ import regularModal from '../cmps/dynamic-modals/regular-modal.vue'
 import boardHeader from '../cmps/board-header.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
-// import dashboard from '../cmps/dashboard-cmps/dashboard.vue'
 import dashboardList from '../cmps/dashboard-cmps/dashboard-list.vue'
 
 export default {
@@ -128,7 +127,6 @@ export default {
         taskNav,
         regularModal,
         dashboardList,
-        // dashboard
     },
 }
 </script>
