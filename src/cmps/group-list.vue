@@ -40,7 +40,7 @@ export default {
         },
         colors: {
             type: Object,
-            reqiured: true
+            required: true
         }
     },
     data() {

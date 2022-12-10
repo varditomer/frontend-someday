@@ -35,7 +35,7 @@
 
         <section class="boards-titles-container">
             <div class="boards-titles" v-if="miniBoards" v-for="miniBoard in miniBoardsToShow" :key="miniBoard._id"
-                :class="{ 'selected-board': (miniBoard._id===$route.params.id)}">
+                :class="{ 'selected-board': (miniBoard._id === $route.params.id) }">
                 <router-link :to="('/board/' + miniBoard._id)">
                     <span v-svg-icon="'board'"></span>
                     <p class="board-title">{{ miniBoard.title }}</p>

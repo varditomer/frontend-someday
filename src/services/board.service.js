@@ -128,7 +128,7 @@ async function getEmptyBoard() {
         title: 'New Board',
         archivedAt: Date.now(),
         createdBy: {
-            _id: 0,
+            _id: '0',
             fullname: 'Guest'
         },
         groups: [
@@ -245,7 +245,6 @@ function getDashboardData(board) {
     })
     return data
 }
-
 
 function _filterByPerson(board, id) {
     if (!id) return board
