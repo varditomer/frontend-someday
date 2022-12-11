@@ -49,7 +49,6 @@ export default {
         updateTask() {
             this.setNotEditing()
             if (!this.numbers) return
-            console.log(`this.numbers:`, this.numbers)
             this.$emit('updateTask', { key: 'numbers', val: this.numbers })
         },
         clickToEdit() {

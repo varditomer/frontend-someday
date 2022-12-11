@@ -21,6 +21,7 @@ async function save(task, isFifo = true, isDuplicate = false) {
     }
     savedTask = { task: savedTask, isFifo }
     const loggedinUser = userService.getLoggedinUser()
+    console.log(`loggedinUser:`, loggedinUser)
     socketService.emit('save-task', { savedTask, loggedinUser })
     return savedTask
 }

@@ -38,7 +38,7 @@ export default {
                 if (!user) return userArr
                 const style = user.imgUrl
                     ? `background-image: url(${user.imgUrl})`
-                    : `backgroud-color: ${user.color || '#fff'}`
+                    : `background-color: ${user.color || '#fff'}`
                 const pic = user.imgUrl
                     ? true
                     : false

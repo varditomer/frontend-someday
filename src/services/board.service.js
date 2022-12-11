@@ -58,6 +58,7 @@ async function save(board) {
         savedBoard = await httpService.post(BOARD_URL, board)
     }
     const loggedinUser = userService.getLoggedinUser()
+    console.log(`loggedinUser:`, loggedinUser)
     socketService.emit('save-board', { savedBoard, loggedinUser })
     return savedBoard
 }
@@ -186,7 +187,8 @@ async function getEmptyBoard() {
         cmpsOrder: ['status', 'date']
     }
     const boardData = await httpService.post(BOARD_URL, board)
-    socketService.emit('add-board', boardData)
+    const loggedinUser = userService.getLoggedinUser()
+    socketService.emit('add-board', { boardData, loggedinUser })
     return boardData
 
 }
