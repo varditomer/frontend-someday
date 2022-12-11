@@ -1,7 +1,5 @@
 <template>
-
-    <section v-if="Object.keys(data).length" class='dashboard-container'>
-
+    <section v-if="Object.keys(dashboardData).length" class='dashboard-container'>
 
         <div class="bar-chart">
             <div class="bar-chart-title">
@@ -29,13 +27,13 @@
                 <div class="total-div">
                     <span v-svg-icon="'workspace'"></span>
                     <h1>Total groups</h1>
-                    <p>{{ Object.keys(data.group).length }}</p>
+                    <p>{{ Object.keys(dashboardData.group).length }}</p>
                 </div>
                 <span class="separator"></span>
                 <div class="total-div">
                     <span v-svg-icon="'largePerson'"></span>
                     <h1>Total members</h1>
-                    <p>{{ Object.keys(data.person).length }}</p>
+                    <p>{{ Object.keys(dashboardData.person).length }}</p>
                 </div>
             </div>
         </div>
@@ -45,7 +43,7 @@
                 <span v-svg-icon="'project'"></span>
                 <h1>Project estimate</h1>
             </div>
-            <div class="card-container" v-if="data">
+            <div class="card-container" v-if="dashboardData">
                 <div class="card" v-if="priorities.length" v-for="priority in priorities"
                     :style="`background-color:${priority.value}`">
                     <h1 class="card-title">{{ priority.title }}</h1>
@@ -115,7 +113,8 @@ export default {
                 },
             },
             priorities: [],
-            totalTasksCount: 0
+            totalTasksCount: 0,
+            dashboardData: {}
 
         }
     },
@@ -126,14 +125,10 @@ export default {
         board() {
             return this.$store.getters.board
         },
-        data() {
-            return boardService.getDashboardData(this.board)
-        },
-
     },
     methods: {
         setLabels() {
-            const data = this.data
+            const data = this.dashboardData
             for (let statusId in data.status) {
                 const label = colorService.getLabelById('status', statusId)
                 if (!label) return
@@ -145,7 +140,7 @@ export default {
             }
         },
         setPriorities() {
-            const data = this.data
+            const data = this.dashboardData
             const priorities = []
             for (let priorityId in data.priority) {
                 const priority = colorService.getLabelById('priority', priorityId)
@@ -156,32 +151,32 @@ export default {
             }
             this.priorities = priorities
         },
-        setTasksPerMember() {
-            // const users = userService.getUsers()
-            const data = this.data
+        async setTasksPerMember() {
+            const users = await userService.query()
+            const data = this.dashboardData
             for (let personId in data.person) {
                 const { fullname } = users.find(u => u._id === personId)
                 this.pieChartData.labels.unshift(fullname)
                 this.pieChartData.datasets[0].data.unshift(data.person[personId].total)
-                console.log(`data.person[personId].total`, data.person[personId].total)
 
             }
         },
         getTotalTasks() {
             let sum = 0
-            for (let g in this.data.group) {
-                sum += this.data.group[g].total
+            for (let g in this.dashboardData.group) {
+                sum += this.dashboardData.group[g].total
             }
             this.totalTasksCount = sum
         }
     },
-    created() {
-        setTimeout(() => {
-            this.setLabels()
-            this.setPriorities()
-            this.getTotalTasks()
-            this.setTasksPerMember()
-        }, 200)
+    async created() {
+        const { id } = this.$route.params
+        await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
+        this.dashboardData = await boardService.getDashboardData(this.board)
+        this.setLabels()
+        this.setPriorities()
+        this.getTotalTasks()
+        this.setTasksPerMember()
     }
 
 }

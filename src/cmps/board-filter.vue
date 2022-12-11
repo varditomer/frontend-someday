@@ -47,8 +47,7 @@ export default {
             showTitleModal: false,
             modalName: '',
             isSearchClicked: false,
-            filter: {
-            },
+            filter: {},
             isFiltering: false,
         }
     },

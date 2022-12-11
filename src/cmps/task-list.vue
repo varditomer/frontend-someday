@@ -57,7 +57,7 @@
                 <span v-for="cmp in cmpsOrder" class="empty-fill-span"></span>
             </section>
         </li>
-        <task-summary :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer" :groupColor="group.style.color"
+        <task-summary :users="users" :cmpsOrder="cmpsOrder" :tasks="tasks" class="task-footer" :groupColor="group.style.color"
             :colors="colors" />
     </ul>
 

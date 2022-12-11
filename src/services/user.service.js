@@ -80,7 +80,7 @@ async function getLoggedinUser() {
     let loggedinUser = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
     if (!loggedinUser) {
         const users = await userService.query()
-        loggedinUser = users.find(user => user.username === 'guest')
+        loggedinUser = users.find(user => user.isGuest)
     }
     saveLocalUser(loggedinUser)
     return loggedinUser

@@ -49,7 +49,7 @@
                     </div>
 
                     <task-summary v-if="!viewTasks" :isCollapsed="true" :cmpsOrder="cmpsOrder" :tasks="group.tasks"
-                        :groupColor="group.style.color" class="task-footer group-collapsed" :colors="colors" />
+                        :groupColor="group.style.color" :users="users" class="task-footer group-collapsed" :colors="colors" />
 
                     <div v-if="viewTasks" v-for="cmp in cmpsOrder" class="empty-div"></div>
 
