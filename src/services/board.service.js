@@ -280,27 +280,45 @@ function _filterByTxt(board, txt) {
     return board
 }
 function _multiFilter(filterBy, board) {
+
+    // Itereting through board groups
     board.groups = board.groups.reduce((filteredGroups, group) => {
+
+        // Checking if group title filter exsists, and if group matches it
         if (filterBy?.groupTitle?.length &&
             !filterBy.groupTitle.find(title => title === group.title)) return filteredGroups
+
+        // Checking if filter contains task parameteres
         if (!filterBy.tasks) {
             filteredGroups.push(group)
             return filteredGroups
         }
         group.tasks = group.tasks.filter(task => {
+
+            // Making filter deep copy before manipulating it
             const taskFilter = JSON.parse(JSON.stringify(filterBy.tasks))
+
+            // Special check for user filter
             if (taskFilter.person?.length &&
                 !taskFilter.person.some(id => {
                     return (task.person && task.person.find(person => person._id === id))
                 })) return false
+
+            // Than deleting user filter
             delete taskFilter.person
+
+            // Filtering rest of parameters
             for (let prop in taskFilter) {
                 if (!taskFilter[prop].length || taskFilter[prop].find(val => task[prop] === val)) return true
             }
         })
+
+        // Making sure group has tasks
         if (group.tasks.length) filteredGroups.push(group)
         return filteredGroups
+
     }, [])
+
     return board
 }
 

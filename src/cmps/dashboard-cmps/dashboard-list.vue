@@ -163,6 +163,7 @@ export default {
                 const { fullname } = users.find(u => u._id === personId)
                 this.pieChartData.labels.unshift(fullname)
                 this.pieChartData.datasets[0].data.unshift(data.person[personId].total)
+                console.log(`data.person[personId].total`, data.person[personId].total)
 
             }
         },

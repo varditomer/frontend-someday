@@ -34,7 +34,9 @@ export default {
             if (!this.content?.length) return []
             return this.content.reduce((userArr, person) => {
                 const { _id, fullname } = person
-                const user = this.additionalDb.find(anyUser => anyUser._id === _id)
+                const user = !this.additionalDb?.length
+                    ? []
+                    : this.additionalDb.find(anyUser => anyUser._id === _id)
                 if (!user) return userArr
                 const style = user.imgUrl
                     ? `background-image: url(${user.imgUrl})`
