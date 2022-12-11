@@ -257,9 +257,11 @@ export default {
 
     },
     async created() {
-        this.handleSockets()
+        let user = userService.getLoggedinUser()
+        this.$store.commit({ type: 'setLoggedinUser', user })
         const filter = { id: this.$route.params.id }
         await this.$store.dispatch({ type: 'queryBoard', filter })
+        this.handleSockets()
     }
 }
 

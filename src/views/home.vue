@@ -66,9 +66,17 @@ export default {
     callback(response) {
       // This callback will be triggered when the user selects or login to
       // his Google account from the popup
-      console.log("Handle the response", response)
       const userData = decodeCredential(response.credential)
-      console.log("Handle the userData", userData)
+      console.log(`userData:`, userData)
+      // try {
+      //     console.log(`userCreds:`, userCreds)
+      //     // await this.$store.dispatch({ type: 'loginGoogle', userCreds })
+      //     // this.$router.push('/board/' + this.board._id)
+      //   }
+      //   catch (err) {
+      //     console.log('Something went wrong', err);
+      //   }
+
     },
     async loginSignup(userCreds) {
 

@@ -5,7 +5,6 @@
     padding-bottom: $layout-padding;
     z-index: 50;
 
-
     .top-nav {
         position: relative;
         width: 100%;
@@ -19,7 +18,7 @@
                 border-bottom: 8px solid transparent;
                 border-right: 6px solid $wrkspce-bgc;
                 position: absolute;
-                right: 0px
+                right: 0px;
             }
         }
 
@@ -27,44 +26,37 @@
             display: flex;
             align-items: center;
             width: 80%;
-
-
-
-
         }
 
-        .active {}
-
+        .active {
+        }
 
         .logo {
             padding: 6px;
             width: 42px;
             height: 42px;
-            border-radius: .4em;
+            border-radius: 0.4em;
             margin-bottom: 8px;
 
             &:hover {
                 background-color: darken($layout-black, 10%);
             }
-
-
         }
 
-        >* {
+        > * {
             display: flex;
             justify-content: center;
         }
 
-        >*:first-child {
+        > *:first-child {
             box-shadow: 0px 1px 0px 0px $layout-gray;
         }
 
-        >*:last-child {
+        > *:last-child {
             margin-top: 8px;
             width: 42px;
             height: 42px;
-            border-radius: .4em;
-
+            border-radius: 0.4em;
 
             &:hover {
                 background-color: darken($layout-black, 10%);
@@ -73,6 +65,7 @@
     }
 
     .bottom-nav {
+        position: relative;
 
         .profile {
             @include profile;
@@ -81,9 +74,42 @@
             border: 2px solid $wrkspce-bgc;
             font-size: rem(20px);
             font-family: roboto-medium;
+            cursor: pointer;
             // cursor: default;
-
+        }
+        .logout-container {
+            // display: none;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 22.5px;
+            top: 0;
+            // display: flex;
+            width: 0;
+            height: 45px;
+            background-color: $primary-brand;
+            // background-color: $wrkspce-bgc;
+            // border: 1px solid white;
+            transition: .6s;
+            z-index: -1;
+            border-bottom-right-radius: 2em;
+            border-top-right-radius: 2em;
+            cursor: pointer;
+            h1{
+                opacity: 0;
+                transition: .8s;
+            }
+        }
+        &:hover {
+            .logout-container {
+                opacity: 1;
+                width: 150px;
+                h1 {
+                    opacity: 1;
+                }
+            }
         }
     }
-
 }

@@ -8,7 +8,8 @@
                 <span v-svg-icon="'coloredBoard'"></span>
             </router-link>
         </section>
-        <section class="bottom-nav">
+        <section class="bottom-nav" @click="logout">
+            <div class="logout-container"><h1>Logout</h1></div>
             <img class="profile" v-if="loggedinUser" :src="loggedinUser.imgUrl" alt="">
         </section>
     </nav>
@@ -23,6 +24,11 @@ export default {
         },
         loggedinUser() {
             return this.$store.getters.loggedinUser
+        },
+        logout() {
+            this.$store.dispatch({type: 'logout'})
+            this.$router.push('/')
+
         }
     },
     created() {
