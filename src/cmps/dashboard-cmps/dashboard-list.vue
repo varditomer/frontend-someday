@@ -142,9 +142,7 @@ export default {
                 this.barChartData.labels.unshift(title)
                 this.barChartData.datasets[0].backgroundColor.unshift(value)
                 this.barChartData.datasets[0].data.unshift(label.count)
-
             }
-            this.statuses = labels
         },
         setPriorities() {
             const data = this.data
