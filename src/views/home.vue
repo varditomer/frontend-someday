@@ -1,13 +1,13 @@
 <template>
   <section class="container home text-center">
-    <img class="hero" src="src/assets/imgs/hero.jpg" alt="">
+    <img class="hero" src="/src/assets/imgs/hero.jpg" alt="">
 
     <header class="main-header">
-      <img class="logo" src="src/assets/imgs/logo.svg" alt="">
+      <img class="logo" src="/src/assets/imgs/logo.svg" alt="">
       <nav class="main-nav">
 
         <GoogleLogin :callback="callback">
-          <img class="google-img" src="src/assets/imgs/google.png" alt="">
+          <img class="google-img" src="/src/assets/imgs/google.png" alt="">
         </GoogleLogin>
         
         <div class="login-signup-container">
