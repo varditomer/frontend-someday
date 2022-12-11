@@ -76,7 +76,7 @@ export const userStore = {
         },
         async loadUsers({ commit }) {
             try {
-                const users = await userService.getUsers()
+                const users = await userService.query()
                 commit({ type: 'setUsers', users })
             } catch (err) {
                 console.log('userStore: Error in loadUsers', err)

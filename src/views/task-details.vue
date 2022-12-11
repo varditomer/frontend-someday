@@ -160,6 +160,7 @@ export default {
         }
     },
     async created() {
+        await this.$store.dispatch({ type: 'loadUsers' })
         socketService.on('task-saved', (savedTask) => {
             this.$store.commit({ type: 'saveTask', savedTask })
             this.loadTask()

@@ -64,9 +64,8 @@ function onUserUpdate(user) {
     store.dispatch({ type: 'setWatchedUser', user })
 }
 
-async function query(userId) {
-    const user = await storageService.get('user', userId)
-    // const user = await httpService.get(`user/${userId}`)
+async function query() {
+    const user = await httpService.get(`user/`)
 
     // socketService.emit(SOCKET_EMIT_USER_WATCH, userId)
     socketService.off(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
@@ -96,7 +95,7 @@ async function login(userCred) {
     }
 }
 async function loginGoogle(userCred) {
-    
+
     const user = await httpService.post('auth/loginGoogle', userCred)
     if (user) {
         socketService.login(user._id)
@@ -133,7 +132,9 @@ function saveLocalUser(user) {
 
 function getLoggedinUser() {
     let loggedinUser = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
-    if (!loggedinUser) loggedinUser = { _id: '0', fullname: 'Guest', imgUrl: '/src/assets/imgs/default-avatar.svg' }
+    if (!loggedinUser) loggedinUser = {
+        _id: '0', fullname: 'Guest', imgUrl: `https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png
+    ` }
     saveLocalUser(loggedinUser)
     return loggedinUser
 }
