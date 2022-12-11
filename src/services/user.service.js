@@ -71,7 +71,7 @@ async function query() {
     socketService.off(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
     socketService.on(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
 
-    return user
+    return getUsers()
 }
 
 function remove(userId) {
