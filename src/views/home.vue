@@ -6,9 +6,9 @@
       <img class="logo" src="/src/assets/imgs/logo.svg" alt="">
       <nav class="main-nav">
 
-        <GoogleLogin :callback="callback">
-          <img class="google-img" src="/src/assets/imgs/google.png" alt="">
-        </GoogleLogin>
+        <!-- <GoogleLogin class="google-img"  :callback="callback">
+        </GoogleLogin> -->
+        <!-- <img class="google-img" src="/src/assets/imgs/google.png" alt=""> -->
         
         <div class="login-signup-container">
           <button class="login-btn" @click="(showModal = true)">Log in</button>
@@ -64,6 +64,9 @@ export default {
       this.openLoginSignupModal = false
     },
     callback(response) {
+      console.log(`1:`, )
+      console.log(`response:`, response)
+      console.log(`response.credential:`, response.credential)
       // This callback will be triggered when the user selects or login to
       // his Google account from the popup
       const userData = decodeCredential(response.credential)
