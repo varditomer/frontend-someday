@@ -338,8 +338,7 @@
     }
 
     .task-opt-modal {
-        position: fixed;
-        left: 330px;
+        position: absolute;
         .upper-group {
             border-bottom: 1px solid $hr-clr;
         }
@@ -351,8 +350,7 @@
     }
 
     .group-opt-modal {
-        position: fixed;
-        left: 330px;
+        position: absolute;
 
         > * {
             div {
