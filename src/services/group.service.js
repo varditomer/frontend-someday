@@ -18,13 +18,15 @@ async function query(filterBy = {}) {
 
 async function remove(group) {
     const { _id: groupId, boardId } = group
-    socketService.emit('remove-group', group)
+    const loggedinUser = userService.getLoggedinUser()
+    socketService.emit('remove-group', { group, loggedinUser })
     return await httpService.delete(GROUP_URL, { groupId, boardId })
 }
 
 async function save(group, isFifo = false) {
     if (group._id) {
-        socketService.emit('update-group', group)
+        const loggedinUser = userService.getLoggedinUser()
+        socketService.emit('update-group', { group, loggedinUser })
         const savedGroup = httpService.put(GROUP_URL + group._id, { group, isFifo })
         return savedGroup
     } else {
@@ -38,7 +40,8 @@ async function duplicate(groupId, boardId) {
 
 async function add(boardId, isFifo = false) {
     const group = await save(_getNewGroup(boardId), isFifo)
-    socketService.emit('save-group', { group, isFifo })
+    const loggedinUser = userService.getLoggedinUser()
+    socketService.emit('save-group', { data: { group, isFifo }, loggedinUser })
     return group
 }
 

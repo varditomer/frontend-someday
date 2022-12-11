@@ -12,6 +12,10 @@
       <img class="logo" src="src/assets/imgs/logo.svg" alt="">
       <nav class="main-nav">
 
+        <GoogleLogin :callback="callback">
+          <img class="google-img" src="src/assets/imgs/google.png" alt="">
+        </GoogleLogin>
+        
         <div class="login-signup-container">
           <button class="login-btn" @click="(showModal = true)">Log in</button>
           <triangle-modal @loginSignup="loginSignup" @hideModal="(showModal = false)" v-if="(showModal)"
@@ -25,7 +29,6 @@
         </router-link>
       </nav>
     </header>
-    <GoogleLogin :callback="callback" />
 
 
 

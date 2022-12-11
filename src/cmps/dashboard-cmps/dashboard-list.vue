@@ -6,7 +6,7 @@
         <div class="bar-chart">
             <div class="bar-chart-title">
                 <span v-svg-icon="'priorities'"></span>
-                <h1>Priorities</h1>
+                <h1>Tasks status</h1>
             </div>
             <BarChart :chartData="barChartData" :options="barChartOptions" />
         </div>
@@ -45,10 +45,11 @@
                 <span v-svg-icon="'project'"></span>
                 <h1>Project estimate</h1>
             </div>
-            <div class="card-container" v-if="statuses">
-                <div class="card" v-for="status in statuses" :style="`background-color:${status.value}`">
-                    <h1 class="card-title">{{ status.title }}</h1>
-                    <h2 class="card-count">{{ status.count }}</h2>
+            <div class="card-container" v-if="data">
+                <div class="card" v-if="priorities.length" v-for="priority in priorities"
+                    :style="`background-color:${priority.value}`">
+                    <h1 class="card-title">{{ priority.title }}</h1>
+                    <h2 class="card-count">{{ priority.count }}</h2>
                 </div>
             </div>
         </div>
@@ -113,7 +114,7 @@ export default {
                     },
                 },
             },
-            statuses: '',
+            priorities: [],
             totalTasksCount: 0
 
         }
@@ -133,24 +134,29 @@ export default {
     methods: {
         setLabels() {
             const data = this.data
-            const labels = []
             for (let statusId in data.status) {
                 const label = colorService.getLabelById('status', statusId)
+                if (!label) return
+                const { title, value } = label
                 label.count = data.status[statusId]
-                labels.push(label)
+                this.barChartData.labels.unshift(title)
+                this.barChartData.datasets[0].backgroundColor.unshift(value)
+                this.barChartData.datasets[0].data.unshift(label.count)
+
             }
             this.statuses = labels
         },
         setPriorities() {
             const data = this.data
+            const priorities = []
             for (let priorityId in data.priority) {
                 const priority = colorService.getLabelById('priority', priorityId)
                 const { title, value } = priority
                 const count = data.priority[priorityId]
-                this.barChartData.labels.unshift(title)
-                this.barChartData.datasets[0].backgroundColor.unshift(value)
-                this.barChartData.datasets[0].data.unshift(count)
+                const p = { title, value, count }
+                priorities.push(p)
             }
+            this.priorities = priorities
         },
         setTasksPerMember() {
             const users = userService.getUsers()
@@ -176,7 +182,7 @@ export default {
             this.setPriorities()
             this.getTotalTasks()
             this.setTasksPerMember()
-        }, 100)
+        }, 200)
     }
 
 }
