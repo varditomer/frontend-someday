@@ -57,7 +57,7 @@ export default {
             this.$emit('addTask')
         },
         addGroup() {
-            this.$emit('addGroup')
+            this.$emit('addGroup', false)
         },
         openModal(modalName) {
             console.log(`modalName:`, modalName)

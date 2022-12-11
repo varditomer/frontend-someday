@@ -86,7 +86,7 @@ export const boardStore = {
             this.commit({ type: 'filterBoard' })
         },
         addGroup(state, { group, isFifo }) {
-            (isFifo) ? state.board.groups.unshift(group) : state.board.groups.push(group)
+            (isFifo) ? state.board.groups.push(group) : state.board.groups.unshift(group)
             this.commit({ type: 'filterBoard' })
         },
         saveGroup(state, { group }) {

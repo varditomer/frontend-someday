@@ -157,7 +157,7 @@ export default {
             this.priorities = priorities
         },
         setTasksPerMember() {
-            const users = userService.getUsers()
+            // const users = userService.getUsers()
             const data = this.data
             for (let personId in data.person) {
                 const { fullname } = users.find(u => u._id === personId)

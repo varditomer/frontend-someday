@@ -44,7 +44,7 @@ async function remove(boardId) {
 async function removeManyTasks(taskIds, boardId) {
     const data = { boardId, taskIds }
     const board = await httpService.delete(BOARD_URL, data)
-    const loggedinUser = userService.getLoggedinUser()
+    const loggedinUser = await userService.getLoggedinUser()
     socketService.emit('save-board', { board, loggedinUser })
     return board
 
@@ -57,8 +57,7 @@ async function save(board) {
     } else {
         savedBoard = await httpService.post(BOARD_URL, board)
     }
-    const loggedinUser = userService.getLoggedinUser()
-    console.log(`loggedinUser:`, loggedinUser)
+    const loggedinUser =await userService.getLoggedinUser()
     socketService.emit('save-board', { savedBoard, loggedinUser })
     return savedBoard
 }
@@ -122,13 +121,12 @@ function filterBoard(board, filter) {
 async function getEmptyBoard() {
     const color1 = await colorService.randomColor('group')
     const color2 = await colorService.randomColor('group')
+    const loggedinUser = await userService.getLoggedinUser()
+    const { _id, fullname } = loggedinUser
     const board = {
         title: 'New Board',
         archivedAt: Date.now(),
-        createdBy: {
-            _id: '0',
-            fullname: 'Guest'
-        },
+        createdBy: { _id, fullname },
         groups: [
             {
                 _id: utilService.makeId(),
@@ -187,7 +185,6 @@ async function getEmptyBoard() {
         cmpsOrder: ['status', 'date']
     }
     const boardData = await httpService.post(BOARD_URL, board)
-    const loggedinUser = userService.getLoggedinUser()
     socketService.emit('add-board', { boardData, loggedinUser })
     return boardData
 

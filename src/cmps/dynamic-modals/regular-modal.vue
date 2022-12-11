@@ -85,8 +85,8 @@ export default {
             this.$emit('closeModal')
 
         },
-        addGroup() {
-            this.$emit('addGroup')
+        addGroup(isFifo) {
+            this.$emit('addGroup', isFifo)
             this.$emit('closeModal')
 
         },

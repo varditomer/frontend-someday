@@ -1,6 +1,7 @@
 <template>
 
-    <section class='group-opt-modal more-options-modal' :class="{'workspace-collapsed-pos': $store.getters.isWorkspaceCollapsed}">
+    <section class='group-opt-modal more-options-modal'
+        :class="{ 'workspace-collapsed-pos': $store.getters.isWorkspaceCollapsed }">
 
         <div class="modal-group upper-group flex column justify-center">
             <div class="modal-item flex align-center" @click="collapseGroup">
@@ -60,7 +61,7 @@
 import { eventBus } from '../../services/event-bus.service';
 export default {
     name: 'group-opt-modal',
-    emits: ['addGroup', 'editGroupTitle', 'removeGroup','propagateMenu', 'duplicateGroup'],
+    emits: ['addGroup', 'editGroupTitle', 'removeGroup', 'propagateMenu', 'duplicateGroup'],
     props: {
         id: String,
         selectedColor: String,
@@ -70,11 +71,11 @@ export default {
         return {}
     },
     created() {
-     },
+    },
     computed: {},
     methods: {
         addGroup() {
-            this.$emit('addGroup')
+            this.$emit('addGroup', false)
         },
         collapseAllGroups() {
             eventBus.emit('collapse-groups', true)

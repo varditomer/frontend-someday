@@ -2,18 +2,18 @@
 
     <section class='group-list-container' v-if="boardToShow" @scroll="scrolling">
         <draggable v-model="boardToShow.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
-             @end="saveBoard(boardToShow.cmpsOrder)" >
+            @end="saveBoard(boardToShow.cmpsOrder)">
             <template #item="{ element }">
                 <group-preview @addColumn="addColumn" @saveSelectedTasks="saveSelectedTasks"
                     :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
                     :key="element._id" @toggleSelectAllTasks="toggleSelectAllTasks" @saveTask="saveTask"
                     @removeTask="removeTask" @saveGroup="saveGroup" @saveBoard="saveBoard" @addGroup="addGroup"
                     @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask"
-                    :colors="colors" @removeColumn="removeColumn"/>
+                    :colors="colors" @removeColumn="removeColumn" />
             </template>
         </draggable>
 
-        <button class="add-group-list-btn flex center" @click="addGroup(false)">
+        <button class="add-group-list-btn flex center" @click="addGroup(true)">
             <span v-svg-icon="'addbig'"></span>
             <div>Add new group</div>
         </button>
@@ -94,11 +94,11 @@ export default {
             board.cmpsOrder.push(cmp)
             this.$emit('saveBoard', board)
         },
-        removeColumn(column){
+        removeColumn(column) {
             const board = JSON.parse(JSON.stringify(this.board))
             const idx = board.cmpsOrder.indexOf(column)
             if (idx === -1) return
-            board.cmpsOrder.splice(idx,1)
+            board.cmpsOrder.splice(idx, 1)
             this.$emit('saveBoard', board)
         }
     },

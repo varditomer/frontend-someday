@@ -39,17 +39,20 @@
         </section>
 
 
-
     </section>
 </template>
   
 <script>
-import { userService } from '../../services/user.service';
-import { uploadImg } from '../../services/img-upload.service';
+import { uploadImg } from '../services/img-upload.service.js'
 export default {
-    name: 'signup-modal',
-    emits: ['hideModal', 'loginSignup'],
+    name: 'home-login',
+
     props: {
+    },
+    computed: {
+        board() {
+            return this.$store.getters.board
+        }
     },
     data() {
         return {
@@ -59,13 +62,28 @@ export default {
         }
     },
     methods: {
-        loginSignup() {
+        async loginSignup() {
             const userCreds = this.creds
-            console.log(`userCreds:`, userCreds)
-            this.$emit('loginSignup', userCreds)
-            this.$emit('hideModal')
-            this.creds = {}
+            if (!userCreds.email) {
+                try {
+                    await this.$store.dispatch({ type: 'login', userCreds })
+                    this.$router.push('/board/' + this.board._id)
+                }
+                catch (err) {
+                    console.log('Wrong details', err);
+                }
+            }
+            else {
+                try {
+                    await this.$store.dispatch({ type: 'signup', userCreds })
+                    this.$router.push('/board/' + this.board._id)
+                }
+                catch (err) {
+                    console.log('Could not sign up', err);
+                }
+            }
         },
+
         handleFile(ev) {
             let file
             file = ev.target.files[0]
@@ -75,11 +93,10 @@ export default {
             const res = await uploadImg(file)
             this.creds.imgUrl = res.url
         },
-    },
-    created() {
-        // this.users = userService.getUsers()
 
-        this.isLogin = true
+    },
+    async created() {
+        await this.$store.dispatch({ type: 'queryBoard', filter: {} })
     }
 
 }

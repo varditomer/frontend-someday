@@ -20,8 +20,7 @@ async function save(task, isFifo = true, isDuplicate = false) {
         savedTask = await httpService.post(TASK_URL, { task, isFifo, isDuplicate })
     }
     savedTask = { task: savedTask, isFifo }
-    const loggedinUser = userService.getLoggedinUser()
-    console.log(`loggedinUser:`, loggedinUser)
+    const loggedinUser = await userService.getLoggedinUser()
     socketService.emit('save-task', { savedTask, loggedinUser })
     return savedTask
 }
@@ -38,7 +37,7 @@ async function newTask(groupId, boardId) {
 async function remove(task) {
     const miniTask = { _id: task._id, groupId: task.groupId, boardId: task.boardId }
     const removedTask = await httpService.delete(TASK_URL, miniTask)
-    const loggedinUser = userService.getLoggedinUser()
+    const loggedinUser = await userService.getLoggedinUser()
     socketService.emit('remove-task', { removedTask, loggedinUser })
     return removedTask
 }
@@ -49,7 +48,7 @@ async function duplicateMultiple(tasks) {
         clonedTask._id = utilService.makeId()
         return clonedTask
     })
-    const loggedinUser = userService.getLoggedinUser()
+    const loggedinUser = await userService.getLoggedinUser()
     socketService.emit('duplicate-tasks', { tasksToDuplicate, loggedinUser })
     _saveMultiple(tasks, tasksToDuplicate)
     return tasksToDuplicate

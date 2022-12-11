@@ -3,7 +3,6 @@
         <task-nav />
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
-
         <section class='board-app-container' :class="{ 'folded': isViewingTask }">
             <regular-modal class="task-select-modal-parent" :selectedTasks="selectedTasksWithColor"
                 @deleteSelectedTasks="deleteSelectedTasks" @duplicateSelectedTasks="duplicateSelectedTasks"
@@ -28,7 +27,6 @@ import taskNav from '../cmps/task-nav.vue'
 import { eventBus } from '../services/event-bus.service.js'
 import { colors } from '../services/color.service.js'
 import { socketService } from '../services/socket.service'
-// import { boardService } from '../services/board.service.local.js'
 
 export default {
     name: 'board-app',
@@ -91,6 +89,7 @@ export default {
             this.$store.dispatch({ type: 'removeGroup', group })
         },
         addGroup(isFifo = true) {
+            console.log(isFifo);
             this.$store.dispatch({ type: 'addGroup', isFifo })
         },
         duplicateGroup(group) {
@@ -179,7 +178,6 @@ export default {
         },
         handleSockets() {
             socketService.on('task-saved', (savedTask) => {
-                console.log(`savedTask:`, savedTask)
                 this.$store.commit({ type: 'saveTask', savedTask })
             })
             socketService.on('task-removed', (removedTask) => {
@@ -258,7 +256,7 @@ export default {
     },
     async created() {
         await this.$store.dispatch({ type: 'loadUsers' })
-        let user = userService.getLoggedinUser()
+        let user = await userService.getLoggedinUser()
         this.$store.commit({ type: 'setLoggedinUser', user })
         const filter = { id: this.$route.params.id }
         await this.$store.dispatch({ type: 'queryBoard', filter })

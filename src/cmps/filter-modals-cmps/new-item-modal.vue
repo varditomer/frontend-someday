@@ -17,7 +17,7 @@ export default {
     emits: ['addGroup'],
     methods: {
         addGroup() {
-            this.$emit('addGroup')
+            this.$emit('addGroup', false)
         }
     }
 }

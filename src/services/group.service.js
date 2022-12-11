@@ -18,19 +18,19 @@ async function query(filterBy = {}) {
 
 async function remove(group) {
     const { _id: groupId, boardId } = group
-    const loggedinUser = userService.getLoggedinUser()
+    const loggedinUser = await userService.getLoggedinUser()
     socketService.emit('remove-group', { group, loggedinUser })
     return await httpService.delete(GROUP_URL, { groupId, boardId })
 }
 
 async function save(group, isFifo = false) {
     if (group._id) {
-        const loggedinUser = userService.getLoggedinUser()
+        const loggedinUser = await userService.getLoggedinUser()
         socketService.emit('update-group', { group, loggedinUser })
         const savedGroup = httpService.put(GROUP_URL + group._id, { group, isFifo })
         return savedGroup
     } else {
-        return await httpService.post(GROUP_URL, { group, isFifo: false })
+        return await httpService.post(GROUP_URL, { group, isFifo })
     }
 }
 
@@ -38,23 +38,22 @@ async function duplicate(groupId, boardId) {
     return await httpService.post(GROUP_URL, { groupId, boardId })
 }
 
-async function add(boardId, isFifo = false) {
-    const group = await save(_getNewGroup(boardId), isFifo)
-    const loggedinUser = userService.getLoggedinUser()
+async function add(boardId, isFifo = true) {
+    const newGroup = await _getNewGroup(boardId)
+    const group = await save(newGroup, isFifo)
+    const loggedinUser = await userService.getLoggedinUser()
     socketService.emit('save-group', { data: { group, isFifo }, loggedinUser })
     return group
 }
 
-function _getNewGroup(boardId) {
+async function _getNewGroup(boardId) {
+    const { _id, fullname } = await userService.getLoggedinUser()
     const color = colorService.randomColor('group')
     return {
         title: 'New Group',
         boardId,
         createdAt: Date.now(),
-        createdBy: {
-            _id: '0',
-            fullname: 'Guest'
-        },
+        createdBy: { _id, fullname },
         style: { color, light: color + '99' },
         tasks: [
             {
@@ -64,10 +63,7 @@ function _getNewGroup(boardId) {
                 comments: [],
                 status: 'Working on it',
                 createdAt: Date.now(),
-                createdBy: {
-                    _id: '0',
-                    fullname: 'Guest'
-                }
+                createdBy: { _id, fullname },
             },
             {
                 _id: utilService.makeId(),
@@ -76,10 +72,7 @@ function _getNewGroup(boardId) {
                 comments: [],
                 status: 'Stuck',
                 createdAt: Date.now(),
-                createdBy: {
-                    _id: '0',
-                    fullname: 'Guest'
-                }
+                createdBy: { _id, fullname },
             },
             {
                 _id: utilService.makeId(),
@@ -88,10 +81,7 @@ function _getNewGroup(boardId) {
                 comments: [],
                 status: 'Done',
                 createdAt: Date.now(),
-                createdBy: {
-                    _id: '0',
-                    fullname: 'Guest'
-                }
+                createdBy: { _id, fullname },
             }
         ]
     }

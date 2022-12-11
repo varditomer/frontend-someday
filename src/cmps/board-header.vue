@@ -54,7 +54,7 @@ export default {
         },
 
         addGroup() {
-            this.$emit('addGroup')
+            this.$emit('addGroup', false)
         },
         setFilter(filter) {
             this.$emit('filter', filter)

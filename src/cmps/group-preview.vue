@@ -26,7 +26,7 @@
 
                     <div class="group-title-text">
                         <h4 @click="(showTitle = false)" @mouseover="(showTitle = true)" @mouseout="(showTitle = false)"
-                            contenteditable @blur="saveGroup($event.target.innerText, 'title')"
+                            contenteditable @blur="saveGroup('title', $event.target.innerText)"
                             :style="{ color: group.style.color }" v-html="group.title" ref="title">
                         </h4>
 
@@ -63,7 +63,8 @@
         <task-list v-if="viewTasks" @addColumn="addColumn" @toggleSelectAllTasks="toggleSelectAllTasks"
             @saveSelectedTasks="saveSelectedTasks" @saveBoard="saveBoard" :selectedTasks="selectedTasks"
             :tasks="group.tasks" :group="group" :cmpsOrder="cmpsOrder" :users="users" @addGroup="addGroup"
-            @saveTask="saveTask" @removeTask="removeTask" @duplicateTask="duplicateTask" :colors="colors" @removeColumn="removeColumn" />
+            @saveTask="saveTask" @removeTask="removeTask" @duplicateTask="duplicateTask" :colors="colors"
+            @removeColumn="removeColumn" />
     </section>
 
 </template>
@@ -128,8 +129,8 @@ export default {
             this.group[prop] = val
             this.$emit('saveGroup', this.group)
         },
-        addGroup() {
-            this.$emit('addGroup')
+        addGroup(isFifo) {
+            this.$emit('addGroup', isFifo)
         },
         removeGroup() {
             this.$emit('removeGroup', this.group)
@@ -152,7 +153,7 @@ export default {
         addColumn(cmp) {
             this.$emit('addColumn', cmp)
         },
-        removeColumn(column){
+        removeColumn(column) {
             this.$emit('removeColumn', column)
         }
     },

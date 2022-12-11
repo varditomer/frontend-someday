@@ -2,7 +2,7 @@
     <section class='triangle-modal' @keydown.escape="hide" v-click-outside="hide">
         <span class="top-bot"></span>
         <component :is="cmp" :content="content" :name="name" :additionalDb="additionalDb" @updateTask="updateTask"
-            @hideModal="hide" @loginSignup="loginSignup" :colors="colors" @closeModal="$emit('closeModal')">
+            @hideModal="hide" :colors="colors" @closeModal="$emit('closeModal')">
         </component>
     </section>
 </template>
@@ -13,10 +13,9 @@ import personsModal from '../triangle-modal-cmps/persons-modal.vue'
 import taskLabelModal from '../triangle-modal-cmps/task-label-modal.vue'
 import dateModal from '../triangle-modal-cmps/date-modal.vue'
 import linkModal from '../triangle-modal-cmps/link-modal.vue'
-import loginSignupModal from '../triangle-modal-cmps/login-signup-modal.vue'
 export default {
     name: 'triangle-modal',
-    emits: ['updateTask', 'hideModal', 'loginSignup'],
+    emits: ['updateTask', 'hideModal'],
     props: {
         cmp: String,
         additionalDb: {
@@ -41,9 +40,7 @@ export default {
         updateTask(field) {
             this.$emit('updateTask', field)
         },
-        loginSignup(userCreds) {
-            this.$emit('loginSignup', userCreds)
-        }
+
     },
     components: {
         personsModal,
@@ -51,7 +48,6 @@ export default {
         dateModal,
         linkModal,
         timelineModal,
-        loginSignupModal
     }
 }
 </script>

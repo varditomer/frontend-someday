@@ -12,7 +12,6 @@ export const groupStore = {
         async saveGroup({ dispatch, commit }, { group }) {
             try {
                 commit({ type: 'saveGroup', group })
-                console.log(`group`, group)
                 await groupService.save(group)
                 // dispatch({ type: 'queryBoard', id: group.boardId, filter: '' })
                 console.log(`success`)

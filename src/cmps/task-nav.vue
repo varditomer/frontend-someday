@@ -2,14 +2,16 @@
     <nav class="main-nav flex column align-center justify-between">
         <section class="top-nav flex column center">
             <router-link to="/">
-                <img class="logo" src="../assets/imgs/logo.svg" alt="">
+                <img class="logo" src="../assets/imgs/logo.svg" alt="G">
             </router-link>
             <router-link :to="('/board/' + board._id)">
                 <span v-svg-icon="'coloredBoard'"></span>
             </router-link>
         </section>
         <section class="bottom-nav" @click="logout">
-            <div class="logout-container"><h1>Logout</h1></div>
+            <div class="logout-container">
+                <h1>Logout</h1>
+            </div>
             <img class="profile" v-if="loggedinUser" :src="loggedinUser.imgUrl" alt="">
         </section>
     </nav>
@@ -26,7 +28,7 @@ export default {
             return this.$store.getters.loggedinUser
         },
         logout() {
-            this.$store.dispatch({type: 'logout'})
+            this.$store.dispatch({ type: 'logout' })
             this.$router.push('/')
 
         }
