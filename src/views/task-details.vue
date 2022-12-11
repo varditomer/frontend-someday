@@ -53,7 +53,7 @@
                         <p>1 Seen</p>
                     </div>
                 </div>
-                <div class="comment-like" @click="likeComment(idx)"
+                <div class="comment-like" @click.stop.prevent="likeComment(idx)"
                     :class="{ liked: comment?.likes?.includes(loggedinUser._id) }">
                     <div>
                         <span v-if="comment?.likes?.includes(loggedinUser._id)" v-svg-icon="'filledLike'"></span>
@@ -85,8 +85,7 @@
                 @drop.prevent="handleFile" @dragover.prevent="isDragover = true" @dragleave="isDragover = false">
 
 
-                <div v-if="(!isLoading && !imgUrls.length)" 
-                    class="cta-container flex column center">
+                <div v-if="(!isLoading && !imgUrls.length)" class="cta-container flex column center">
                     <div class="files-gallery-cmp flex column center">
 
                         <img class="empty-state-image"
@@ -222,6 +221,7 @@ export default {
         },
         getUserImg(userId) {
             let user = this.users.find(user => user._id === userId)
+            console.log(`userId:`, userId)
             if (!user) user = { _id: '0', fullname: 'Guest', imgUrl: 'src/assets/imgs/default-avatar.svg' }
             return user.imgUrl
         },

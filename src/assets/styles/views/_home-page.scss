@@ -68,10 +68,21 @@
                 position: relative;
 
                 .login-btn {
+                    display: flex;
                     background-color: transparent;
                     font-family: roboto-light;
                     font-size: rem(16px);
                     margin-right: 6px;
+                    padding: 8px 10px;
+                    align-items: center;
+                    justify-content: center;
+                    &:hover {
+                        background-color: $brdr-clr;
+                        color: #535768;
+                        border-radius: 8px;
+                        transition: color 200ms ease;
+
+                    }
                 }
             }
         }

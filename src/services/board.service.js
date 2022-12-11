@@ -279,7 +279,6 @@ function _filterByTxt(board, txt) {
     }, [])
     return board
 }
-
 function _multiFilter(filterBy, board) {
     board.groups = board.groups.reduce((filteredGroups, group) => {
         if (filterBy?.groupTitle?.length &&

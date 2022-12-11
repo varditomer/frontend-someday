@@ -50,7 +50,7 @@ app.use(store)
 app.use(copyText)
 app.use(ElementPlus)
 app.use(vue3GoogleLogin, {
-    clientId: '236832301303-lau68i5f07t385fes3sjjrk531fu71gi.apps.googleusercontent.com'
+    clientId: '236832301303-68cdrgocpc5a0p08350mo4dnhmb1lihl.apps.googleusercontent.com'
 })
 
 app.mount('#app')
