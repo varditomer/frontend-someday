@@ -88,6 +88,21 @@
                     border-right: 1px solid $brdr-clr;
                     text-transform: capitalize;
                     cursor:move;
+                    position: relative;
+
+                    .remove-column{
+                        font-size: rem(10px);
+                        position: absolute;
+                        right:-16px;
+                        align-self: flex-start;
+                        visibility: hidden ;
+                    }
+
+                    &:hover{
+                        .remove-column{
+                            visibility: visible ;
+                        }
+                    }
                 }
             }
         }

@@ -18,6 +18,7 @@
                         <div ghost-class="ghost" :class="{ 'column-dragged': isBeingDragged }"
                             class="titles">
                             {{ element }}
+                            <span class="remove-column" v-svg-icon="'close'" @click="removeColumn(element)"></span>
                         </div>
                     </template>
                 </draggable>
@@ -159,6 +160,9 @@ export default {
         },
         addColumn(cmp) {
             this.$emit('addColumn', cmp)
+        },
+        removeColumn(column){
+            this.$emit('removeColumn', column)
         }
     },
     computed: {

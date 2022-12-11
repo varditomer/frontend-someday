@@ -2,7 +2,7 @@
 <template>
     <div class="block">
         <el-date-picker @blur="handleClose" v-model="value2" type="daterange" start-placeholder="Start Date"
-            end-placeholder="End Date" teleported="false" />
+            end-placeholder="End Date" />
     </div>
 </template>
 

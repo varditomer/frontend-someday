@@ -37,7 +37,8 @@ async function newTask(groupId, boardId) {
 async function remove(task) {
     const miniTask = { _id: task._id, groupId: task.groupId, boardId: task.boardId }
     const removedTask = await httpService.delete(TASK_URL, miniTask)
-    socketService.emit('remove-task', removedTask)
+    const loggedinUser = userService.getLoggedinUser()
+    socketService.emit('remove-task', { removedTask, loggedinUser })
     return removedTask
 }
 
@@ -47,7 +48,8 @@ async function duplicateMultiple(tasks) {
         clonedTask._id = utilService.makeId()
         return clonedTask
     })
-    socketService.emit('duplicate-tasks', tasksToDuplicate)
+    const loggedinUser = userService.getLoggedinUser()
+    socketService.emit('duplicate-tasks', { tasksToDuplicate, loggedinUser })
     _saveMultiple(tasks, tasksToDuplicate)
     return tasksToDuplicate
 }

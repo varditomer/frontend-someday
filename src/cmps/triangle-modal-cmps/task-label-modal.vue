@@ -54,7 +54,7 @@ export default {
         updateTask(val) {
             if (this.isBeingEditted) return
             const key = this.name
-            const formattedVal = this.colors[key].find(label => label.title === val)?._id || 'Default'
+            const formattedVal = colors()[key].find(label => label.title === val.trim())?._id
             this.$emit('updateTask', { key, val:formattedVal })
         },
         toggleEdit() {
@@ -62,8 +62,7 @@ export default {
             if (!this.isBeingEditted) this.updateTask(this.labelTitle)
         },
         updateLabels(type, id, title = 'New Label', val) {
-            debugger
-            colorService.update(type, id, title, val)
+            colorService.update(type, id, title.trim(), val.trim())
             this.$store.dispatch({type: 'loadColors'})
             this.showColorPicker = false
 
@@ -71,7 +70,6 @@ export default {
         renderModal(id) {
             this.id = id
             this.showColorPicker = true;
-            // this.selectedIdx = idx
             this.showColorPicker = true;
             this.colorTitle
         }

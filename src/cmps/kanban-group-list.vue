@@ -60,7 +60,6 @@ export default {
             return `border-left: ${label.color} 4px solid;`
         },
         saveGroup() {
-            debugger
             const board = JSON.parse(JSON.stringify(this.$store.getters.board))
             const type = this.kanbanBoard.kanbanType
             if (!board.taskIdOrder) board.taskIdOrder = {}
