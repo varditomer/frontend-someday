@@ -257,6 +257,7 @@ export default {
 
     },
     async created() {
+        await this.$store.dispatch({ type: 'loadUsers' })
         let user = userService.getLoggedinUser()
         this.$store.commit({ type: 'setLoggedinUser', user })
         const filter = { id: this.$route.params.id }

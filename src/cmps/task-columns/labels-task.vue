@@ -46,7 +46,6 @@ export default {
         },
         startConfetti() {
             this.isConfetti = true
-            console.log(this.isConfetti);
             setTimeout(() => this.isConfetti = false, 2000)
         }
     },

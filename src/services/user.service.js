@@ -23,41 +23,41 @@ export const userService = {
 window.userService = userService
 
 
-function getUsers() {
-    return [
-        {
-            _id: "u102",
-            fullname: "Refael Abramov",
-            imgUrl: "src/assets/imgs/refael-avatar.png",
-            color: 'rgb(236, 105, 192)',
-            isAdmin: true,
-            contact: {
-                mail: 'refaelavramov@gmail.com'
-            }
-        },
-        {
-            _id: "u103",
-            fullname: "Tomer Vardi",
-            imgUrl: "src/assets/imgs/tomer-avatar.png",
-            color: 'rgb(55, 124, 80)',
-            isAdmin: true,
-            contact: {
-                mail: 'tomervardi@gmail.com'
-            }
-        },
-        {
-            _id: "u104",
-            fullname: "Ronen Boxer",
-            imgUrl: "src/assets/imgs/ronen-avatar.png",
-            color: 'rgb(238, 109, 64)',
-            isAdmin: true,
-            contact: {
-                mail: 'ronenboxer@gmail.com'
-            }
-        }
-    ]
-    // return httpService.get(`user`)
-}
+// function getUsers() {
+//     return [
+//         {
+//             "_id": "u102",
+//             "fullname": "Refael Abramov",
+//             "imgUrl": "src/assets/imgs/refael-avatar.png",
+//             "color": "rgb(236, 105, 192)",
+//             "isAdmin": true,
+//             "contact": {
+//                 "mail": "refaelavramov@gmail.com"
+//             }
+//         },
+//         {
+//             "_id": "u103",
+//             "fullname": "Tomer Vardi",
+//             "imgUrl": "http://res.cloudinary.com/someday/image/upload/v1670708469/tomer-avatar_e1olwt.png",
+//             "color": "rgb(55, 124, 80)",
+//             "isAdmin": true,
+//             "contact": {
+//                 "mail": "tomervardi@gmail.com"
+//             }
+//         },
+//         {
+//             "_id": "u104",
+//             "fullname": "Ronen Boxer",
+//             "imgUrl": "http://res.cloudinary.com/someday/image/upload/v1670765366/ronen-avatar_b077bs.png",
+//             "color": "rgb(238, 109, 64)",
+//             "isAdmin": true,
+//             "contact": {
+//                 "mail": "ronenboxer@gmail.com"
+//             }
+//         }
+//     ]
+//     // return httpService.get(`user`)
+// }
 
 function onUserUpdate(user) {
     showSuccessMsg(`This user ${user.fullname} just got updated from socket, new score: ${user.score}`)
@@ -71,7 +71,7 @@ async function query() {
     socketService.off(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
     socketService.on(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
 
-    return user
+    return getUsers()
 }
 
 function remove(userId) {
@@ -104,7 +104,7 @@ async function loginGoogle(userCred) {
 }
 
 async function signup(userCred) {
-    if (!userCred.imgUrl) userCred.imgUrl = 'http://res.cloudinary.com/someday/image/upload/v1670708469/tomer-avatar_e1olwt.png'
+    if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
     const user = await httpService.post('auth/signup', userCred)
     socketService.login(user._id)
     return saveLocalUser(user)
