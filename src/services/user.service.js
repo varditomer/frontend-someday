@@ -27,7 +27,7 @@ function getUsers() {
         {
             _id: "u102",
             fullname: "Refael Abramov",
-            imgUrl: "src/assets/imgs/refael-avatar.png",
+            imgUrl: "/src/assets/imgs/refael-avatar.png",
             color: 'rgb(236, 105, 192)',
             isAdmin: true,
             contact: {
@@ -37,7 +37,7 @@ function getUsers() {
         {
             _id: "u103",
             fullname: "Tomer Vardi",
-            imgUrl: "src/assets/imgs/tomer-avatar.png",
+            imgUrl: "/src/assets/imgs/tomer-avatar.png",
             color: 'rgb(55, 124, 80)',
             isAdmin: true,
             contact: {
@@ -47,7 +47,7 @@ function getUsers() {
         {
             _id: "u104",
             fullname: "Ronen Boxer",
-            imgUrl: "src/assets/imgs/ronen-avatar.png",
+            imgUrl: "/src/assets/imgs/ronen-avatar.png",
             color: 'rgb(238, 109, 64)',
             isAdmin: true,
             contact: {
@@ -128,7 +128,7 @@ function saveLocalUser(user) {
 
 function getLoggedinUser() {
     let loggedinUser = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
-    if (!loggedinUser) loggedinUser = { _id: '0', fullname: 'Guest', imgUrl: 'src/assets/imgs/default-avatar.svg' }
+    if (!loggedinUser) loggedinUser = { _id: '0', fullname: 'Guest', imgUrl: '/src/assets/imgs/default-avatar.svg' }
     saveLocalUser(loggedinUser)
     return loggedinUser
 }
