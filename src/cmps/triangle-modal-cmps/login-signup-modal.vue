@@ -24,8 +24,17 @@
                     <p>Email</p>
                     <input required type="email" v-model="creds.email" placeholder="Email">
                 </label>
-                <button v-if="!isLogin" type="submit">Sign up</button>
-                <button v-if="isLogin" type="submit">Login</button>
+                <label v-if="!isLogin">
+                    <p>Upload image</p>
+                    <div class="add-img-btn flex center" @click="(uploadingImg = !uploadingImg)">
+                        <input type="file" @change="handleFile" />
+                        <span v-svg-icon="'outlinePlus'"></span>
+                        Add file
+                    </div>
+                </label>
+                <button type="submit">
+                    {{ isLogin ? 'Login' : 'Signup' }}
+                </button>
             </form>
         </section>
 
@@ -36,6 +45,7 @@
   
 <script>
 import { userService } from '../../services/user.service';
+import { uploadImg } from '../../services/img-upload.service';
 export default {
     name: 'signup-modal',
     emits: ['hideModal', 'loginSignup'],
@@ -44,15 +54,26 @@ export default {
     data() {
         return {
             isLogin: false,
-            creds: {}
+            creds: {},
+            uploadingImg: false
         }
     },
     methods: {
         loginSignup() {
             const userCreds = this.creds
+            console.log(`userCreds:`, userCreds)
             this.$emit('loginSignup', userCreds)
             this.$emit('hideModal')
             this.creds = {}
+        },
+        handleFile(ev) {
+            let file
+            file = ev.target.files[0]
+            this.onUploadFile(file)
+        },
+        async onUploadFile(file) {
+            const res = await uploadImg(file)
+            this.creds.imgUrl = res.url
         },
     },
     created() {
