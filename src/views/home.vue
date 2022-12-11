@@ -2,12 +2,6 @@
   <section class="container home text-center">
     <img class="hero" src="/src/assets/imgs/hero.jpg" alt="">
 
-
-    <!-- <div id="g_id_onload" data-client_id="856304661727-9s62u14qk5du0dmc3n12eeiah47o8j26.apps.googleusercontent.com"
-      data-callback="handleCredentialResponse">
-    </div>
-    <div class="g_id_signin" data-type="standard"></div> -->
-
     <header class="main-header">
       <img class="logo" src="/src/assets/imgs/logo.svg" alt="">
       <nav class="main-nav">
@@ -111,11 +105,3 @@ export default {
   }
 }
 </script>
-
-<!-- function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-} -->
