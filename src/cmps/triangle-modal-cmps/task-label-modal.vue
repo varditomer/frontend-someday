@@ -54,8 +54,7 @@ export default {
         updateTask(val) {
             if (this.isBeingEditted) return
             const key = this.name
-            debugger
-            const formattedVal = colors()[key].find(label => label.title === val)?._id
+            const formattedVal = colors()[key].find(label => label.title === val.trim())?._id
             this.$emit('updateTask', { key, val:formattedVal })
         },
         toggleEdit() {
@@ -63,7 +62,7 @@ export default {
             if (!this.isBeingEditted) this.updateTask(this.labelTitle)
         },
         updateLabels(type, id, title = 'New Label', val) {
-            colorService.update(type, id, title, val.trim())
+            colorService.update(type, id, title.trim(), val.trim())
             this.$store.dispatch({type: 'loadColors'})
             this.showColorPicker = false
 
