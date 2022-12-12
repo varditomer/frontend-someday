@@ -4,7 +4,10 @@
     <img class="hero" src="/src/assets/imgs/hero.jpg" alt="">
 
     <header class="main-header">
-      <img class="logo" src="/src/assets/imgs/logo.svg" alt="">
+      <div class="logo-container">
+        <img class="logo" src="/src/assets/imgs/logo.svg" alt="">
+        <h1>someday<span>.com</span></h1>
+      </div>
       <nav class="main-nav">
 
         <!-- <GoogleLogin class="google-img"  :callback="callback">

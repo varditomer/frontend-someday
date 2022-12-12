@@ -1,9 +1,9 @@
 .dashboard-container {
     display: grid;
     grid-template-areas:
-        'bar box'
-        'status box';
-    grid-template-columns: 700px 1fr;
+        'bar pie general'
+        'status group general';
+    grid-template-columns: 700px 400px 1fr;
     grid-template-rows: 1fr 1fr;
     padding-left: 36px;
     padding-right: 12px;
@@ -80,9 +80,8 @@
         flex-direction: column;
         background-color: white;
         border-radius: 1em;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
         width: 100%;
-        padding: 18px;
+        height: 100%;
 
         .statuses-title {
             display: flex;
@@ -150,46 +149,102 @@
         }
     }
 
-    .right-dashboard {
+    .group-dashboard {
+        grid-area: group;
+        margin-left: 80px;
+        width: 100%;
 
-        padding: 30px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        grid-area: box;
-        border-radius: 1em;
-        min-width: 680px;
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
         height: 100%;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
-        
-        margin-left: 140px;
-        margin-right: 10px;
 
-        .pie-chart {
-            width: 100%;
-            height: 60%;
+        .group-title-dashboard {
+            display: flex;
+            align-items: center;
+            padding-bottom: 28px;
 
-            .pie-chart-title {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding-bottom: 12px;
-
-                h1 {
-                    text-align: center;
-                    padding-left: 8px;
-
-                }
+            h1 {
+                padding-left: 8px;
             }
         }
 
+        .group-list-dashboard {
+            max-height: 192px;
+            overflow-y: auto;
+            padding-right: 12px;
 
+        
+
+
+
+            .group-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 18px;
+                min-height: 40px;
+                margin-bottom: 10px;
+                border-radius: .6em;
+                color: white;
+            }
+        }
+    }
+
+    .pie-chart {
+        display: flex;
+        flex-direction: column;
+        border-radius: 1em;
+        grid-area: pie;
+        margin-left: 80px;
+        width: 500px;
+        height: 450px;
+
+        .pie-chart-title {
+            display: flex;
+            align-items: center;
+            // justify-content: cen ter;
+            padding-bottom: 12px;
+
+            h1 {
+                text-align: center;
+                padding-left: 8px;
+
+            }
+
+
+        }
+
+
+    }
+
+    .total-count-container {
+        display: flex;
+        flex-direction: column;
+        padding-left: 80px;
+        grid-area: general;
+        width: 280px;
+
+        .total-count-title {
+            display: flex;
+            align-items: center;
+            padding-bottom: 28px;
+            margin-left: 60px;
+
+
+            h1 {
+                padding-left: 8px;
+            }
+        }
 
         .total-count {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: space-evenly;
-            height: 180px;
+            height: 100%;
+            margin-left: 60px;
+            width: 280px;
             border-radius: 1em;
             margin-top: auto;
             background-color: $primary-brand;
@@ -201,7 +256,7 @@
                 flex-direction: column;
                 text-align: center;
 
-                span{
+                span {
                     fill: white;
                     padding-bottom: 8px;
                 }
@@ -213,16 +268,17 @@
                 }
 
                 p {
-                    font-size: rem(48px);
+                    font-size: rem(42px);
                 }
             }
 
             .separator {
-                width: 1px;
+                height: 1px;
                 margin: 0;
-                height: 100%;
+                width: 100%;
             }
         }
     }
+
 
 }
