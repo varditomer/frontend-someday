@@ -6,7 +6,8 @@
                     contenteditable @click="isEditing = true" class="board-title">
                     {{ boardTitle }}</h1>
                 <div class="board-title-right-container">
-                    <div v-if="getlastSeenUserImg" class="last-seen">Last seen <img :src="getlastSeenUserImg" alt=""></div>
+                    <div v-if="getlastSeenUserImg" class="last-seen">Last seen <img :src="getlastSeenUserImg" alt="">
+                    </div>
                     <div class="invite">
                         <span v-svg-icon="'inviteMember'"></span>
                         Invite
@@ -94,7 +95,7 @@ export default {
         boardTitle() { return this.$store.getters.board.title },
         board() { return this.$store.getters.board },
         getUsers() { return this.$store.getters.users },
-        getlastSeenUserImg() { return lastSeenUserImg ? this.lastSeenUserImg : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' },
+        getlastSeenUserImg() { return this.lastSeenUserImg ? this.lastSeenUserImg : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' },
         loggedinUser() { return this.$store.getters.loggedinUser },
         getBoardUrl() {
             return `https://mail.google.com/mail/u/0/?view=cm&fs=1&su=Hey! come join my someday board &body=You can find it on this link: http://somdey.onrender.com${this.$route.fullPath}.com`
