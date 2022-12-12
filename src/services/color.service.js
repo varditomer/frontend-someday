@@ -93,7 +93,7 @@ function _createColors() {
                     "value": "#579bfc"
                 },
                 {
-                    "_id": "evdf9",
+                    "_id": "qwdlk",
                     "title": "Default",
                     "value": "#c4c4c4"
                 },

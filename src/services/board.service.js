@@ -52,11 +52,8 @@ async function removeManyTasks(taskIds, boardId) {
 
 async function save(board) {
     var savedBoard
-    if (board._id) {
-        savedBoard = await httpService.put(BOARD_URL + board._id, board)
-    } else {
-        savedBoard = await httpService.post(BOARD_URL, board)
-    }
+    if (board._id) savedBoard = await httpService.put(BOARD_URL + board._id, board)
+    else savedBoard = await httpService.post(BOARD_URL, board)
     const loggedinUser = await userService.getLoggedinUser()
     socketService.emit('save-board', { savedBoard, loggedinUser })
     return savedBoard
@@ -65,12 +62,12 @@ async function save(board) {
 function queryKanban(storeBoard, type = 'status', dataMap) {
     const board = JSON.parse(JSON.stringify(storeBoard))
     board.kanbanType = type
-    
+
     if (type === 'group') return board
-    if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.tasks))
-    board.groups = board.kanbanOrder[type].reduce((groups, val) => {
+    if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.stasks))
+    board.groups = board.kanbanOrder[type].map(val => {
         const tasks = _getTasksByValue(board, type, val)
-        if (!tasks.length) return groups
+
         const group = { tasks }
         group.title = type === 'status' || type === 'priority'
             ? colorService.getLabelById(type, val).title
@@ -81,14 +78,31 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
         group._id = type === 'status' || type === 'priority'
             ? colorService.getLabelById(type, val)._id
             : utilService.makeId()
-        groups.push(group)
-        return groups
+        return group
+
     }, [])
+
+    const restOfLabels = colors()[type].filter(label =>
+        !board.groups.find(group => group._id === label._id)).map(label => {
+            const { title, _id, value } = label
+            if (!board.taskOrder[type].find(group => group._id === _id)) board.taskOrder[type].push(_id)
+            return {
+                tasks: [],
+                value,
+                title, _id
+            }
+        })
+
+    if (restOfLabels.length) board.groups.push(...restOfLabels)
+    // console.log(``, )
+
     const taskOrder = board.taskIdOrder
         ? board.taskIdOrder[type]
             ? board.taskIdOrder[type]
             : {}
         : {}
+
+
     board.groups.forEach(group => {
         if (taskOrder[group._id]?.length) {
             const tasks = []
@@ -140,6 +154,7 @@ async function getEmptyBoard() {
                         _id: utilService.makeId(),
                         title: 'Item 1',
                         status: 'dfbyc',
+                        priority: 'qwdlk',
                         date: Date.now() + 24 * 60 * 60 * 1000,
                         comments: []
                     },
@@ -147,12 +162,15 @@ async function getEmptyBoard() {
                         _id: utilService.makeId(),
                         title: 'Item 2',
                         status: 'qwdlk',
+                        priority: 'qwdlk',
                         date: Date.now() - 24 * 60 * 60 * 1000,
                         comments: []
                     },
                     {
                         _id: utilService.makeId(),
                         title: 'Item 3',
+                        status: 'qwdlk',
+                        priority: 'qwdlk',
                         date: Date.now() - 24 * 60 * 60 * 1000,
                         comments: []
                     }
@@ -170,12 +188,16 @@ async function getEmptyBoard() {
                     {
                         _id: utilService.makeId(),
                         title: 'Item 4',
+                        status: 'qwdlk',
+                        priority: 'qwdlk',
                         date: Date.now() - 24 * 60 * 60 * 1000,
                         comments: []
                     },
                     {
                         _id: utilService.makeId(),
                         title: 'Item 5',
+                        status: 'qwdlk',
+                        priority: 'qwdlk',
                         date: Date.now() - 3 * 24 * 60 * 60 * 1000,
                         comments: []
                     }
@@ -191,6 +213,7 @@ async function getEmptyBoard() {
 }
 
 async function getDashboardData(board) {
+    console.log(board);
     if (!board._id) return {}
     const users = await userService.query()
     const data = {
@@ -216,6 +239,7 @@ async function getDashboardData(board) {
     colors().status.forEach(status => data.status[status._id] = 0)
     colors().priority.forEach(priority => data.priority[priority._id] = 0)
     board.groups.forEach(group => {
+        console.log(group);
         data.group[group._id].total += group.tasks.length
         group.tasks.forEach(task => {
             if (task.status) {

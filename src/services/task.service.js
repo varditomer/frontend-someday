@@ -28,7 +28,8 @@ async function save(task, isFifo = true, isDuplicate = false) {
 async function newTask(groupId, boardId) {
     return {
         title: 'Item 1',
-        status: 'dfbyc',
+        status: 'qwdlk',
+        priority: 'qwdlk',
         groupId,
         boardId
     }
