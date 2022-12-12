@@ -1,12 +1,11 @@
 .board-header {
     display: grid;
     grid-template-rows: 1fr 66px;
-    padding-right: $layout-padding;
+    padding-right: 30px;
     padding-left: 36px;
     padding-top: 16px;
 
     .header {
-
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -20,13 +19,12 @@
                 align-items: center;
                 position: relative;
                 left: -6px;
-                line-height: .4;
+                line-height: 0.4;
                 padding: 6px;
                 letter-spacing: -1px;
-                border-radius: .1em;
-                transition: padding .4s;
+                border-radius: 0.1em;
+                transition: padding 0.4s;
                 height: 100%;
-
                 &:hover {
                     outline: 1px solid $brdr-clr;
                 }
@@ -37,6 +35,30 @@
 
                 &.editing {
                     padding-right: 200px;
+                }
+            }
+            .board-title-right-container {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                .last-seen {
+                    img {
+                        height: 24px;
+                        width: 24px;
+                        // display: none;
+                        margin-left: 4px;
+                    }
+                }
+                div {
+                    font-size: rem(14px);
+                    padding: 4px 8px;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 4px;
+                    span {
+                        margin-right: 4px;
+                    }
+                    
                 }
             }
         }
@@ -68,8 +90,6 @@
                     box-shadow: inset 0px -2px 0px 0px $primary-blue;
                 }
             }
-
-
 
             .view-title {
                 padding-left: 6px;
