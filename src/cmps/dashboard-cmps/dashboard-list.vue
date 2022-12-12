@@ -148,7 +148,7 @@ export default {
             const data = this.dashboardData
             for (let statusId in data.status) {
                 const label = colorService.getLabelById('status', statusId)
-                if (!label) return
+                if (!label || !label.length) return
                 const { title, value } = label
                 label.count = data.status[statusId]
                 this.barChartData.labels.unshift(title)
