@@ -5,8 +5,8 @@
                 <h1 :class="{ 'editing': isEditing }" @keydown.enter.prevent="saveBoardTitle" @blur="saveBoardTitle"
                     contenteditable @click="isEditing = true" class="board-title">
                     {{ boardTitle }}</h1>
-                <div  class="board-title-right-container">
-                    <div v-if="userImg" class="last-seen">Last seen <img :src="userImg" alt=""></div>
+                <div class="board-title-right-container">
+                    <div v-if="getlastSeenUserImg" class="last-seen">Last seen <img :src="getlastSeenUserImg" alt=""></div>
                     <div class="invite">
                         <span v-svg-icon="'inviteMember'"></span>
                         Invite
@@ -54,7 +54,7 @@ export default {
         return {
             isEditing: false,
             view: '',
-            userImg: '',
+            lastSeenUserImg: '',
             lastSeenUserId: ''
         }
     },
@@ -78,13 +78,13 @@ export default {
         addTask() {
             this.$emit('addTask')
         },
-        setLastSeenUser(userId) {
-            setTimeout(() => {
-                console.log(`userId:`, userId)
-                const users = this.getUsers
-
-            }, 2000)
-        },
+        setLastSeenUserImg(userId = '') {
+            const users = this.getUsers
+            this.lastSeenUserId = userId
+            console.log(`userId:`, userId)
+            const user = users?.find(user => user._id === userId)
+            this.lastSeenUserImg = (user?.imgUrl) ? user.imgUrl : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+        }
 
     },
     components: {
@@ -94,27 +94,27 @@ export default {
         boardTitle() { return this.$store.getters.board.title },
         board() { return this.$store.getters.board },
         getUsers() { return this.$store.getters.users },
-        getUserImg() { return this.userImg },
-        getLoggedinUser() {return this.$store.getLoggedinUser},
+        getlastSeenUserImg() { return (this.lastSeenUserImg) ? this.lastSeenUserImg : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' },
+        loggedinUser() { return this.$store.getters.loggedinUser },
         getBoardUrl() {
-            console.log(`getLoggedinUser():`, this.getLoggedinUser)
             return `https://mail.google.com/mail/u/0/?view=cm&fs=1&su=Hey! come join my someday board &body=You can find it on this link: http:/${this.$route.fullPath}.com`
         }
     },
     created() {
+        console.log(`created:`,)
         const path = this.$route.path
         if (path.includes('kanban')) this.view = 'kanban'
         else if (path.includes('dashboard')) this.view = 'dashboard'
         else this.view = 'table'
-        socketService.on('user-connected', (userId) => {
-            const users = this.getUsers
-            console.log(`userId:`, userId)
-            this.lastSeenUserId = userId
-            this.userImg = users.find(user => user._id === userId).imgUrl
-            console.log(`this.lastSeenUserId:`, this.lastSeenUserId)
-        })
+
+        this.setLastSeenUserImg(this.loggedinUser?._id)
+
     },
     mounted() {
+        console.log(`mounted:`,)
+        socketService.on('user-connected', (userId) => {
+            this.setLastSeenUserImg(userId)
+        })
 
     }
 
