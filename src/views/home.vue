@@ -33,7 +33,7 @@
     <div class="home-nav-btns flex column center">
       <router-link :to="('/board/' + board._id)">
         <button class="hero-btn">
-          <p>Get started</p>
+          <p>Have a look</p>
         </button>
       </router-link>
     </div>

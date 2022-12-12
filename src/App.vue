@@ -6,6 +6,8 @@
 
 export default {
   async created() {
+
+    console.log('APP CREATED');
     const filter = { id: this.$route.params.id }
     await this.$store.dispatch({ type: 'loadUsers' })
     await this.$store.dispatch({ type: 'queryBoard', filter })
