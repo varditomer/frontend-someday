@@ -98,10 +98,10 @@ export default {
                             ${person?.imgUrl?.length
                                     ? `background-image: url(${person.imgUrl})`
                                     : `background-color: #fff`}"
-                            ${person.imgUrl
+                            ${person?.imgUrl
                                     ? 'class="cover"'
                                     : ''} 
-                            title="${person.fullname}">
+                            title="${person?.fullname}">
                             </span>`
                         }
                         summary[idx] = persons

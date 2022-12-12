@@ -6,12 +6,14 @@
 
 export default {
   async created() {
-
-    console.log('APP CREATED');
-    const filter = { id: this.$route.params.id }
-    await this.$store.dispatch({ type: 'loadUsers' })
-    await this.$store.dispatch({ type: 'queryBoard', filter })
-    this.$store.commit({ type: 'setWorkspaceState' })
+    try {
+      const filter = { id: this.$route.params.id }
+      await this.$store.dispatch({ type: 'loadUsers' })
+      await this.$store.dispatch({ type: 'queryBoard', filter })
+      this.$store.commit({ type: 'setWorkspaceState' })
+    } catch (err) {
+      console.log('Could not create app');
+    }
   }
 }
 </script>
