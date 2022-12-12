@@ -85,8 +85,8 @@ export default {
             this.$emit('closeModal')
 
         },
-        addGroup(isFifo) {
-            this.$emit('addGroup', isFifo)
+        addGroup() {
+            this.$emit('addGroup')
             this.$emit('closeModal')
 
         },
@@ -96,7 +96,7 @@ export default {
 
         },
         setFilter(key, val) {
-            this.$emit('filter', key, val)
+            this.$emit('setFilter', key, val)
             // this.$emit('closeModal')
 
         },

@@ -8,7 +8,7 @@
                 @deleteSelectedTasks="deleteSelectedTasks" @duplicateSelectedTasks="duplicateSelectedTasks"
                 v-if="showModal" :cmp="'task-select-modal'" />
             <board-header @saveBoardTitle="saveBoardTitle" :filter="filter" :users="users" @addTask="saveEmptyTask"
-                @addGroup="addGroup" @filter="setFilter" />
+                @addGroup="addGroup" @setFilter="setFilter" />
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
                 :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
                 @duplicateTask="duplicateTask" @saveGroup="saveGroup" @addGroup="addGroup" @saveBoard="saveBoard"
@@ -96,10 +96,6 @@ export default {
             this.$store.dispatch({ type: 'duplicateGroup', group })
         },
         setFilter(filter) {
-            if (filter.userId && this.filter?.userId) {
-                if (filter.userId === this.filter.userId) filter.userId = null
-            }
-            filter
             this.$store.commit({ type: 'setFilter', filter })
         },
         toggleWorkspace() {

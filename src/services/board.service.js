@@ -111,7 +111,7 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
 
 function filterBoard(board, filter) {
     var boardCopy = JSON.parse(JSON.stringify(board))
-    if (filter.group || filter.tasks) boardCopy = _multiFilter(filter, boardCopy)
+    if (filter.group || (filter.tasks && Object.keys(filter.tasks).length)) boardCopy = _multiFilter(filter, boardCopy)
     if (filter.userId) boardCopy = _filterByPerson(boardCopy, filter.userId)
     if (filter.txt) boardCopy = _filterByTxt(boardCopy, filter.txt)
     return boardCopy
@@ -283,21 +283,18 @@ function _filterByTxt(board, txt) {
 function _multiFilter(filterBy, board) {
 
     // Itereting through board groups
-    board.groups = board.groups.reduce((filteredGroups, group) => {
+    board.groups = board.groups.filter(group => {
 
         // Checking if group title filter exsists, and if group matches it
         if (filterBy?.group?.length &&
-            !filterBy.group.find(title => title === group.title)) return filteredGroups
+            filterBy.group.find(title => title === group.title)) return true
 
         // Checking if filter contains task parameteres
-        if (!filterBy.tasks) {
-            filteredGroups.push(group)
-            return filteredGroups
-        }
-        group.tasks = group.tasks.filter(task => {
+        if (!filterBy.tasks) true
 
+        group.tasks = group.tasks.filter(task => {
             // Making filter deep copy before manipulating it
-            const taskFilter = JSON.parse(JSON.stringify(filterBy.tasks))
+            const taskFilter = JSON.parse(JSON.stringify(filterBy.tasks || {}))
 
             // Special check for user filter
             if (taskFilter.person?.length &&
@@ -310,13 +307,13 @@ function _multiFilter(filterBy, board) {
 
             // Filtering rest of parameters
             for (let prop in taskFilter) {
-                if (!taskFilter[prop].length || taskFilter[prop].find(val => task[prop] === val)) return true
+                if (taskFilter[prop].length && !taskFilter[prop].find(val => task[prop] === val)) return false
             }
+            return true
         })
 
         // Making sure group has tasks
-        if (group.tasks.length) filteredGroups.push(group)
-        return filteredGroups
+        if (group.tasks.length) return true
 
     }, [])
 

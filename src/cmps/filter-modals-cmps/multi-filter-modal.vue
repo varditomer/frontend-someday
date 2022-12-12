@@ -19,8 +19,7 @@
             </div>
             <div class="filter-groups">
                 <multi-filter-column v-for="(column, idx) in formattedProps.columns" :column="column" :stats="stats"
-                    :data="formattedProps.props[idx]" :key="idx" @setFilter="setFilter"
-                    :multiFilter="this.storeMultiFilter" :filter="filter"/>
+                    :data="formattedProps.props[idx]" :key="idx" :filter="filter" @setFilter="setFilter"/>
             </div>
         </section>
     </section>
@@ -30,19 +29,14 @@ import multiFilterColumn from './multi-filter-column.vue'
 export default {
     name: 'multi-filter-modal',
     props: {
-        filter: {
-            type: Object,
-            required: true
-        }
+        filter: Object
     },
+    emits:['setFilter'],
     data() {
         return {
             filterItems: null,
             isFiltered: false
         }
-    },
-    created() {
-        this.multiFulter = this.storeMultiFilter
     },
     computed: {
         formattedProps() {
@@ -59,17 +53,22 @@ export default {
         stats() {
             return this.$store.getters.stats
         },
-        storeMultiFilter() {
-            return JSON.parse(JSON.stringify(this.$store.getters.multiFilter))
-        }
     },
     methods: {
-        setFilter( key, val) {
-            this.$store.commit({ key: 'setFilter', key, val })
+        setFilter(key, val) {
+            let filter = JSON.parse(JSON.stringify(this.filter))
+            if (key === 'group') { 
+                if (!filter.group) filter.group = []
+                filter.group = val 
+            }
+            else {
+                if (!filter.tasks) filter.tasks = {}
+                filter.tasks[key] = val
+            }
+            this.$emit('setFilter', 'multi', filter)
         },
         clearFilter(){
-            console.log(`skdjcnksdjcn`)
-            this.$store.commit({ type: 'setFilter' ,filter:{}})
+            this.$store.commit({ type: 'setMultiFilter' ,multiFilter:{}})
             this.$store.commit({ type: 'filterBoard', filter:{} })
         }
     },

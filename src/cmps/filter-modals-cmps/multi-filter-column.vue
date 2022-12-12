@@ -4,7 +4,7 @@
             <div class="title">{{ column }}</div>
             <div class="content flex column">
                 <div v-if="column === 'person'" v-for="item in formattedData" class="filter-item person"
-                    @click="setSubFilter(item)" :class="{ selected: this.filterBy?.includes(item._id) }">
+                    @click="setFilter(item)">
                     <div class="filter-option">
                         <img :src="item.imgUrl" alt="">
                         <span>{{ item.fullname }}</span>
@@ -13,8 +13,7 @@
                         {{}}
                     </div>
                 </div>
-                <div v-else v-for="item in formattedData" class="filter-item" @click="setSubFilter(item)"
-                    :class="{ selected: this.filterBy?.includes(item) }">
+                <div v-else v-for="item in formattedData" class="filter-item" @click="setFilter(item)">
                     <div class="filter-option">
                         <span v-if="column === 'date'">{{ getFormattedDate(item) }}</span>
                         <div v-else-if="column === 'status' || column === 'priority'">
@@ -37,7 +36,7 @@
 import { colorService } from '../../services/color.service'
 export default {
     name: 'multi-filter-column',
-    emits: ['setSubFilter'],
+    emits: ['setFilter'],
     props: {
         column: {
             type: String,
@@ -58,32 +57,33 @@ export default {
     },
     data() {
         return {
-            filterBy: [],
             months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         }
-    },
-    created() {
-        // debugger
-        // if (this.filter.group && this.column === 'Group') this.filterBy = this.filter?.group || []
-        // if (this.filter?.tasks) this.filterBy = this.filter.tasks[this.column] || []
     },
     computed: {
         formattedData() {
             return this.data.filter(item => item)
         },
+        getClass() {
+        }
     },
     methods: {
-        setSubFilter(item) {
-            let filter = JSON.parse(JSON.stringify(this.filterBy))
-            const idx = filter.findIndex(val => this.column === 'person' 
+        setFilter(item) {
+            let filter = JSON.parse(JSON.stringify(this.filter || {}))
+            if (!filter.group) filter.group = []
+            if (!filter.tasks) filter.tasks = {}
+            let vals
+            if (this.column === 'group') vals = filter.group
+            else vals = filter.tasks[this.column] || []
+            const idx = vals.findIndex(val => this.column === 'person'
                 ? val === item._id
                 : val === item)
-            if (idx === -1) filter.push(this.column === 'person' 
+
+            if (idx === -1) vals.push(this.column === 'person'
                 ? item._id
                 : item)
-            else filter.splice(idx,1)// = filter.filter((val, valIdx) => idx !== valIdx)
-            this.filterBy = filter
-            this.$emit('setFilter', this.column, filter)
+            else vals.splice(idx, 1)
+            this.$emit('setFilter', this.column, vals)
         },
         getFormattedDate(item) {
             const monthIdx = (new Date(item)).getMonth()

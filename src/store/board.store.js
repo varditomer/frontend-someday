@@ -17,7 +17,6 @@ export const boardStore = {
         dataMap: {},
         colors: {},
         stats: {},
-        multiFilter: {}
     },
     getters: {
         board({ board },) { return board },
@@ -30,7 +29,6 @@ export const boardStore = {
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         colors({ colors }) { return colors },
         stats({ stats }) { return stats },
-        multiFilter({ multiFilter }) { return multiFilter }
     },
     mutations: {
         setBoard(state, { boardData }) {
@@ -43,16 +41,13 @@ export const boardStore = {
             if (boardData.stats) state.stats = boardData.stats
         },
         setFilter(state, { filter }) {
-            state.filter = { ...state.filter, ...filter }
-        },
-        setMultiFilter(state, { multiFilter }) {
-            state.multiFilter = { ...state.filterBy, ...multiFilter }
+            state.filter = filter
+            this.commit({ type: 'filterBoard', filter })
         },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
         },
-        filterBoard(state, payload) {
-            const filter = payload.filter || state.multiFilter
+        filterBoard(state, {filter}) {
             state.filteredBoard = boardService.filterBoard(state.board, filter)
         },
         updateMiniBoard(state, { board }) {
