@@ -92,7 +92,6 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
                 title, _id
             }
         })
-
     if (restOfLabels.length) board.groups.push(...restOfLabels)
     // console.log(``, )
 
