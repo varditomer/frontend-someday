@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             boardUpdated: 0,
-            kanbanBoardToShow: {}
+            kanbanBoardToShow: {},
         }
     },
     methods: {

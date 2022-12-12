@@ -65,6 +65,7 @@ async function save(board) {
 function queryKanban(storeBoard, type = 'status', dataMap) {
     const board = JSON.parse(JSON.stringify(storeBoard))
     board.kanbanType = type
+    
     if (type === 'group') return board
     if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.tasks))
     board.groups = board.kanbanOrder[type].reduce((groups, val) => {
@@ -323,30 +324,6 @@ function _multiFilter(filterBy, board) {
 
     return board
 }
-
-// function _multiFilter(filterBy, board) {
-//     // create a Set for faster lookup of group and person IDs
-//     const groupSet = new Set(filterBy?.group || [])
-//     const personIdSet = new Set(filterBy?.tasks?.person || [])
-//     // filter the groups and tasks in-place, to avoid creating new arrays
-//     board.groups = board.groups.filter(group => {
-//         if (!groupSet.has(group.title)) return false
-//         if (!filterBy.tasks) return true
-//         group.tasks = group.tasks.filter(task => {
-//             if (personIdSet.size > 0 && !personIdSet.has(task.person?._id)) return false
-//             const taskFilter = JSON.parse(JSON.stringify(filterBy.tasks))
-//             delete taskFilter.person
-//             for (let prop in taskFilter) {
-//                 if (!taskFilter[prop].length || taskFilter[prop].find(val => task[prop] === val)) {
-//                     return true
-//                 }
-//             }
-//             return false
-//         })
-//         return group.tasks.length > 0
-//     })
-//     return board
-// }
 
 function _getTasksByValue(board, key, value) {
     if (!board || !key || !value) return null
