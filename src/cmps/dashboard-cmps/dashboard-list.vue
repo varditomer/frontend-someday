@@ -63,7 +63,7 @@
                 <span v-svg-icon="'group'"></span>
                 <h1>Group summary</h1>
             </div>
-            <div class="group-list-dashboard" v-if="groups">
+            <div class="group-list-dashboard" v-if="groups.length">
                 <div v-for="group in groups" :style="`background-color:${group.color}`" class="group-item">
                     <h1>{{ group.title }}</h1>
                     <p>Tasks: {{ group.total }}</p>
@@ -206,7 +206,6 @@ export default {
         this.getTotalTasks()
         this.setTasksPerMember()
         this.setGroups()
-        console.log(this.dashboardData);
     }
 
 }
