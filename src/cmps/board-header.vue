@@ -83,7 +83,7 @@ export default {
             this.lastSeenUserId = userId
             console.log(`userId:`, userId)
             const user = users?.find(user => user._id === userId)
-            this.lastSeenUserImg = (user?.imgUrl) ? user.imgUrl : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+            this.lastSeenUserImg = user?.imgUrl || 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
         }
 
     },
@@ -94,10 +94,10 @@ export default {
         boardTitle() { return this.$store.getters.board.title },
         board() { return this.$store.getters.board },
         getUsers() { return this.$store.getters.users },
-        getlastSeenUserImg() { return (this.lastSeenUserImg) ? this.lastSeenUserImg : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' },
+        getlastSeenUserImg() { return lastSeenUserImg ? this.lastSeenUserImg : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' },
         loggedinUser() { return this.$store.getters.loggedinUser },
         getBoardUrl() {
-            return `https://mail.google.com/mail/u/0/?view=cm&fs=1&su=Hey! come join my someday board &body=You can find it on this link: http:/${this.$route.fullPath}.com`
+            return `https://mail.google.com/mail/u/0/?view=cm&fs=1&su=Hey! come join my someday board &body=You can find it on this link: http://somdey.onrender.com${this.$route.fullPath}.com`
         }
     },
     created() {
