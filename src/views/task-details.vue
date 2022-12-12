@@ -222,8 +222,6 @@ export default {
         },
         getUserImg(userId) {
             let user = this.users.find(user => user._id === userId)
-            console.log(`userId:`, userId)
-            if (!user) user = { _id: '0', fullname: 'Guest', imgUrl: 'src/assets/imgs/default-avatar.svg' }
             return user.imgUrl
         },
         likeComment(commentIdx) {

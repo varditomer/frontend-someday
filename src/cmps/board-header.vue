@@ -5,7 +5,10 @@
                 <h1 :class="{ 'editing': isEditing }" @keydown.enter.prevent="saveBoardTitle" @blur="saveBoardTitle"
                     contenteditable @click="isEditing = true" class="board-title">
                     {{ boardTitle }}</h1>
-                <span v-svg-icon="'more'"></span>
+                <div v-if="userImg" class="board-title-right-container">
+                    <div class="last-seen">Last seen <img :src="userImg" alt=""></div>
+                    <div class="invite"><span v-svg-icon="'inviteMember'"></span>Invite</div>
+                </div>
             </section>
             <section class="add-views">
                 <router-link :to="('/board/' + board._id)">
@@ -35,6 +38,7 @@
 </template>
 <script>
 import boardFilter from './board-filter.vue'
+import { socketService } from '../services/socket.service'
 export default {
     name: 'board-header',
     emits: ['filter', 'addTask', 'addGroup', 'saveBoardTitle'],
@@ -45,7 +49,9 @@ export default {
     data() {
         return {
             isEditing: false,
-            view: ''
+            view: '',
+            userImg: '',
+            lastSeenUserId: ''
         }
     },
     methods: {
@@ -67,6 +73,13 @@ export default {
         },
         addTask() {
             this.$emit('addTask')
+        },
+        setLastSeenUser(userId) {
+            setTimeout(() => {
+                console.log(`userId:`, userId)
+                const users = this.getUsers
+
+            }, 2000)
         }
     },
     components: {
@@ -74,13 +87,26 @@ export default {
     },
     computed: {
         boardTitle() { return this.$store.getters.board.title },
-        board() { return this.$store.getters.board }
+        board() { return this.$store.getters.board },
+        getUsers() { return this.$store.getters.users },
+        getUserImg() { return this.userImg }
     },
-    created() {
+    async created() {
         const path = this.$route.path
         if (path.includes('kanban')) this.view = 'kanban'
         else if (path.includes('dashboard')) this.view = 'dashboard'
         else this.view = 'table'
+        await socketService.on('user-connected', (userId) => {
+            console.log(`userId:`, userId)
+            this.lastSeenUserId = userId
+            this.userImg = users.find(user => user._id === userId).imgUrl
+            console.log(`this.lastSeenUserId:`, this.lastSeenUserId)
+        })
+        console.log(`this.lastSeenUser.id:`, this.lastSeenUserId)
+        console.log(`board-header created:`,)
+    },
+    mounted() {
+
     }
 
 }
