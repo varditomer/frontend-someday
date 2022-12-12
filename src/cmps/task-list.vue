@@ -105,7 +105,6 @@ export default {
         }
     },
     created() {
-        debugger
         this.taskToAdd = {
             groupId: this.group._id,
             boardId: this.group.boardId
