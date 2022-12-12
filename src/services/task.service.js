@@ -13,17 +13,15 @@ export const taskService = {
 }
 
 async function save(task, isFifo = true, isDuplicate = false) {
-    const loggedinUser = await userService.getLoggedinUser()
     let savedTask
     if (task._id) {
-        savedTask = { task: savedTask, isFifo }
-        socketService.emit('save-task', { savedTask, loggedinUser })
         savedTask = await httpService.put(TASK_URL + task._id, { task, isFifo, isDuplicate })
     } else {
         savedTask = await httpService.post(TASK_URL, { task, isFifo, isDuplicate })
-        savedTask = { task: savedTask, isFifo }
-        socketService.emit('save-task', { savedTask, loggedinUser })
     }
+    const loggedinUser = await userService.getLoggedinUser()
+    savedTask = { task: savedTask, isFifo }
+    socketService.emit('save-task', { savedTask, loggedinUser })
 
 
     return savedTask
