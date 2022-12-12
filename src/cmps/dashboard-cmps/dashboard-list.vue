@@ -97,7 +97,7 @@ export default {
                 datasets: [
                     {
                         barThickness: 60,
-                        data: [4,7,9,12,5],
+                        data: [],
                         backgroundColor: [],
                     },
                 ],
@@ -153,7 +153,7 @@ export default {
                 label.count = data.status[statusId]
                 this.barChartData.labels.unshift(title)
                 this.barChartData.datasets[0].backgroundColor.unshift(value)
-                // this.barChartData.datasets[0].data.unshift(label.count)
+                this.barChartData.datasets[0].data.unshift(label.count)
             }
         },
         setPriorities() {
