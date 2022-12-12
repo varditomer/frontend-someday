@@ -5,9 +5,13 @@
                 <h1 :class="{ 'editing': isEditing }" @keydown.enter.prevent="saveBoardTitle" @blur="saveBoardTitle"
                     contenteditable @click="isEditing = true" class="board-title">
                     {{ boardTitle }}</h1>
-                <div v-if="userImg" class="board-title-right-container">
-                    <div class="last-seen">Last seen <img :src="userImg" alt=""></div>
-                    <div class="invite"><span v-svg-icon="'inviteMember'"></span>Invite</div>
+                <div  class="board-title-right-container">
+                    <div v-if="userImg" class="last-seen">Last seen <img :src="userImg" alt=""></div>
+                    <div class="invite">
+                        <span v-svg-icon="'inviteMember'"></span>
+                        Invite
+                        <a :href="getBoardUrl" target="_blank" rel="noopener noreferrer"></a>
+                    </div>
                 </div>
             </section>
             <section class="add-views">
@@ -80,7 +84,8 @@ export default {
                 const users = this.getUsers
 
             }, 2000)
-        }
+        },
+
     },
     components: {
         boardFilter,
@@ -89,21 +94,25 @@ export default {
         boardTitle() { return this.$store.getters.board.title },
         board() { return this.$store.getters.board },
         getUsers() { return this.$store.getters.users },
-        getUserImg() { return this.userImg }
+        getUserImg() { return this.userImg },
+        getLoggedinUser() {return this.$store.getLoggedinUser},
+        getBoardUrl() {
+            console.log(`getLoggedinUser():`, this.getLoggedinUser)
+            return `https://mail.google.com/mail/u/0/?view=cm&fs=1&su=Hey! come join my someday board &body=You can find it on this link: http:/${this.$route.fullPath}.com`
+        }
     },
-    async created() {
+    created() {
         const path = this.$route.path
         if (path.includes('kanban')) this.view = 'kanban'
         else if (path.includes('dashboard')) this.view = 'dashboard'
         else this.view = 'table'
-        await socketService.on('user-connected', (userId) => {
+        socketService.on('user-connected', (userId) => {
+            const users = this.getUsers
             console.log(`userId:`, userId)
             this.lastSeenUserId = userId
             this.userImg = users.find(user => user._id === userId).imgUrl
             console.log(`this.lastSeenUserId:`, this.lastSeenUserId)
         })
-        console.log(`this.lastSeenUser.id:`, this.lastSeenUserId)
-        console.log(`board-header created:`,)
     },
     mounted() {
 
