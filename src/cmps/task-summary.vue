@@ -35,14 +35,16 @@ export default {
         colors: {
             type: Object,
             reqiured: true
+        },
+        users: {
+            type: Array,
+            required: true
         }
     },
     data() {
         return {
             months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         }
-    },
-    methods: {
     },
     computed: {
         getHtmlSumData() {
@@ -58,12 +60,11 @@ export default {
                         break
                     default: summary[idx] = 0
                 }
-
                 this.tasks.forEach(task => {
                     if (!task[column] || column === 'text' || column === 'link') return
                     switch (column) {
                         case 'person':
-                            task.person.forEach(person => summary[idx][person._id] = person)
+                            task.person.forEach(person => summary[idx][person._id] = person && !person.isGuest)
                             break
                         case 'priority':
                         case 'status':
@@ -87,13 +88,12 @@ export default {
                             break
                     }
                 })
-
                 let htmlStr = ''
                 switch (column) {
                     case 'person':
                         let persons = ''
                         for (let id in summary[idx]) {
-                            const person = summary[idx][id]
+                            const person = this.users.find(user => user._id === id)
                             persons += `<span class="task-avatar" style="
                             ${person.imgUrl?.length
                                     ? `background-image: url(${person.imgUrl})`
@@ -166,8 +166,6 @@ export default {
             //             //primary
             return summary
         }
-    },
-    components: {
     },
 }
 </script>

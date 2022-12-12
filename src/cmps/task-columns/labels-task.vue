@@ -52,9 +52,10 @@ export default {
     computed: {
         getLabel() {
             if (!this.colors[this.name]) return {
+                
                 style: {
                     'background-color': 'white',
-                    color: 'white'
+                    'color': 'white'
                 },
                 title: ''
             }

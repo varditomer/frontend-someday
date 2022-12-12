@@ -46,7 +46,7 @@ export const boardStore = {
             state.filter = { ...state.filter, ...filter }
         },
         setMultiFilter(state, { multiFilter }) {
-            state.multiFilter = multiFilter
+            state.multiFilter = { ...state.filterBy, ...multiFilter }
         },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId

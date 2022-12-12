@@ -38,6 +38,11 @@ export default {
             this.$emit('filter', 'person', [...userId])
         }
     },
+    computed: {
+        formattedUsers() {
+            return this.users.filter(user => !user.isGuest)
+        }
+    },
     created() {
         // console.log(`this.filter`, this.filter)
     }

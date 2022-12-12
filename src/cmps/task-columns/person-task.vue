@@ -36,7 +36,7 @@ export default {
                 const { _id, fullname } = person
                 const user = !this.additionalDb?.length
                     ? []
-                    : this.additionalDb.find(anyUser => anyUser._id === _id)
+                    : this.additionalDb.find(anyUser => anyUser._id === _id && !anyUser.isGuest)
                 if (!user) return userArr
                 const style = user.imgUrl
                     ? `background-image: url(${user.imgUrl})`

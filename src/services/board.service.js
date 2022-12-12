@@ -57,7 +57,7 @@ async function save(board) {
     } else {
         savedBoard = await httpService.post(BOARD_URL, board)
     }
-    const loggedinUser =await userService.getLoggedinUser()
+    const loggedinUser = await userService.getLoggedinUser()
     socketService.emit('save-board', { savedBoard, loggedinUser })
     return savedBoard
 }
@@ -83,7 +83,6 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
         groups.push(group)
         return groups
     }, [])
-
     const taskOrder = board.taskIdOrder
         ? board.taskIdOrder[type]
             ? board.taskIdOrder[type]
@@ -190,16 +189,17 @@ async function getEmptyBoard() {
 
 }
 
-function getDashboardData(board) {
+async function getDashboardData(board) {
     if (!board._id) return {}
+    const users = await userService.query()
     const data = {
         person: {},
         group: {},
         priority: {},
         status: {}
     }
-    if (board.members?.length) board.members.forEach(member => {
-        if (!data.person[member._id]) data.person[member._id] = {
+    if (users?.length) users.forEach(user => {
+        if (!data.person[user._id] && !user.isGuest) data.person[user._id] = {
             total: 0
         }
     })
@@ -261,6 +261,7 @@ function _filterByTxt(board, txt) {
     board.groups = board.groups.reduce((groupArr, group) => {
         const isGroupTitleMatch = regex.test(group.title)
         if (isGroupTitleMatch) {
+            const isWord = !!group.title.split(' ').find(word => word.toLowerCase() === txt.toLowerCase())
             group.title = group.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
         }
 
@@ -278,6 +279,7 @@ function _filterByTxt(board, txt) {
     }, [])
     return board
 }
+
 function _multiFilter(filterBy, board) {
 
     // Itereting through board groups
@@ -347,7 +349,7 @@ function _multiFilter(filterBy, board) {
 
 function _getTasksByValue(board, key, value) {
     if (!board || !key || !value) return null
-    return board.groups.reduce((tasks, group) => {
+    const groups = board.groups.reduce((tasks, group) => {
         const filteredGroupTasks = group.tasks.filter(task => key === 'person'
             ? task.person.find(person => person._id === value)
             : task[key] === value
@@ -355,4 +357,5 @@ function _getTasksByValue(board, key, value) {
         if (filteredGroupTasks.length) tasks.push(...filteredGroupTasks)
         return tasks
     }, [])
+    return groups
 }

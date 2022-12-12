@@ -41,10 +41,9 @@ export default {
     },
     computed: {
         personsToAdd() {
-            if (!this.content.length) return this.additionalDb
+            if (!this.content.length && !this.additionalDb.find(user => user.isGuest)) return this.additionalDb
             if (this.additionalDb.length === this.content.length) return []
-            // const users = this.additionalDb.filter(user => this.content.find(p => p._id !== user._id))
-            const users = this.additionalDb.filter(user => !this.content.find(p => p._id === user._id))
+            const users = this.additionalDb.filter(user => !this.content.find(p => p._id === user._id) && !user.isGuest)
             if (!this.txt) return users
             const regex = new RegExp(this.txt, 'i')
             return users.filter(user => regex.test(user.fullname))
