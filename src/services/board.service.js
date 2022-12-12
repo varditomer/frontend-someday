@@ -140,6 +140,7 @@ async function getEmptyBoard() {
                         _id: utilService.makeId(),
                         title: 'Item 1',
                         status: 'dfbyc',
+                        priority: 'qwdlk',
                         date: Date.now() + 24 * 60 * 60 * 1000,
                         comments: []
                     },
@@ -147,12 +148,15 @@ async function getEmptyBoard() {
                         _id: utilService.makeId(),
                         title: 'Item 2',
                         status: 'qwdlk',
+                        priority: 'qwdlk',
                         date: Date.now() - 24 * 60 * 60 * 1000,
                         comments: []
                     },
                     {
                         _id: utilService.makeId(),
                         title: 'Item 3',
+                        status: 'qwdlk',
+                        priority: 'qwdlk',
                         date: Date.now() - 24 * 60 * 60 * 1000,
                         comments: []
                     }
@@ -170,12 +174,16 @@ async function getEmptyBoard() {
                     {
                         _id: utilService.makeId(),
                         title: 'Item 4',
+                        status: 'qwdlk',
+                        priority: 'qwdlk',
                         date: Date.now() - 24 * 60 * 60 * 1000,
                         comments: []
                     },
                     {
                         _id: utilService.makeId(),
                         title: 'Item 5',
+                        status: 'qwdlk',
+                        priority: 'qwdlk',
                         date: Date.now() - 3 * 24 * 60 * 60 * 1000,
                         comments: []
                     }

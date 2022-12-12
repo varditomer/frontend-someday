@@ -69,7 +69,7 @@ export default {
                         case 'priority':
                         case 'status':
                         case 'label':
-                            const label = task[column]
+                            const label = task[column] || 'qwdlk'
                             if (label) {
                                 if (!summary[idx][label]) summary[idx][label] = 0
                                 summary[idx][label]++
@@ -114,7 +114,7 @@ export default {
                         for (let label in summary[idx]) {
                             labelsCount += summary[idx][label]
                         }
-                        htmlStr = `<div class="label-progress" style="background-color: ">`
+                        htmlStr = `<div class="label-progress" style="background-color:">`
                         for (let label in summary[idx]) {
                             const width = 100 * (summary[idx][label] / labelsCount) + '%'
                             const labelObj = this.colors[column]
