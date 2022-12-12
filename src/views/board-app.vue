@@ -7,7 +7,7 @@
             <regular-modal class="task-select-modal-parent" :selectedTasks="selectedTasksWithColor"
                 @deleteSelectedTasks="deleteSelectedTasks" @duplicateSelectedTasks="duplicateSelectedTasks"
                 v-if="showModal" :cmp="'task-select-modal'" />
-            <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
+            <board-header @saveBoardTitle="saveBoardTitle" :filter="filter" :users="users" @addTask="saveEmptyTask"
                 @addGroup="addGroup" @filter="setFilter" />
             <group-list @saveSelectedTasks="saveSelectedTasks" @toggleSelectAllTasks="toggleSelectAllTasks"
                 :selectedTasks="selectedTasks" :users="users" @saveTask="saveTask" @removeTask="removeTask"
@@ -96,11 +96,11 @@ export default {
             this.$store.dispatch({ type: 'duplicateGroup', group })
         },
         setFilter(filter) {
-            if (filter.userId && this.filterBy?.userId) {
-                if (filter.userId === this.filterBy.userId) filter.userId = null
+            if (filter.userId && this.filter?.userId) {
+                if (filter.userId === this.filter.userId) filter.userId = null
             }
             filter
-            this.$store.dispatch({ type: 'queryBoard', filter })
+            this.$store.commit({ type: 'setFilter', filter })
         },
         toggleWorkspace() {
             this.$store.commit({ type: 'toggleWorkspace' })
@@ -229,8 +229,8 @@ export default {
         isWorkspaceCollapsed() {
             return this.$store.getters.isWorkspaceCollapsed
         },
-        filterBy() {
-            return this.$store.getters.filterBy
+        filter() {
+            return this.$store.getters.filter
         },
         selectedTasks() {
             return this.$store.getters.selectedTasks

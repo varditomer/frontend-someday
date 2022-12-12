@@ -5,10 +5,10 @@
             <span @click="openModal('new-item-modal')" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
         </div>
         <div class="search-tasks" :class="{ 'input-open': isSearchClicked, 'filtering': isFiltering }"
-            @click="searchClicked">
+            @click="searchClicked($event)">
             <span v-svg-icon="'search'"></span>
             <input :class="{ 'open': isSearchClicked || isFiltering }" type="text" placeholder="Search"
-                @blur="(isSearchClicked = false)" v-model="filter.txt" @input="setFilter(false)">
+                @blur="(isSearchClicked = false)" v-model="txt" @input="setFilter('txt', $event.target.value)">
             <span v-svg-icon="'cancel'" class="cancel" :class="{ 'hide': !isFiltering }" @click="clearFilter"></span>
         </div>
         <div @click="openModal('filter-person-modal')" @mouseover="(showTitleModal = true)"
@@ -26,7 +26,7 @@
         </div>
 
 
-        <regular-modal :filterBy="filterBy" @filter="setFilter" :users="users" @closeModal="(showModal = false)"
+        <regular-modal :filter="filter" @filter="setFilter" :users="users" @closeModal="(showModal = false)"
             v-if="showModal" :class="(modalName + '-parent')" :cmp="modalName" @addGroup="addGroup" />
 
     </section>
@@ -38,7 +38,7 @@ export default {
     name: 'board-filter',
     props: {
         users: Array,
-        filterBy: Object
+        filter: Object
     },
     emits: ['filter', 'addTask', 'addGroup'],
     data() {
@@ -47,8 +47,7 @@ export default {
             showTitleModal: false,
             modalName: '',
             isSearchClicked: false,
-            filter: {
-            },
+            txt:'',
             isFiltering: false,
         }
     },
@@ -60,27 +59,26 @@ export default {
             this.$emit('addGroup', false)
         },
         openModal(modalName) {
-            console.log(`modalName:`, modalName)
             this.showTitleModal = false
             this.modalName = modalName
             this.showModal = true
         },
-        searchClicked() {
+        searchClicked(ev) {
             this.isSearchClicked = true
-            document.querySelector('.search-tasks input').focus()
+            ev.target.focus()
         },
-        setFilter(filter) {
-            this.$store.commit({ type: 'setMultiFilter', multiFilter: filter })
-            if (filter) this.$emit('filter', filter)
-            else {
-                this.isFiltering = (this.filter) ? true : false
-                this.$emit('filter', { ...this.filter })
-            }
+        setFilter(key, val) {
+            let filter = JSON.parse(JSON.stringify(this.$store.getters.filter))
+            if (key === 'group' || key === 'txt') filter[key] = val
+            else filter.tasks[key] = val
+            this.isFiltering = (this.txt) ? true : false
+            this.$emit('filter',  filter)
+            
         },
         clearFilter() {
             this.isFiltering = false
-            this.filter.txt = ''
-            this.$emit('filter', { ...this.filter })
+            this.txt = ''
+            this.$emit('filter', { txt })
         },
     },
     components: {

@@ -10,7 +10,7 @@ export const boardStore = {
         firstBoardId: null,
         miniBoards: null,
         isWorkspaceCollapsed: false,
-        filterBy: {
+        filter: {
             txt: '',
             userId: null
         },
@@ -24,7 +24,7 @@ export const boardStore = {
         filteredBoard({ filteredBoard },) { return filteredBoard },
         boardsTitles({ boardsTitles }) { return boardsTitles.map(board => board.title) },
         miniBoards({ miniBoards }) { return miniBoards },
-        filterBy({ filterBy }) { return filterBy },
+        filter({ filter }) { return filter },
         dataMap({ dataMap }) { return dataMap },
         stats({ stats }) { return stats },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
@@ -43,7 +43,7 @@ export const boardStore = {
             if (boardData.stats) state.stats = boardData.stats
         },
         setFilter(state, { filter }) {
-            state.filterBy = { ...state.filterBy, ...filter }
+            state.filter = { ...state.filter, ...filter }
         },
         setMultiFilter(state, { multiFilter }) {
             state.multiFilter = multiFilter

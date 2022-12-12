@@ -51,7 +51,7 @@ export default {
             type: Object,
             required: true
         },
-        multiFilter: {
+        filter: {
             type: Object,
             required: true
         }
@@ -63,15 +63,14 @@ export default {
         }
     },
     created() {
-        if (this.multiFilter.groupTitle && this.column === 'Group') this.filterBy = this.multiFilter?.groupTitle || []
-        if (this.multiFilter?.tasks) this.filterBy = this.multiFilter.tasks[this.column] || []
+        // debugger
+        // if (this.filter.group && this.column === 'Group') this.filterBy = this.filter?.group || []
+        // if (this.filter?.tasks) this.filterBy = this.filter.tasks[this.column] || []
     },
     computed: {
         formattedData() {
             return this.data.filter(item => item)
         },
-        getClass() {
-        }
     },
     methods: {
         setSubFilter(item) {
@@ -82,9 +81,9 @@ export default {
             if (idx === -1) filter.push(this.column === 'person' 
                 ? item._id
                 : item)
-            else filter = filter.filter((val, valIdx) => idx !== valIdx)
+            else filter.splice(idx,1)// = filter.filter((val, valIdx) => idx !== valIdx)
             this.filterBy = filter
-            this.$emit('setSubFilter', filter, this.column)
+            this.$emit('setFilter', this.column, filter)
         },
         getFormattedDate(item) {
             const monthIdx = (new Date(item)).getMonth()

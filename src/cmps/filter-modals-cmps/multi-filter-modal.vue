@@ -19,8 +19,8 @@
             </div>
             <div class="filter-groups">
                 <multi-filter-column v-for="(column, idx) in formattedProps.columns" :column="column" :stats="stats"
-                    :data="formattedProps.props[idx]" :key="idx" @setSubFilter="setSubFilter"
-                    :multiFilter="this.storeMultiFilter" />
+                    :data="formattedProps.props[idx]" :key="idx" @setFilter="setFilter"
+                    :multiFilter="this.storeMultiFilter" :filter="filter"/>
             </div>
         </section>
     </section>
@@ -29,7 +29,12 @@
 import multiFilterColumn from './multi-filter-column.vue'
 export default {
     name: 'multi-filter-modal',
-    props: {},
+    props: {
+        filter: {
+            type: Object,
+            required: true
+        }
+    },
     data() {
         return {
             filterItems: null,
@@ -44,11 +49,11 @@ export default {
             const dataMap = this.$store.getters.dataMap
             const columns = []
             columns.push(...Object.keys(dataMap.tasks))
-            const props = dataMap?.groupTitle?.length
-                ? [dataMap.groupTitle]
+            const props = dataMap?.group?.length
+                ? [dataMap.group]
                 : []
             columns.forEach(title => props.push(dataMap.tasks[title]))
-            if (dataMap?.groupTitle?.length) columns.unshift('Group')
+            if (dataMap?.group?.length) columns.unshift('group')
             return { props, columns }
         },
         stats() {
@@ -59,22 +64,12 @@ export default {
         }
     },
     methods: {
-        setSubFilter(subFilter, type) {
-            let filter = this.storeMultiFilter
-            if (type === 'Group') { 
-                if (!filter.groupTitle) filter.groupTitle = []
-                filter.groupTitle = subFilter 
-            }
-            else {
-                if (!filter.tasks) filter.tasks = {}
-                filter.tasks[type] = subFilter
-            }
-            this.$store.commit({ type: 'setMultiFilter', multiFilter: filter })
-            this.$store.commit({ type: 'filterBoard', filter })
+        setFilter( key, val) {
+            this.$store.commit({ key: 'setFilter', key, val })
         },
         clearFilter(){
             console.log(`skdjcnksdjcn`)
-            this.$store.commit({ type: 'setMultiFilter' ,multiFilter:{}})
+            this.$store.commit({ type: 'setFilter' ,filter:{}})
             this.$store.commit({ type: 'filterBoard', filter:{} })
         }
     },

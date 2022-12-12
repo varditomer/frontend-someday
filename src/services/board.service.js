@@ -65,7 +65,7 @@ async function save(board) {
 function queryKanban(storeBoard, type = 'status', dataMap) {
     const board = JSON.parse(JSON.stringify(storeBoard))
     board.kanbanType = type
-    if (type === 'groupTitle') return board
+    if (type === 'group') return board
     if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.tasks))
     board.groups = board.kanbanOrder[type].reduce((groups, val) => {
         const tasks = _getTasksByValue(board, type, val)
@@ -112,7 +112,7 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
 
 function filterBoard(board, filter) {
     var boardCopy = JSON.parse(JSON.stringify(board))
-    if (filter.groupTitle || filter.tasks) boardCopy = _multiFilter(filter, boardCopy)
+    if (filter.group || filter.tasks) boardCopy = _multiFilter(filter, boardCopy)
     if (filter.userId) boardCopy = _filterByPerson(boardCopy, filter.userId)
     if (filter.txt) boardCopy = _filterByTxt(boardCopy, filter.txt)
     return boardCopy
@@ -284,8 +284,8 @@ function _multiFilter(filterBy, board) {
     board.groups = board.groups.reduce((filteredGroups, group) => {
 
         // Checking if group title filter exsists, and if group matches it
-        if (filterBy?.groupTitle?.length &&
-            !filterBy.groupTitle.find(title => title === group.title)) return filteredGroups
+        if (filterBy?.group?.length &&
+            !filterBy.group.find(title => title === group.title)) return filteredGroups
 
         // Checking if filter contains task parameteres
         if (!filterBy.tasks) {
@@ -322,12 +322,12 @@ function _multiFilter(filterBy, board) {
 }
 
 // function _multiFilter(filterBy, board) {
-//     // create a Set for faster lookup of groupTitle and person IDs
-//     const groupTitleSet = new Set(filterBy?.groupTitle || [])
+//     // create a Set for faster lookup of group and person IDs
+//     const groupSet = new Set(filterBy?.group || [])
 //     const personIdSet = new Set(filterBy?.tasks?.person || [])
 //     // filter the groups and tasks in-place, to avoid creating new arrays
 //     board.groups = board.groups.filter(group => {
-//         if (!groupTitleSet.has(group.title)) return false
+//         if (!groupSet.has(group.title)) return false
 //         if (!filterBy.tasks) return true
 //         group.tasks = group.tasks.filter(task => {
 //             if (personIdSet.size > 0 && !personIdSet.has(task.person?._id)) return false
