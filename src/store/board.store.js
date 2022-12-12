@@ -10,10 +10,7 @@ export const boardStore = {
         firstBoardId: null,
         miniBoards: null,
         isWorkspaceCollapsed: false,
-        filter: {
-            txt: '',
-            userId: null
-        },
+        filter: {},
         dataMap: {},
         colors: {},
         stats: {},

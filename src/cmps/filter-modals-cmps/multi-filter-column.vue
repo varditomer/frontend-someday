@@ -4,16 +4,17 @@
             <div class="title">{{ column }}</div>
             <div class="content flex column">
                 <div v-if="column === 'person'" v-for="item in formattedData" class="filter-item person"
-                    @click="setFilter(item)">
+                    @click="setFilter(item)" :class="{ selected: getFormattedFilterArray.includes(item._id)}" >
                     <div class="filter-option">
-                        <img :src="item.imgUrl" alt="">
+                        <img :src="item.imgUrl" alt="" >
                         <span>{{ item.fullname }}</span>
                     </div>
                     <div class="filter-counter">
                         {{}}
                     </div>
                 </div>
-                <div v-else v-for="item in formattedData" class="filter-item" @click="setFilter(item)">
+                <div v-else v-for="item in formattedData" class="filter-item" @click="setFilter(item)"
+                :class="{ selected: getFormattedFilterArray.includes(item) }">
                     <div class="filter-option">
                         <span v-if="column === 'date'">{{ getFormattedDate(item) }}</span>
                         <div v-else-if="column === 'status' || column === 'priority'">
@@ -62,9 +63,13 @@ export default {
     },
     computed: {
         formattedData() {
-            return this.data.filter(item => item)
+            return this.data.filter(item => this.column === 'person' 
+                ?   !item.isGuest
+                :   item)
         },
-        getClass() {
+        getFormattedFilterArray(){
+            if (this.column === 'group') return this.filter.group || []
+            return this.filter.tasks?.[this.column] || []
         }
     },
     methods: {
@@ -98,7 +103,7 @@ export default {
         getFormattedLabelStyle(item) {
             const color = colorService.getLabelById(this.column, item)?.value || '#c4c4c4'
             return `background-color: ${color};`
-        }
+        },
     },
     components: {}
 }

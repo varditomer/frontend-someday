@@ -69,9 +69,9 @@ export default {
         },
         setFilter(key, val) {
             let filter = JSON.parse(JSON.stringify(this.filter))
-            this.isFiltering = (key === 'txt' && val === '') ? false : true
+            if (key === 'txt') this.isFiltering = !!val
             if (key === 'group' || key === 'txt') filter[key] = val
-            else if (key === 'multi') filter = {...filter, ...val}
+            else if (key === 'multi') filter = { ...filter, ...val }
             else {
                 if (!filter.tasks) filter.tasks = {}
                 filter.tasks[key] = val
@@ -81,7 +81,7 @@ export default {
         clearFilter() {
             this.isFiltering = false
             this.txt = ''
-            this.$emit('setFilter', '')
+            this.$emit('setFilter', 'txt', '')
         },
     },
     components: {

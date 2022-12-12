@@ -9,7 +9,7 @@
             </div>
             <div class="modal-item flex align-center">
                 <div v-for="user in formattedUsers" @click="togglePersonFilter(user._id)" :title="user.fullname"
-                    :class="{ 'selected': filter?.userId?.includes(user._id) }" class="filter-user">
+                    :class="{ 'selected': filter?.tasks?.person?.includes(user._id) }" class="filter-user">
                     <img :src="user.imgUrl" alt="">
                 </div>
             </div>
