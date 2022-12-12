@@ -60,6 +60,19 @@
                     }
                     
                 }
+                .invite {
+                    position: relative;
+                    cursor: pointer;
+
+                    a {
+                        visibility: hiden;
+                        position: absolute;
+                        top: 0;
+                        height: 28px;
+                        width: 73.71px;
+    
+                    }
+                }
             }
         }
 
