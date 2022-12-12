@@ -64,7 +64,7 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
     board.kanbanType = type
 
     if (type === 'group') return board
-    if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.stasks))
+    if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.tasks))
     board.groups = board.kanbanOrder[type].map(val => {
         const tasks = _getTasksByValue(board, type, val)
 
@@ -85,10 +85,10 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
     const restOfLabels = colors()[type].filter(label =>
         !board.groups.find(group => group._id === label._id)).map(label => {
             const { title, _id, value } = label
-            if (!board.taskOrder[type].find(group => group._id === _id)) board.taskOrder[type].push(_id)
+            if (!board.kanbanOrder[type].find(group => group._id === _id)) board.kanbanOrder[type].push(_id)
             return {
                 tasks: [],
-                value,
+                color:value,
                 title, _id
             }
         })
