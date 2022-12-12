@@ -32,7 +32,7 @@
                 </router-link>
             </section>
         </section>
-        <board-filter :filterBy="filterBy" :users="users" @filter="setFilter" @addTask="addTask" @addGroup="addGroup" />
+        <board-filter :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask" @addGroup="addGroup" />
     </section>
 
 </template>
@@ -41,10 +41,10 @@ import boardFilter from './board-filter.vue'
 import { socketService } from '../services/socket.service'
 export default {
     name: 'board-header',
-    emits: ['filter', 'addTask', 'addGroup', 'saveBoardTitle'],
+    emits: ['setFilter', 'addTask', 'addGroup', 'saveBoardTitle'],
     props: {
         users: Array,
-        filterBy: Object
+        filter: Object
     },
     data() {
         return {
@@ -60,10 +60,10 @@ export default {
         },
 
         addGroup() {
-            this.$emit('addGroup', false)
+            this.$emit('addGroup')
         },
         setFilter(filter) {
-            this.$emit('filter', filter)
+            this.$emit('setFilter', filter)
         },
         saveBoardTitle(ev) {
             this.isEditing = false

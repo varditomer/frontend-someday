@@ -8,7 +8,7 @@
             @click="searchClicked">
             <span v-svg-icon="'search'"></span>
             <input :class="{ 'open': isSearchClicked || isFiltering }" type="text" placeholder="Search"
-                @blur="(isSearchClicked = false)" v-model="filter.txt" @input="setFilter(false)">
+                @blur="(isSearchClicked = false)" v-model="txt" @input="setFilter('txt', txt)">
             <span v-svg-icon="'cancel'" class="cancel" :class="{ 'hide': !isFiltering }" @click="clearFilter"></span>
         </div>
         <div @click="openModal('filter-person-modal')" @mouseover="(showTitleModal = true)"
@@ -26,7 +26,7 @@
         </div>
 
 
-        <regular-modal :filterBy="filterBy" @filter="setFilter" :users="users" @closeModal="(showModal = false)"
+        <regular-modal :filter="filter" @setFilter="setFilter" :users="users" @closeModal="(showModal = false)"
             v-if="showModal" :class="(modalName + '-parent')" :cmp="modalName" @addGroup="addGroup" />
 
     </section>
@@ -38,17 +38,17 @@ export default {
     name: 'board-filter',
     props: {
         users: Array,
-        filterBy: Object
+        filter: Object
     },
-    emits: ['filter', 'addTask', 'addGroup'],
+    emits: ['setFilter', 'addTask', 'addGroup'],
     data() {
         return {
             showModal: false,
             showTitleModal: false,
             modalName: '',
             isSearchClicked: false,
-            filter: {},
             isFiltering: false,
+            txt: ''
         }
     },
     methods: {
@@ -56,10 +56,9 @@ export default {
             this.$emit('addTask')
         },
         addGroup() {
-            this.$emit('addGroup', false)
+            this.$emit('addGroup')
         },
         openModal(modalName) {
-            console.log(`modalName:`, modalName)
             this.showTitleModal = false
             this.modalName = modalName
             this.showModal = true
@@ -68,18 +67,21 @@ export default {
             this.isSearchClicked = true
             document.querySelector('.search-tasks input').focus()
         },
-        setFilter(filter) {
-            this.$store.commit({ type: 'setMultiFilter', multiFilter: filter })
-            if (filter) this.$emit('filter', filter)
+        setFilter(key, val) {
+            let filter = JSON.parse(JSON.stringify(this.filter))
+            if (key === 'txt') this.isFiltering = !!val
+            if (key === 'group' || key === 'txt') filter[key] = val
+            else if (key === 'multi') filter = { ...filter, ...val }
             else {
-                this.isFiltering = (this.filter) ? true : false
-                this.$emit('filter', { ...this.filter })
+                if (!filter.tasks) filter.tasks = {}
+                filter.tasks[key] = val
             }
+            this.$emit('setFilter', filter)
         },
         clearFilter() {
             this.isFiltering = false
-            this.filter.txt = ''
-            this.$emit('filter', { ...this.filter })
+            this.txt = ''
+            this.$emit('setFilter', 'txt', '')
         },
     },
     components: {

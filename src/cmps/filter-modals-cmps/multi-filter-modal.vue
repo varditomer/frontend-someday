@@ -19,8 +19,7 @@
             </div>
             <div class="filter-groups">
                 <multi-filter-column v-for="(column, idx) in formattedProps.columns" :column="column" :stats="stats"
-                    :data="formattedProps.props[idx]" :key="idx" @setSubFilter="setSubFilter"
-                    :multiFilter="this.storeMultiFilter" />
+                    :data="formattedProps.props[idx]" :key="idx" :filter="filter" @setFilter="setFilter"/>
             </div>
         </section>
     </section>
@@ -29,51 +28,46 @@
 import multiFilterColumn from './multi-filter-column.vue'
 export default {
     name: 'multi-filter-modal',
-    props: {},
+    props: {
+        filter: Object
+    },
+    emits:['setFilter'],
     data() {
         return {
             filterItems: null,
             isFiltered: false
         }
     },
-    created() {
-        this.multiFulter = this.storeMultiFilter
-    },
     computed: {
         formattedProps() {
             const dataMap = this.$store.getters.dataMap
             const columns = []
             columns.push(...Object.keys(dataMap.tasks))
-            const props = dataMap?.groupTitle?.length
-                ? [dataMap.groupTitle]
+            const props = dataMap?.group?.length
+                ? [dataMap.group]
                 : []
             columns.forEach(title => props.push(dataMap.tasks[title]))
-            if (dataMap?.groupTitle?.length) columns.unshift('Group')
+            if (dataMap?.group?.length) columns.unshift('group')
             return { props, columns }
         },
         stats() {
             return this.$store.getters.stats
         },
-        storeMultiFilter() {
-            return JSON.parse(JSON.stringify(this.$store.getters.multiFilter))
-        }
     },
     methods: {
-        setSubFilter(subFilter, type) {
-            let filter = this.storeMultiFilter
-            if (type === 'Group') { 
-                if (!filter.groupTitle) filter.groupTitle = []
-                filter.groupTitle = subFilter 
+        setFilter(key, val) {
+            let filter = JSON.parse(JSON.stringify(this.filter))
+            if (key === 'group') { 
+                if (!filter.group) filter.group = []
+                filter.group = val 
             }
             else {
                 if (!filter.tasks) filter.tasks = {}
-                filter.tasks[type] = subFilter
+                filter.tasks[key] = val
             }
-            this.$store.commit({ type: 'setMultiFilter', multiFilter: filter })
-            this.$store.commit({ type: 'filterBoard', filter })
+            this.$emit('setFilter', 'multi', filter)
         },
         clearFilter(){
-            console.log(`skdjcnksdjcn`)
             this.$store.commit({ type: 'setMultiFilter' ,multiFilter:{}})
             this.$store.commit({ type: 'filterBoard', filter:{} })
         }

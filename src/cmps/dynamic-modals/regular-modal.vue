@@ -1,7 +1,7 @@
 <template>
     <section @keydown.escape="closeModal" class='regular-modal' v-click-outside="closeModal">
         <component @addColumn="addColumn" :cmpsOrder="cmpsOrder" @updateSelection="updateSelection" :idx="idx"
-            :selectedTasks="selectedTasks" :filterBy="filterBy" @filter="filter" :is="cmp" @openTask="openTask"
+            :selectedTasks="selectedTasks" :filter="filter" @setFilter="setFilter" :is="cmp" @openTask="openTask"
             :users="users" @removeTask="removeTask" @addGroup="addGroup" @removeGroup="removeGroup" :id="id"
             @editGroupTitle="editGroupTitle" :selectedColor="selectedColor" @propagateMenu="propagateMenu"
             @deleteMultiple="deleteSelectedTasks" @duplicateMultiple="duplicateSelectedTasks"
@@ -22,7 +22,7 @@ import multiFilterModal from '../filter-modals-cmps/multi-filter-modal.vue'
 export default {
 
     name: 'regular-modal',
-    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'filter', 'editGroupTitle', 'updateSelection', 'propagateMenu', 'deleteSelectedTasks', 'duplicateSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup', 'duplicateTask', 'addColumn'], //emit all types of dynamic cmps events
+    emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'setFilter', 'editGroupTitle', 'updateSelection', 'propagateMenu', 'deleteSelectedTasks', 'duplicateSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup', 'duplicateTask', 'addColumn'], //emit all types of dynamic cmps events
     props: {
         cmp: {
             type: String,
@@ -32,7 +32,7 @@ export default {
             type: Array,
             required: false,
         },
-        filterBy: {
+        filter: {
             type: Object,
             required: false
         },
@@ -85,8 +85,8 @@ export default {
             this.$emit('closeModal')
 
         },
-        addGroup(isFifo) {
-            this.$emit('addGroup', isFifo)
+        addGroup() {
+            this.$emit('addGroup')
             this.$emit('closeModal')
 
         },
@@ -95,8 +95,8 @@ export default {
             this.$emit('closeModal')
 
         },
-        filter(filterBy) {
-            this.$emit('filter', filterBy)
+        setFilter(key, val) {
+            this.$emit('setFilter', key, val)
             // this.$emit('closeModal')
 
         },
