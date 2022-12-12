@@ -63,9 +63,8 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
     const board = JSON.parse(JSON.stringify(storeBoard))
     board.kanbanType = type
 
-
     if (type === 'group') return board
-    if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.tasks))
+    if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.stasks))
     board.groups = board.kanbanOrder[type].map(val => {
         const tasks = _getTasksByValue(board, type, val)
 
@@ -214,6 +213,7 @@ async function getEmptyBoard() {
 }
 
 async function getDashboardData(board) {
+    console.log(board);
     if (!board._id) return {}
     const users = await userService.query()
     const data = {
@@ -239,6 +239,7 @@ async function getDashboardData(board) {
     colors().status.forEach(status => data.status[status._id] = 0)
     colors().priority.forEach(priority => data.priority[priority._id] = 0)
     board.groups.forEach(group => {
+        console.log(group);
         data.group[group._id].total += group.tasks.length
         group.tasks.forEach(task => {
             if (task.status) {

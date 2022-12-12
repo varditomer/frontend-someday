@@ -45,8 +45,8 @@ export default {
             this.$emit('editing')
         },
         startConfetti() {
-            setTimeout(() => this.isConfetti = true, 1000)
-            setTimeout(() => this.isConfetti = false, 3000)
+            setTimeout(() => this.isConfetti = true, 500)
+            setTimeout(() => this.isConfetti = false, 2500)
         }
     },
     computed: {
