@@ -95,13 +95,13 @@ export default {
                         for (let id in summary[idx]) {
                             const person = this.users.find(user => user._id === id)
                             persons += `<span class="task-avatar" style="
-                            ${person.imgUrl?.length
+                            ${person?.imgUrl?.length
                                     ? `background-image: url(${person.imgUrl})`
-                                    : `backgroud-color: ${person.color || '#fff'}`}"
-                            ${person.imgUrl
+                                    : `background-color: #fff`}"
+                            ${person?.imgUrl
                                     ? 'class="cover"'
                                     : ''} 
-                            title="${person.fullname}">
+                            title="${person?.fullname}">
                             </span>`
                         }
                         summary[idx] = persons

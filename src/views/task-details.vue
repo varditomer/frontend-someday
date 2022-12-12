@@ -105,7 +105,6 @@
                     </div>
                 </div>
 
-                <img v-else-if="isLoading" src="../assets/imgs/loader.gif" alt="" />
 
                 <section v-if="imgUrls.length" class="img-gallery">
                     <img-preview :imgUrls="imgUrls" @removeImg="removeImg" />

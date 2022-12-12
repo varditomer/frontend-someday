@@ -4,10 +4,10 @@
         <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
 
-        <section class='board-app-container' :class="{ 'folded': isViewingTask }">
+        <section class='board-app-container' >
             <regular-modal v-if="false" :cmp="'task-select-modal'" />
-            <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users" @addTask="saveEmptyTask"
-                @addGroup="addGroup" @filter="setFilter" />
+            <board-header @saveBoardTitle="saveBoardTitle" :filterBy="filterBy" :users="users"
+               />
             <dashboard-list />
             <router-view />
         </section>
@@ -19,14 +19,10 @@ import boardHeader from '../cmps/board-header.vue'
 import boardWorkspace from '../cmps/board-workspace.vue'
 import taskNav from '../cmps/task-nav.vue'
 import dashboardList from '../cmps/dashboard-cmps/dashboard-list.vue'
+import { userService } from '../services/user.service.js'
 
 export default {
     name: 'dashboard-app',
-    props: {},
-    data() {
-        return {}
-    },
-    created() { },
     computed: {
         users() {
             return this.$store.getters.users
@@ -35,7 +31,6 @@ export default {
             return this.$route.params.id
         },
         board() {
-            console.log(`this.$store.getters.board`, this.$store.getters.board)
             return this.$store.getters.board
         },
         isWorkspaceCollapsed() {
@@ -59,51 +54,15 @@ export default {
 
     },
     methods: {
-        saveTask(task, activity) {
-            const taskToSave = { task, bool: false }
-            this.$store.commit({ type: 'saveTask', taskToSave })
-            this.$store.dispatch({ type: 'saveActivity', activity })
-            this.$store.dispatch({ type: 'saveTask', task })
-        },
         saveBoard(board) {
             this.$store.commit({ type: 'setBoard', board })
             this.$store.dispatch({ type: 'saveBoard', board })
         },
-        removeTask(task) {
-            this.$store.dispatch({ type: 'removeTask', task })
-        },
-        async duplicateTask(task) {
-            await this.$store.dispatch({ type: 'duplicateTask', task })
-        },
-        async saveEmptyTask() {
-            await this.$store.dispatch({ type: 'saveEmptyTask' })
-        },
         addBoard() {
             this.$store.dispatch({ type: 'addBoard' })
         },
-        saveGroup(group) {
-            this.$store.dispatch({ type: 'saveGroup', group })
-        },
-        removeGroup(group) {
-            this.$store.dispatch({ type: 'removeGroup', group })
-        },
-        addGroup(isFifo = true) {
-            this.$store.dispatch({ type: 'addGroup', isFifo })
-        },
-        duplicateGroup(group) {
-            this.$store.dispatch({ type: 'duplicateGroup', group })
-        },
-        setFilter(filter) {
-            if (filter.userId && this.filterBy?.userId) {
-                if (filter.userId === this.filterBy.userId) filter.userId = null
-            }
-            this.$store.dispatch({ type: 'filterBoard', filter })
-        },
         toggleWorkspace() {
             this.$store.commit({ type: 'toggleWorkspace' })
-        },
-        scroll(isScrolling) {
-            this.$store.commit({ type: 'setIsScrolling', isScrolling })
         },
         async saveSelectedTasks(taskId) {
             await this.$store.commit({ type: 'saveSelectedTasks', taskId })
@@ -120,6 +79,10 @@ export default {
             await this.$store.dispatch({ type: 'saveBoard', board })
             this.$store.dispatch({ type: 'loadMiniBoards' })
         },
+    },
+    async created() {
+        const user = await userService.getLoggedinUser()
+        this.$store.commit({ type: 'setLoggedinUser', user })
     },
     components: {
         boardHeader,

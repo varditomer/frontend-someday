@@ -45,14 +45,14 @@ export default {
             this.$emit('editing')
         },
         startConfetti() {
-            this.isConfetti = true
-            setTimeout(() => this.isConfetti = false, 2000)
+            setTimeout(() => this.isConfetti = true, 1000)
+            setTimeout(() => this.isConfetti = false, 3000)
         }
     },
     computed: {
         getLabel() {
             if (!this.colors[this.name]) return {
-                
+
                 style: {
                     'background-color': 'white',
                     'color': 'white'

@@ -15,7 +15,6 @@ async function query(taskId) {
     return await storageService.query(ACTIVITY_STORAGE_KEY)
 }
 
-
 async function saveEmptyActivity(groupId, boardId) {
     let activity = {
         groupId,
@@ -31,7 +30,7 @@ async function saveEmptyActivity(groupId, boardId) {
 
 async function save(activity) {
     const { key, oldVal, newVal, taskId } = activity
-    const byUser = userService.getLoggedinUser()
+    const byUser = await userService.getLoggedinUser()
     const savedActivity = {
         _id: utilService.makeId(),
         type: key,

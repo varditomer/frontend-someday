@@ -1,4 +1,5 @@
 <template>
+
     <section v-if="Object.keys(dashboardData).length" class='dashboard-container'>
 
         <div class="bar-chart">
@@ -9,30 +10,35 @@
             <BarChart :chartData="barChartData" :options="barChartOptions" />
         </div>
 
-        <div class="right-dashboard">
-            <div class="pie-chart">
-                <div class="pie-chart-title">
-                    <span v-svg-icon="'tasks'"></span>
-                    <h1>Tasks per member</h1>
-                </div>
-                <PieChart :chartData="pieChartData" :options="pieChartOptions" />
+        <div class="pie-chart">
+            <div class="pie-chart-title">
+                <span v-svg-icon="'tasks'"></span>
+                <h1>Tasks per member</h1>
+            </div>
+            <PieChart :chartData="pieChartData" :options="pieChartOptions" />
+        </div>
+
+        <div class="total-count-container">
+            <div class="total-count-title">
+                <span v-svg-icon="'info'"></span>
+                <h1>General</h1>
             </div>
             <div class="total-count">
                 <div class="total-div">
                     <span v-svg-icon="'quest'"></span>
-                    <h1>Total tasks</h1>
+                    <h1>Board tasks</h1>
                     <p>{{ totalTasksCount }}</p>
                 </div>
                 <span class="separator"></span>
                 <div class="total-div">
                     <span v-svg-icon="'workspace'"></span>
-                    <h1>Total groups</h1>
+                    <h1>Board groups</h1>
                     <p>{{ Object.keys(dashboardData.group).length }}</p>
                 </div>
                 <span class="separator"></span>
                 <div class="total-div">
                     <span v-svg-icon="'largePerson'"></span>
-                    <h1>Total members</h1>
+                    <h1>Board members</h1>
                     <p>{{ Object.keys(dashboardData.person).length }}</p>
                 </div>
             </div>
@@ -41,7 +47,7 @@
         <div class="statuses-dashboard">
             <div class="statuses-title">
                 <span v-svg-icon="'project'"></span>
-                <h1>Project estimate</h1>
+                <h1>Task priorities</h1>
             </div>
             <div class="card-container" v-if="dashboardData">
                 <div class="card" v-if="priorities.length" v-for="priority in priorities"
@@ -51,6 +57,20 @@
                 </div>
             </div>
         </div>
+
+        <div class="group-dashboard">
+            <div class="group-title-dashboard">
+                <span v-svg-icon="'group'"></span>
+                <h1>Group summary</h1>
+            </div>
+            <div class="group-list-dashboard" v-if="groups">
+                <div v-for="group in groups" :style="`background-color:${group.color}`" class="group-item">
+                    <h1>{{ group.title }}</h1>
+                    <p>Tasks: {{ group.total }}</p>
+                </div>
+            </div>
+        </div>
+
 
 
     </section>
@@ -106,15 +126,12 @@ export default {
                 ],
             },
             pieChartOptions: {
-                plugins: {
-                    legend: {
-                        display: false,
-                    },
-                },
+                responsive: false
             },
             priorities: [],
             totalTasksCount: 0,
-            dashboardData: {}
+            dashboardData: {},
+            groups: []
 
         }
     },
@@ -157,6 +174,7 @@ export default {
             for (let personId in data.person) {
                 const { fullname } = users.find(u => u._id === personId)
                 this.pieChartData.labels.unshift(fullname)
+                console.log('this is tasks per member', data.person);
                 this.pieChartData.datasets[0].data.unshift(data.person[personId].total)
 
             }
@@ -164,9 +182,19 @@ export default {
         getTotalTasks() {
             let sum = 0
             for (let g in this.dashboardData.group) {
+                console.log('this is getTotalTasks', this.dashboardData.group);
+
                 sum += this.dashboardData.group[g].total
             }
             this.totalTasksCount = sum
+        },
+        setGroups() {
+            for (let g in this.dashboardData.group) {
+                console.log('this is setGroups', this.dashboardData.group);
+
+                const { color, title, total } = this.dashboardData.group[g]
+                this.groups.push({ color, title, total })
+            }
         }
     },
     async created() {
@@ -177,6 +205,8 @@ export default {
         this.setPriorities()
         this.getTotalTasks()
         this.setTasksPerMember()
+        this.setGroups()
+        console.log(this.dashboardData);
     }
 
 }

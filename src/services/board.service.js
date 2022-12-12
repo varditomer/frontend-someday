@@ -207,6 +207,8 @@ async function getDashboardData(board) {
     if (board.groups?.length) board.groups.forEach(group => {
         if (!data.group[group._id]) data.group[group._id] = {
             total: 0,
+            title: group.title,
+            color: group.style.color,
             status: {},
             priority: {}
         }
@@ -257,13 +259,15 @@ function _filterByPerson(board, id) {
 }
 
 function _filterByTxt(board, txt) {
+    txt = txt.trim()
     if (!txt) return board
     const regex = new RegExp(txt, 'ig')
+
     board.groups = board.groups.reduce((groupArr, group) => {
         const isGroupTitleMatch = regex.test(group.title)
         if (isGroupTitleMatch) {
             const isWord = !!group.title.split(' ').find(word => word.toLowerCase() === txt.toLowerCase())
-            group.title = group.title.replaceAll(regex, match => `<span class="highlight">${match}</span>`)
+            group.title = group.title.replaceAll(regex, match => `<span class="highlight">${match}${isWord ? '&nbsp' : ''}</span>`)
         }
 
         group.tasks = group.tasks.reduce((taskArr, task) => {

@@ -8,10 +8,30 @@
         height: 72px;
         background-color: white;
 
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
             margin-left: 10%;
-            width: 35px;
+            cursor: pointer;
+
+            .logo {
+                width: 28px;
+                margin-right: 10px;
+            }
+
+            h1 {
+                font-family: poppins-bold;
+                letter-spacing: -1px;
+                font-size: rem(26px);
+                span{
+                    letter-spacing: 0;
+                    font-family: poppins-regular;
+                    font-size: rem(16px);
+
+                }
+            }
         }
+
 
         .main-nav {
             display: flex;
@@ -64,6 +84,7 @@
                     content: "🡢";
                 }
             }
+
             .login-signup-container {
                 position: relative;
 
@@ -76,6 +97,7 @@
                     padding: 8px 10px;
                     align-items: center;
                     justify-content: center;
+
                     &:hover {
                         background-color: $brdr-clr;
                         color: #535768;
@@ -187,7 +209,7 @@
                         display: flex;
                         margin-bottom: 10px;
 
-                        > * {
+                        >* {
                             width: 45%;
                             padding: 5px;
                             height: 40px;
@@ -209,6 +231,7 @@
                             }
                         }
                     }
+
                     .add-img-btn {
                         position: relative;
                         cursor: pointer;
@@ -225,6 +248,7 @@
                         span {
                             fill: $layout-black;
                         }
+
                         input {
                             cursor: pointer;
                             width: 93px;
@@ -288,7 +312,7 @@
                 }
             }
 
-            > *:last-child {
+            >*:last-child {
                 margin: 0;
             }
 
@@ -307,7 +331,7 @@
                     display: flex;
                     width: 100%;
 
-                    > * {
+                    >* {
                         display: flex;
                         width: 100%;
                         align-items: center;
@@ -357,6 +381,7 @@
                     padding-left: 8px;
                     border-radius: 0.3em;
                 }
+
                 .add-img-btn {
                     background-color: lighten($brdr-clr, 8%);
                     height: 35px;
