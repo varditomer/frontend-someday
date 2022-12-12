@@ -63,7 +63,7 @@
                 <span v-svg-icon="'group'"></span>
                 <h1>Group summary</h1>
             </div>
-            <div class="group-list-dashboard">
+            <div class="group-list-dashboard" v-if="groups">
                 <div v-for="group in groups" :style="`background-color:${group.color}`" class="group-item">
                     <h1>{{ group.title }}</h1>
                     <p>Tasks: {{ group.total }}</p>
@@ -174,6 +174,7 @@ export default {
             for (let personId in data.person) {
                 const { fullname } = users.find(u => u._id === personId)
                 this.pieChartData.labels.unshift(fullname)
+                console.log('this is tasks per member', data.person);
                 this.pieChartData.datasets[0].data.unshift(data.person[personId].total)
 
             }
@@ -181,12 +182,16 @@ export default {
         getTotalTasks() {
             let sum = 0
             for (let g in this.dashboardData.group) {
+                console.log('this is getTotalTasks', this.dashboardData.group);
+
                 sum += this.dashboardData.group[g].total
             }
             this.totalTasksCount = sum
         },
         setGroups() {
             for (let g in this.dashboardData.group) {
+                console.log('this is setGroups', this.dashboardData.group);
+
                 const { color, title, total } = this.dashboardData.group[g]
                 this.groups.push({ color, title, total })
             }
