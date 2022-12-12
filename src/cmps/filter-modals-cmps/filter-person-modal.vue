@@ -8,8 +8,8 @@
                 <p class="subtitle">Filter items and subitems by person</p>
             </div>
             <div class="modal-item flex align-center">
-                <div v-for="user in formattedUsers" @click="filterPerson(user._id)" :title="user.fullname"
-                    :class="{ 'selected': filterBy?.userId === user._id }" class="filter-user">
+                <div v-for="user in formattedUsers" @click="togglePersonFilter(user._id)" :title="user.fullname"
+                    :class="{ 'selected': filter?.tasks?.person?.includes(user._id) }" class="filter-user">
                     <img :src="user.imgUrl" alt="">
                 </div>
             </div>
@@ -20,30 +20,35 @@
 <script>
 export default {
     name: 'filter-person-modal',
-    emits: ['filter'],
+    emits: ['setFilter'],
     props: {
         users: Array,
-        filterBy: Object
+        filter: Object
     },
     data() {
         return {
-            filter: {
-                userId: []
-            },
-            isSelected: []
+            userId: []
         }
     },
+    created() {
+        console.log(`this.filter`, this.filter)
+    },
     methods: {
-        filterPerson(userId) {
-            this.isSelected = !this.isSelected
-            this.filter.userId = userId
-            this.$emit('filter', { ...this.filter })
+        togglePersonFilter(userId) {
+            this.userId = JSON.parse(JSON.stringify(this.filter?.tasks?.person || []))
+            const idx = this.userId.indexOf(userId)
+            if (idx === -1) this.userId.push(userId)
+            else this.userId.splice(idx, 1)
+            this.$emit('setFilter', 'multi', { tasks: { person: [...this.userId] } })
         }
     },
     computed: {
         formattedUsers() {
             return this.users.filter(user => !user.isGuest)
         }
+    },
+    created() {
+        // console.log(`this.filter`, this.filter)
     }
 }
 </script>

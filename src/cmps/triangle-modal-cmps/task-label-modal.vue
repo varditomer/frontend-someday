@@ -55,7 +55,7 @@ export default {
         updateTask(val) {
             if (this.isBeingEditted) return
             const key = this.name
-            const formattedVal = colors()[key].find(label => label.title === val.trim())?._id
+            const formattedVal = colors()[key].find(label => label._id === val.trim())?._id
             this.$emit('updateTask', { key, val: formattedVal })
         },
         toggleEdit() {

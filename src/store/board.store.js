@@ -10,27 +10,22 @@ export const boardStore = {
         firstBoardId: null,
         miniBoards: null,
         isWorkspaceCollapsed: false,
-        filterBy: {
-            txt: '',
-            userId: null
-        },
+        filter: {},
         dataMap: {},
         colors: {},
         stats: {},
-        multiFilter: {}
     },
     getters: {
         board({ board },) { return board },
         filteredBoard({ filteredBoard },) { return filteredBoard },
         boardsTitles({ boardsTitles }) { return boardsTitles.map(board => board.title) },
         miniBoards({ miniBoards }) { return miniBoards },
-        filterBy({ filterBy }) { return filterBy },
+        filter({ filter }) { return filter },
         dataMap({ dataMap }) { return dataMap },
         stats({ stats }) { return stats },
         isWorkspaceCollapsed({ isWorkspaceCollapsed }) { return isWorkspaceCollapsed },
         colors({ colors }) { return colors },
         stats({ stats }) { return stats },
-        multiFilter({ multiFilter }) { return multiFilter }
     },
     mutations: {
         setBoard(state, { boardData }) {
@@ -43,16 +38,13 @@ export const boardStore = {
             if (boardData.stats) state.stats = boardData.stats
         },
         setFilter(state, { filter }) {
-            state.filterBy = { ...state.filterBy, ...filter }
-        },
-        setMultiFilter(state, { multiFilter }) {
-            state.multiFilter = { ...state.filterBy, ...multiFilter }
+            state.filter = filter
+            this.commit({ type: 'filterBoard', filter })
         },
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
         },
-        filterBoard(state, payload) {
-            const filter = payload.filter || state.multiFilter
+        filterBoard(state, {filter}) {
             state.filteredBoard = boardService.filterBoard(state.board, filter)
         },
         updateMiniBoard(state, { board }) {
@@ -66,7 +58,6 @@ export const boardStore = {
             state.statuses = statuses
         },
         saveTask(state, { savedTask }) {
-            console.log(`savedTask:`, savedTask)
             const { task, isFifo } = savedTask
             const groupIdx = state.board.groups.findIndex(group => group._id === task.groupId)
             if (groupIdx === -1) return null
@@ -75,7 +66,7 @@ export const boardStore = {
                 if (isFifo) state.board.groups[groupIdx].tasks.push(task)
                 else state.board.groups[groupIdx].tasks.unshift(task)
             } else state.board.groups[groupIdx].tasks[taskIdx] = task
-            this.commit({ type: 'filterBoard' })
+            this.commit({ type: 'filterBoard' , filter:{}})
         },
         removeTask(state, { task }) {
             const groupIdx = state.board.groups.findIndex(anyGroup => anyGroup._id === task.groupId)
@@ -83,21 +74,21 @@ export const boardStore = {
             const taskIdx = state.board.groups[groupIdx].tasks.findIndex(anyTask => anyTask._id === task._id)
             if (taskIdx < 0) return
             state.board.groups[groupIdx].tasks.splice(taskIdx, 1)
-            this.commit({ type: 'filterBoard' })
+            this.commit({ type: 'filterBoard', filter:{} })
         },
         addGroup(state, { group, isFifo }) {
             (isFifo) ? state.board.groups.push(group) : state.board.groups.unshift(group)
-            this.commit({ type: 'filterBoard' })
+            this.commit({ type: 'filterBoard', filter:{} })
         },
         saveGroup(state, { group }) {
             const idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)
             state.board.groups[idx] = group
-            this.commit({ type: 'filterBoard' })
+            this.commit({ type: 'filterBoard', filter:{} })
         },
         removeGroup(state, { group }) {
             var idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)
             state.board.groups.splice(idx, 1)
-            this.commit({ type: 'filterBoard' })
+            this.commit({ type: 'filterBoard', filter:{} })
         },
         toggleWorkspace(state) {
             state.isWorkspaceCollapsed = !state.isWorkspaceCollapsed
