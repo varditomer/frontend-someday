@@ -15,7 +15,7 @@
         </div>
         <div class="label">
             <span v-svg-icon="'status'"></span>
-            <p class="label-text">{{ kanbanType }} </p>
+            <p class="label-text">{{ kanbanType === 'status' ? 'Priority' : 'Status' }} </p>
             <div :style="{ backgroundColor: getLabel.value }" class="inner-label">{{ getLabel.title }}
             </div>
         </div>
@@ -67,7 +67,10 @@ export default {
     },
     computed: {
         getLabel() {
-            return colorService.getLabelById(this.kanbanType, this.labelId)
+            const label = this.kanbanType === 'status'
+                ? 'priority'
+                : 'status'
+            return colorService.getLabelById(label, this.task[label])
         }
     },
     components: {
