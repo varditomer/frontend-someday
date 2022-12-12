@@ -52,11 +52,8 @@ async function removeManyTasks(taskIds, boardId) {
 
 async function save(board) {
     var savedBoard
-    if (board._id) {
-        savedBoard = await httpService.put(BOARD_URL + board._id, board)
-    } else {
-        savedBoard = await httpService.post(BOARD_URL, board)
-    }
+    if (board._id) savedBoard = await httpService.put(BOARD_URL + board._id, board)
+    else savedBoard = await httpService.post(BOARD_URL, board)
     const loggedinUser = await userService.getLoggedinUser()
     socketService.emit('save-board', { savedBoard, loggedinUser })
     return savedBoard
@@ -67,10 +64,10 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
     board.kanbanType = type
 
     if (type === 'group') return board
-    if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.tasks))
-    board.groups = board.kanbanOrder[type].reduce((groups, val) => {
+    if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.stasks))
+    board.groups = board.kanbanOrder[type].map(val => {
         const tasks = _getTasksByValue(board, type, val)
-        if (!tasks.length) return groups
+
         const group = { tasks }
         group.title = type === 'status' || type === 'priority'
             ? colorService.getLabelById(type, val).title
@@ -81,14 +78,31 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
         group._id = type === 'status' || type === 'priority'
             ? colorService.getLabelById(type, val)._id
             : utilService.makeId()
-        groups.push(group)
-        return groups
+        return group
+
     }, [])
+
+    const restOfLabels = colors()[type].filter(label =>
+        !board.groups.find(group => group._id === label._id)).map(label => {
+            const { title, _id, value } = label
+            if (!board.taskOrder[type].find(group => group._id === _id)) board.taskOrder[type].push(_id)
+            return {
+                tasks: [],
+                value,
+                title, _id
+            }
+        })
+
+    if (restOfLabels.length) board.groups.push(...restOfLabels)
+    // console.log(``, )
+
     const taskOrder = board.taskIdOrder
         ? board.taskIdOrder[type]
             ? board.taskIdOrder[type]
             : {}
         : {}
+
+
     board.groups.forEach(group => {
         if (taskOrder[group._id]?.length) {
             const tasks = []

@@ -74,6 +74,9 @@ export default {
         },
         saveBoard(board) {
             const type = this.kanbanBoard.kanbanType
+            board.groups.forEach(group => {
+                group.tasks.forEach(task => task[type] = group._id)
+            })
             board.kanbanOrder[type] = this.kanbanBoard.groups.map(group => group._id)
             this.$store.dispatch({ type: 'saveBoard', board })
         },
