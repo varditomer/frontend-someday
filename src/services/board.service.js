@@ -59,12 +59,14 @@ async function save(board) {
     return savedBoard
 }
 
-function queryKanban(storeBoard, type = 'status', dataMap) {
+async function queryKanban(storeBoard, type = 'status',) {
     const board = JSON.parse(JSON.stringify(storeBoard))
+    const dataMap = await _boardDataMap(board)
     board.kanbanType = type
 
     if (type === 'group') return board
     if (!board.kanbanOrder) board.kanbanOrder = JSON.parse(JSON.stringify(dataMap.tasks))
+
     board.groups = board.kanbanOrder[type].map(val => {
         const tasks = _getTasksByValue(board, type, val)
 
@@ -88,11 +90,10 @@ function queryKanban(storeBoard, type = 'status', dataMap) {
             if (!board.kanbanOrder[type].find(group => group._id === _id)) board.kanbanOrder[type].push(_id)
             return {
                 tasks: [],
-                color:value,
+                color: value,
                 title, _id
             }
         })
-
     if (restOfLabels.length) board.groups.push(...restOfLabels)
     // console.log(``, )
 
@@ -360,4 +361,32 @@ function _getTasksByValue(board, key, value) {
         return tasks
     }, [])
     return groups
+}
+
+async function _boardDataMap(board) {
+    const personFilter = await userService.query()
+    const groupTitle = []
+    const taskFilter = {
+        status: {},
+        priority: {},
+        date: {},
+        text: {},
+        numbers: {}
+    }
+    board.groups.forEach(group => {
+        if (!groupTitle.includes(group.title.trim())) groupTitle.push(group.title.trim())
+        
+        group.tasks.forEach(task => {
+            for (let key in taskFilter) {
+                if (task[key] !== undefined && task[key] !== null) {
+                    if (!taskFilter[key][task[key]]) taskFilter[key][task[key]] =[]
+                    taskFilter[key][task[key]].push(task._id)
+                }
+            }
+        })
+    })
+    return {
+        group: groupTitle,
+        tasks: { ...taskFilter, person: personFilter }
+    }
 }
