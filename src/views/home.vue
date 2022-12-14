@@ -9,6 +9,7 @@
         <h1>someday<span>.com</span></h1>
       </div>
       <nav class="main-nav">
+        
 
         <!-- <GoogleLogin class="google-img"  :callback="callback">
         </GoogleLogin> -->
