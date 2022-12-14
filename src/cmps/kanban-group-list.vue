@@ -54,6 +54,7 @@ export default {
             this.$emit('editing')
         },
         getColor(label) {
+            console.log(`label:`, label)
             return `background-color:${label.color}; `
         },
         getBorder(label) {
