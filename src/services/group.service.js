@@ -10,6 +10,7 @@ export const groupService = {
     save,
     remove,
     add,
+    duplicate
 }
 
 async function query(filterBy = {}) {
@@ -35,7 +36,7 @@ async function save(group, isFifo = false) {
 }
 
 async function duplicate(groupId, boardId) {
-    return await httpService.post(GROUP_URL, { groupId, boardId })
+    return await httpService.post(GROUP_URL + groupId, { groupId, boardId })
 }
 
 async function add(boardId, isFifo = true) {

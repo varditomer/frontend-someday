@@ -40,7 +40,8 @@ export const groupStore = {
         },
         async duplicateGroup({ commit }, { group }) {
             try {
-                const duplicatedGroup = await groupService.duplicate(group)
+                const { _id } = this.getters.board
+                const duplicatedGroup = await groupService.duplicate(group._id, _id)
                 commit({ type: 'addGroup', group: duplicatedGroup, isFifo: true })
                 return duplicatedGroup
             } catch (err) {
