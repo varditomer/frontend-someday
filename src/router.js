@@ -3,7 +3,6 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import home from './views/home.vue'
 import homeLogin from './views/home-login.vue'
 import boardApp from './views/board-app.vue'
-import loginSignup from './views/login-signup.vue'
 import userDetails from './views/user-details.vue'
 import taskDetails from './views/task-details.vue'
 import kanbanApp from './views/kanban-app.vue'
@@ -39,11 +38,6 @@ const routes = [
     path: '/board/:id/dashboard',
     name: 'board-dashboard',
     component: dashboardApp
-  },
-  {
-    path: '/login',
-    name: 'loginSignup',
-    component: loginSignup
   },
   {
     path: '/user/:id',
