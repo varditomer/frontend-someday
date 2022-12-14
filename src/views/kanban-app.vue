@@ -134,7 +134,7 @@ export default {
         const { id } = this.$route.params
         try {
             await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
-            this.kanbanBoardToShow = boardService.queryKanban(this.board, 'status', this.$store.getters.dataMap)
+            this.kanbanBoardToShow = await boardService.queryKanban(this.board, 'status', this.$store.getters.dataMap)
         } catch (err) {
             // this.$router.push('/')
             console.log('gotcha');

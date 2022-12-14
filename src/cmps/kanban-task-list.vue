@@ -68,8 +68,8 @@ export default {
     computed: {
         getLabel() {
             const label = this.kanbanType === 'status'
-                ? 'status'
-                : 'priority'
+                ? 'priority'
+                : 'status'
             return colorService.getLabelById(label, this.task[label])
         }
     },
