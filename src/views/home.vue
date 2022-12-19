@@ -1,7 +1,8 @@
 <template>
 
   <section class="container home text-center">
-    <img class="hero" src="/src/assets/imgs/hero.jpg" alt="">
+    <img v-if="vw > 500" class="hero" src="/src/assets/imgs/hero.jpg" alt="">
+    <img v-else class="hero" src="/src/assets/imgs/hero-mobile.jpg" alt="" style="min-height:0;height:100vh">
 
     <header class="main-header">
       <div class="logo-container">
@@ -9,7 +10,7 @@
         <h1>someday<span>.com</span></h1>
       </div>
       <nav class="main-nav">
-        
+
 
         <!-- <GoogleLogin class="google-img"  :callback="callback">
         </GoogleLogin> -->
@@ -50,6 +51,9 @@ export default {
     board() {
       return this.$store.getters.board
     },
+    vw() {
+      return window.innerWidth
+    }
   },
   data() {
     return {

@@ -6,4 +6,8 @@
     &.folded {
         grid-template-columns: 66px 30px 1fr;
     }
+
+    @include for-mobile-layout {
+        grid-template-columns: 1fr;
+    }
 }
