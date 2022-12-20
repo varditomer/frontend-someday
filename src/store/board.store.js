@@ -51,9 +51,6 @@ export const boardStore = {
             const idx = state.miniBoards.findIndex(mini => mini._id === board._id)
             state.miniBoards[idx].title = board.title
         },
-        removeBoard(state, { boardId }) {
-            state.boards = state.boards.filter(board => board._id !== boardId)
-        },
         setStatuses(state, { statuses }) {
             state.statuses = statuses
         },
@@ -134,6 +131,15 @@ export const boardStore = {
                 throw err
             }
         },
+        async removeBoard({ commit }, {boardId} ) {
+            try {
+                const res = await boardService.remove(boardId)
+                console.log(`res:`, res)
+            } catch (err) {
+                console.log('boardStore: Error in addBoard', err)
+                throw err
+            }
+        },
         async queryBoard({ commit, state }, { filter }) {
             try {
                 commit({ type: 'setFilter', filter })
@@ -154,15 +160,6 @@ export const boardStore = {
                 console.log('Could not find board');
             }
 
-        },
-        async removeBoard({ commit }, { boardId }) {
-            try {
-                await boardService.remove(boardId)
-                commit(getActionRemoveBoard(boardId))
-            } catch (err) {
-                console.log('boardStore: Error in removeBoard', err)
-                throw err
-            }
         },
         saveLabel({ dispatch }, { type, title, value, id }) {
             if (colorService.save(type, title, value, id)) dispatch({ type: loadColors })

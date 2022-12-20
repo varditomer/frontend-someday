@@ -1,4 +1,5 @@
 <template>
+
     <section class='board-header'>
         <section class="header">
             <section class="top-header">
@@ -6,7 +7,8 @@
                     contenteditable @click="isEditing = true" class="board-title">
                     {{ boardTitle }}</h1>
                 <div class="board-title-right-container">
-                    <div v-if="getlastSeenUserImg" class="last-seen">Last seen <img :src="getlastSeenUserImg" alt=""></div>
+                    <div v-if="getlastSeenUserImg" class="last-seen">Last seen <img :src="getlastSeenUserImg" alt="">
+                    </div>
                     <div class="invite">
                         <span v-svg-icon="'inviteMember'"></span>
                         Invite
@@ -35,8 +37,34 @@
                     </button>
                 </router-link>
             </section>
+            <!-- <select class="add-views-mobile hide">
+                <option>Main table</option>
+                <option>Kanban</option>
+                <option>Dashboard</option>
+            </select> -->
+            <div class="add-views-mobile hide">
+
+                <button></button>
+
+                <div class="options">
+                    <input id="radio-africa" type="radio" name="region" value="africa" checked>
+                    <label style="--index: 1" for="radio-africa">Main table</label>
+
+                    <input id="radio-asia" type="radio" name="region" value="asia">
+                    <label style="--index: 2" for="radio-asia">Kanban</label>
+
+                    <input id="radio-australia" type="radio" name="region" value="australia">
+                    <label style="--index: 3" for="radio-australia">Dashboard</label>
+                </div>
+
+                <svg viewBox="0 0 24 24">
+                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                </svg>
+
+            </div>
+            <board-filter v-if="vw<500" :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask" @addGroup="addGroup" />
         </section>
-        <board-filter :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask" @addGroup="addGroup" />
+        <board-filter v-if="vw>500" :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask" @addGroup="addGroup" />
     </section>
 
 </template>
@@ -82,7 +110,7 @@ export default {
             const users = this.getUsers
             this.lastSeenUserId = userId
             const user = users?.find(user => user._id === userId)
-            this.lastSeenUserImg = (user?.imgUrl) ? user.imgUrl : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+            this.lastSeenUserImg = user?.imgUrl || 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
         }
 
     },
@@ -93,10 +121,13 @@ export default {
         boardTitle() { return this.$store.getters.board.title },
         board() { return this.$store.getters.board },
         getUsers() { return this.$store.getters.users },
-        getlastSeenUserImg() { return (this.lastSeenUserImg) ? this.lastSeenUserImg : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' },
+        getlastSeenUserImg() { return this.lastSeenUserImg ? this.lastSeenUserImg : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' },
         loggedinUser() { return this.$store.getters.loggedinUser },
         getBoardUrl() {
-            return `https://mail.google.com/mail/u/0/?view=cm&fs=1&su=Hey! come join my someday board &body=You can find it on this link: http:/${this.$route.fullPath}.com`
+            return `https://mail.google.com/mail/u/0/?view=cm&fs=1&su=Hey! come join my someday board &body=You can find it on this link: http://somdey.onrender.com${this.$route.fullPath}.com`
+        },
+        vw() {
+            return window.innerWidth
         }
     },
     created() {

@@ -1,4 +1,5 @@
-.home {
+.home,
+.login-signup-modal {
     min-height: 100vh;
 
     .main-header {
@@ -14,6 +15,10 @@
             margin-left: 10%;
             cursor: pointer;
 
+            @include for-narrow-layout {
+                margin-left: 16px;
+            }
+
             .logo {
                 width: 28px;
                 margin-right: 10px;
@@ -23,10 +28,21 @@
                 font-family: poppins-bold;
                 letter-spacing: -1px;
                 font-size: rem(26px);
-                span{
+
+                @include for-mobile-layout {
+                    font-size: rem(18px);
+
+                }
+
+                span {
                     letter-spacing: 0;
                     font-family: poppins-regular;
                     font-size: rem(16px);
+
+                    @include for-mobile-layout {
+                        font-size: rem(12px);
+
+                    }
 
                 }
             }
@@ -38,6 +54,32 @@
             align-items: center;
             background-color: white;
             margin-right: 10%;
+
+            @include for-narrow-layout {
+                margin-right: 16px;
+            }
+
+            @include for-mobile-layout {
+
+                a {
+                    .cta-btn {
+                        display: none;
+                    }
+
+                    .login-btn {
+                        background-image: linear-gradient(to left, #6161ff, #5858e9);
+                        color: white;
+                        width: 100px;
+                        border-radius: 2em;
+
+                        &:hover {
+                            border-radius: 2em !important;
+                            color: white !important;
+                        }
+                    }
+                }
+
+            }
 
             .google-img {
                 cursor: pointer;
@@ -127,6 +169,20 @@
         padding-bottom: 20px;
         color: white;
         font-family: roboto-light;
+        padding-left: 16px;
+        padding-right: 16px;
+
+        @include for-narrow-layout {
+            padding-top: 60px;
+            font-size: rem(56px);
+            line-height: 60px;
+        }
+
+        @include for-mobile-layout {
+            font-size: rem(48px);
+            line-height: 50px;
+
+        }
     }
 
     .hero-subtitle {
@@ -137,6 +193,15 @@
         font-size: rem(22px);
         font-family: roboto-light;
         margin-bottom: 10px;
+
+        @include for-narrow-layout {
+            font-size: rem(18px);
+        }
+
+        @include for-mobile-layout {
+            line-height: 30px;
+
+        }
     }
 
     .hero-btn {

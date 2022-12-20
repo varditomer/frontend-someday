@@ -244,6 +244,10 @@
                     border-radius: 0.4em;
                     cursor: pointer;
 
+                    img{
+                        border-radius: 2em;
+                    }
+
                     &:hover {
                         background-color: $brdr-clr;
                     }

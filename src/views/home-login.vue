@@ -1,40 +1,43 @@
 <template>
     <section class="login-signup-modal flex column">
 
-        <div class="nav-btns">
-            <button :class="{ 'selected': isLogin }" @click="(isLogin = true)">Login</button>
-            <button :class="{ 'selected': !isLogin }" @click="(isLogin = false)">Signup</button>
-        </div>
+        <header class="main-header">
+            <router-link to="/" class="logo-container">
+                <img class="logo" src="/src/assets/imgs/logo.svg" alt="">
+                <h1>someday<span>.com</span></h1>
+            </router-link>
+        </header>
 
-        <section class="signup login">
+        <section class="login-signup">
             <form class="signup-form flex column" @submit.prevent="loginSignup">
+                <h1 class="login-title">Log in to your account</h1>
+                <p class="login-subtitle">Enter your details</p>
                 <label>
-                    <p>Username</p>
                     <input required type="text" v-model="creds.username" placeholder="Username">
                 </label>
                 <label>
-                    <p>Password</p>
                     <input required type="password" v-model="creds.password" placeholder="Password">
                 </label>
-                <label v-if="!isLogin">
-                    <p>Full name</p>
+                <label v-if="isSignup">
                     <input required type="text" v-model="creds.fullname" placeholder="Full name">
                 </label>
-                <label v-if="!isLogin">
-                    <p>Email</p>
+                <label v-if="isSignup">
                     <input required type="email" v-model="creds.email" placeholder="Email">
                 </label>
-                <label v-if="!isLogin">
-                    <p>Upload image</p>
+                <label v-if="isSignup">
                     <div class="add-img-btn flex center" @click="(uploadingImg = !uploadingImg)">
+                        <span v-svg-icon="'file'"></span>
+                        <p>Upload a picture</p>
                         <input type="file" @change="handleFile" />
-                        <span v-svg-icon="'outlinePlus'"></span>
-                        Add file
                     </div>
                 </label>
-                <button type="submit">
-                    {{ isLogin ? 'Login' : 'Signup' }}
+                <button class="cta-login-btn" type="submit">
+                    {{ isSignup ? 'Sign up' : 'Login' }}
                 </button>
+
+                <h2 class="signup-cta-btn">{{ isSignup ? `Already have an account?` : `Don't have an account yet?` }}
+                    <span @click="isSignup = !isSignup">{{ isSignup ? 'Login' : 'Sign up' }}</span>
+                </h2>
             </form>
         </section>
 
@@ -56,7 +59,7 @@ export default {
     },
     data() {
         return {
-            isLogin: false,
+            isSignup: false,
             creds: {},
             uploadingImg: false
         }

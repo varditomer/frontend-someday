@@ -1,7 +1,7 @@
 <template>
     <section class="main-app-container" :class="{ 'folded': isWorkspaceCollapsed }">
         <task-nav />
-        <board-workspace @addBoard="addBoard" @toggleWorkspace="toggleWorkspace"
+        <board-workspace @addBoard="addBoard" @removeBoard="removeBoard" @toggleWorkspace="toggleWorkspace"
             :isWorkspaceCollapsed="isWorkspaceCollapsed" />
         <section class='board-app-container' :class="{ 'folded': isViewingTask }">
             <regular-modal class="task-select-modal-parent" :selectedTasks="selectedTasksWithColor"
@@ -80,6 +80,9 @@ export default {
         },
         addBoard() {
             this.$store.dispatch({ type: 'addBoard' })
+        },
+        removeBoard(boardId) {
+            this.$store.dispatch({ type: 'removeBoard', boardId })
         },
         saveGroup(group) {
             this.$store.dispatch({ type: 'saveGroup', group })

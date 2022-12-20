@@ -4,9 +4,12 @@
             <router-link to="/">
                 <img class="logo" src="../assets/imgs/logo.svg" alt="G">
             </router-link>
-            <router-link :to="('/board/' + board._id)">
+            <router-link :to="('/board/' + board._id)" class="board-btn">
                 <span v-svg-icon="'coloredBoard'"></span>
             </router-link>
+            <button class="notification-btn">
+                <span v-svg-icon="'notification'"></span>
+            </button>
         </section>
         <section class="bottom-nav" @click="logout">
             <div class="logout-container">
