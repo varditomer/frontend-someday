@@ -112,7 +112,6 @@ export default {
         setLastSeenUserImg(userId = '') {
             const users = this.getUsers
             this.lastSeenUserId = userId
-            console.log(`userId:`, userId)
             const user = users?.find(user => user._id === userId)
             this.lastSeenUserImg = user?.imgUrl || 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
         },
@@ -152,7 +151,6 @@ export default {
 
     },
     mounted() {
-        console.log(`mounted:`,)
         socketService.on('user-connected', (userId) => {
             this.setLastSeenUserImg(userId)
         })
