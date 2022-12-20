@@ -132,11 +132,25 @@
 
             .top-header {
                 flex-basis: 100%;
+                position: relative;
                 justify-content: center;
                 margin-bottom: 18px;
 
+                .board-title {
+                    &.editing {
+                        padding-right: 8px;
+                    }
+                }
+
                 .board-title-right-container {
                     display: none;
+                }
+
+
+                a {
+                    position: absolute;
+                    left: -16px;
+                    display: block !important;
                 }
             }
 
@@ -152,8 +166,7 @@
                 box-sizing: content-box;
                 width: 120px;
                 padding: 6px;
-                height: 1em;
-                background-color: lighten($brdr-clr,6%); // necessary for overlaying hover bg-color of selected option
+                background-color: lighten($brdr-clr, 6%); // necessary for overlaying hover bg-color of selected option
 
                 &:hover svg {
                     transform: scale(1.1);
@@ -209,11 +222,11 @@
                     display: flex;
                     align-items: center;
                     width: 100%;
-                    height: 30px;
+                    height: 40px;
                     z-index: 1;
                     padding: 6px;
                     line-height: 1;
-                    background-color: lighten($brdr-clr,6%);
+                    background-color: lighten($brdr-clr, 6%);
                     cursor: pointer;
                     transition: background-color 0.2s, transform 0.2s ease;
                     font-size: rem(14px);
@@ -240,7 +253,7 @@
                     position: absolute;
                     width: 21px;
                     right: 6px;
-                    top: 3px;
+                    top: 10px;
                     z-index: 2;
                     fill: currentColor;
                     transition: transform 0.1s;
@@ -252,16 +265,17 @@
                 align-items: center;
                 justify-content: center;
                 position: static;
-                background-color: lighten($brdr-clr,6%);
-                height: 30px;
+                background-color: lighten($brdr-clr, 6%);
+                height: 40px;
                 margin-left: 8px;
-                border-radius: .2em;
 
 
                 .filter {
                     margin: 0;
-                    padding-right: 8px;
-                    button{
+                    padding-right: 16px;
+                    padding-left: 8px;
+
+                    button {
                         padding: 0;
                     }
                 }
@@ -269,18 +283,20 @@
                 .search-tasks {
                     position: absolute;
                     right: 0px;
-                    background-color: lighten($brdr-clr,6%);
+                    background-color: lighten($brdr-clr, 6%);
                     margin: 0;
-                    width: 30px;
-                    height: 30px;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 0px;
 
-                    span{
+                    span {
                         position: relative;
                         right: 3px;
                         scale: .8;
                     }
-                    input{
-                       display: none;
+
+                    input {
+                        display: none;
                     }
                 }
 
