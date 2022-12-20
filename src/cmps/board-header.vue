@@ -1,4 +1,5 @@
 <template>
+
     <section class='board-header'>
         <section class="header">
             <section class="top-header">
@@ -36,8 +37,34 @@
                     </button>
                 </router-link>
             </section>
+            <!-- <select class="add-views-mobile hide">
+                <option>Main table</option>
+                <option>Kanban</option>
+                <option>Dashboard</option>
+            </select> -->
+            <div class="add-views-mobile hide">
+
+                <button></button>
+
+                <div class="options">
+                    <input id="radio-africa" type="radio" name="region" value="africa" checked>
+                    <label style="--index: 1" for="radio-africa">Main table</label>
+
+                    <input id="radio-asia" type="radio" name="region" value="asia">
+                    <label style="--index: 2" for="radio-asia">Kanban</label>
+
+                    <input id="radio-australia" type="radio" name="region" value="australia">
+                    <label style="--index: 3" for="radio-australia">Dashboard</label>
+                </div>
+
+                <svg viewBox="0 0 24 24">
+                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                </svg>
+
+            </div>
+            <board-filter v-if="vw<500" :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask" @addGroup="addGroup" />
         </section>
-        <board-filter :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask" @addGroup="addGroup" />
+        <board-filter v-if="vw>500" :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask" @addGroup="addGroup" />
     </section>
 
 </template>
@@ -99,6 +126,9 @@ export default {
         loggedinUser() { return this.$store.getters.loggedinUser },
         getBoardUrl() {
             return `https://mail.google.com/mail/u/0/?view=cm&fs=1&su=Hey! come join my someday board &body=You can find it on this link: http://somdey.onrender.com${this.$route.fullPath}.com`
+        },
+        vw() {
+            return window.innerWidth
         }
     },
     created() {

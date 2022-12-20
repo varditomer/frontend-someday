@@ -1,6 +1,6 @@
 <template @keydown.escape="showModal = false">
     <section class='board-filter'>
-        <div class="add-new-btns">
+        <div v-if="vw > 500" class="add-new-btns">
             <button @click="addTask">New Item</button>
             <span @click="openModal('new-item-modal')" v-svg-icon="'arrowDown'" class="add-new-group-btn"></span>
         </div>
@@ -11,7 +11,7 @@
                 @blur="(isSearchClicked = false)" v-model="txt" @input="setFilter('txt', txt)">
             <span v-svg-icon="'cancel'" class="cancel" :class="{ 'hide': !isFiltering }" @click="clearFilter"></span>
         </div>
-        <div @click="openModal('filter-person-modal')" @mouseover="(showTitleModal = true)"
+        <div v-if="vw > 500" @click="openModal('filter-person-modal')" @mouseover="(showTitleModal = true)"
             @mouseout="(showTitleModal = false)" class="person-attach">
             <span v-svg-icon="'account'"></span>
             <button>Person</button>
@@ -20,10 +20,11 @@
             <span v-svg-icon="'filter'"></span>
             <button>Filter</button>
         </div>
-        <div class="sort">
+        <!-- <div class="sort">
             <span v-svg-icon="'sort'"></span>
             <button>Sort</button>
-        </div>
+        </div> -->
+
 
 
         <regular-modal :filter="filter" @setFilter="setFilter" :users="users" @closeModal="(showModal = false)"
@@ -83,6 +84,11 @@ export default {
             this.txt = ''
             this.$emit('setFilter', 'txt', '')
         },
+    },
+    computed: {
+        vw() {
+            return window.innerWidth
+        }
     },
     components: {
         regularModal,

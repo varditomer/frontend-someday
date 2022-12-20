@@ -187,4 +187,8 @@
             margin-left: 5px;
         }
     }
+
+    @include for-mobile-layout{
+        display: block;
+    }
 }
