@@ -3,6 +3,9 @@
     <section class='board-header'>
         <section class="header">
             <section class="top-header">
+                <router-link to="/" class="hide">
+                    <span v-svg-icon="'bigArrowLeft'" class="back-home-btn"></span>
+                </router-link>
                 <h1 :class="{ 'editing': isEditing }" @keydown.enter.prevent="saveBoardTitle" @blur="saveBoardTitle"
                     contenteditable @click="isEditing = true" class="board-title">
                     {{ boardTitle }}</h1>
@@ -37,23 +40,21 @@
                     </button>
                 </router-link>
             </section>
-            <!-- <select class="add-views-mobile hide">
-                <option>Main table</option>
-                <option>Kanban</option>
-                <option>Dashboard</option>
-            </select> -->
             <div class="add-views-mobile hide">
 
                 <button></button>
 
-                <div class="options">
-                    <input id="radio-africa" type="radio" name="region" value="africa" checked>
+                <div class="options" @change="goTo">
+                    <input :checked="view === 'table'" class="main-table-view" id="radio-africa" type="radio"
+                        name="region" :value="('/board/' + board._id)">
                     <label style="--index: 1" for="radio-africa">Main table</label>
 
-                    <input id="radio-asia" type="radio" name="region" value="asia">
+                    <input :checked="view === 'kanban'" class="kanban-view" id="radio-asia" type="radio" name="region"
+                        :value="('/board/' + board._id + '/kanban/')">
                     <label style="--index: 2" for="radio-asia">Kanban</label>
 
-                    <input id="radio-australia" type="radio" name="region" value="australia">
+                    <input :checked="view === 'dashboard'" class="dashboard-view" id="radio-australia" type="radio"
+                        name="region" :value="('/board/' + board._id + '/dashboard/')">
                     <label style="--index: 3" for="radio-australia">Dashboard</label>
                 </div>
 
@@ -62,9 +63,11 @@
                 </svg>
 
             </div>
-            <board-filter v-if="vw<500" :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask" @addGroup="addGroup" />
+            <board-filter v-if="vw < 500" :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask"
+                @addGroup="addGroup" />
         </section>
-        <board-filter v-if="vw>500" :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask" @addGroup="addGroup" />
+        <board-filter v-if="vw > 500" :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask"
+            @addGroup="addGroup" />
     </section>
 
 </template>
@@ -111,6 +114,18 @@ export default {
             this.lastSeenUserId = userId
             const user = users?.find(user => user._id === userId)
             this.lastSeenUserImg = user?.imgUrl || 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+        },
+        goTo(ev) {
+            const dest = ev.target.value
+            console.log(dest);
+            this.$router.push(dest)
+        },
+        setView() {
+            const path = this.$route.path
+            if (path.includes('kanban')) this.view = 'kanban'
+            else if (path.includes('dashboard')) this.view = 'dashboard'
+            else this.view = 'table'
+
         }
 
     },
@@ -131,11 +146,7 @@ export default {
         }
     },
     created() {
-        const path = this.$route.path
-        if (path.includes('kanban')) this.view = 'kanban'
-        else if (path.includes('dashboard')) this.view = 'dashboard'
-        else this.view = 'table'
-
+        this.setView()
         this.setLastSeenUserImg(this.loggedinUser?._id)
 
     },
