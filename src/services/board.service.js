@@ -38,8 +38,6 @@ async function query(id = '') {
 }
 
 async function remove(boardId) {
-    console.log(`boardId:`, boardId)
-    console.log(`BOARD_URL + boardId:`, BOARD_URL + boardId)
     return await httpService.delete(BOARD_URL + boardId)
 }
 
@@ -99,7 +97,6 @@ async function queryKanban(storeBoard, type = 'status',) {
             }
         })
     if (restOfLabels.length) board.groups.push(...restOfLabels)
-    // console.log(``, )
 
     const taskOrder = board.taskIdOrder
         ? board.taskIdOrder[type]
@@ -218,7 +215,6 @@ async function getEmptyBoard() {
 }
 
 async function getDashboardData(board) {
-    console.log(board);
     if (!board._id) return {}
     const users = await userService.query()
     const data = {
@@ -244,7 +240,6 @@ async function getDashboardData(board) {
     colors().status.forEach(status => data.status[status._id] = 0)
     colors().priority.forEach(priority => data.priority[priority._id] = 0)
     board.groups.forEach(group => {
-        console.log(group);
         data.group[group._id].total += group.tasks.length
         group.tasks.forEach(task => {
             if (task.status) {

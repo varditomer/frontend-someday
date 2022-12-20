@@ -144,11 +144,11 @@ export default {
         },
     },
     methods: {
-        setLabels() {
+        setStatuses() {
             const data = this.dashboardData
             for (let statusId in data.status) {
                 const label = colorService.getLabelById('status', statusId)
-                if (!label || !label.length) return
+                if (!label) continue
                 const { title, value } = label
                 label.count = data.status[statusId]
                 this.barChartData.labels.unshift(title)
@@ -174,7 +174,6 @@ export default {
             for (let personId in data.person) {
                 const { fullname } = users.find(u => u._id === personId)
                 this.pieChartData.labels.unshift(fullname)
-                console.log('this is tasks per member', data.person);
                 this.pieChartData.datasets[0].data.unshift(data.person[personId].total)
 
             }
@@ -182,16 +181,12 @@ export default {
         getTotalTasks() {
             let sum = 0
             for (let g in this.dashboardData.group) {
-                console.log('this is getTotalTasks', this.dashboardData.group);
-
                 sum += this.dashboardData.group[g].total
             }
             this.totalTasksCount = sum
         },
         setGroups() {
             for (let g in this.dashboardData.group) {
-                console.log('this is setGroups', this.dashboardData.group);
-
                 const { color, title, total } = this.dashboardData.group[g]
                 this.groups.push({ color, title, total })
             }
@@ -201,13 +196,11 @@ export default {
         const { id } = this.$route.params
         await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
         this.dashboardData = await boardService.getDashboardData(this.board)
-        this.setLabels()
+        this.setStatuses()
         this.setPriorities()
         this.getTotalTasks()
         this.setTasksPerMember()
         this.setGroups()
-        console.log(this.dashboardData);
     }
-
 }
 </script>
