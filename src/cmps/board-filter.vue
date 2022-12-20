@@ -7,8 +7,10 @@
         <div class="search-tasks" :class="{ 'input-open': isSearchClicked, 'filtering': isFiltering }"
             @click="searchClicked">
             <span v-svg-icon="'search'"></span>
-            <input :class="{ 'open': isSearchClicked || isFiltering }" type="text" placeholder="Search"
-                @blur="(isSearchClicked = false)" v-model="txt" @input="setFilter('txt', txt)">
+            <input class="search-input" :class="{ 'open': isSearchClicked || isFiltering }" type="text"
+                placeholder="Search" @blur="(isSearchClicked = false)" v-model="txt" @input="setFilter('txt', txt)">
+            <input @blur="(isSearchClicked = false)" v-model="txt" @input="setFilter('txt', txt)"
+            :class="{ 'open': isSearchClicked || isFiltering }" class="search-input-mobile hide" type="text">
             <span v-svg-icon="'cancel'" class="cancel" :class="{ 'hide': !isFiltering }" @click="clearFilter"></span>
         </div>
         <div v-if="vw > 500" @click="openModal('filter-person-modal')" @mouseover="(showTitleModal = true)"

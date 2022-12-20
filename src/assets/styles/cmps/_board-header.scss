@@ -288,6 +288,7 @@
                     width: 40px;
                     height: 40px;
                     border-radius: 0px;
+                    transition: .4s;
 
                     span {
                         position: relative;
@@ -295,8 +296,19 @@
                         scale: .8;
                     }
 
-                    input {
+                    .search-input {
                         display: none;
+                    }
+                    &.input-open{
+                        width: 40%;
+                    }
+
+                    .search-input-mobile{
+
+                        &.open{
+                            width: 100%;
+                            display: block !important;
+                        }
                     }
                 }
 

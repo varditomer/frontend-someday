@@ -93,7 +93,6 @@ export default {
         changeView(viewName) {
             this.view = viewName
         },
-
         addGroup() {
             this.$emit('addGroup')
         },
