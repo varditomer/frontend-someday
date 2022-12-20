@@ -81,7 +81,6 @@ export default {
         setLastSeenUserImg(userId = '') {
             const users = this.getUsers
             this.lastSeenUserId = userId
-            console.log(`userId:`, userId)
             const user = users?.find(user => user._id === userId)
             this.lastSeenUserImg = (user?.imgUrl) ? user.imgUrl : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
         }
@@ -101,7 +100,6 @@ export default {
         }
     },
     created() {
-        console.log(`created:`,)
         const path = this.$route.path
         if (path.includes('kanban')) this.view = 'kanban'
         else if (path.includes('dashboard')) this.view = 'dashboard'
@@ -111,7 +109,6 @@ export default {
 
     },
     mounted() {
-        console.log(`mounted:`,)
         socketService.on('user-connected', (userId) => {
             this.setLastSeenUserImg(userId)
         })
