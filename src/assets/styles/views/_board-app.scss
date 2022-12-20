@@ -6,4 +6,8 @@
     &.folded{
         margin-right: 570px;
     }
+
+    @include for-mobile-layout{
+        grid-template-rows: 120px 1fr;
+    }
 }

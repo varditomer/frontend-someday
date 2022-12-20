@@ -25,6 +25,7 @@
                 border-radius: 0.1em;
                 transition: padding 0.4s;
                 height: 100%;
+
                 &:hover {
                     outline: 1px solid $brdr-clr;
                 }
@@ -37,10 +38,12 @@
                     padding-right: 200px;
                 }
             }
+
             .board-title-right-container {
                 display: flex;
                 align-items: center;
                 gap: 8px;
+
                 .last-seen {
                     img {
                         height: 24px;
@@ -49,17 +52,20 @@
                         margin-left: 4px;
                     }
                 }
+
                 div {
                     font-size: rem(14px);
                     padding: 4px 8px;
                     display: flex;
                     align-items: center;
                     border-radius: 4px;
+
                     span {
                         margin-right: 4px;
                     }
-                    
+
                 }
+
                 .invite {
                     position: relative;
                     cursor: pointer;
@@ -70,7 +76,7 @@
                         top: 0;
                         height: 28px;
                         width: 73.71px;
-    
+
                     }
                 }
             }
@@ -110,6 +116,179 @@
                 font-family: roboto-medium;
                 color: $layout-black;
             }
+        }
+    }
+
+    @include for-mobile-layout {
+        padding: 16px;
+        display: flex;
+        // grid-template-rows: 1fr;
+
+        .header {
+            display: flex;
+            position: relative;
+            flex-wrap: wrap;
+            width: 100%;
+
+            .top-header {
+                flex-basis: 100%;
+                justify-content: center;
+                margin-bottom: 18px;
+
+                .board-title-right-container {
+                    display: none;
+                }
+            }
+
+            .add-views {
+                display: none;
+            }
+
+            .add-views-mobile {
+                z-index: 50000;
+                display: flex !important;
+                align-items: center;
+                position: relative;
+                box-sizing: content-box;
+                width: 120px;
+                padding: 6px;
+                height: 1em;
+                background-color: lighten($brdr-clr,6%); // necessary for overlaying hover bg-color of selected option
+
+                &:hover svg {
+                    transform: scale(1.1);
+                }
+
+                button {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    z-index: 3;
+                    border: none;
+                    outline: none;
+                    background: none;
+                    cursor: pointer;
+
+                    &:focus {
+                        &~svg {
+                            transform: rotate(-180deg);
+                            //transform: scaleY(-1);
+                        }
+                    }
+                }
+
+                .options {
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                }
+
+                input {
+                    display: none;
+
+                    &:checked+label {
+                        font-size: rem(14px);
+                        font-family: roboto-medium;
+                        display: flex;
+                        align-items: center;
+                        z-index: 2;
+                        transform: none !important;
+
+
+                    }
+                }
+
+                label {
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    height: 30px;
+                    z-index: 1;
+                    padding: 6px;
+                    line-height: 1;
+                    background-color: lighten($brdr-clr,6%);
+                    cursor: pointer;
+                    transition: background-color 0.2s, transform 0.2s ease;
+                    font-size: rem(14px);
+                    font-family: roboto-medium;
+
+                    &:hover {
+                        background-color: grey;
+                    }
+                }
+
+                button:focus+.options input:not(:checked)+label,
+                .options label:active,
+                .options label:active~label {
+                    transform: translateY(calc(var(--index) * 100%));
+                }
+
+                button:focus+.options input:checked+label~label,
+                .options input:checked~label:active,
+                .options input:checked~label:active~label {
+                    transform: translateY(calc((var(--index) - 1) * 100%));
+                }
+
+                svg {
+                    position: absolute;
+                    width: 21px;
+                    right: 6px;
+                    top: 3px;
+                    z-index: 2;
+                    fill: currentColor;
+                    transition: transform 0.1s;
+                }
+            }
+
+            .board-filter {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: static;
+                background-color: lighten($brdr-clr,6%);
+                height: 30px;
+                margin-left: 8px;
+                border-radius: .2em;
+
+
+                .filter {
+                    margin: 0;
+                    padding-right: 8px;
+                    button{
+                        padding: 0;
+                    }
+                }
+
+                .search-tasks {
+                    position: absolute;
+                    right: 0px;
+                    background-color: lighten($brdr-clr,6%);
+                    margin: 0;
+                    width: 30px;
+                    height: 30px;
+
+                    span{
+                        position: relative;
+                        right: 3px;
+                        scale: .8;
+                    }
+                    input{
+                       display: none;
+                    }
+                }
+
+
+            }
+
+
+
         }
     }
 }
