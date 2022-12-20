@@ -40,6 +40,7 @@
                     <span v-svg-icon="'board'"></span>
                     <p class="board-title">{{ miniBoard.title }}</p>
                 </router-link>
+                <span class="remove-board" v-svg-icon="'close'" @click="removeBoard(miniBoard._id)"></span>
             </div>
         </section>
 
@@ -52,7 +53,7 @@ import titleModal from './dynamic-modals/title-modal.vue'
 export default {
 
     name: 'board-workspace',
-    emits: ['addBoard', 'toggleWorkspace'],
+    emits: ['addBoard', 'toggleWorkspace', 'removeBoard'],
     props: {
         isWorkspaceCollapsed: Boolean
     },
@@ -84,9 +85,12 @@ export default {
         toggleWorkspace() {
             this.$emit('toggleWorkspace')
         },
-        // isCurrBoard(miniBoardIdx) {
-        //     return miniBoardIdx === this.$route.params.id
-        // }
+        removeBoard(boardId) {
+            const defaultBoardId = this.miniBoards[0]._id
+            if (boardId === defaultBoardId) return alert('Default board cannot be removed!')
+            this.$router.push('/board/' + defaultBoardId)
+            this.$emit('removeBoard', boardId)
+        }
     },
     components: {
         titleModal

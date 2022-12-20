@@ -38,6 +38,8 @@ async function query(id = '') {
 }
 
 async function remove(boardId) {
+    console.log(`boardId:`, boardId)
+    console.log(`BOARD_URL + boardId:`, BOARD_URL + boardId)
     return await httpService.delete(BOARD_URL + boardId)
 }
 

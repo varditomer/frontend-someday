@@ -153,7 +153,7 @@
             background-color: $primary-blue;
             position: relative;
             color: white;
-
+            
             span {
                 fill: white;
             }
@@ -168,21 +168,41 @@
             }
         }
     }
-
+    
     .boards-titles-container {
         cursor: pointer;
         padding-top: 10px;
         height: 60%;
         overflow-y: auto;
-
+        
+        
         .boards-titles {
+            position: relative;
             border-radius: 0.2em;
             height: 32px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-
+            .remove-board{
+                font-size: rem(10px);
+                position: absolute;
+                right: 6px;
+                padding: 3px;
+                align-self: flex-start;
+                visibility: hidden ;
+            }
             &:hover {
+                .remove-board{
+                    visibility: visible !important;
+                    &:hover {
+                        border-radius: 2em;
+                        background-color: $wrkspce-bgc;
+                    }
+                    svg {
+                        color: $layout-black;
+                        scale: (1.1);
+                    }
+                }
                 background-color: darken($wrkspce-bgc, 8%);
             }
             &.selected-board {
@@ -204,6 +224,7 @@
                     position: relative;
                     top: 1px;
                 }
+
             }
         }
     }
