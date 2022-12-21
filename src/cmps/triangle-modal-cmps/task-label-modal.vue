@@ -66,14 +66,8 @@ export default {
             colorService.update(type, id, title.trim(), val.trim())
             this.$store.dispatch({ type: 'loadColors' })
             this.showColorPicker = false
-            console.log('val', val);
-            console.log('id', id);
-
-
         },
         renderModal(id) {
-            console.log('id', id);
-
             this.id = id
             this.showColorPicker = true;
             this.showColorPicker = true;

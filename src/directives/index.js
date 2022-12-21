@@ -5,8 +5,7 @@ export const focusDirective = {
 }
 export const condFocusDirective = {
   mounted: (el, boolean) => {
-    if (!boolean.value) return
-    console.log(`true:`,)
+    if (!boolean.value) returns
     el.focus()
   },
 }
@@ -55,7 +54,6 @@ export const clickOutsideDirective = {
 
 export const close = {
   mounted(el, { value }, x) {
-    console.log(x)
     el.onkeyup = () => {
       const color = _getRandomColor()
       el.style.backgroundColor = color

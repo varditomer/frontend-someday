@@ -1,19 +1,8 @@
 <template>
 
     <section class='group-list-container' v-if="boardToShow" @scroll="scrolling">
-        <draggable v-if="isNarrow" v-model="boardToShow.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
-            @end="saveBoard(boardToShow.cmpsOrder)" handle=".group-preview-title">
-            <template #item="{ element }" >
-                <group-preview @addColumn="addColumn" @saveSelectedTasks="saveSelectedTasks"
-                    :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
-                    :key="element._id" @toggleSelectAllTasks="toggleSelectAllTasks" @saveTask="saveTask"
-                    @removeTask="removeTask" @saveGroup="saveGroup" @saveBoard="saveBoard" @addGroup="addGroup"
-                    @removeGroup="removeGroup" @duplicateGroup="duplicateGroup" @duplicateTask="duplicateTask"
-                    :colors="colors" @removeColumn="removeColumn" />
-            </template>
-        </draggable>
-        <draggable v-else v-model="boardToShow.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
-            @end="saveBoard(boardToShow.cmpsOrder)">
+        <draggable v-model="boardToShow.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
+            @end="saveBoard(boardToShow.cmpsOrder)" handle=".group-preview-title" delayOnTouchOnly="true">
             <template #item="{ element }" >
                 <group-preview @addColumn="addColumn" @saveSelectedTasks="saveSelectedTasks"
                     :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
@@ -126,7 +115,6 @@ export default {
             return JSON.parse(JSON.stringify(this.board))
         },
         isNarrow() {
-            console.log(`window.innerWidth <= 500`, window.innerWidth <= 500)
             return window.innerWidth <= 500
 
         }

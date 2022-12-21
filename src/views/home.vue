@@ -64,13 +64,9 @@ export default {
   },
   methods: {
     callback(response) {
-      console.log(`1:`,)
-      console.log(`response:`, response)
-      console.log(`response.credential:`, response.credential)
       // This callback will be triggered when the user selects or login to
       // his Google account from the popup
       const userData = decodeCredential(response.credential)
-      console.log(`userData:`, userData)
       // try {
       //     console.log(`userCreds:`, userCreds)
       //     // await this.$store.dispatch({ type: 'loginGoogle', userCreds })
@@ -82,7 +78,6 @@ export default {
 
     },
     async handleCredentialResponse(ev) {
-      console.log('bab');
       gapi.auth2.GoogleAuth.then(res => console.log(res))
     }
   },

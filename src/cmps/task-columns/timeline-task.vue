@@ -86,8 +86,7 @@ export default {
             return new Date(dates.year, dates.month, dates.day)
             // return new Date(dateString).getTime()
         },
-        updateTask(timeline) {
-            console.log(timeline);
+        updateTask(timeline) {s
             this.$emit('updateTask', { key: 'timeline', val: timeline })
         }
     },

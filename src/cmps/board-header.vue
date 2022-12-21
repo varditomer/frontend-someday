@@ -103,7 +103,6 @@ export default {
         },
         goTo(ev) {
             const dest = ev.target.value
-            console.log(dest);
             this.$router.push(dest)
         },
         setView() {

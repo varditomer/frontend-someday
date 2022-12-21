@@ -3,7 +3,7 @@
     <section class=''>
         <draggable v-if="kanbanBoard?.groups?.length" v-model="kanbanBoard.groups" animation="220"
             itemKey="element.title" :class="{ 'group-dragged': beingDragged }" class="kanban-group-list-container"
-            @end="saveBoard(JSON.parse(JSON.stringify(this.$store.getters.board)))">
+            @end="saveBoard(JSON.parse(JSON.stringify(this.$store.getters.board)))" delayOnTouchOnly="true">
             <template #item="{ element }">
                 <section class="group-preview" :style="getBorder(element)">
                     <div class="group-title" :style="getColor(element)">
@@ -54,7 +54,6 @@ export default {
             this.$emit('editing')
         },
         getColor(label) {
-            console.log(`label:`, label)
             return `background-color:${label.color}; `
         },
         getBorder(label) {
