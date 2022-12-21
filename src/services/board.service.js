@@ -60,7 +60,6 @@ async function save(board) {
 }
 
 async function queryKanban(storeBoard, type = 'status',) {
-    debugger
     const board = JSON.parse(JSON.stringify(storeBoard))
     const dataMap = await _boardDataMap(board)
     board.kanbanType = type
