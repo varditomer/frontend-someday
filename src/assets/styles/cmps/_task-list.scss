@@ -174,14 +174,31 @@
         }
 
         @include for-mobile-layout {
-            .static{
-                .empty-span{
+            display: grid;
+            grid-template-columns: 50vw 1fr;
+
+            .static {
+                width: 50vw;
+                .empty-span {
                     display: none;
                 }
-                .task-select{
+
+                .task-select {
                     left: 0px;
+
                 }
+
+                .add-task-sec {
+                    width: calc(50vw - 36px);
+
+                    .add-new-task-inline {
+                        margin-left: 6px;
+                    }
+
+                }
+
             }
+
         }
     }
 
@@ -255,8 +272,17 @@
     @include for-mobile-layout {
         padding-left: 8px;
 
+        .task-summary {
+            display: none !important;
+        }
+
+        div {
+            width: fit-content;
+        }
+
         >li:first-child {
-            grid-template-columns: 50% 50%;
+            grid-template-columns: 50vw 1fr;
+            width: fit-content;
 
             .static {
                 grid-template-columns: 36px 1fr;
