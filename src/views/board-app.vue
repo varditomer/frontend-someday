@@ -91,7 +91,6 @@ export default {
             this.$store.dispatch({ type: 'removeGroup', group })
         },
         addGroup(isFifo = true) {
-            console.log(isFifo);
             this.$store.dispatch({ type: 'addGroup', isFifo })
         },
         duplicateGroup(group) {
