@@ -51,6 +51,12 @@ export const boardStore = {
             const idx = state.miniBoards.findIndex(mini => mini._id === board._id)
             state.miniBoards[idx].title = board.title
         },
+        removeMiniBoard(state, {boardId}){
+            const idx = state.miniBoards.findIndex(mini => {
+                return mini._id === boardId
+            })
+            state.miniBoards.splice(idx,1)
+        },
         setStatuses(state, { statuses }) {
             state.statuses = statuses
         },
