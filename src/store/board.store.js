@@ -44,12 +44,18 @@ export const boardStore = {
         setFirstBoardId(state, { boardId }) {
             state.firstBoardId = boardId
         },
-        filterBoard(state, {filter}) {
+        filterBoard(state, { filter }) {
             state.filteredBoard = boardService.filterBoard(state.board, filter)
         },
         updateMiniBoard(state, { board }) {
             const idx = state.miniBoards.findIndex(mini => mini._id === board._id)
             state.miniBoards[idx].title = board.title
+        },
+        removeMiniBoard(state, {boardId}){
+            const idx = state.miniBoards.findIndex(mini => {
+                return mini._id === boardId
+            })
+            state.miniBoards.splice(idx,1)
         },
         setStatuses(state, { statuses }) {
             state.statuses = statuses
@@ -63,7 +69,7 @@ export const boardStore = {
                 if (isFifo) state.board.groups[groupIdx].tasks.push(task)
                 else state.board.groups[groupIdx].tasks.unshift(task)
             } else state.board.groups[groupIdx].tasks[taskIdx] = task
-            this.commit({ type: 'filterBoard' , filter:{}})
+            this.commit({ type: 'filterBoard', filter: {} })
         },
         removeTask(state, { task }) {
             const groupIdx = state.board.groups.findIndex(anyGroup => anyGroup._id === task.groupId)
@@ -71,21 +77,21 @@ export const boardStore = {
             const taskIdx = state.board.groups[groupIdx].tasks.findIndex(anyTask => anyTask._id === task._id)
             if (taskIdx < 0) return
             state.board.groups[groupIdx].tasks.splice(taskIdx, 1)
-            this.commit({ type: 'filterBoard', filter:{} })
+            this.commit({ type: 'filterBoard', filter: {} })
         },
         addGroup(state, { group, isFifo }) {
-            (isFifo) ? state.board.groups.push(group) : state.board.groups.unshift(group)
-            this.commit({ type: 'filterBoard', filter:{} })
+            isFifo ? state.board.groups.push(group) : state.board.groups.unshift(group)
+            this.commit({ type: 'filterBoard', filter: {} })
         },
         saveGroup(state, { group }) {
             const idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)
             state.board.groups[idx] = group
-            this.commit({ type: 'filterBoard', filter:{} })
+            this.commit({ type: 'filterBoard', filter: {} })
         },
         removeGroup(state, { group }) {
             var idx = state.board.groups.findIndex(anyGroup => anyGroup._id === group._id)
             state.board.groups.splice(idx, 1)
-            this.commit({ type: 'filterBoard', filter:{} })
+            this.commit({ type: 'filterBoard', filter: {} })
         },
         toggleWorkspace(state) {
             state.isWorkspaceCollapsed = !state.isWorkspaceCollapsed
@@ -131,7 +137,7 @@ export const boardStore = {
                 throw err
             }
         },
-        async removeBoard({ commit }, {boardId} ) {
+        async removeBoard({ commit }, { boardId }) {
             try {
                 const res = await boardService.remove(boardId)
                 console.log(`res:`, res)

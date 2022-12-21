@@ -3,11 +3,12 @@
     position: relative;
     grid-template-rows: 186px 1fr;
 
-    &.folded{
+    &.folded {
         margin-right: 570px;
     }
 
-    @include for-mobile-layout{
+    @include for-mobile-layout {
         grid-template-rows: 120px 1fr;
+        gap: 18px;
     }
 }

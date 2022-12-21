@@ -88,6 +88,7 @@ export default {
         removeBoard(boardId) {
             const defaultBoardId = this.miniBoards[0]._id
             if (boardId === defaultBoardId) return alert('Default board cannot be removed!')
+            this.$store.commit({ type: 'removeMiniBoard', boardId })
             this.$router.push('/board/' + defaultBoardId)
             this.$emit('removeBoard', boardId)
         }
@@ -95,14 +96,6 @@ export default {
     components: {
         titleModal
     },
-    created() {
-
-
-
-    },
-    updated() {
-
-    }
 
 }
 </script>

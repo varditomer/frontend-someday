@@ -245,12 +245,9 @@
             }
         }
 
-
         .options {
             left: 0px;
         }
-
-
 
         .options,
         .group-arrow {
@@ -301,6 +298,21 @@
                 margin: 0;
                 padding: 0;
                 font-family: roboto-light;
+            }
+        }
+
+        @include for-mobile-layout {
+            padding-left: 8px;
+            .group-prev {
+                display: flex;
+
+                .static {
+
+                    .options,
+                    .group-arrow {
+                        display: none !important;
+                    }
+                }
             }
         }
 
