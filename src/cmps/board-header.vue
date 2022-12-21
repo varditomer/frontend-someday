@@ -40,29 +40,11 @@
                     </button>
                 </router-link>
             </section>
-            <div class="add-views-mobile hide">
-
-                <button></button>
-
-                <div class="options" @change="goTo">
-                    <input :checked="view === 'table'" class="main-table-view" id="radio-africa" type="radio"
-                        name="region" :value="('/board/' + board._id)">
-                    <label style="--index: 1" for="radio-africa">Main table</label>
-
-                    <input :checked="view === 'kanban'" class="kanban-view" id="radio-asia" type="radio" name="region"
-                        :value="('/board/' + board._id + '/kanban/')">
-                    <label style="--index: 2" for="radio-asia">Kanban</label>
-
-                    <input :checked="view === 'dashboard'" class="dashboard-view" id="radio-australia" type="radio"
-                        name="region" :value="('/board/' + board._id + '/dashboard/')">
-                    <label style="--index: 3" for="radio-australia">Dashboard</label>
-                </div>
-
-                <svg viewBox="0 0 24 24">
-                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
-                </svg>
-
-            </div>
+            <select @change="goTo" class="add-views-mobile hide">
+                <option :selected="view === 'table'" :value="('/board/' + board._id)">Main table</option>
+                <option :selected="view === 'kanban'" :value="('/board/' + board._id + '/kanban/')">Kanban</option>
+                <option :selected="view === 'dashboard'" :value="('/board/' + board._id + '/dashboard/')">Dashboard</option>
+            </select>
             <board-filter v-if="vw < 500" :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask"
                 @addGroup="addGroup" />
         </section>
