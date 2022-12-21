@@ -8,7 +8,7 @@
                 <span class="task-select header-task-select" :style="{ 'border-left-color': group.style.color }">
                     <input type="checkbox" @input="toggleSelectAll" v-model="areAllChecked" />
                 </span>
-                <span class="task-list-item-header">item</span>
+                <span :style="{ 'border-left-color': `${group.style.light}` }" class="task-list-item-header">item</span>
             </section>
 
             <section class="dynamic">
@@ -48,7 +48,7 @@
                 <span class="task-select add-task-select" :style="{ 'border-left-color': `${group.style.light}` }">
                     <input type="checkbox" disabled />
                 </span>
-                <div class="add-task-sec">
+                <div :style="{ 'border-left-color': `${group.style.light}` }"  class="add-task-sec">
                     <input @blur="addTask" v-model="taskToAdd.title" type="text" placeholder="+ Add Item"
                         class="add-new-task-inline">
                 </div>

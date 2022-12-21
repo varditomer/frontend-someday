@@ -14,7 +14,8 @@
                 <input :checked="isSelected" ref="checkbox" @click="selectTask(task._id)" type="checkbox" />
             </span>
             <router-link class="task-title-container" :to="('/board/' + board._id + '/task/' + task._id)">
-                <div class="task-title-item" :class="{ 'being-edit': editing || isSelected }">
+                <div :style="{ 'border-left-color': `${group.style.light}` }" class="task-title-item"
+                    :class="{ 'being-edit': editing || isSelected }">
                     <p @blur="updateTask({ key: 'title', val: $event.target.innerText })"
                         @keydown.enter.prevent="updateTask({ key: 'title', val: $event.target.innerText })"
                         @click.prevent="" class="task-title" contenteditable="true" v-html="task.title"></p>
