@@ -1,4 +1,5 @@
 import { taskService } from '../services/task.service.js'
+import { groupService } from '../services/group.service.js'
 
 export const taskStore = {
     state() {
@@ -41,12 +42,20 @@ export const taskStore = {
                 console.log('could not load task');
             }
         },
-        async saveTask({ commit }, { taskToSave }) {
+        async saveTask({ commit, getters, dispatch }, { taskToSave }) {
             try {
                 const isFifo = taskToSave.isFifo ? taskToSave.isFifo : false
                 const { task } = taskToSave
-                let savedTask = await taskService.save(task, isFifo)
-                commit({ type: 'saveTask', savedTask })
+                if (!task.groupId) {
+                    const board = JSON.parse(JSON.stringify(getters.board))
+                    if (!board.groups?.length) board.groups = [await groupService.add(board._id)]
+                    task.groupId = board.groups[0]._id
+                    await taskService.save(task, isFifo)
+                    dispatch({ type: 'queryBoard', filter: { id: board._id } })
+                } else {
+                    const savedTask = await taskService.save(task, isFifo)
+                    commit({ type: 'saveTask', savedTask })
+                }
                 return taskToSave
             } catch (err) {
                 console.log(`Cannot save task: ${err}`)

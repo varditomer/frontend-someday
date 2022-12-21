@@ -2,7 +2,6 @@ import { httpService } from './http.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 import { socketService } from './socket.service.js'
-import { groupService } from './group.service.js'
 
 const TASK_URL = 'task/'
 
@@ -15,15 +14,9 @@ export const taskService = {
 
 async function save(task, isFifo = true, isDuplicate = false) {
     let savedTask
-    if (task._id) {
-        savedTask = await httpService.put(TASK_URL + task._id, { task, isFifo, isDuplicate })
-    } else {
-        if (!task.groupId) {
-            const group = await groupService.add(task.boardId, true)
-            task.groupId = group._id
-        }
-        savedTask = await httpService.post(TASK_URL, { task, isFifo, isDuplicate })
-    }
+    if (task._id) savedTask = await httpService.put(TASK_URL + task._id, { task, isFifo, isDuplicate })
+    else savedTask = await httpService.post(TASK_URL, { task, isFifo, isDuplicate })
+
     const loggedinUser = await userService.getLoggedinUser()
     savedTask = { task: savedTask, isFifo }
     socketService.emit('save-task', { savedTask, loggedinUser })
