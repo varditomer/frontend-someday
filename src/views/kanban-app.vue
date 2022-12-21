@@ -41,6 +41,7 @@ export default {
         saveTask(task, activity) {
             const taskToSave = { task, bool: false }
             this.$store.commit({ type: 'saveTask', taskToSave })
+            console.log(`activity:`, activity)
             this.$store.dispatch({ type: 'saveActivity', activity })
             this.$store.dispatch({ type: 'saveTask', task })
         },

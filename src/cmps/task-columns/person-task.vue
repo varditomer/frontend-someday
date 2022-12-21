@@ -53,6 +53,7 @@ export default {
     },
     methods: {
         updateTask(personsObj) {
+            console.log(`personsObj:`, personsObj)
             this.$emit('updateTask', personsObj)
         },
         hide() {

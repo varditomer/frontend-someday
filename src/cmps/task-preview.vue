@@ -124,6 +124,8 @@ export default {
     },
     methods: {
         updateTask({ key, val }) {
+            console.log(`key:`, key)
+            console.log(`val:`, val)
             const task = this.task
             const oldVal = task[key] || ''
             task[key] = val

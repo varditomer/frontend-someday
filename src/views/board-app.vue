@@ -52,8 +52,9 @@ export default {
     },
     methods: {
         saveTask(task, activity) {
+            console.log(`activity:`, activity)
             const taskToSave = { task, isFifo: true }
-            this.$store.dispatch({ type: 'saveActivity', activity })
+            if (activity) this.$store.dispatch({ type: 'saveActivity', activity })
             this.$store.dispatch({ type: 'saveTask', taskToSave })
         },
         saveBoard(board) {
