@@ -5,9 +5,9 @@
     <section class='task-details-container' @mouseover="(darken = true)" @mouseout="(darken = false)"
         v-click-outside="close">
 
-        <span v-if="taskToEdit" @click="close" v-svg-icon="'exit'" class="close-modal-btn"></span>
-        <h1 v-if="taskToEdit" class="task-modal-title">{{ taskToEdit.title }}</h1>
-        <div v-if="taskToEdit" class="modal-btns">
+        <span v-if="task" @click="close" v-svg-icon="'exit'" class="close-modal-btn"></span>
+        <h1 v-if="task" class="task-modal-title">{{ task.title }}</h1>
+        <div v-if="task" class="modal-btns">
             <div @click="goTo('comments')" :class="{ 'selected': showComp === 'comments' }">
                 <span v-svg-icon="'outlineHome'"></span>
                 <button class="task-comments-btn">Updates</button>
@@ -24,12 +24,12 @@
             </div>
         </div>
 
-        <section v-if="(taskToEdit && showComp === 'comments')" class="task-comments">
+        <section v-if="(task && showComp === 'comments')" class="task-comments">
             <form @submit.prevent="addComment">
                 <textarea v-model="commentToAdd" type="text" placeholder="Write an update..." class="comment-add-txt" />
                 <button @click="" class="add-comment-btn">Update</button>
             </form>
-            <div v-for="(comment, idx) in taskToEdit.comments" v-if="taskToEdit.comments" class="comment">
+            <div v-for="(comment, idx) in task.comments" v-if="task.comments" class="comment">
                 <div class="comment-profile">
                     <img v-if="comment.byMember.imgUrl" :src="comment.byMember.imgUrl" alt="">
                     <div v-else class="guest-profile-pic">G</div>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="user">
                         <img :src="activity.byUser.imgUrl" alt="">
-                        <p>{{ taskToEdit.title }}</p>
+                        <p>{{ task.title }}</p>
                     </div>
                     <activity-cmp :activity="activity" />
                 </div>
@@ -145,7 +145,7 @@ export default {
     data() {
         return {
             commentToAdd: '',
-            taskToEdit: null,
+            task: null,
             showComp: 'comments',
             imgUrls: [],
             imgToShow: '',
@@ -181,7 +181,8 @@ export default {
             return this.$store.getters.activities
         },
         getUserActivities() {
-            const activities = this.activities.filter(activity => activity.taskId === this.taskToEdit._id)
+            console.log(`this.activities:`, this.activities)
+            const activities = this.activities.filter(activity => activity.taskId === this.task._id)
             return activities
         },
     },
@@ -205,17 +206,18 @@ export default {
         addComment() {
             const comment = {
                 txt: this.commentToAdd,
-                taskId: this.taskToEdit._id,
+                taskId: this.task._id,
                 createdAt: Date.now(),
                 _id: utilService.makeId(),
                 byMember: this.loggedinUser
             }
-            const task = JSON.parse(JSON.stringify(this.taskToEdit))
+            const task = JSON.parse(JSON.stringify(this.task))
             if (!task.comments) task.comments = []
             task.comments.unshift(comment)
-            if (!this.taskToEdit.comments) this.taskToEdit.comments = []
-            this.taskToEdit.comments.unshift(comment)
+            if (!this.task.comments) this.task.comments = []
+            this.task.comments.unshift(comment)
             const taskToSave = { task }
+            console.log(`taskToSave:`, taskToSave)
             this.$store.dispatch({ type: 'saveTask', taskToSave })
             this.commentToAdd = ''
         },
@@ -224,7 +226,7 @@ export default {
             return user.imgUrl
         },
         likeComment(commentIdx) {
-            const task = JSON.parse(JSON.stringify(this.taskToEdit))
+            const task = JSON.parse(JSON.stringify(this.task))
             const loggedinUserId = this.loggedinUser._id
             if (!task.comments[commentIdx].likes) {
                 task.comments[commentIdx].likes = []
@@ -232,7 +234,7 @@ export default {
             const idx = task.comments[commentIdx].likes.findIndex(likeId => likeId === loggedinUserId)
             if (idx !== -1) task.comments[commentIdx].likes.splice(idx, 1)
             else task.comments[commentIdx].likes.unshift(loggedinUserId)
-            this.taskToEdit = task
+            this.task = task
             const taskToSave = { task }
             this.$store.dispatch({ type: 'saveTask', taskToSave })
         },
@@ -251,17 +253,18 @@ export default {
         },
         saveImg(imgUrl) {
             this.imgUrls.push(imgUrl)
-            if (!this.taskToEdit.imgUrls) this.taskToEdit.imgUrls = []
-            this.taskToEdit.imgUrls.unshift(imgUrl)
-            const task = JSON.parse(JSON.stringify(this.taskToEdit))
+            if (!this.task.imgUrls) this.task.imgUrls = []
+            this.task.imgUrls.unshift(imgUrl)
+            const task = JSON.parse(JSON.stringify(this.task))
             const taskToSave = { task }
             this.$store.dispatch({ type: 'saveTask', taskToSave })
         },
         removeImg(imgIdx) {
             this.imgUrls.splice(imgIdx, 1)
-            this.taskToEdit.imgUrls.splice(imgIdx, 1)
-            const task = JSON.parse(JSON.stringify(this.taskToEdit))
-            this.$store.dispatch({ type: 'saveTask', task })
+            this.task.imgUrls.splice(imgIdx, 1)
+            const task = JSON.parse(JSON.stringify(this.task))
+            const taskToSave = { task }
+            this.$store.dispatch({ type: 'saveTask', taskToSave })
         },
         async loadTask() {
             const { taskId } = this.$route.params
@@ -269,11 +272,11 @@ export default {
             if (Object.keys(this.board).length === 0) {
                 await this.$store.dispatch({ type: 'queryBoard', filter: { id } })
             }
-            this.board.groups.some(({ tasks }) => tasks.some(task => {
-                if (task._id === taskId) this.taskToEdit = JSON.parse(JSON.stringify(task))
+            this.board.groups.some(({ tasks }) => tasks.some(currTask => {
+                if (currTask._id === taskId) this.task = JSON.parse(JSON.stringify(currTask))
             }))
             await this.$store.dispatch({ type: 'loadActivities' })
-            if (this.taskToEdit.imgUrls) this.imgUrls = this.taskToEdit.imgUrls
+            if (this.task.imgUrls) this.imgUrls = this.task.imgUrls
             else this.imgUrls = []
         }
     },

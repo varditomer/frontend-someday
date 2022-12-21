@@ -24,6 +24,11 @@
 </template>
 
 <script>
+// getLabelById(label, id), label = status / priority, id = status/priority._id
+// notification:
+// foreach task update, update the assigned persons on each change 
+// in addition for each like/reply/unassigned/assigned on task update the relevant person
+
 import { colorService } from '../services/color.service.js'
 export default {
     name: 'activity',
