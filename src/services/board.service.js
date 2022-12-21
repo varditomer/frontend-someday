@@ -61,6 +61,7 @@ async function save(board) {
 
 async function queryKanban(storeBoard, type = 'status',) {
     const board = JSON.parse(JSON.stringify(storeBoard))
+    board.firstGroupId = board.groups[0]?._id
     const dataMap = await _boardDataMap(board)
     board.kanbanType = type
 

@@ -1,4 +1,5 @@
 .kanban-group-list-container {
+    overflow-y: auto;
 
 
     .group-preview {
@@ -33,8 +34,6 @@
             padding-left: 8px;
             padding-right: 8px;
             padding-top: 8px;
-            overflow-y: auto;
-            max-height: 690px;
 
 
 
