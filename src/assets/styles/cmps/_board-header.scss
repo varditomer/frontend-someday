@@ -122,7 +122,6 @@
     @include for-mobile-layout {
         padding: 16px;
         display: flex;
-        // grid-template-rows: 1fr;
 
         .header {
             display: flex;
@@ -164,7 +163,7 @@
                 align-items: center;
                 position: relative;
                 box-sizing: content-box;
-                width: 120px;
+                flex-basis: 35%;
                 padding: 6px;
                 background-color: lighten($brdr-clr, 6%); // necessary for overlaying hover bg-color of selected option
 
@@ -263,25 +262,31 @@
             .board-filter {
                 display: flex;
                 align-items: center;
-                justify-content: center;
-                position: static;
-                background-color: lighten($brdr-clr, 6%);
+                justify-content: space-between;
+                position: relative;
                 height: 40px;
                 margin-left: 8px;
+                flex-grow: 1;
+                gap: 10px;
 
 
                 .filter {
                     margin: 0;
                     padding-right: 16px;
                     padding-left: 8px;
+                    flex-basis: 30%;
+                    background-color: lighten($brdr-clr, 6%);
+                    height: 100%;
+                    border-radius: 0;
 
                     button {
                         padding: 0;
                     }
                 }
 
+
                 .search-tasks {
-                    position: absolute;
+                    order: 1;
                     right: 0px;
                     background-color: lighten($brdr-clr, 6%);
                     margin: 0;
@@ -299,14 +304,16 @@
                     .search-input {
                         display: none;
                     }
-                    &.input-open{
-                        width: 40%;
+
+                    &.input-open {
+                        flex-grow: 1;
                     }
 
-                    .search-input-mobile{
+                    .search-input-mobile {
 
-                        &.open{
-                            width: 100%;
+                        &.open {
+                            width:100%
+                            ;
                             display: block !important;
                         }
                     }
