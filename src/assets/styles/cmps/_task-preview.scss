@@ -494,4 +494,28 @@
             }
         }
     }
+
+    @include for-mobile-layout {
+        grid-template-columns: 50vw 1fr !important;
+        .static{
+            grid-template-columns: 36px calc(100% - 36px);
+            .options{
+                display: none;
+            }
+            .task-select{
+                left: 0px;
+            }
+            .task-title-container{
+                border-right: 1px solid $brdr-clr;
+                .task-title-item{
+                    max-width: 100%;
+                    left: 0px;
+                    padding-left: 12px;
+                }
+                .task-comment-icon{
+                    display: none !important;
+                }
+            }
+        }
+    }
 }
