@@ -199,7 +199,6 @@ export default {
             })
             socketService.on('board-saved', (savedBoard) => {
                 const boardData = savedBoard
-                console.log(boardData);
                 this.$store.commit({ type: 'setBoard', boardData })
             })
             socketService.on('board-added', (savedBoard) => {

@@ -31,7 +31,6 @@ export default {
         }
     },
     created() {
-        console.log(`this.filter`, this.filter)
     },
     methods: {
         togglePersonFilter(userId) {

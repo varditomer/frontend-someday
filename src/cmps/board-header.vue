@@ -40,11 +40,16 @@
                     </button>
                 </router-link>
             </section>
-            <select @change="goTo" class="add-views-mobile hide">
-                <option :selected="view === 'table'" :value="('/board/' + board._id)">Main table</option>
-                <option :selected="view === 'kanban'" :value="('/board/' + board._id + '/kanban/')">Kanban</option>
-                <option :selected="view === 'dashboard'" :value="('/board/' + board._id + '/dashboard/')">Dashboard</option>
-            </select>
+            <div class="add-views-mobile hide">
+                <select @change="goTo">
+                    <option :selected="view === 'table'" :value="('/board/' + board._id)">Main table</option>
+                    <option :selected="view === 'kanban'" :value="('/board/' + board._id + '/kanban/')">Kanban</option>
+                    <option :selected="view === 'dashboard'" :value="('/board/' + board._id + '/dashboard/')">Dashboard
+                    </option>
+                </select>
+                <span class="select-arrow hide" v-svg-icon="'arrowDown'"></span>
+            </div>
+
             <board-filter v-if="vw < 500" :filter="filter" :users="users" @setFilter="setFilter" @addTask="addTask"
                 @addGroup="addGroup" />
         </section>
@@ -98,7 +103,6 @@ export default {
         },
         goTo(ev) {
             const dest = ev.target.value
-            console.log(dest);
             this.$router.push(dest)
         },
         setView() {

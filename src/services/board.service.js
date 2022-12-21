@@ -86,18 +86,6 @@ async function queryKanban(storeBoard, type = 'status',) {
 
     }, [])
 
-    const restOfLabels = colors()[type].filter(label =>
-        !board.groups.find(group => group._id === label._id)).map(label => {
-            const { title, _id, value } = label
-            if (!board.kanbanOrder[type].find(group => group._id === _id)) board.kanbanOrder[type].push(_id)
-            return {
-                tasks: [],
-                color: value,
-                title, _id
-            }
-        })
-    if (restOfLabels.length) board.groups.push(...restOfLabels)
-
     const taskOrder = board.taskIdOrder
         ? board.taskIdOrder[type]
             ? board.taskIdOrder[type]
@@ -110,9 +98,9 @@ async function queryKanban(storeBoard, type = 'status',) {
             const tasks = []
             taskOrder[group._id].forEach(id => {
                 const idx = group.tasks.findIndex(task => task._id === id)
-                if (idx !== -1) tasks.push(group.tasks[idx])
+                if (idx !== -1) tasks.push(group.tasks.splice(idx, 1)[0])
             })
-            group.tasks = tasks
+            group.tasks = [...tasks, ...group.tasks]
         } else {
             taskOrder[group._id] = group.tasks.map(task => task._id)
         }

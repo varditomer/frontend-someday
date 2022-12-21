@@ -17,7 +17,6 @@ export default {
     },
     methods: {
             removeImg(imgIdx) {
-                console.log(`imgIdx:`, imgIdx)
                 this.$emit('removeImg', imgIdx)
             }
     }

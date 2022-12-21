@@ -39,8 +39,6 @@ export default {
         select(value) {
 
             const color = this.colors.color[value]
-            console.log(`this.colors.color`, this.colors.color)
-            console.log(`color`, color)
             if (this.name === 'group') return this.$emit('updateSelection', 'style', { color, light: color + '99' }, this.idx)
             const label = this.colors[this.name].find(label => label._id === this.id)
             this.$emit('updateSelection', this.name, label._id, label.title, color)
@@ -49,7 +47,6 @@ export default {
     computed: {
         formattedColors() {
             if (!this.name) return
-            console.log(this.colors);
             const type = this.name === 'group'
                 ? 'group'
                 : 'label'

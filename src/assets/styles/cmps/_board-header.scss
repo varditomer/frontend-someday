@@ -120,7 +120,8 @@
     }
 
     @include for-mobile-layout {
-        padding: 16px;
+        padding-left: 8px;
+        padding-right: 8px;
         display: flex;
 
         .header {
@@ -164,30 +165,50 @@
                 position: relative;
                 box-sizing: content-box;
                 flex-basis: 35%;
-                font-size: rem(14px);
-                font-family: roboto-medium;
-                padding: 3px;
-                border: none;
-                outline: none;
+                height: 40px;
+
                 background-color: lighten($brdr-clr, 6%); // necessary for overlaying hover bg-color of selected option
-          
+                border-radius: 4px;
 
-                
-
-                &:active {
+                select {
+                    background-color: lighten($brdr-clr, 6%); // necessary for overlaying hover bg-color of selected option
+                    font-size: rem(14px);
+                    font-family: roboto-medium;
+                    padding-left: 12px;
+                    border: none;
                     outline: none;
+                    -webkit-border-radius: 4px;
+                    -webkit-appearance: none;
+                    width: 100%;
+                    flex-basis: 100%;
+
+                    &:active {
+                        outline: none;
+                    }
+    
+                    &:focus {
+                        outline: none;
+                    }
+    
+                    &:focus-visible {
+                        outline: none;
+                    }
                 }
 
-                &:focus {
-                    outline: none;
+
+
+
+
+                .select-arrow {
+                    display: flex !important;
+                    position: absolute;
+                    right: 6px;
+                    z-index: 50001;
+                    pointer-events: none;
+
                 }
-
-                &:focus-visible {
-                    outline: none;
-                }
-
-
             }
+
 
             .board-filter {
                 display: flex;
@@ -208,6 +229,8 @@
                     background-color: lighten($brdr-clr, 6%);
                     height: 100%;
                     border-radius: 0;
+                    border-radius: 4px;
+
 
                     button {
                         padding: 0;
@@ -224,6 +247,8 @@
                     height: 40px;
                     border-radius: 0px;
                     transition: .4s;
+                    border-radius: 4px;
+
 
                     span {
                         position: relative;

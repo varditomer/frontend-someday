@@ -2,8 +2,8 @@
 
     <section class='group-list-container' v-if="boardToShow" @scroll="scrolling">
         <draggable v-model="boardToShow.groups" group="groups" ghost-class="ghost" animation="220" itemKey="element._id"
-            @end="saveBoard(boardToShow.cmpsOrder)">
-            <template #item="{ element }">
+            @end="saveBoard(boardToShow.cmpsOrder)" handle=".group-preview-title" delayOnTouchOnly="true">
+            <template #item="{ element }" >
                 <group-preview @addColumn="addColumn" @saveSelectedTasks="saveSelectedTasks"
                     :selectedTasks="selectedTasks" :group="element" :cmpsOrder="cmpsOrder" :users="users"
                     :key="element._id" @toggleSelectAllTasks="toggleSelectAllTasks" @saveTask="saveTask"
@@ -113,6 +113,10 @@ export default {
         },
         boardToShow() {
             return JSON.parse(JSON.stringify(this.board))
+        },
+        isNarrow() {
+            return window.innerWidth <= 500
+
         }
     },
     components: {

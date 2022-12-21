@@ -70,7 +70,7 @@ export default {
             const label = this.kanbanType === 'status'
                 ? 'priority'
                 : 'status'
-            return colorService.getLabelById(label, this.task[label])
+            return colorService.getLabelById(label, (this.task[label] || 'qwdlk'))
         }
     },
     components: {
