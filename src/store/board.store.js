@@ -140,7 +140,6 @@ export const boardStore = {
         async removeBoard({ commit }, { boardId }) {
             try {
                 const res = await boardService.remove(boardId)
-                console.log(`res:`, res)
             } catch (err) {
                 console.log('boardStore: Error in addBoard', err)
                 throw err
