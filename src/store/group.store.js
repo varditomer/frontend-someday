@@ -14,7 +14,6 @@ export const groupStore = {
                 commit({ type: 'saveGroup', group })
                 await groupService.save(group)
                 // dispatch({ type: 'queryBoard', id: group.boardId, filter: '' })
-                console.log(`success`)
             } catch (err) {
                 console.log(`Cannot save group`, err)
             }
@@ -23,7 +22,6 @@ export const groupStore = {
             try {
                 commit({ type: 'removeGroup', group })
                 await groupService.remove(group)
-                console.log(`success`)
             } catch (err) {
                 console.log(`Cannot remove group`, err)
             }

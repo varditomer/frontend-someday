@@ -132,7 +132,7 @@ export default {
                         const totalTimeDiff = end - start
                         const timeElapsed = Date.now() - start
                         const width = timeElapsed / totalTimeDiff > 1
-                            ? '100 %'
+                            ? '100%'
                             : timeElapsed / totalTimeDiff > 0
                                 ? 100 * timeElapsed / totalTimeDiff + '%'
                                 : 0
