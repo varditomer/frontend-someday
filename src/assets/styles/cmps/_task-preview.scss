@@ -496,6 +496,7 @@
     }
 
     @include for-mobile-layout {
+        max-width: fit-content;
         grid-template-columns: 50vw 1fr !important;
         .static{
             grid-template-columns: 36px calc(100% - 36px);
@@ -517,5 +518,6 @@
                 }
             }
         }
+      
     }
 }
