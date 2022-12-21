@@ -71,7 +71,9 @@ export default {
         },
         async saveEmptyTask() {
             const task = {
-                groupId: this.board.groups[0]._id,
+                groupId: (!this.board.groups || !this.board.groups[0]?._id)
+                    ? null
+                    : this.board.groups[0]._id,
                 boardId: this.board._id,
                 title: 'Item 1'
             }

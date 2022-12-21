@@ -2,7 +2,7 @@
     <section class="kanban-task-list-container">
         <draggable v-model="group.tasks" animation="220" itemKey="element.title"
             :class="{ 'task-dragged': beingDragged }" @end="saveTasks" class="task-list" group="task-list"
-            delayOnTouchOnly="true">
+            delay="400" :delay-on-touch-only="true">
             <template #item="{ element }">
                 <task-list :task="element" :labelId="group._id" :kanbanType="kanbanType" />
             </template>
