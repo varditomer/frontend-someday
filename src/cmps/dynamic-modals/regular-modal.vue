@@ -20,7 +20,6 @@ import taskSelectModal from '../regular-modal-cmps/task-select-modal.vue'
 import colorPickerModal from '../regular-modal-cmps/color-picker-modal.vue'
 import multiFilterModal from '../filter-modals-cmps/multi-filter-modal.vue'
 export default {
-
     name: 'regular-modal',
     emits: ['closeModal', 'openTask', 'removeTask', 'addGroup', 'removeGroup', 'setFilter', 'editGroupTitle', 'updateSelection', 'propagateMenu', 'deleteSelectedTasks', 'duplicateSelectedTasks', 'taskTitleToClipboard', 'linkToClipboard', 'duplicateGroup', 'duplicateTask', 'addColumn'], //emit all types of dynamic cmps events
     props: {

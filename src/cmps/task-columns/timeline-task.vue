@@ -72,21 +72,14 @@ export default {
     },
     methods: {
         clickToEdit() {
-            // const startDateString = `${this.content.start.year}` + '-' + `${this.content.start.month}` + '-' + `${this.content.start.day}`
-            // const endDateString = `${this.content.end.year}` + '-' + `${this.content.end.month}` + '-' + `${this.content.end.day}`
-            // const startTimeStamp = new Date(startDateString).getTime()
-            // const endTimeStamp = new Date(endDateString).getTime()
             this.showModal = true
             this.$emit('editing')
         },
-        // getTimeStampFromDates(dates) {
         getTimeFromDates(dates) {
             if (!dates) return ''
-            // const dateString = `${dates.year}` + '-' + `${dates.month}` + '-' + `${dates.day}`
             return new Date(dates.year, dates.month, dates.day)
-            // return new Date(dateString).getTime()
         },
-        updateTask(timeline) {s
+        updateTask(timeline) {
             this.$emit('updateTask', { key: 'timeline', val: timeline })
         }
     },
